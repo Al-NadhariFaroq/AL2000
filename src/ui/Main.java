@@ -2,37 +2,48 @@ package ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.nio.ByteOrder;
 
-public class Main {
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("CyberVideo2.0");
-        frame.setSize(new Dimension(720,480));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
+public class Main extends JFrame{
+    int WIDTH = 720;
+    int HEIGHT = 480;
+    Main(String title)  {
+    super(title);
+    setSize(new Dimension(WIDTH,HEIGHT));
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setLocationRelativeTo(null);
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
+    JPanel mainPanel = new JPanel(new BorderLayout());
 
-        JPanel panelDVD = new JPanel();
-        panelDVD.setBackground(Color.LIGHT_GRAY);
-        panelDVD.add(new JLabel("Films Available In BLue-Ray"));
-        mainPanel.add(panelDVD, BorderLayout.EAST);
-
-        JPanel panelPub = new JPanel();
-        panelPub.setBackground(new Color(24, 32, 96));
-        panelPub.setForeground(Color.yellow);
-        JLabel pub = new JLabel("Publicite");
-        pub.setForeground(Color.yellow);
-        panelPub.add(pub);
-        mainPanel.add( panelPub, BorderLayout.NORTH);
+    JPanel topPanel = new JPanel();
+    topPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT/7));
+    topPanel.setBackground(new Color(24, 32, 96));
+    topPanel.add(new JLabel(""));
+    mainPanel.add(topPanel, BorderLayout.NORTH);
 
 
-        JPanel panelInteraction = new JPanel();
-        panelInteraction.setBackground(Color.LIGHT_GRAY);
-        panelInteraction.add(new JLabel("User + buttons"));
-        mainPanel.add(panelInteraction, BorderLayout.WEST);
+    JPanel bottomPanel = new JPanel();
+    bottomPanel.setBackground(Color.GRAY);
+    bottomPanel.setForeground(Color.yellow);
+    JLabel pub = new JLabel("");
+    pub.setForeground(Color.yellow);
+    bottomPanel.add(pub);
+    mainPanel.add(bottomPanel, BorderLayout.CENTER);
 
-        frame.add(mainPanel);
-        frame.setVisible(true);
+
+    JPanel PubPanel = new JPanel();
+    PubPanel.setBackground(new Color(217, 208, 34));
+    PubPanel.add(new JLabel("Pub"));
+    mainPanel.add(PubPanel, BorderLayout.SOUTH);
+
+    add(mainPanel);
+
+    }
+
+    public static void main(String[] argv) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Main("CyberVideo2.0").setVisible(true);
+            }
+        });
     }
 }
