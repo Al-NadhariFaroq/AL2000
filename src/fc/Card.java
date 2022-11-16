@@ -1,24 +1,30 @@
 package fc;
 
 public abstract class Card {
-    float sold;
+    float balance;
+    
     public Card(){
-        sold = 0;
+        balance = 0;
     }
 
      void debit(float amount){
-        sold -= amount;
+        balance -= amount;
      }
 
      void credit(float amount){
-        sold += amount;
+        balance += amount;
      }
 
-    public float getSold() {
-        return sold;
+    public float getBalance() {
+        return balance;
     }
 
-    public void setSold(float sold) {
-        this.sold = sold;
+    public void setBalance(float balance) {
+        this.balance = balance;
     }
+
+    public boolean IsValidBalance(){
+        return balance > 0;
+    }
+
 }

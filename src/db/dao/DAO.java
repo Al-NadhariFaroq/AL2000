@@ -1,11 +1,7 @@
 package db.dao;
 
-
 import java.sql.Connection;
 import java.sql.SQLException;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public abstract class DAO<T> {
     protected Connection conn;

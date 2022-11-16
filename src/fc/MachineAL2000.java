@@ -1,6 +1,10 @@
 package fc;
 
 public class MachineAL2000 {
+    enum State{}
+    enum User{ABONNE, CLIENT, TECHNICIEN}
+    private CreditCard creditCard;
+    private SubscribeCard subscribeCard;
 
     public MachineAL2000(){ }
 
@@ -8,11 +12,27 @@ public class MachineAL2000 {
 
     void printQRCode(){}
 
-    boolean isVaidBlueRay(){
+    boolean isValidBlueRay(){
         return false;
     }
 
     boolean isValidCard(){
+        return false;
+    }
+
+    public void setCreditCard(CreditCard c){
+        creditCard = c;
+    }
+
+    public void setSubscribeCard(SubscribeCard c){
+        subscribeCard = c;
+    }
+
+    public boolean isValidSubscribeCard(){
+        return false;
+    }
+
+    public boolean isValidCreditCard(){
         return false;
     }
 }

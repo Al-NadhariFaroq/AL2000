@@ -1,6 +1,6 @@
 package fc;
 
-public class Film {
+public class Movie {
     String title;
     String date;
     float note;
@@ -9,7 +9,7 @@ public class Film {
     String synopsis;
     String[] themes;
 
-    public Film(){
+    public Movie(){
 
     }
 

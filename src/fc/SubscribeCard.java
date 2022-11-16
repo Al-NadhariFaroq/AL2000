@@ -39,4 +39,9 @@ public class SubscribeCard extends Card{
     public void setPreferences(String[] preferences) {
         this.preferences = preferences;
     }
+
+    @Override
+    public boolean IsValidBalance(){
+        return balance > 15;
+    }
 }
