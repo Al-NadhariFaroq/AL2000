@@ -5,17 +5,20 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Session {
-    private String url = " jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:im2ag ";
-    private String user = "isaacchs";
-    private String passwd = "33cd69c166";
+    private String url = "jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:im2ag";
+    private String user = "alnadhaf";
+    private String passwd = "e3d46ebeca";
     private static Connection connect;
     
     public void open(){
-        try { 
-            connect = DriverManager.getConnection(url, user, passwd); 
-        }
-        catch (SQLException e) { 
-            e.printStackTrace(); 
+        try {
+            System.out.print("Connecting to the database with session... ");
+            connect = DriverManager.getConnection(url,user,passwd);
+            System.out.println("connected");
+
+            connect.setAutoCommit(false);
+        }catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     
@@ -24,11 +27,19 @@ public class Session {
     }
     
     public void commit() {
-
+        try {
+            connect.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     public void rollback() {
-
+        try {
+            connect.rollback();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     public void close() {
