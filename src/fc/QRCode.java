@@ -15,4 +15,21 @@ public class QRCode extends Support{
         }
         link = txt.toString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this== o) {
+            return true;
+        }
+
+        QRCode qrcode = (QRCode) o;
+
+        return qrcode.movie.equals(movie) &&
+            qrcode.link == link;
+    }
+
+    @Override
+    public String toString() {
+        return movie.title + " : " + link;
+    }
 }

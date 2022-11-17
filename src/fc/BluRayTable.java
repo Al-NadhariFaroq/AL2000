@@ -1,37 +1,95 @@
 package fc;
 
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 
 public class BluRayTable {
-    BluRay blurays[];
-    List<Integer> blurayRentals;
+    private final int NB_MOVIES_MAX = 100;
 
-    public BluRayTable(){
-        blurays = new BluRay[100];
-        blurayRentals = new ArrayList<>();
+    Dictionary<Integer, BluRay> blurays;
+    List<Integer> idxFreePositions;
+
+    public BluRayTable() {
+        blurays = new Hashtable<>();
+        idxFreePositions  = new ArrayList<>();
+        for (int i = 0; i < NB_MOVIES_MAX; i++) {
+            idxFreePositions.add(i);
+        }
     }
 
-    public int getFreePosition(){
-        return blurayRentals.get(0);
+    public int getFreePosition() {
+        return idxFreePositions.remove(0);
     }
 
-    public void addFreePosition(int position){
-        blurayRentals.add(position);
+    public void addFreePosition(int position) {
+        idxFreePositions.add(position);
     }
 
-    public void addBluRay(BluRay bluRay){
-        blurays[getFreePosition()] = bluRay;
+    public void insertBluRay(BluRay bluRay) {
+        if (blurays.size() < NB_MOVIES_MAX) {
+            blurays.put(getFreePosition(), bluRay);
+        }
     }
 
-    public BluRay getBluRay(Movie movie){
-        int i = 0;
-        BluRay current;
-        do{
-            current = blurays[i++];
-        }while(current.getMovie() != movie && i < 100);
+    public void removeBluRay(BluRay bluRay) {
+        Iterator<Integer> idxIt = blurays.keys().asIterator();
 
-        return current;
+        while (idxIt.hasNext()) {
+            int idx = idxIt.next();
+            BluRay curBluRay = blurays.get(idx);
+            if (idx >= 0 && curBluRay.equals(bluRay)) {
+                blurays.remove(idx);
+                addFreePosition(idx);
+            }
+        }
     }
-    
+
+    public boolean addBluRay(BluRay bluRay) {
+        Iterator<Integer> idxIt = blurays.keys().asIterator();
+
+        while (idxIt.hasNext()) {
+            int idx = idxIt.next();
+            BluRay curBluRay = blurays.get(idx);
+            if (idx < 0 && curBluRay.equals(bluRay)) {
+                blurays.remove(idx);
+                blurays.put(-idx, bluRay);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public BluRay getBluRay(Movie movie) {
+        Iterator<Integer> idxIt = blurays.keys().asIterator();
+
+        while (idxIt.hasNext()) {
+            int idx = idxIt.next();
+            BluRay bluray = blurays.get(idx);
+            if (idx >= 0 && bluray.getMovie().equals(movie)) {
+                blurays.remove(idx);
+                blurays.put(-idx, bluray);
+                return bluray;
+            }
+        }
+
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        Iterator<Integer> idxIt = blurays.keys().asIterator();
+        StringBuilder txt = new StringBuilder("");
+
+        while (idxIt.hasNext()) {
+            int idx = idxIt.next();
+            BluRay bluray = blurays.get(idx);
+            txt.append(idx + " : " + bluray + "\n");
+        }
+
+        return txt.toString();
+    }
 }

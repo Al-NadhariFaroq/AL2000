@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Rental {
     Date rentalDate;
-    Date rentalReturn;
+    Date returnDate;
     Support support;
 
     public Rental(Support s){
@@ -21,11 +21,29 @@ public class Rental {
         return rentalDate;
     }
 
-    public Date getRentalReturn() {
-        return rentalReturn;
+    public Date getReturnDate() {
+        return returnDate;
     }
 
-    public void setRentalReturn(Date rentalReturn) {
-        this.rentalReturn = rentalReturn;
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        Rental rental = (Rental) o;
+
+        return rental.rentalDate.equals(rentalDate) &&
+            rental.returnDate.equals(returnDate) &&
+            rental.support.equals(support);
+    }
+
+    @Override
+    public String toString() {
+        return "Rental: " + support + " at " + rentalDate;
     }
 }

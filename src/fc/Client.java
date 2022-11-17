@@ -1,13 +1,29 @@
 package fc;
 
 abstract class Client {
-    public Client(){}
+    CreditCard creditCard;
 
-    void returnBlueRay(){}
+    public Client(CreditCard creditCard) {
+        this.creditCard = creditCard;
+    }
 
-    void subscribe(){}
+    public CreditCard getCreditCard() {
+        return creditCard;
+    }
 
-    void rateFilm(){
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
 
+        Client client = (Client) o;
+
+        return client.creditCard.equals(creditCard);
+    }
+
+    @Override
+    public String toString() {
+        return "Client : " + creditCard.toString();
     }
 }
