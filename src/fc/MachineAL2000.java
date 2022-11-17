@@ -5,10 +5,19 @@ public class MachineAL2000 {
     enum User{ABONNE, CLIENT, TECHNICIEN}
     private CreditCard creditCard;
     private SubscribeCard subscribeCard;
+    private BluRayTable blurays;
 
-    public MachineAL2000(){ }
+    public MachineAL2000(){
+        blurays = new BluRayTable();
+    }
 
-    void deliverBlueRay(){}
+    public QRCode printQRCode(Movie movie){
+        return new QRCode(movie);
+    }
+
+    public BluRay deliverBluRay(Movie movie){
+        return blurays.getBluRay(movie);
+    }
 
     void printQRCode(){}
 
@@ -35,4 +44,8 @@ public class MachineAL2000 {
     public boolean isValidCreditCard(){
         return false;
     }
+
+    public void addBluRay(){}
+
+    public void BluRay(){}
 }

@@ -3,7 +3,7 @@ package db;
 import java.sql.Connection;
 
 import db.dao.*;
-import fc.BlueRay;
+import fc.BluRay;
 import fc.Card;
 import fc.Movie;
 import fc.Rental;
@@ -17,7 +17,7 @@ public class DAOFactory{
         return new MovieDAO(conn);
     }
 
-    public static DAO<BlueRay> getBluRayDAO(){
+    public static DAO<BluRay> getBluRayDAO(){
         return new BluRayDAO(conn);
     }
 
