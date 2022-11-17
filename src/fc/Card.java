@@ -1,30 +1,29 @@
 package fc;
 
 public abstract class Card {
-    float balance;
+    int cardNumber;
     
-    public Card(){
-        balance = 0;
+    public Card(int cardNumber) {
+        this.cardNumber = cardNumber;
     }
 
-     void debit(float amount){
-        balance -= amount;
-     }
-
-     void credit(float amount){
-        balance += amount;
-     }
-
-    public float getBalance() {
-        return balance;
+    public int getCardNumber() {
+        return cardNumber;
     }
 
-    public void setBalance(float balance) {
-        this.balance = balance;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        Card card = (Card) o;
+
+        return card.cardNumber == cardNumber;
     }
 
-    public boolean IsValidBalance(){
-        return balance > 0;
+    @Override
+    public String toString() {
+        return Integer.toString(cardNumber);
     }
-
 }

@@ -1,16 +1,17 @@
 package fc;
 
+import java.util.Date;
+
 public class Movie {
     String title;
-    String date;
-    float note;
+    Date date;
+    String synopsis;
     String[] directors;
     String[] actors;
-    String synopsis;
     String[] themes;
 
-    public Movie(){
-
+    public Movie(String title) {
+        this.title = title;
     }
 
     public String getTitle() {
@@ -21,20 +22,12 @@ public class Movie {
         this.title = title;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
-    }
-
-    public float getNote() {
-        return note;
-    }
-
-    public void setNote(float note) {
-        this.note = note;
     }
 
     public String[] getDirectors() {
@@ -67,5 +60,31 @@ public class Movie {
 
     public void setThemes(String[] themes) {
         this.themes = themes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        Movie movie = (Movie) o;
+
+        if (movie.title == title &&
+            movie.date == date &&
+            movie.synopsis == synopsis &&
+            movie.directors == directors &&
+            movie.actors == actors &&
+            movie.themes == themes
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 }

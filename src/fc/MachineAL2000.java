@@ -1,31 +1,29 @@
 package fc;
 
 public class MachineAL2000 {
-    enum State{}
-    enum User{ABONNE, CLIENT, TECHNICIEN}
-    private CreditCard creditCard;
-    private SubscribeCard subscribeCard;
+    enum State {};
+    private Client client;
+    private BluRayTable blurays;
 
-    public MachineAL2000(){ }
+    public MachineAL2000(){
+        blurays = new BluRayTable();
+    }
 
-    void deliverBlueRay(){}
+    public QRCode printQRCode(Movie movie){
+        // mettre à jour BD
+        return new QRCode(movie);
+    }
 
-    void printQRCode(){}
+    public BluRay deliverBluRay(Movie movie){
+        return blurays.getBluRay(movie);
+    }
 
-    boolean isValidBlueRay(){
+    boolean isValidBluRay(BluRay bluRay){
         return false;
     }
 
     boolean isValidCard(){
         return false;
-    }
-
-    public void setCreditCard(CreditCard c){
-        creditCard = c;
-    }
-
-    public void setSubscribeCard(SubscribeCard c){
-        subscribeCard = c;
     }
 
     public boolean isValidSubscribeCard(){

@@ -1,17 +1,35 @@
 package fc;
 
-public class QRCode extends Dispositif{
+import java.util.Random;
+
+public class QRCode extends Support{
     String link;
-    public QRCode(){}
 
-    @Override
-    void deliverDispositif(){}
-
-    public String getLink() {
-        return link;
+    public QRCode(Movie movie){
+        super(movie);
+        Random rand = new Random();
+        StringBuilder txt = new StringBuilder("");
+        for(int i = 0 ; i < 100 ; i++){
+            char c = (char)(rand.nextInt(93) + 33);
+            txt.append(c);
+        }
+        link = txt.toString();
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    @Override
+    public boolean equals(Object o) {
+        if (this== o) {
+            return true;
+        }
+
+        QRCode qrcode = (QRCode) o;
+
+        return qrcode.movie.equals(movie) &&
+            qrcode.link == link;
+    }
+
+    @Override
+    public String toString() {
+        return movie.title + " : " + link;
     }
 }

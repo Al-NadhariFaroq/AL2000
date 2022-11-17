@@ -5,7 +5,7 @@ public class Technician {
 
     public Technician(){}
 
-    void loadBlueRay(){}
+    void insertBluRay(){}
 
-    void unloadBlueRay(){}
+    void removeBluRay(){}
 }
