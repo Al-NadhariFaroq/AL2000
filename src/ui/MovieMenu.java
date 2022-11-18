@@ -28,8 +28,8 @@ public class MovieMenu extends JPanel {
 
          void createComponent(Movie movie){
              titleLabel = new JLabel(movie.getTitle());
-             dateLabel = new JLabel(movie.getDate());
-             noteLabel = new JLabel(String.valueOf(movie.getNote()));
+             dateLabel = new JLabel(movie.getDate().toString());
+             noteLabel = new JLabel(String.valueOf(movie.getRate()));
              synopsisLabel = new JLabel(movie.getSynopsis());
              directorsLabel = new JLabel(Arrays.toString(movie.getDirectors()));
              actorsLabel = new JLabel(Arrays.toString(movie.getActors()));

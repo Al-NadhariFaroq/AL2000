@@ -3,28 +3,27 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 
-public class Main extends JFrame{
+public class Main extends JFrame {
     int WIDTH = 960;
     int HEIGHT = 720;
 
-    Main(String title)  {
-        super(title);
-        setSize(new Dimension(WIDTH,HEIGHT));
+    Main() {
+        super("CyberVideo2.0");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
         //setResizable(false);
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        setLayout(new BorderLayout());
 
         MainTopPanel topPanel = new MainTopPanel();
-        MainBottomPanel bottomPanel = new MainBottomPanel();
+        MainCenterPanel centerPanel = new MainCenterPanel();
 
-        mainPanel.add(topPanel, BorderLayout.NORTH);
-        mainPanel.add(bottomPanel, BorderLayout.CENTER);
-
-        add(mainPanel);
+        add(topPanel, BorderLayout.NORTH);
+        add(centerPanel, BorderLayout.CENTER);
+        pack();
+        setLocationRelativeTo(null);
     }
 
     public static void main(String[] argv) {
-        SwingUtilities.invokeLater(() -> new Main("CyberVideo2.0").setVisible(true));
+        SwingUtilities.invokeLater(() -> new Main().setVisible(true));
     }
 }

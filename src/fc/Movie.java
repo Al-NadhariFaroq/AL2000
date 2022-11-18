@@ -6,6 +6,7 @@ public class Movie {
     String title;
     Date date;
     String synopsis;
+    int rate;
     String[] directors;
     String[] actors;
     String[] themes;
@@ -30,6 +31,22 @@ public class Movie {
         this.date = date;
     }
 
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
+    }
+
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
+    }
+
     public String[] getDirectors() {
         return directors;
     }
@@ -44,14 +61,6 @@ public class Movie {
 
     public void setActors(String[] actors) {
         this.actors = actors;
-    }
-
-    public String getSynopsis() {
-        return synopsis;
-    }
-
-    public void setSynopsis(String synopsis) {
-        this.synopsis = synopsis;
     }
 
     public String[] getThemes() {
