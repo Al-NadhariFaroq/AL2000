@@ -1,6 +1,6 @@
 package fc;
 
-abstract class Client {
+public class Client {
     CreditCard creditCard;
 
     public Client(CreditCard creditCard) {
