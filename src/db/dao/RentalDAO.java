@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import fc.Rental;
 
-public class RentalDAO extends DAO<Rental>{
+public class RentalDAO extends DAO1<Rental> {
 
     public RentalDAO(Connection conn) {
         super(conn);

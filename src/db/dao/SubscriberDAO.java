@@ -1,35 +1,45 @@
 package db.dao;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import db.entities.Subscriber;
 
-import fc.Subscriber;
+import java.util.ArrayList;
+import java.util.List;
+import db.jpa.SubscriberJPA;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
-public class SubscriberDAO extends DAO<Subscriber>{
+public class SubscriberDAO implements Dao<Subscriber> {
 
-    public SubscriberDAO(Connection conn) {
-        super(conn);
+    private final List<Subscriber> subscribers = new ArrayList<>();
+    public EntityManagerFactory emf;
+    private final SubscriberJPA subscriberJPA;
+    public SubscriberDAO() {
+        emf= Persistence.createEntityManagerFactory("AL2000");
+        subscriberJPA = new SubscriberJPA(emf.createEntityManager());
     }
 
     @Override
-    public boolean create(Subscriber obj) throws SQLException {
-        return false;
+    public Subscriber get(long id) {
+        return subscriberJPA.get(id);
     }
 
     @Override
-    public Subscriber read(Object obj) throws SQLException {
-        return null;
+    public List<Subscriber> getAll() {
+        return subscriberJPA.getAll();
     }
 
     @Override
-    public boolean update(Subscriber obj) throws SQLException {
-        return false;
+    public void save(Subscriber subscriber) {
+        subscriberJPA.save(subscriber);
     }
 
     @Override
-    public boolean delete(Subscriber obj) throws SQLException {
-        return false;
+    public void update(Subscriber subscriber) {
+        subscriberJPA.update(subscriber);
     }
-    
-    
+
+    @Override
+    public void delete(Subscriber subscriber) {
+        subscriberJPA.delete(subscriber);
+    }
 }

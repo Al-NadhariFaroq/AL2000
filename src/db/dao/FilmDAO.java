@@ -5,9 +5,9 @@ import java.sql.SQLException;
 
 import fc.Movie;
 
-public class MovieDAO extends DAO<Movie>{
+public class FilmDAO extends DAO1<Movie> {
 
-    public MovieDAO(Connection conn){
+    public FilmDAO(Connection conn){
         super(conn);
     }
 
@@ -31,5 +31,5 @@ public class MovieDAO extends DAO<Movie>{
         return false;
     }
 
-    
+
 }

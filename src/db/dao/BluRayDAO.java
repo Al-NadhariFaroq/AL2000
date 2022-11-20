@@ -1,34 +1,45 @@
 package db.dao;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import db.entities.BluRay;
 
-import fc.BluRay;
+import java.util.ArrayList;
+import java.util.List;
+import db.jpa.BluRayJPA;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
-public class BluRayDAO extends DAO<BluRay>{
+public class BluRayDAO implements Dao<BluRay> {
 
-    public BluRayDAO(Connection conn) {
-        super(conn);
+    private final List<BluRay> bluRays = new ArrayList<>();
+    public EntityManagerFactory emf;
+    private final BluRayJPA bluRayJpa;
+    public BluRayDAO() {
+        emf= Persistence.createEntityManagerFactory("AL2000");
+        bluRayJpa = new BluRayJPA(emf.createEntityManager());
     }
 
     @Override
-    public boolean create(BluRay obj) throws SQLException {
-        return false;
+    public BluRay get(long id) {
+        return bluRayJpa.get(id);
     }
 
     @Override
-    public BluRay read(Object obj) throws SQLException {
-        return null;
+    public List<BluRay> getAll() {
+        return bluRayJpa.getAll();
     }
 
     @Override
-    public boolean update(BluRay obj) throws SQLException {
-        return false;
+    public void save(BluRay bluRay) {
+        bluRayJpa.save(bluRay);
     }
 
     @Override
-    public boolean delete(BluRay obj) throws SQLException {
-        return false;
+    public void update(BluRay bluRay) {
+        bluRayJpa.update(bluRay);
     }
-    
+
+    @Override
+    public void delete(BluRay bluRay) {
+        bluRayJpa.delete(bluRay);
+    }
 }

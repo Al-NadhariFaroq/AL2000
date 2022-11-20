@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import fc.SubscribeCard;
 
-public class SubscribeCardDAO extends DAO<SubscribeCard>{
+public class SubscribeCardDAO extends DAO1<SubscribeCard> {
 
     public SubscribeCardDAO(Connection conn) {
         super(conn);

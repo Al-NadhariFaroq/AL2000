@@ -1,34 +1,45 @@
 package db.dao;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import db.entities.Card;
 
-import fc.Card;
+import java.util.ArrayList;
+import java.util.List;
+import db.jpa.CardJPA;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
-public class CardDAO extends DAO<Card>{
+public class CardDAO implements Dao<Card> {
 
-    public CardDAO(Connection conn) {
-        super(conn);
+    private final List<Card> cards = new ArrayList<>();
+    public EntityManagerFactory emf;
+    private final CardJPA cardJPA;
+    public CardDAO() {
+        emf= Persistence.createEntityManagerFactory("AL2000");
+        cardJPA = new CardJPA(emf.createEntityManager());
     }
 
     @Override
-    public boolean create(Card obj) throws SQLException {
-        return false;
+    public Card get(long id) {
+        return cardJPA.get(id);
     }
 
     @Override
-    public Card read(Object obj) throws SQLException {
-        return null;
+    public List<Card> getAll() {
+        return cardJPA.getAll();
     }
 
     @Override
-    public boolean update(Card obj) throws SQLException {
-        return false;
+    public void save(Card card) {
+        cardJPA.save(card);
     }
 
     @Override
-    public boolean delete(Card obj) throws SQLException {
-        return false;
+    public void update(Card card) {
+        cardJPA.update(card);
     }
-    
+
+    @Override
+    public void delete(Card card) {
+        cardJPA.delete(card);
+    }
 }

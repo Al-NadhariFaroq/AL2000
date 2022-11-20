@@ -1,22 +1,16 @@
 package db.dao;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.util.List;
 
-public abstract class DAO<T> {
-    protected Connection conn;
+public interface Dao<T> {
 
-    protected DAO(Connection conn) {
-        this.conn = conn;
-    }
+    T get(long id);
 
-    public abstract boolean create(T obj) throws SQLException;
+    List<T> getAll();
 
-    public abstract T read (Object obj) throws SQLException;
+    void save(T t);
 
-    public abstract boolean update (T obj) throws SQLException;
+    void update(T t);
 
-    public abstract boolean delete(T obj) throws SQLException;
-
+    void delete(T t);
 }
-
