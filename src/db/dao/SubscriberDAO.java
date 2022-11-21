@@ -8,7 +8,7 @@ import db.jpa.SubscriberJPA;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class SubscriberDAO implements Dao<Subscriber> {
+public class SubscriberDAO implements DAO<Subscriber> {
 
     private final List<Subscriber> subscribers = new ArrayList<>();
     public EntityManagerFactory emf;

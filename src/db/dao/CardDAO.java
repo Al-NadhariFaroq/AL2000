@@ -8,7 +8,7 @@ import db.jpa.CardJPA;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class CardDAO implements Dao<Card> {
+public class CardDAO implements DAO<Card> {
 
     private final List<Card> cards = new ArrayList<>();
     public EntityManagerFactory emf;
