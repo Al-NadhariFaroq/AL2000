@@ -1,27 +1,56 @@
 package db.entities;
 
 import javax.persistence.*;
-import db.entities.Theme;
+import java.util.Objects;
 
 @Entity
-@Table(name = "restrictions", schema = "", catalog = "") //schema to specify later
+@Table(name = "RESTRICTIONS", schema = "ALNADHAF", catalog = "")
 public class Restriction {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column
-    private long restriction_id;
+    @Column(name = "RESTRICTION_ID")
+    private int restrictionId;
     @Basic
-    @Column(nullable = false)
-    private long card_number;
+    @Column(name = "CARD_NUMBER")
+    private long cardNumber;
     @Basic
-    @Column(nullable = false)
-    private String last_name;
+    @Column(name = "THEME_ID")
+    private Integer themeId;
 
-    @ManyToOne
-    @JoinColumn(
-            name = "theme_id",
-            foreignKey = @ForeignKey(name = "restrictions_theme_fk", value = ConstraintMode.NO_CONSTRAINT)
-    ) // a verifier
+    public int getRestrictionId() {
+        return restrictionId;
+    }
 
-    private Theme theme;
+    public void setRestrictionId(int restrictionId) {
+        this.restrictionId = restrictionId;
+    }
 
+    public long getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(long cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public Integer getThemeId() {
+        return themeId;
+    }
+
+    public void setThemeId(Integer themeId) {
+        this.themeId = themeId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Restriction that = (Restriction) o;
+        return restrictionId == that.restrictionId && cardNumber == that.cardNumber && Objects.equals(themeId, that.themeId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(restrictionId, cardNumber, themeId);
+    }
 }

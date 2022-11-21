@@ -1,57 +1,38 @@
 package db.entities;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-
+import java.sql.Date;
+import java.util.Objects;
 
 @Entity
-@Table(name = "films", schema = "", catalog = "") //schema to specify later
-public class Film{
+@Table(name = "FILMS", schema = "ALNADHAF", catalog = "")
+public class Film {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column
-    private long film_id;
-
+    @Column(name = "FILM_ID")
+    private int filmId;
     @Basic
-    @Column(nullable = false)
+    @Column(name = "TITLE")
     private String title;
-
     @Basic
-    @Column(nullable = false)
-    private Date release_date;
-
+    @Column(name = "RELEASE_DATE")
+    private Date releaseDate;
     @Basic
-    @Column
+    @Column(name = "SYNOPSIS")
     private String synopsis;
-
     @Basic
-    @Column
-    private int rating;
-
+    @Column(name = "RATING")
+    private Byte rating;
     @Basic
-    @Column
-    private int age_limit;
+    @Column(name = "AGE_LIMIT")
+    private Byte ageLimit;
 
-    @OneToMany //a verifier
-    @JoinColumn(name = "blu_rays", foreignKey = @ForeignKey( name = "blu_rays_film_fk" ) )
-    public List<BluRay> blu_rays;
-
-    public Film(long film_id, String title, Date release_date, String synopsis) {
-        this.film_id = film_id;
-        this.title = title;
-        this.release_date = release_date;
-        this.synopsis = synopsis;
-    }
-    public Film(){
-
+    public int getFilmId() {
+        return filmId;
     }
 
-    public long getId() {
-        return film_id;
-    }
-
-    public void setId(long film_id) {
-        this.film_id = film_id;
+    public void setFilmId(int filmId) {
+        this.filmId = filmId;
     }
 
     public String getTitle() {
@@ -63,11 +44,11 @@ public class Film{
     }
 
     public Date getReleaseDate() {
-        return release_date;
+        return releaseDate;
     }
 
-    public void setReleaseDate(Date release_date) {
-        this.release_date = release_date;
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public String getSynopsis() {
@@ -78,28 +59,32 @@ public class Film{
         this.synopsis = synopsis;
     }
 
-    public int getRating() {
+    public Byte getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(Byte rating) {
         this.rating = rating;
     }
 
-    public int getAgeLimit() {
-        return age_limit;
+    public Byte getAgeLimit() {
+        return ageLimit;
     }
 
-    public void setAgeLimit(int age_limit) {
-        this.age_limit = age_limit;
+    public void setAgeLimit(Byte ageLimit) {
+        this.ageLimit = ageLimit;
     }
 
-    public List<BluRay> getBluRays() {
-        return blu_rays;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Film that = (Film) o;
+        return filmId == that.filmId && Objects.equals(title, that.title) && Objects.equals(releaseDate, that.releaseDate) && Objects.equals(synopsis, that.synopsis) && Objects.equals(rating, that.rating) && Objects.equals(ageLimit, that.ageLimit);
     }
 
-    public void setBluRays(List<BluRay> blu_rays) {
-        this.blu_rays = blu_rays;
+    @Override
+    public int hashCode() {
+        return Objects.hash(filmId, title, releaseDate, synopsis, rating, ageLimit);
     }
 }
-

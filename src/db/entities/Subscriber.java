@@ -1,40 +1,28 @@
 package db.entities;
 
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.Basic;
+import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Table(name = "subscribers", schema = "", catalog = "") //schema to specify later
-public class Subscriber{
+@Table(name = "SUBSCRIBERS", schema = "ALNADHAF", catalog = "")
+public class Subscriber {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column
-    private long subscriber_id;
+    @Column(name = "SUBSCRIBER_ID")
+    private int subscriberId;
     @Basic
-    @Column(nullable = false, unique = true)
+    @Column(name = "EMAIL")
     private String email;
     @Basic
-    @Column(nullable = false)
-    private long card_number;
+    @Column(name = "CARD_NUMBER")
+    private long cardNumber;
 
-    public Subscriber(long subscriber_id, String email, long card_number) {
-        this.subscriber_id = subscriber_id;
-        this.email = email;
-        this.card_number = card_number;
+    public int getSubscriberId() {
+        return subscriberId;
     }
 
-    public Subscriber(){
-
-    }
-
-    public long getId() {
-        return subscriber_id;
-    }
-
-    public void setId(long subscriber_id) {
-        this.subscriber_id = subscriber_id;
+    public void setSubscriberId(int subscriberId) {
+        this.subscriberId = subscriberId;
     }
 
     public String getEmail() {
@@ -46,11 +34,23 @@ public class Subscriber{
     }
 
     public long getCardNumber() {
-        return card_number;
+        return cardNumber;
     }
 
-    public void setCardNumber(long card_number) {
-        this.card_number = card_number;
+    public void setCardNumber(long cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Subscriber that = (Subscriber) o;
+        return subscriberId == that.subscriberId && cardNumber == that.cardNumber && Objects.equals(email, that.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(subscriberId, email, cardNumber);
     }
 }
-

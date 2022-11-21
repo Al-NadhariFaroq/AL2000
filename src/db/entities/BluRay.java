@@ -1,61 +1,67 @@
 package db.entities;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Table(name = "blu_rays", schema = "", catalog = "") //schema to specify later
-public class BluRay{
+@Table(name = "BLU_RAYS", schema = "ALNADHAF", catalog = "")
+public class BluRay {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column
-    private long blu_ray_id;
+    @Column(name = "BLU_RAY_ID")
+    private int bluRayId;
     @Basic
-    @Column(nullable = false)
-    private long serial_number;
+    @Column(name = "SERIAL_NUMBER")
+    private long serialNumber;
     @Basic
-    @Column(nullable = false)
-    private int blu_ray_position;
+    @Column(name = "BLU_RAY_POSITION")
+    private Byte bluRayPosition;
+    @Basic
+    @Column(name = "FILM_ID")
+    private int filmId;
 
-    @ManyToOne
-    @JoinColumn(
-            name = "film_id",
-            foreignKey = @ForeignKey(name = "blu_rays_film_fk", value = ConstraintMode.NO_CONSTRAINT)
-    )
-
-    private Film film;
-
-    public BluRay(long blu_ray_id, long serial_number, int blu_ray_position, Film film) {
-        this.blu_ray_id = blu_ray_id;
-        this.serial_number = serial_number;
-        this.blu_ray_position = blu_ray_position;
-        this.film = film;
-    }
-    public BluRay(){
-
+    public int getBluRayId() {
+        return bluRayId;
     }
 
-    public long getId() {
-        return blu_ray_id;
-    }
-
-    public void setId(long blu_ray_id) {
-        this.blu_ray_id = blu_ray_id;
+    public void setBluRayId(int bluRayId) {
+        this.bluRayId = bluRayId;
     }
 
     public long getSerialNumber() {
-        return serial_number;
+        return serialNumber;
     }
 
-    public void setSerialnumber(long serial_number) {
-        this.serial_number = serial_number;
+    public void setSerialNumber(long serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
-    public int getBluRayPosition() {
-        return blu_ray_position;
+    public Byte getBluRayPosition() {
+        return bluRayPosition;
     }
 
-    public void setBluRayPosition(int blu_ray_position) {
-        this.blu_ray_position = blu_ray_position;
+    public void setBluRayPosition(Byte bluRayPosition) {
+        this.bluRayPosition = bluRayPosition;
     }
 
+    public int getFilmId() {
+        return filmId;
+    }
+
+    public void setFilmId(int filmId) {
+        this.filmId = filmId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BluRay that = (BluRay) o;
+        return bluRayId == that.bluRayId && serialNumber == that.serialNumber && filmId == that.filmId && Objects.equals(bluRayPosition, that.bluRayPosition);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bluRayId, serialNumber, bluRayPosition, filmId);
+    }
 }
-

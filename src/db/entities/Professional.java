@@ -1,55 +1,56 @@
 package db.entities;
 
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.Basic;
+import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Table(name = "professionals", schema = "", catalog = "") //schema to specify later
+@Table(name = "PROFESSIONALS", schema = "ALNADHAF", catalog = "")
 public class Professional {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column
-    private long professional_id;
+    @Column(name = "PROFESSIONAL_ID")
+    private int professionalId;
     @Basic
-    @Column(nullable = false)
-    private String first_name;
+    @Column(name = "LAST_NAME")
+    private String lastName;
     @Basic
-    @Column(nullable = false)
-    private String last_name;
+    @Column(name = "FIRST_NAME")
+    private String firstName;
 
-    // constructors / standard setters / getters
-    public Professional(long professional_id, String first_name, String last_name){
-        this.professional_id = professional_id;
-        this.first_name = first_name;
-        this.last_name = last_name;
-    }
-    public Professional() {
-    }
-    public long getId(){
-        return this.professional_id;
-    }
-    public void setId(long id) {
-        this.professional_id = id;
-    }
-    public void setFirstName(String first_name){
-        this.first_name = first_name;
-    }
-    public String getFirstName(){
-        return this.first_name;
-    }
-    public void setLastName(String last_name){
-        this.last_name = last_name;
-    }
-    public String getLastName(){
-        return this.last_name;
+    public int getProfessionalId() {
+        return professionalId;
     }
 
-    public String toString(){
-        return this.first_name + " " + this.last_name;
+    public void setProfessionalId(int professionalId) {
+        this.professionalId = professionalId;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Professional that = (Professional) o;
+        return professionalId == that.professionalId && Objects.equals(lastName, that.lastName) && Objects.equals(firstName, that.firstName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(professionalId, lastName, firstName);
+    }
 }

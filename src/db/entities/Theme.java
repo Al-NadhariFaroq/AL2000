@@ -1,35 +1,25 @@
 package db.entities;
 
-import javax.persistence.Id;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.Basic;
+import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Table(name = "themes", schema = "", catalog = "") //schema to specify later
+@Table(name = "THEMES", schema = "ALNADHAF", catalog = "")
 public class Theme {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column
-    private long theme_id;
+    @Column(name = "THEME_ID")
+    private int themeId;
     @Basic
-    @Column(nullable = false)
+    @Column(name = "THEME")
     private String theme;
 
-    public Theme(){
-
-    }
-    public Theme(long theme_id, String theme) {
-        this.theme_id = theme_id;
-        this.theme = theme;
+    public int getThemeId() {
+        return themeId;
     }
 
-    public long getId() {
-        return theme_id;
-    }
-
-    public void setId(long theme_id) {
-        this.theme_id = theme_id;
+    public void setThemeId(int themeId) {
+        this.themeId = themeId;
     }
 
     public String getTheme() {
@@ -39,5 +29,17 @@ public class Theme {
     public void setTheme(String theme) {
         this.theme = theme;
     }
-}
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Theme that = (Theme) o;
+        return themeId == that.themeId && Objects.equals(theme, that.theme);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(themeId, theme);
+    }
+}

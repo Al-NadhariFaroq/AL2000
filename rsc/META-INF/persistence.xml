@@ -13,14 +13,22 @@
         <class>db.entities.Restriction</class>
         <class>db.entities.Theme</class>
         <class>db.entities.Film</class>
+        <class>db.entities.Rental</class>
+        <class>db.entities.Role</class>
+        <class>db.entities.SubscriberCards</class>
         <properties>
 <!--            to define later-->
             <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
-            <property name="javax.persistence.jdbc.url"    value="jdbc:oracle:thin:@im2ag-oracle.univ-grenoble-alpes.fr:1521:im2ag/al2000" />
-            <property name="javax.persistence.jdbc.user" value="rocd" />
-            <property name="javax.persistence.jdbc.password" value="c0b7dc8caa" />
+            <property name="javax.persistence.jdbc.url"    value="jdbc:oracle:thin:@im2ag-oracle.univ-grenoble-alpes.fr:1521:im2ag" />
+            <property name="javax.persistence.jdbc.user" value="alnadhaf" />
+            <property name="javax.persistence.jdbc.password" value="e3d46ebeca" />
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle8iDialect" />
+<!--            <property name="hibernate.connection.url"-->
+<!--                      value="jdbc:oracle:thin:@im2ag-oracle.univ-grenoble-alpes.fr:1521:im2ag"/>-->
+<!--            <property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/>-->
+<!--            <property name="hibernate.connection.username" value="alnadhaf"/>-->
+<!--            <property name="hibernate.connection.password" value="e3d46ebeca"/>-->
             <!--            <property name="hibernate.show_sql" value="true" />-->
 
             <!--            <property name="show_sql" value="true"/>-->

@@ -1,33 +1,45 @@
 package db.entities;
+
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-@Table(name = "cards", schema = "", catalog = "") //schema to specify later
-public class Card{
+@Table(name = "CARDS", schema = "ALNADHAF", catalog = "")
+public class Card {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column
-    private long card_id;
+    @Column(name = "CARD_ID")
+    private long cardId;
     @Basic
-    @Column(nullable = false)
-    private long card_number;
+    @Column(name = "CARD_NUMBER")
+    private long cardNumber;
 
-    public Card(){
-
-    }
-    public long getId() {
-        return card_id;
+    public long getCardId() {
+        return cardId;
     }
 
-    public void setId(long card_id) {
-        this.card_id = card_id;
+    public void setCardId(int cardId) {
+        this.cardId = cardId;
     }
 
     public long getCardNumber() {
-        return card_number;
+        return cardNumber;
     }
 
-    public void setCardNumber(long card_number) {
-        this.card_number = card_number;
+    public void setCardNumber(long cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Card that = (Card) o;
+        return cardId == that.cardId && cardNumber == that.cardNumber;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cardId, cardNumber);
     }
 }
-

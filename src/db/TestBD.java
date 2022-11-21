@@ -22,20 +22,20 @@ public class TestBD {
                 choice = sc.nextInt();
                 switch(choice){
                     case 1:
-                        System.out.flush();
+                        //System.out.flush();
                         addMovie();
                         break;
                     case 2:
-                        System.out.flush();
+                        //System.out.flush();
                         showMovies();
                         break;
                     case 3:
-                        System.out.flush();
+                        //System.out.flush();
                         showCards();
                         break;
                 }
             } while(choice != 0);
-            sc.close();
+            //sc.close();
             System.out.println("bye.");
 
         } catch (SQLException e) {
