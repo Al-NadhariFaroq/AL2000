@@ -15,11 +15,9 @@ public class MoviePanel extends JPanel {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.black));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
         
         btn= new JButton();
         chargeImage();
-
 
         btn.addActionListener(e -> openMovieMenu());
         add(btn, BorderLayout.CENTER);
@@ -31,7 +29,7 @@ public class MoviePanel extends JPanel {
     }
 
     void openMovieMenu(){
-        CyberVideo.changeState(2);
+        CyberVideo.changeState(CyberVideo.Panels.MOVIE_INFO);
     }
     void chargeImage(){
         try {

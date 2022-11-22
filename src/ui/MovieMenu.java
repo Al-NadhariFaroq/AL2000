@@ -28,12 +28,12 @@ public class MovieMenu extends JPanel {
              dateLabel = creatLabel("<html><font color=black>Released</font> : " + " 12/08/2015      ",16);
              themesLabel = creatLabel("<html><font color=black>Genre</font> : "+"Action, Sci-Fi, Romance",16);
              synopsisLabel = creatLabel("<html><font color=black>Synopsis</font> :<br/> " + "movie.getSynopsis()",16);
-             directorsLabel = creatLabel("<html><font color=black>Directors</font> : " + " Landray, Daana",16);
+             directorsLabel = creatLabel("<html><font color=black>Directors</font> : " + " Landry, Daana",16);
              actorsLabel = creatLabel("<html><font color=black>Main actors</font> : " + "Faroq, Yael, Sacha",16);
              noteLabel = creatLabel("<html><font color=black>Note</font>: " + " 5*",16);
 
              rentBtn = new JButton("Rent");
-             rentBtn.addActionListener(e -> CyberVideo.changeState(1));
+             rentBtn.addActionListener(e -> CyberVideo.changeState(CyberVideo.Panels.MAIN));
          }
 
          JPanel creatTopPanel(){
@@ -41,7 +41,7 @@ public class MovieMenu extends JPanel {
              topPanel.setPreferredSize(new Dimension(960, 100));
              topPanel.setBackground(Color.gray);
              btnGoBack = new JButton("Go Back");
-             btnGoBack.addActionListener(e -> CyberVideo.changeState(1));
+             btnGoBack.addActionListener(e -> CyberVideo.changeState(CyberVideo.Panels.MAIN));
              topPanel.add(btnGoBack,BorderLayout.WEST) ;
              return topPanel;
          }
@@ -50,7 +50,6 @@ public class MovieMenu extends JPanel {
              JPanel movieInfoPanel = new JPanel(new StackLayout());
              movieInfoPanel.setBackground(Color.cyan);
              movieInfoPanel.setBorder(new EmptyBorder(0,10,10,10));
-
 
             JPanel imageInfoPanel = new JPanel(new BorderLayout());
 
@@ -90,13 +89,10 @@ public class MovieMenu extends JPanel {
             return movieInfoPanel;
     }
 
-
-
     JLabel creatLabel(String text, int size) {
              JLabel label = new JLabel(text);
              label.setFont(new Font("Arial",Font.BOLD, size));
              return label;
 
     }
-
 }

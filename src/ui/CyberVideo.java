@@ -8,8 +8,12 @@ import java.awt.*;
 public class CyberVideo extends JFrame {
     int WIDTH = 960;
     int HEIGHT = 720;
+
+    enum Panels{MAIN, MOVIE_INFO, SUBSCRIBER_INFO, SUBSCRIPTION_MENU, HISTORY_INFO, RELOAD, RENT};
     static CardLayout card;
     static Container cPane;
+
+
 
     CyberVideo() {
         super("CyberVideo2.0");
@@ -23,18 +27,31 @@ public class CyberVideo extends JFrame {
 
         MainPanel mainPanel = new MainPanel();
         mainPanel.btnPopular.addActionListener((e)-> changePanel());
-        add(mainPanel);
+        add(Panels.MAIN.name(), mainPanel);
 
         MovieMenu moviePanel = new MovieMenu(new Movie("Avatar "));
-        add(moviePanel);
-        new Interaction(mainPanel);
+        add(Panels.MOVIE_INFO.name(), moviePanel);
+
+        SubscriberInfoMenu infoMenu = new SubscriberInfoMenu();
+        add(Panels.SUBSCRIBER_INFO.name(), infoMenu);
+
+        SubscriptionMenu subscriptionMenu = new SubscriptionMenu();
+        add(Panels.SUBSCRIPTION_MENU.name(), subscriptionMenu);
+
+        GetHistory historyInfo = new GetHistory();
+        add(Panels.HISTORY_INFO.name(), historyInfo);
+
+        ReloadCard reload = new ReloadCard();
+        add(Panels.RELOAD.name(), reload);
+
+        Rent rent = new Rent();
+        add(Panels.RENT.name(), rent);
+
+        //new Interaction(mainPanel);
         pack();
     }
-    public static void changeState(int s){
-        if (s == 1)
-            card.first(cPane);
-        if (s == 2)
-            card.next(cPane);
+    public static void changeState(Panels panel){
+        card.show(cPane, panel.name());
     }
 
     void changePanel(){

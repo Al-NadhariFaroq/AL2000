@@ -25,10 +25,12 @@ public class MainPanel extends JPanel{
 
         ImageIcon menuIcon = new ImageIcon(new ImageIcon("./rsc/images/listicon.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         JLabel menuLabel = new JLabel(menuIcon);
+        menuLabel.addMouseListener(new Interaction(CyberVideo.Panels.MOVIE_INFO));
         menuLabel.setBorder(new EmptyBorder(0, 10, 0, 10));
 
         ImageIcon userIcon = new ImageIcon(new ImageIcon("./rsc/images/user.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         JLabel userLabel = new JLabel(userIcon);
+        userLabel.addMouseListener(new Interaction(CyberVideo.Panels.SUBSCRIBER_INFO));
         userLabel.setBorder(new EmptyBorder(0, 10, 0, 10));
 
         JTextField textField = new JTextField();
@@ -55,7 +57,6 @@ public class MainPanel extends JPanel{
 
         mainTopPanel.add(searchPanel, BorderLayout.NORTH);
         mainTopPanel.add(buttonsPanel, BorderLayout.SOUTH);
-
 
         return mainTopPanel;
     }
