@@ -32,7 +32,7 @@ public class SubscribeCard extends Card {
 
     public String getFirstName() {
         return firstName;
-    } 
+    }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -40,7 +40,7 @@ public class SubscribeCard extends Card {
 
     public String getLastName() {
         return lastName;
-    } 
+    }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
@@ -48,11 +48,11 @@ public class SubscribeCard extends Card {
 
     public Date getDateOfBirth() {
         return dateOfBirth;
-    } 
+    }
 
     public String getEmail() {
         return email;
-    } 
+    }
 
     public void setEmail(String email) {
         this.email = email;
@@ -122,7 +122,7 @@ public class SubscribeCard extends Card {
         balance += amount;
     }
 
-    public boolean IsValidBalance(){
+    public boolean IsValidBalance() {
         return balance > 15;
     }
 

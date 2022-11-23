@@ -1,4 +1,5 @@
 package db.jpa;
+
 import db.entities.Restriction;
 
 import javax.persistence.EntityManager;
@@ -15,7 +16,7 @@ public class RestrictionJPA implements Serializable {
 
     // standard constructors
     public RestrictionJPA(EntityManager em) {
-        this.entityManager= em;
+        this.entityManager = em;
     }
 
     public Restriction get(long id) {
@@ -38,7 +39,6 @@ public class RestrictionJPA implements Serializable {
         executeInsideTransaction(entityManager -> entityManager.persist(restriction));
 
 
-
     }
 
 
@@ -58,8 +58,7 @@ public class RestrictionJPA implements Serializable {
             tx.begin();
             action.accept(entityManager);
             tx.commit();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             tx.rollback();
             throw e;
         }

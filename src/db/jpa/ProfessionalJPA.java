@@ -1,4 +1,5 @@
 package db.jpa;
+
 import db.entities.Professional;
 
 import javax.persistence.EntityManager;
@@ -15,7 +16,7 @@ public class ProfessionalJPA implements Serializable {
 
     // standard constructors
     public ProfessionalJPA(EntityManager em) {
-        this.entityManager= em;
+        this.entityManager = em;
     }
 
     public Professional get(long id) {
@@ -39,7 +40,6 @@ public class ProfessionalJPA implements Serializable {
         executeInsideTransaction(entityManager -> entityManager.persist(professional));
 
 
-
     }
 
 
@@ -59,8 +59,7 @@ public class ProfessionalJPA implements Serializable {
             tx.begin();
             action.accept(entityManager);
             tx.commit();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             tx.rollback();
             throw e;
         }

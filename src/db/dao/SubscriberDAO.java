@@ -4,7 +4,9 @@ import db.entities.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import db.jpa.SubscriberJPA;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -13,13 +15,14 @@ public class SubscriberDAO implements DAO<Subscriber> {
     private final List<Subscriber> subscribers = new ArrayList<>();
     public EntityManagerFactory emf;
     private final SubscriberJPA subscriberJPA;
+
     public SubscriberDAO() {
-        emf= Persistence.createEntityManagerFactory("AL2000");
+        emf = Persistence.createEntityManagerFactory("AL2000");
         subscriberJPA = new SubscriberJPA(emf.createEntityManager());
     }
 
     @Override
-    public Subscriber get(long id) {
+    public Subscriber get(int id) {
         return subscriberJPA.get(id);
     }
 

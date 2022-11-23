@@ -1,4 +1,5 @@
 package db.jpa;
+
 import db.entities.Film;
 
 import javax.persistence.EntityManager;
@@ -15,7 +16,7 @@ public class FilmJPA implements Serializable {
 
     // standard constructors
     public FilmJPA(EntityManager em) {
-        this.entityManager= em;
+        this.entityManager = em;
     }
 
     public Film get(long id) {
@@ -38,7 +39,6 @@ public class FilmJPA implements Serializable {
         executeInsideTransaction(entityManager -> entityManager.persist(film));
 
 
-
     }
 
 
@@ -58,8 +58,7 @@ public class FilmJPA implements Serializable {
             tx.begin();
             action.accept(entityManager);
             tx.commit();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             tx.rollback();
             throw e;
         }

@@ -1,4 +1,5 @@
 package db.jpa;
+
 import db.entities.BluRay;
 
 import javax.persistence.EntityManager;
@@ -15,7 +16,7 @@ public class BluRayJPA implements Serializable {
 
     // standard constructors
     public BluRayJPA(EntityManager em) {
-        this.entityManager= em;
+        this.entityManager = em;
     }
 
     public BluRay get(long id) {
@@ -38,7 +39,6 @@ public class BluRayJPA implements Serializable {
         executeInsideTransaction(entityManager -> entityManager.persist(bluRay));
 
 
-
     }
 
 
@@ -58,8 +58,7 @@ public class BluRayJPA implements Serializable {
             tx.begin();
             action.accept(entityManager);
             tx.commit();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             tx.rollback();
             throw e;
         }

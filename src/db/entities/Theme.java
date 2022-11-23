@@ -6,7 +6,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "THEMES", schema = "ALNADHAF", catalog = "")
 public class Theme {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "THEME_ID")
     private int themeId;
@@ -28,6 +28,9 @@ public class Theme {
 
     public void setTheme(String theme) {
         this.theme = theme;
+    }
+
+    public Theme() {
     }
 
     @Override

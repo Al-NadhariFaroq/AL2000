@@ -6,7 +6,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "RESTRICTIONS", schema = "ALNADHAF", catalog = "")
 public class Restriction {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "RESTRICTION_ID")
     private int restrictionId;
@@ -39,6 +39,15 @@ public class Restriction {
 
     public void setThemeId(Integer themeId) {
         this.themeId = themeId;
+    }
+
+    public Restriction(int restrictionId, long cardNumber, Integer themeId) {
+        this.restrictionId = restrictionId;
+        this.cardNumber = cardNumber;
+        this.themeId = themeId;
+    }
+
+    public Restriction() {
     }
 
     @Override

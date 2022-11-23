@@ -80,11 +80,11 @@ public class Movie {
         Movie movie = (Movie) o;
 
         if (movie.title == title &&
-            movie.date == date &&
-            movie.synopsis == synopsis &&
-            movie.directors == directors &&
-            movie.actors == actors &&
-            movie.themes == themes
+                movie.date == date &&
+                movie.synopsis == synopsis &&
+                movie.directors == directors &&
+                movie.actors == actors &&
+                movie.themes == themes
         ) {
             return true;
         }

@@ -1,4 +1,5 @@
 package db.jpa;
+
 import db.entities.Theme;
 
 import javax.persistence.EntityManager;
@@ -15,10 +16,11 @@ public class ThemeJPA implements Serializable {
 
     // standard constructors
     public ThemeJPA(EntityManager em) {
-        this.entityManager= em;
+        this.entityManager = em;
     }
 
-    public Theme get(long id) {
+
+    public Theme get(int id) {
         Theme theme = entityManager.find(Theme.class, id);
         if (theme == null) {
             throw new EntityNotFoundException("Can't find theme for ID "
@@ -53,8 +55,7 @@ public class ThemeJPA implements Serializable {
             tx.begin();
             action.accept(entityManager);
             tx.commit();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             tx.rollback();
             throw e;
         }

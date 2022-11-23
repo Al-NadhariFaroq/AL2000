@@ -1,4 +1,5 @@
 package db.jpa;
+
 import db.entities.Card;
 
 import javax.persistence.EntityManager;
@@ -15,7 +16,7 @@ public class CardJPA implements Serializable {
 
     // standard constructors
     public CardJPA(EntityManager em) {
-        this.entityManager= em;
+        this.entityManager = em;
     }
 
     public Card get(long id) {
@@ -38,7 +39,6 @@ public class CardJPA implements Serializable {
         executeInsideTransaction(entityManager -> entityManager.persist(card));
 
 
-
     }
 
 
@@ -58,8 +58,7 @@ public class CardJPA implements Serializable {
             tx.begin();
             action.accept(entityManager);
             tx.commit();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             tx.rollback();
             throw e;
         }

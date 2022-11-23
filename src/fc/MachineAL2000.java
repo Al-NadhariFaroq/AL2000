@@ -35,7 +35,7 @@ public class MachineAL2000 {
     }
 
     public void rechargeSubscribeCard(int amount) {
-        assert(client.getClass() == Subscriber.class);
+        assert (client.getClass() == Subscriber.class);
         Subscriber subscriber = (Subscriber) client;
         if (facade.isValidPayment(subscriber.getCreditCard(), amount)) {
             subscriber.getSubscribeCard().credit(amount);

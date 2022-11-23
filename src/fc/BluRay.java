@@ -1,9 +1,9 @@
 package fc;
 
-public class BluRay extends Support{
+public class BluRay extends Support {
     int bluRayId;
 
-    public BluRay(Movie movie, int id){
+    public BluRay(Movie movie, int id) {
         super(movie);
         bluRayId = id;
     }
@@ -19,9 +19,9 @@ public class BluRay extends Support{
         }
 
         BluRay bluRay = (BluRay) o;
-        
+
         return bluRay.movie.equals(movie) &&
-            bluRay.bluRayId == bluRayId;
+                bluRay.bluRayId == bluRayId;
     }
 
     @Override

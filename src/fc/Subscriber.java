@@ -42,14 +42,14 @@ public class Subscriber extends Client {
         Subscriber subscriber = (Subscriber) o;
 
         return super.equals(subscriber) &&
-            subscriber.subscribeCard.equals(subscribeCard);
+                subscriber.subscribeCard.equals(subscribeCard);
     }
 
     @Override
     public String toString() {
         StringBuilder txt = new StringBuilder("");
         txt.append("Subscriber : " + subscribeCard.toString() + "\n");
-        for(SubscribeCard card : subscribeCards){
+        for (SubscribeCard card : subscribeCards) {
             txt.append("    " + card.toString() + "\n");
         }
 

@@ -14,7 +14,7 @@ public class BluRayTable {
 
     public BluRayTable() {
         blurays = new Hashtable<>();
-        idxFreePositions  = new ArrayList<>();
+        idxFreePositions = new ArrayList<>();
         for (int i = 0; i < NB_MOVIES_MAX; i++) {
             idxFreePositions.add(i);
         }

@@ -1,0 +1,5 @@
+package ui.panels;
+
+public enum Panels {
+    MAIN, MOVIE_INFO, SUBSCRIBER_INFO, SUBSCRIPTION_MENU, HISTORY_INFO, RELOAD, RENT;
+}

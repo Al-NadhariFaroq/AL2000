@@ -2,15 +2,15 @@ package fc;
 
 import java.util.Random;
 
-public class QRCode extends Support{
+public class QRCode extends Support {
     String link;
 
-    public QRCode(Movie movie){
+    public QRCode(Movie movie) {
         super(movie);
         Random rand = new Random();
         StringBuilder txt = new StringBuilder("");
-        for(int i = 0 ; i < 100 ; i++){
-            char c = (char)(rand.nextInt(93) + 33);
+        for (int i = 0; i < 100; i++) {
+            char c = (char) (rand.nextInt(93) + 33);
             txt.append(c);
         }
         link = txt.toString();
@@ -18,14 +18,14 @@ public class QRCode extends Support{
 
     @Override
     public boolean equals(Object o) {
-        if (this== o) {
+        if (this == o) {
             return true;
         }
 
         QRCode qrcode = (QRCode) o;
 
         return qrcode.movie.equals(movie) &&
-            qrcode.link == link;
+                qrcode.link == link;
     }
 
     @Override

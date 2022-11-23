@@ -4,7 +4,9 @@ import db.entities.BluRay;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import db.jpa.BluRayJPA;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
@@ -13,13 +15,14 @@ public class BluRayDAO implements DAO<BluRay> {
     private final List<BluRay> bluRays = new ArrayList<>();
     public EntityManagerFactory emf;
     private final BluRayJPA bluRayJpa;
+
     public BluRayDAO() {
-        emf= Persistence.createEntityManagerFactory("AL2000");
+        emf = Persistence.createEntityManagerFactory("AL2000");
         bluRayJpa = new BluRayJPA(emf.createEntityManager());
     }
 
     @Override
-    public BluRay get(long id) {
+    public BluRay get(int id) {
         return bluRayJpa.get(id);
     }
 

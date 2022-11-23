@@ -1,4 +1,5 @@
 package db.jpa;
+
 import db.entities.Subscriber;
 
 import javax.persistence.EntityManager;
@@ -12,9 +13,10 @@ import java.util.function.Consumer;
 public class SubscriberJPA implements Serializable {
 
     private final EntityManager entityManager;
+
     // standard constructors
     public SubscriberJPA(EntityManager em) {
-        this.entityManager= em;
+        this.entityManager = em;
     }
 
     public Subscriber get(long id) {
@@ -53,8 +55,7 @@ public class SubscriberJPA implements Serializable {
             tx.begin();
             action.accept(entityManager);
             tx.commit();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             tx.rollback();
             throw e;
         }

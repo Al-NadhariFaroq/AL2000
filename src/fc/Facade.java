@@ -19,7 +19,7 @@ public class Facade {
     BluRay readBluRay(int position) {
         return null;
     }
-    
+
     /* facade avec les lecteurs de cartes :
        renvoie le cardNumber ou -1 s'il n'y a pas de carte dans le lecteur */
     int readCreditCard() {

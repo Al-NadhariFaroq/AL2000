@@ -5,8 +5,8 @@ import java.awt.*;
 
 public class SidePanel extends JPanel {
 
-    public SidePanel(){
-        setPreferredSize(new Dimension(160,480));
+    public SidePanel() {
+        setPreferredSize(new Dimension(160, 480));
         setLayout(new StackLayout());
         setBackground(Color.CYAN);
         add(new JButton("Subscribe"));

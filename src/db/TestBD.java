@@ -1,19 +1,26 @@
 package db;
 
-import db.dao.CardDAO;
-import db.entities.Card;
+import db.dao.ThemeDAO;
+import db.entities.Theme;
 
 public class TestBD {
 
     public static void main(String args[]) {
-        CardDAO cardDAO =  new CardDAO();
-        Card card =  new Card();
-        cardDAO.save(card);
-        card = cardDAO.get(123456784);
-        System.out.println(card.getCardNumber());
+        ThemeDAO themeDAO = new ThemeDAO();
 
+        Theme theme = new Theme();
+        theme.setThemeId(1);
+        theme.setTheme("test");
+
+        themeDAO.save(theme);
+
+        Theme theme1 = themeDAO.get(1);
+        theme1.setTheme("essais");
+        themeDAO.update(theme1);
+
+        Theme theme2 = themeDAO.get(1);
+        themeDAO.delete(theme2);
     }
-
 }
 
 

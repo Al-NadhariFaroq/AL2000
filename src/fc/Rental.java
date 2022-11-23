@@ -8,12 +8,12 @@ public class Rental {
     Date returnDate;
     Support support;
 
-    public Rental(Support s){
+    public Rental(Support s) {
         support = s;
         rentalDate = Calendar.getInstance().getTime();
     }
 
-    public Support getSupport(){
+    public Support getSupport() {
         return support;
     }
 
@@ -38,8 +38,8 @@ public class Rental {
         Rental rental = (Rental) o;
 
         return rental.rentalDate.equals(rentalDate) &&
-            rental.returnDate.equals(returnDate) &&
-            rental.support.equals(support);
+                rental.returnDate.equals(returnDate) &&
+                rental.support.equals(support);
     }
 
     @Override

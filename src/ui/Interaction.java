@@ -1,11 +1,14 @@
 package ui;
 
+import ui.panels.Panels;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class Interaction implements MouseListener {
-    CyberVideo.Panels panel;
-    public Interaction(CyberVideo.Panels panel) {
+    Panels panel;
+
+    public Interaction(Panels panel) {
         this.panel = panel;
     }
 

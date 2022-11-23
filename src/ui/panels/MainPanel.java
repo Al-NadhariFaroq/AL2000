@@ -1,12 +1,16 @@
-package ui;
+package ui.panels;
+
+import ui.Interaction;
+import ui.MoviePanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class MainPanel extends JPanel{
-    JButton btnPopular, btnNew, btnFilter, btnBluRay;
-    public MainPanel(){
+public class MainPanel extends JPanel {
+    public JButton btnPopular, btnNew, btnFilter, btnBluRay;
+
+    public MainPanel() {
         setLayout(new BorderLayout());
 
         JPanel topPanel = mainTopPanel();
@@ -15,7 +19,7 @@ public class MainPanel extends JPanel{
         add(centerPanel, BorderLayout.CENTER);
     }
 
-    private JPanel mainTopPanel(){
+    private JPanel mainTopPanel() {
         JPanel mainTopPanel = new JPanel();
         mainTopPanel.setLayout(new BorderLayout());
 
@@ -25,16 +29,16 @@ public class MainPanel extends JPanel{
 
         ImageIcon menuIcon = new ImageIcon(new ImageIcon("./rsc/images/listicon.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         JLabel menuLabel = new JLabel(menuIcon);
-        menuLabel.addMouseListener(new Interaction(CyberVideo.Panels.MOVIE_INFO));
+        menuLabel.addMouseListener(new Interaction(Panels.MOVIE_INFO));
         menuLabel.setBorder(new EmptyBorder(0, 10, 0, 10));
 
         ImageIcon userIcon = new ImageIcon(new ImageIcon("./rsc/images/user.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         JLabel userLabel = new JLabel(userIcon);
-        userLabel.addMouseListener(new Interaction(CyberVideo.Panels.SUBSCRIBER_INFO));
+        userLabel.addMouseListener(new Interaction(Panels.SUBSCRIBER_INFO));
         userLabel.setBorder(new EmptyBorder(0, 10, 0, 10));
 
         JTextField textField = new JTextField();
-        textField.setPreferredSize( new Dimension(200, 32));
+        textField.setPreferredSize(new Dimension(200, 32));
         textField.setBorder(new EmptyBorder(0, 5, 0, 5));
 
         searchPanel.add(menuLabel, BorderLayout.WEST);
@@ -61,7 +65,7 @@ public class MainPanel extends JPanel{
         return mainTopPanel;
     }
 
-    private JPanel mainCenterPanel(){
+    private JPanel mainCenterPanel() {
         JPanel mainCenterPanel = new JPanel();
 
         mainCenterPanel.setLayout(new BorderLayout());

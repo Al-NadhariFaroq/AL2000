@@ -2,7 +2,7 @@ package fc;
 
 public abstract class Card {
     int cardNumber;
-    
+
     public Card(int cardNumber) {
         this.cardNumber = cardNumber;
     }

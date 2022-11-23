@@ -1,22 +1,22 @@
 package ui;
 
+import ui.panels.Panels;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MoviePanel extends JPanel {
     Image img;
     JButton btn;
     String title;
 
-    MoviePanel(String title) {
+    public MoviePanel(String title) {
         this.title = title;
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.black));
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        
-        btn= new JButton();
+
+        btn = new JButton();
         chargeImage();
 
         btn.addActionListener(e -> openMovieMenu());
@@ -28,10 +28,11 @@ public class MoviePanel extends JPanel {
         //setPreferredSize(new Dimension(120, 300));
     }
 
-    void openMovieMenu(){
-        CyberVideo.changeState(CyberVideo.Panels.MOVIE_INFO);
+    void openMovieMenu() {
+        CyberVideo.changeState(Panels.MOVIE_INFO);
     }
-    void chargeImage(){
+
+    void chargeImage() {
         try {
             img = new ImageIcon("./rsc/images/avatar.jpg").getImage();
             ImageIcon icon = new ImageIcon(img.getScaledInstance(160, 260, Image.SCALE_DEFAULT));

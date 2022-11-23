@@ -1,11 +1,15 @@
-package ui;
+package ui.panels;
+
+import ui.CyberVideo;
+import ui.StackLayout;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class SubscriptionMenu extends JPanel {
     JButton btnValid, btnGoBack;
-    public SubscriptionMenu(){
+
+    public SubscriptionMenu() {
         setLayout(new BorderLayout());
         JPanel informations = new JPanel(new StackLayout());
 
@@ -46,15 +50,15 @@ public class SubscriptionMenu extends JPanel {
         southPanel.add(btnValid);
         southPanel.add(btnGoBack);
         add(southPanel, BorderLayout.SOUTH);
-        btnGoBack.addActionListener(e -> CyberVideo.changeState(CyberVideo.Panels.SUBSCRIBER_INFO));
+        btnGoBack.addActionListener(e -> CyberVideo.changeState(Panels.SUBSCRIBER_INFO));
         btnValid.addActionListener(e -> {
-            CyberVideo.changeState(CyberVideo.Panels.SUBSCRIBER_INFO);
+            CyberVideo.changeState(Panels.SUBSCRIBER_INFO);
         });
 
         add(creatTopPanel(), BorderLayout.NORTH);
     }
 
-    JPanel creatTopPanel(){
+    JPanel creatTopPanel() {
         JPanel topPanel = new JPanel(new FlowLayout());
         topPanel.setBackground(Color.gray);
 
