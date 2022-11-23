@@ -77,10 +77,18 @@ public class Film {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Film that = (Film) o;
-        return filmId == that.filmId && Objects.equals(title, that.title) && Objects.equals(releaseDate, that.releaseDate) && Objects.equals(synopsis, that.synopsis) && Objects.equals(rating, that.rating) && Objects.equals(ageLimit, that.ageLimit);
+        return filmId == that.filmId && Objects.equals(title, that.title) && Objects.equals(releaseDate,
+                                                                                            that.releaseDate
+        ) && Objects.equals(synopsis, that.synopsis) && Objects.equals(rating, that.rating) && Objects.equals(ageLimit,
+                                                                                                              that.ageLimit
+        );
     }
 
     @Override

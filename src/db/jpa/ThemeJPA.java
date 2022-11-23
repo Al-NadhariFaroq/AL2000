@@ -19,12 +19,10 @@ public class ThemeJPA implements Serializable {
         this.entityManager = em;
     }
 
-
     public Theme get(int id) {
         Theme theme = entityManager.find(Theme.class, id);
         if (theme == null) {
-            throw new EntityNotFoundException("Can't find theme for ID "
-                    + id);
+            throw new EntityNotFoundException("Can't find theme for ID " + id);
         }
         return theme;
     }
@@ -34,16 +32,13 @@ public class ThemeJPA implements Serializable {
         return query.getResultList();
     }
 
-
     public void save(Theme theme) {
         executeInsideTransaction(entityManager -> entityManager.persist(theme));
     }
 
-
     public void update(Theme theme) {
         executeInsideTransaction(entityManager -> entityManager.merge(theme));
     }
-
 
     public void delete(Theme theme) {
         executeInsideTransaction(entityManager -> entityManager.remove(theme));

@@ -1,5 +1,4 @@
-/* downloader.ui.StackLayout
- * (c) blanch@imag.fr 2021–2023                                            */
+/* (c) blanch@imag.fr 2021–2023 */
 
 package ui;
 
@@ -9,9 +8,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
 
-
 import static java.lang.Math.max;
-
 
 public class StackLayout implements LayoutManager {
     public void addLayoutComponent(String name, Component c) {
@@ -25,16 +22,16 @@ public class StackLayout implements LayoutManager {
         int height = 0;
         for (int i = 0; i < parent.getComponentCount(); i++) {
             Component c = parent.getComponent(i);
-            if (!c.isVisible())
+            if (!c.isVisible()) {
                 continue;
+            }
             Dimension size = c.getMinimumSize();
             width = max(width, size.width);
             height += size.height;
         }
 
         Insets insets = parent.getInsets();
-        return new Dimension(width + (insets.left + insets.right),
-                height + (insets.top + insets.bottom));
+        return new Dimension(width + (insets.left + insets.right), height + (insets.top + insets.bottom));
     }
 
     public Dimension preferredLayoutSize(Container parent) {
@@ -42,16 +39,16 @@ public class StackLayout implements LayoutManager {
         int height = 0;
         for (int i = 0; i < parent.getComponentCount(); i++) {
             Component c = parent.getComponent(i);
-            if (!c.isVisible())
+            if (!c.isVisible()) {
                 continue;
+            }
             Dimension size = c.getPreferredSize();
             width = max(width, size.width);
             height += size.height;
         }
 
         Insets insets = parent.getInsets();
-        return new Dimension(width + (insets.left + insets.right),
-                height + (insets.top + insets.bottom));
+        return new Dimension(width + (insets.left + insets.right), height + (insets.top + insets.bottom));
     }
 
     public void layoutContainer(Container parent) {
@@ -62,8 +59,9 @@ public class StackLayout implements LayoutManager {
 
         for (int i = 0; i < parent.getComponentCount(); i++) {
             Component c = parent.getComponent(i);
-            if (!c.isVisible())
+            if (!c.isVisible()) {
                 continue;
+            }
             Dimension size = c.getPreferredSize();
             c.setBounds(x, y, width, size.height);
             y += size.height;

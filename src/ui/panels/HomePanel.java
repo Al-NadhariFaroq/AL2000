@@ -7,10 +7,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class MainPanel extends JPanel {
+public class HomePanel extends JPanel {
     public JButton btnPopular, btnNew, btnFilter, btnBluRay;
 
-    public MainPanel() {
+    public HomePanel() {
         setLayout(new BorderLayout());
 
         JPanel topPanel = mainTopPanel();
@@ -27,12 +27,14 @@ public class MainPanel extends JPanel {
         searchPanel.setBorder(new EmptyBorder(20, 0, 20, 0));
         searchPanel.setBackground(new Color(98, 98, 60));
 
-        ImageIcon menuIcon = new ImageIcon(new ImageIcon("./rsc/images/listicon.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+        ImageIcon menuIcon = new ImageIcon(
+                new ImageIcon("./rsc/images/listicon.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         JLabel menuLabel = new JLabel(menuIcon);
         menuLabel.addMouseListener(new Interaction(Panels.MOVIE_INFO));
         menuLabel.setBorder(new EmptyBorder(0, 10, 0, 10));
 
-        ImageIcon userIcon = new ImageIcon(new ImageIcon("./rsc/images/user.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+        ImageIcon userIcon = new ImageIcon(
+                new ImageIcon("./rsc/images/user.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
         JLabel userLabel = new JLabel(userIcon);
         userLabel.addMouseListener(new Interaction(Panels.SUBSCRIBER_INFO));
         userLabel.setBorder(new EmptyBorder(0, 10, 0, 10));
@@ -70,9 +72,8 @@ public class MainPanel extends JPanel {
 
         mainCenterPanel.setLayout(new BorderLayout());
 
-        JScrollPane scrollPane = new JScrollPane(null,
-                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
+        JScrollPane scrollPane = new JScrollPane(null, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                                                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
         );
 
         JPanel moviesPanel = new JPanel(new GridLayout(10, 5)) {

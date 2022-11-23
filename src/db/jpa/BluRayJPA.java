@@ -22,30 +22,23 @@ public class BluRayJPA implements Serializable {
     public BluRay get(long id) {
         BluRay bluRay = entityManager.find(BluRay.class, id);
         if (bluRay == null) {
-            throw new EntityNotFoundException("Can't find bluray for ID "
-                    + id);
+            throw new EntityNotFoundException("Can't find bluray for ID " + id);
         }
         return bluRay;
     }
-
 
     public List<BluRay> getAll() {
         Query query = entityManager.createQuery("SELECT e FROM BluRay e");
         return query.getResultList();
     }
 
-
     public void save(BluRay bluRay) {
         executeInsideTransaction(entityManager -> entityManager.persist(bluRay));
-
-
     }
-
 
     public void update(BluRay bluRay) {
         executeInsideTransaction(entityManager -> entityManager.merge(bluRay));
     }
-
 
     public void delete(BluRay bluRay) {
 

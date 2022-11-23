@@ -22,12 +22,10 @@ public class ProfessionalJPA implements Serializable {
     public Professional get(long id) {
         Professional professional = entityManager.find(Professional.class, id);
         if (professional == null) {
-            throw new EntityNotFoundException("Can't find professional for ID "
-                    + id);
+            throw new EntityNotFoundException("Can't find professional for ID " + id);
         }
         return professional;
     }
-
 
     public List<Professional> getAll() {
         Query query = entityManager.createQuery("SELECT e FROM Professional e");
@@ -35,18 +33,13 @@ public class ProfessionalJPA implements Serializable {
         return professionalList;
     }
 
-
     public void save(Professional professional) {
         executeInsideTransaction(entityManager -> entityManager.persist(professional));
-
-
     }
-
 
     public void update(Professional professional) {
         executeInsideTransaction(entityManager -> entityManager.merge(professional));
     }
-
 
     public void delete(Professional professional) {
 

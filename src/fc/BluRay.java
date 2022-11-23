@@ -20,8 +20,7 @@ public class BluRay extends Support {
 
         BluRay bluRay = (BluRay) o;
 
-        return bluRay.movie.equals(movie) &&
-                bluRay.bluRayId == bluRayId;
+        return bluRay.movie.equals(movie) && bluRay.bluRayId == bluRayId;
     }
 
     @Override

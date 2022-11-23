@@ -22,30 +22,23 @@ public class FilmJPA implements Serializable {
     public Film get(long id) {
         Film film = entityManager.find(Film.class, id);
         if (film == null) {
-            throw new EntityNotFoundException("Can't find film for ID "
-                    + id);
+            throw new EntityNotFoundException("Can't find film for ID " + id);
         }
         return film;
     }
-
 
     public List<Film> getAll() {
         Query query = entityManager.createQuery("SELECT e FROM Film e");
         return query.getResultList();
     }
 
-
     public void save(Film film) {
         executeInsideTransaction(entityManager -> entityManager.persist(film));
-
-
     }
-
 
     public void update(Film film) {
         executeInsideTransaction(entityManager -> entityManager.merge(film));
     }
-
 
     public void delete(Film film) {
 

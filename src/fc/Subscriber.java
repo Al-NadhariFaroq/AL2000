@@ -41,8 +41,7 @@ public class Subscriber extends Client {
 
         Subscriber subscriber = (Subscriber) o;
 
-        return super.equals(subscriber) &&
-                subscriber.subscribeCard.equals(subscribeCard);
+        return super.equals(subscriber) && subscriber.subscribeCard.equals(subscribeCard);
     }
 
     @Override

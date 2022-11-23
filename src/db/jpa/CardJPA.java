@@ -22,30 +22,23 @@ public class CardJPA implements Serializable {
     public Card get(long id) {
         Card card = entityManager.find(Card.class, id);
         if (card == null) {
-            throw new EntityNotFoundException("Can't find card for ID "
-                    + id);
+            throw new EntityNotFoundException("Can't find card for ID " + id);
         }
         return card;
     }
-
 
     public List<Card> getAll() {
         Query query = entityManager.createQuery("SELECT e FROM Card e");
         return query.getResultList();
     }
 
-
     public void save(Card card) {
         executeInsideTransaction(entityManager -> entityManager.persist(card));
-
-
     }
-
 
     public void update(Card card) {
         executeInsideTransaction(entityManager -> entityManager.merge(card));
     }
-
 
     public void delete(Card card) {
 

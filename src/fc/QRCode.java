@@ -24,8 +24,7 @@ public class QRCode extends Support {
 
         QRCode qrcode = (QRCode) o;
 
-        return qrcode.movie.equals(movie) &&
-                qrcode.link == link;
+        return qrcode.movie.equals(movie) && qrcode.link == link;
     }
 
     @Override

@@ -1,15 +1,14 @@
 package ui.panels;
 
-import fc.Movie;
 import ui.CyberVideo;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class SubscriberInfoMenu extends JPanel {
+public class SubscriberInfoPanel extends JPanel {
     JButton historyButton, btnGoBack;
 
-    public SubscriberInfoMenu() {
+    public SubscriberInfoPanel() {
         setLayout(new BorderLayout());
 
         JPanel topPanel = creatTopPanel();
@@ -27,7 +26,7 @@ public class SubscriberInfoMenu extends JPanel {
     JPanel creatTopPanel() {
         JPanel topPanel = new JPanel(new FlowLayout());
         btnGoBack = new JButton("back");
-        btnGoBack.addActionListener(e -> CyberVideo.changeState(Panels.MAIN));
+        btnGoBack.addActionListener(e -> CyberVideo.changeState(Panels.HOME));
         topPanel.setBackground(new Color(170, 200, 0));
         topPanel.add(btnGoBack);
         return topPanel;
@@ -36,10 +35,9 @@ public class SubscriberInfoMenu extends JPanel {
     JPanel creatCenterPanel() {
         JPanel centerPanel = new JPanel(new FlowLayout());
         btnGoBack = new JButton("subscription");
-        btnGoBack.addActionListener(e -> CyberVideo.changeState(Panels.SUBSCRIPTION_MENU));
+        btnGoBack.addActionListener(e -> CyberVideo.changeState(Panels.SUBSCRIPTION));
         centerPanel.setBackground(new Color(0, 200, 163));
         centerPanel.add(btnGoBack);
         return centerPanel;
     }
-
 }

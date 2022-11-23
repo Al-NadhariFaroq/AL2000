@@ -22,30 +22,23 @@ public class RestrictionJPA implements Serializable {
     public Restriction get(long id) {
         Restriction restriction = entityManager.find(Restriction.class, id);
         if (restriction == null) {
-            throw new EntityNotFoundException("Can't find restriction for ID "
-                    + id);
+            throw new EntityNotFoundException("Can't find restriction for ID " + id);
         }
         return restriction;
     }
-
 
     public List<Restriction> getAll() {
         Query query = entityManager.createQuery("SELECT e FROM Restriction e");
         return query.getResultList();
     }
 
-
     public void save(Restriction restriction) {
         executeInsideTransaction(entityManager -> entityManager.persist(restriction));
-
-
     }
-
 
     public void update(Restriction restriction) {
         executeInsideTransaction(entityManager -> entityManager.merge(restriction));
     }
-
 
     public void delete(Restriction restriction) {
 

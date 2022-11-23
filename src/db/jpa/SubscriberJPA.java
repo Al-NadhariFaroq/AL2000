@@ -22,12 +22,10 @@ public class SubscriberJPA implements Serializable {
     public Subscriber get(long id) {
         Subscriber subscriber = entityManager.find(Subscriber.class, id);
         if (subscriber == null) {
-            throw new EntityNotFoundException("Can't find subscriber for ID "
-                    + id);
+            throw new EntityNotFoundException("Can't find subscriber for ID " + id);
         }
         return subscriber;
     }
-
 
     public List<Subscriber> getAll() {
         Query query = entityManager.createQuery("SELECT e FROM Subscriber e");
@@ -38,11 +36,9 @@ public class SubscriberJPA implements Serializable {
         executeInsideTransaction(entityManager -> entityManager.persist(subscriber));
     }
 
-
     public void update(Subscriber subscriber) {
         executeInsideTransaction(entityManager -> entityManager.merge(subscriber));
     }
-
 
     public void delete(Subscriber subscriber) {
 

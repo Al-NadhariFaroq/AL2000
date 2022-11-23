@@ -65,10 +65,15 @@ public class Role {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Role that = (Role) o;
-        return roleId == that.roleId && professionalId == that.professionalId && filmId == that.filmId && Objects.equals(roleName, that.roleName) && Objects.equals(isProducer, that.isProducer);
+        return roleId == that.roleId && professionalId == that.professionalId && filmId == that.filmId && Objects.equals(
+                roleName, that.roleName) && Objects.equals(isProducer, that.isProducer);
     }
 
     @Override

@@ -52,10 +52,16 @@ public class Restriction {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Restriction that = (Restriction) o;
-        return restrictionId == that.restrictionId && cardNumber == that.cardNumber && Objects.equals(themeId, that.themeId);
+        return restrictionId == that.restrictionId && cardNumber == that.cardNumber && Objects.equals(themeId,
+                                                                                                      that.themeId
+        );
     }
 
     @Override

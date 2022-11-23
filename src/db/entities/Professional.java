@@ -43,10 +43,15 @@ public class Professional {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Professional that = (Professional) o;
-        return professionalId == that.professionalId && Objects.equals(lastName, that.lastName) && Objects.equals(firstName, that.firstName);
+        return professionalId == that.professionalId && Objects.equals(lastName, that.lastName) && Objects.equals(
+                firstName, that.firstName);
     }
 
     @Override

@@ -6,10 +6,10 @@ import ui.StackLayout;
 import javax.swing.*;
 import java.awt.*;
 
-public class SubscriptionMenu extends JPanel {
+public class SubscriptionPanel extends JPanel {
     JButton btnValid, btnGoBack;
 
-    public SubscriptionMenu() {
+    public SubscriptionPanel() {
         setLayout(new BorderLayout());
         JPanel informations = new JPanel(new StackLayout());
 
@@ -62,7 +62,7 @@ public class SubscriptionMenu extends JPanel {
         JPanel topPanel = new JPanel(new FlowLayout());
         topPanel.setBackground(Color.gray);
 
-        JLabel title = new JLabel("Subscription");
+        JLabel title = new JLabel("SubscriptionPanel");
         topPanel.add(title);
 
         return topPanel;

@@ -54,10 +54,15 @@ public class BluRay {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         BluRay that = (BluRay) o;
-        return bluRayId == that.bluRayId && serialNumber == that.serialNumber && filmId == that.filmId && Objects.equals(bluRayPosition, that.bluRayPosition);
+        return bluRayId == that.bluRayId && serialNumber == that.serialNumber && filmId == that.filmId && Objects.equals(
+                bluRayPosition, that.bluRayPosition);
     }
 
     @Override

@@ -14,7 +14,9 @@ public class TestClients {
         System.out.println(m);
 
         CreditCard fatherCreditCard = new CreditCard(0);
-        SubscribeCard fatherSubscribeCard = new SubscribeCard(0, "Pere", "Father", Calendar.getInstance().getTime(), "pere.father@gmail.com", fatherCreditCard, null);
+        SubscribeCard fatherSubscribeCard = new SubscribeCard(0, "Pere", "Father", Calendar.getInstance().getTime(),
+                                                              "pere.father@gmail.com", fatherCreditCard, null
+        );
         Subscriber father = new Subscriber(fatherCreditCard, fatherSubscribeCard);
         Date inscriptionDate = Calendar.getInstance().getTime();
 

@@ -13,7 +13,6 @@ public class CyberVideo extends JFrame {
     static CardLayout card;
     static Container cPane;
 
-
     CyberVideo() {
         super("CyberVideo2.0");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -24,29 +23,29 @@ public class CyberVideo extends JFrame {
         setLocationRelativeTo(null);
         cPane = getContentPane();
 
-        MainPanel mainPanel = new MainPanel();
-        mainPanel.btnPopular.addActionListener((e) -> changePanel());
-        add(Panels.MAIN.name(), mainPanel);
+        HomePanel homePanel = new HomePanel();
+        homePanel.btnPopular.addActionListener((e) -> changePanel());
+        add(Panels.HOME.name(), homePanel);
 
-        MovieMenu moviePanel = new MovieMenu(new Movie("Avatar "));
+        MovieInfoPanel moviePanel = new MovieInfoPanel(new Movie("Avatar"));
         add(Panels.MOVIE_INFO.name(), moviePanel);
 
-        SubscriberInfoMenu infoMenu = new SubscriberInfoMenu();
+        SubscriberInfoPanel infoMenu = new SubscriberInfoPanel();
         add(Panels.SUBSCRIBER_INFO.name(), infoMenu);
 
-        SubscriptionMenu subscriptionMenu = new SubscriptionMenu();
-        add(Panels.SUBSCRIPTION_MENU.name(), subscriptionMenu);
+        SubscriptionPanel subscriptionPanel = new SubscriptionPanel();
+        add(Panels.SUBSCRIPTION.name(), subscriptionPanel);
 
-        GetHistory historyInfo = new GetHistory();
-        add(Panels.HISTORY_INFO.name(), historyInfo);
+        HistoryPanel historyPanelInfo = new HistoryPanel();
+        add(Panels.HISTORY.name(), historyPanelInfo);
 
-        ReloadCard reload = new ReloadCard();
-        add(Panels.RELOAD.name(), reload);
+        ReloadPanel reloadPanel = new ReloadPanel();
+        add(Panels.RELOAD.name(), reloadPanel);
 
-        Rent rent = new Rent();
-        add(Panels.RENT.name(), rent);
+        RentPanel rentPanel = new RentPanel();
+        add(Panels.RENT.name(), rentPanel);
 
-        //new Interaction(mainPanel);
+        //new Interaction(homePanel);
         pack();
     }
 

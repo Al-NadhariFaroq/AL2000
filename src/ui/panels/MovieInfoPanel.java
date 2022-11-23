@@ -8,12 +8,12 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class MovieMenu extends JPanel {
+public class MovieInfoPanel extends JPanel {
     JLabel titleLabel, dateLabel, noteLabel, synopsisLabel;
     JLabel directorsLabel, actorsLabel, themesLabel;
     JButton rentBtn, btnGoBack;
 
-    public MovieMenu(Movie movie) {
+    public MovieInfoPanel(Movie movie) {
         setLayout(new BorderLayout());
 
         JPanel topPanel = creatTopPanel();
@@ -26,16 +26,16 @@ public class MovieMenu extends JPanel {
     }
 
     void createComponent(Movie movie) {
-        titleLabel = creatLabel(movie.getTitle() + "The Far Way ", 30);
-        dateLabel = creatLabel("<html><font color=black>Released</font> : " + " 12/08/2015      ", 16);
-        themesLabel = creatLabel("<html><font color=black>Genre</font> : " + "Action, Sci-Fi, Romance", 16);
-        synopsisLabel = creatLabel("<html><font color=black>Synopsis</font> :<br/> " + "movie.getSynopsis()", 16);
-        directorsLabel = creatLabel("<html><font color=black>Directors</font> : " + " Landry, Daana", 16);
-        actorsLabel = creatLabel("<html><font color=black>Main actors</font> : " + "Faroq, Yael, Sacha", 16);
-        noteLabel = creatLabel("<html><font color=black>Note</font>: " + " 5*", 16);
+        titleLabel = creatLabel(movie.getTitle() + ": The Way of Water", 30);
+        dateLabel = creatLabel("<html><font color=black>Released:</font> " + "16/12/2022", 16);
+        themesLabel = creatLabel("<html><font color=black>Genre:</font> " + "Science fiction, action", 16);
+        synopsisLabel = creatLabel("<html><font color=black>Synopsis:</font><br/>" + "movie.getSynopsis()", 16);
+        directorsLabel = creatLabel("<html><font color=black>Directors:</font> " + "James Cameron & Jon Landau", 16);
+        actorsLabel = creatLabel("<html><font color=black>Main actors:</font> " + "Sam Worthington, Zoe Saldana, Sigourney Weaver, Stephen Lang, Kate Winslet, ...", 16);
+        noteLabel = creatLabel("<html><font color=black>Rate:</font> " + "5*", 16);
 
-        rentBtn = new JButton("Rent");
-        rentBtn.addActionListener(e -> CyberVideo.changeState(Panels.MAIN));
+        rentBtn = new JButton("RentPanel");
+        rentBtn.addActionListener(e -> CyberVideo.changeState(Panels.HOME));
     }
 
     JPanel creatTopPanel() {
@@ -43,7 +43,7 @@ public class MovieMenu extends JPanel {
         topPanel.setPreferredSize(new Dimension(960, 100));
         topPanel.setBackground(Color.gray);
         btnGoBack = new JButton("Go Back");
-        btnGoBack.addActionListener(e -> CyberVideo.changeState(Panels.MAIN));
+        btnGoBack.addActionListener(e -> CyberVideo.changeState(Panels.HOME));
         topPanel.add(btnGoBack, BorderLayout.WEST);
         return topPanel;
     }
@@ -59,7 +59,8 @@ public class MovieMenu extends JPanel {
 
         java.net.URL imgUrl = getClass().getResource("/images/avatar.jpg");
         assert imgUrl != null;
-        ImageIcon icon = new ImageIcon(new ImageIcon(imgUrl).getImage());//.getScaledInstance(300, 450, Image.SCALE_DEFAULT));
+        ImageIcon icon = new ImageIcon(
+                new ImageIcon(imgUrl).getImage());//.getScaledInstance(300, 450, Image.SCALE_DEFAULT));
         JLabel label = new JLabel(icon);
         label.setBorder(new EmptyBorder(0, 25, 10, 5));
         imagePanel.add(label);
@@ -95,6 +96,5 @@ public class MovieMenu extends JPanel {
         JLabel label = new JLabel(text);
         label.setFont(new Font("Arial", Font.BOLD, size));
         return label;
-
     }
 }

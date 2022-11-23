@@ -99,10 +99,16 @@ public class Rental {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Rental that = (Rental) o;
-        return rentalId == that.rentalId && cardNumber == that.cardNumber && filmId == that.filmId && cardId == that.cardId && Objects.equals(rentalDate, that.rentalDate) && Objects.equals(returnDate, that.returnDate) && Objects.equals(billingAddress, that.billingAddress) && Objects.equals(isBluRay, that.isBluRay);
+        return rentalId == that.rentalId && cardNumber == that.cardNumber && filmId == that.filmId && cardId == that.cardId && Objects.equals(
+                rentalDate, that.rentalDate) && Objects.equals(returnDate, that.returnDate) && Objects.equals(
+                billingAddress, that.billingAddress) && Objects.equals(isBluRay, that.isBluRay);
     }
 
     @Override

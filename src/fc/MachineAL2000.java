@@ -68,7 +68,9 @@ public class MachineAL2000 {
 
     public SubscribeCard subscription(String firstName, String lastName, Date dateOfBirth, String email) {
         Subscriber subscriber = client.getClass() == Subscriber.class ? (Subscriber) client : null;
-        SubscribeCard newCard = new SubscribeCard(0, firstName, lastName, dateOfBirth, email, client.creditCard, subscriber);
+        SubscribeCard newCard = new SubscribeCard(0, firstName, lastName, dateOfBirth, email, client.creditCard,
+                                                  subscriber
+        );
         Subscriber newSubscriber = new Subscriber(client.getCreditCard(), newCard);
         if (subscriber != null) {
             subscriber.addSubscribeCard(newCard);
