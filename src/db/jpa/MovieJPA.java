@@ -1,6 +1,6 @@
 package db.jpa;
 
-import db.entities.Movie;
+import db.entities.MovieEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -19,30 +19,30 @@ public class MovieJPA implements Serializable {
         this.entityManager = em;
     }
 
-    public Movie get(int id) {
-        Movie movie = entityManager.find(Movie.class, id);
-        if (movie == null) {
+    public MovieEntity get(int id) {
+        MovieEntity movieEntity = entityManager.find(MovieEntity.class, id);
+        if (movieEntity == null) {
             throw new EntityNotFoundException("Can't find movie for ID " + id);
         }
-        return movie;
+        return movieEntity;
     }
 
-    public List<Movie> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM Movie e");
+    public List<MovieEntity> getAll() {
+        Query query = entityManager.createQuery("SELECT e FROM MovieEntity e");
         return query.getResultList();
     }
 
-    public void save(Movie movie) {
-        executeInsideTransaction(entityManager -> entityManager.persist(movie));
+    public void save(MovieEntity movieEntity) {
+        executeInsideTransaction(entityManager -> entityManager.persist(movieEntity));
     }
 
-    public void update(Movie movie) {
-        executeInsideTransaction(entityManager -> entityManager.merge(movie));
+    public void update(MovieEntity movieEntity) {
+        executeInsideTransaction(entityManager -> entityManager.merge(movieEntity));
     }
 
-    public void delete(Movie movie) {
+    public void delete(MovieEntity movieEntity) {
 
-        executeInsideTransaction(entityManager -> entityManager.remove(movie));
+        executeInsideTransaction(entityManager -> entityManager.remove(movieEntity));
     }
 
     private void executeInsideTransaction(Consumer<EntityManager> action) {

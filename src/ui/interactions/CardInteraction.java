@@ -5,6 +5,9 @@ import ui.panels.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.sql.Date;
 
 public class CardInteraction implements ActionListener {
     private static CardInteraction cardInteraction = null;
@@ -62,6 +65,11 @@ public class CardInteraction implements ActionListener {
                     UI.changePanel(Panel.HOME);
                 } else if (src == subscriptionPanel.getBtnValid()) {
                     UI.changePanel(Panel.HOME);
+                    UI.getFC().subscription(subscriptionPanel.getFirstNameText().getText(),
+                            subscriptionPanel.getLastNameText().getText(),
+                            Date.valueOf(subscriptionPanel.getDateOfBirthText().getText()),
+                            subscriptionPanel.getMailText().getText()
+                    );
                 }
                 break;
             case HISTORY:

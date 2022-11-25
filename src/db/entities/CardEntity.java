@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "CARDS", schema = "ALNADHAF", catalog = "")
-public class Card {
+public class CardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "CARD_ID")
@@ -38,7 +38,7 @@ public class Card {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Card that = (Card) o;
+        CardEntity that = (CardEntity) o;
         return cardId == that.cardId && cardNumber == that.cardNumber;
     }
 

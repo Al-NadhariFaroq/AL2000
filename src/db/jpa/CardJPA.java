@@ -1,6 +1,6 @@
 package db.jpa;
 
-import db.entities.Card;
+import db.entities.CardEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -19,30 +19,30 @@ public class CardJPA implements Serializable {
         this.entityManager = em;
     }
 
-    public Card get(long id) {
-        Card card = entityManager.find(Card.class, id);
-        if (card == null) {
+    public CardEntity get(long id) {
+        CardEntity cardEntity = entityManager.find(CardEntity.class, id);
+        if (cardEntity == null) {
             throw new EntityNotFoundException("Can't find card for ID " + id);
         }
-        return card;
+        return cardEntity;
     }
 
-    public List<Card> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM Card e");
+    public List<CardEntity> getAll() {
+        Query query = entityManager.createQuery("SELECT e FROM CardEntity e");
         return query.getResultList();
     }
 
-    public void save(Card card) {
-        executeInsideTransaction(entityManager -> entityManager.persist(card));
+    public void save(CardEntity cardEntity) {
+        executeInsideTransaction(entityManager -> entityManager.persist(cardEntity));
     }
 
-    public void update(Card card) {
-        executeInsideTransaction(entityManager -> entityManager.merge(card));
+    public void update(CardEntity cardEntity) {
+        executeInsideTransaction(entityManager -> entityManager.merge(cardEntity));
     }
 
-    public void delete(Card card) {
+    public void delete(CardEntity cardEntity) {
 
-        executeInsideTransaction(entityManager -> entityManager.remove(card));
+        executeInsideTransaction(entityManager -> entityManager.remove(cardEntity));
     }
 
     private void executeInsideTransaction(Consumer<EntityManager> action) {

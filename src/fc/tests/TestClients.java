@@ -1,7 +1,7 @@
 package fc.tests;
 
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 
 import fc.CreditCard;
 import fc.FunctionalCoreAL2000;
@@ -18,7 +18,7 @@ public class TestClients {
                                                               "pere.father@gmail.com", fatherCreditCard, null
         );
         Subscriber father = new Subscriber(fatherCreditCard, fatherSubscribeCard);
-        Date inscriptionDate = Calendar.getInstance().getTime();
+        Date inscriptionDate = Date.valueOf(Calendar.getInstance().getTime().toString());
 
         m.connection(fatherSubscribeCard);
         System.out.println(m);

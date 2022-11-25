@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "RENTALS", schema = "ALNADHAF", catalog = "")
-public class Rental {
+public class RentalEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "RENTAL_ID")
@@ -105,7 +105,7 @@ public class Rental {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Rental that = (Rental) o;
+        RentalEntity that = (RentalEntity) o;
         return rentalId == that.rentalId && cardNumber == that.cardNumber && filmId == that.filmId && cardId == that.cardId && Objects.equals(
                 rentalDate, that.rentalDate) && Objects.equals(returnDate, that.returnDate) && Objects.equals(
                 billingAddress, that.billingAddress) && Objects.equals(isBluRay, that.isBluRay);

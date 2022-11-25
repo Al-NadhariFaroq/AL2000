@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "PROFESSIONALS", schema = "ALNADHAF", catalog = "")
-public class Professional {
+public class ProfessionalEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "PROFESSIONAL_ID")
@@ -49,7 +49,7 @@ public class Professional {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Professional that = (Professional) o;
+        ProfessionalEntity that = (ProfessionalEntity) o;
         return professionalId == that.professionalId && Objects.equals(lastName, that.lastName) && Objects.equals(
                 firstName, that.firstName);
     }

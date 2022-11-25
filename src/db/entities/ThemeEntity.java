@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "THEMES", schema = "ALNADHAF", catalog = "")
-public class Theme {
+public class ThemeEntity {
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "THEME_ID")
@@ -30,7 +30,7 @@ public class Theme {
         this.theme = theme;
     }
 
-    public Theme() {
+    public ThemeEntity() {
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Theme {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Theme that = (Theme) o;
+        ThemeEntity that = (ThemeEntity) o;
         return themeId == that.themeId && Objects.equals(theme, that.theme);
     }
 

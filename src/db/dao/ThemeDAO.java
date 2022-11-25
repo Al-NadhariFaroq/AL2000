@@ -3,15 +3,15 @@ package db.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import db.entities.Theme;
+import db.entities.ThemeEntity;
 import db.jpa.ThemeJPA;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class ThemeDAO implements DAO<Theme> {
+public class ThemeDAO implements DAO<ThemeEntity> {
 
-    private final List<Theme> themes = new ArrayList<>();
+    private final List<ThemeEntity> themeEntities = new ArrayList<>();
     public EntityManagerFactory emf;
     private final ThemeJPA themeJPA;
 
@@ -21,27 +21,27 @@ public class ThemeDAO implements DAO<Theme> {
     }
 
     @Override
-    public Theme get(int id) {
+    public ThemeEntity get(int id) {
         return themeJPA.get(id);
     }
 
     @Override
-    public List<Theme> getAll() {
+    public List<ThemeEntity> getAll() {
         return themeJPA.getAll();
     }
 
     @Override
-    public void save(Theme theme) {
-        themeJPA.save(theme);
+    public void save(ThemeEntity themeEntity) {
+        themeJPA.save(themeEntity);
     }
 
     @Override
-    public void update(Theme theme) {
-        themeJPA.update(theme);
+    public void update(ThemeEntity themeEntity) {
+        themeJPA.update(themeEntity);
     }
 
     @Override
-    public void delete(Theme theme) {
-        themeJPA.delete(theme);
+    public void delete(ThemeEntity themeEntity) {
+        themeJPA.delete(themeEntity);
     }
 }

@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "ROLES", schema = "ALNADHAF", catalog = "")
-public class Role {
+public class RoleEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ROLE_ID")
@@ -71,7 +71,7 @@ public class Role {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Role that = (Role) o;
+        RoleEntity that = (RoleEntity) o;
         return roleId == that.roleId && professionalId == that.professionalId && filmId == that.filmId && Objects.equals(
                 roleName, that.roleName) && Objects.equals(isProducer, that.isProducer);
     }

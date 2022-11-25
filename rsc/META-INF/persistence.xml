@@ -2,20 +2,20 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
-    <persistence-unit name="MainAL2000" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="AL2000" transaction-type="RESOURCE_LOCAL">
         <!-- Persistence provider -->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!-- Entity classes -->
-        <class>db.entities.Professional</class>
-        <class>db.entities.BluRay</class>
-        <class>db.entities.Subscriber</class>
-        <class>db.entities.Card</class>
-        <class>db.entities.Restriction</class>
-        <class>db.entities.Theme</class>
-        <class>db.entities.Movie</class>
-        <class>db.entities.Rental</class>
-        <class>db.entities.Role</class>
-        <class>db.entities.SubscriberCards</class>
+        <class>db.entities.ProfessionalEntity</class>
+        <class>db.entities.BluRayEntity</class>
+        <class>db.entities.SubscriberEntity</class>
+        <class>db.entities.CardEntity</class>
+        <class>db.entities.RestrictionEntity</class>
+        <class>db.entities.ThemeEntity</class>
+        <class>db.entities.MovieEntity</class>
+        <class>db.entities.RentalEntity</class>
+        <class>db.entities.RoleEntity</class>
+        <class>db.entities.SubscribeCardEntity</class>
         <properties>
 <!--            to define later-->
             <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />

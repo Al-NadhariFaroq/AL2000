@@ -1,6 +1,6 @@
 package db.jpa;
 
-import db.entities.Subscriber;
+import db.entities.SubscriberEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -19,30 +19,30 @@ public class SubscriberJPA implements Serializable {
         this.entityManager = em;
     }
 
-    public Subscriber get(int id) {
-        Subscriber subscriber = entityManager.find(Subscriber.class, id);
-        if (subscriber == null) {
+    public SubscriberEntity get(int id) {
+        SubscriberEntity subscriberEntity = entityManager.find(SubscriberEntity.class, id);
+        if (subscriberEntity == null) {
             throw new EntityNotFoundException("Can't find subscriber for ID " + id);
         }
-        return subscriber;
+        return subscriberEntity;
     }
 
-    public List<Subscriber> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM Subscriber e");
+    public List<SubscriberEntity> getAll() {
+        Query query = entityManager.createQuery("SELECT e FROM SubscriberEntity e");
         return query.getResultList();
     }
 
-    public void save(Subscriber subscriber) {
-        executeInsideTransaction(entityManager -> entityManager.persist(subscriber));
+    public void save(SubscriberEntity subscriberEntity) {
+        executeInsideTransaction(entityManager -> entityManager.persist(subscriberEntity));
     }
 
-    public void update(Subscriber subscriber) {
-        executeInsideTransaction(entityManager -> entityManager.merge(subscriber));
+    public void update(SubscriberEntity subscriberEntity) {
+        executeInsideTransaction(entityManager -> entityManager.merge(subscriberEntity));
     }
 
-    public void delete(Subscriber subscriber) {
+    public void delete(SubscriberEntity subscriberEntity) {
 
-        executeInsideTransaction(entityManager -> entityManager.remove(subscriber));
+        executeInsideTransaction(entityManager -> entityManager.remove(subscriberEntity));
     }
 
     private void executeInsideTransaction(Consumer<EntityManager> action) {

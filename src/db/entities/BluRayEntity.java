@@ -5,7 +5,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "BLU_RAYS", schema = "ALNADHAF", catalog = "")
-public class BluRay {
+public class BluRayEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "BLU_RAY_ID")
@@ -56,7 +56,7 @@ public class BluRay {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BluRay that = (BluRay) o;
+        BluRayEntity that = (BluRayEntity) o;
         return bluRayId == that.bluRayId && serialNumber == that.serialNumber && movieId == that.movieId && Objects.equals(bluRayPosition, that.bluRayPosition);
     }
 

@@ -1,6 +1,6 @@
 package db.jpa;
 
-import db.entities.Theme;
+import db.entities.ThemeEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -19,29 +19,29 @@ public class ThemeJPA implements Serializable {
         this.entityManager = em;
     }
 
-    public Theme get(int id) {
-        Theme theme = entityManager.find(Theme.class, id);
-        if (theme == null) {
+    public ThemeEntity get(int id) {
+        ThemeEntity themeEntity = entityManager.find(ThemeEntity.class, id);
+        if (themeEntity == null) {
             throw new EntityNotFoundException("Can't find theme for ID " + id);
         }
-        return theme;
+        return themeEntity;
     }
 
-    public List<Theme> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM Theme e");
+    public List<ThemeEntity> getAll() {
+        Query query = entityManager.createQuery("SELECT e FROM ThemeEntity e");
         return query.getResultList();
     }
 
-    public void save(Theme theme) {
-        executeInsideTransaction(entityManager -> entityManager.persist(theme));
+    public void save(ThemeEntity themeEntity) {
+        executeInsideTransaction(entityManager -> entityManager.persist(themeEntity));
     }
 
-    public void update(Theme theme) {
-        executeInsideTransaction(entityManager -> entityManager.merge(theme));
+    public void update(ThemeEntity themeEntity) {
+        executeInsideTransaction(entityManager -> entityManager.merge(themeEntity));
     }
 
-    public void delete(Theme theme) {
-        executeInsideTransaction(entityManager -> entityManager.remove(theme));
+    public void delete(ThemeEntity themeEntity) {
+        executeInsideTransaction(entityManager -> entityManager.remove(themeEntity));
     }
 
     private void executeInsideTransaction(Consumer<EntityManager> action) {

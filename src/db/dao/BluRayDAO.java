@@ -1,6 +1,6 @@
 package db.dao;
 
-import db.entities.BluRay;
+import db.entities.BluRayEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,9 @@ import db.jpa.BluRayJPA;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class BluRayDAO implements DAO<BluRay> {
+public class BluRayDAO implements DAO<BluRayEntity> {
 
-    private final List<BluRay> bluRays = new ArrayList<>();
+    private final List<BluRayEntity> bluRayEntities = new ArrayList<>();
     public EntityManagerFactory emf;
     private final BluRayJPA bluRayJpa;
 
@@ -22,27 +22,27 @@ public class BluRayDAO implements DAO<BluRay> {
     }
 
     @Override
-    public BluRay get(int id) {
+    public BluRayEntity get(int id) {
         return bluRayJpa.get(id);
     }
 
     @Override
-    public List<BluRay> getAll() {
+    public List<BluRayEntity> getAll() {
         return bluRayJpa.getAll();
     }
 
     @Override
-    public void save(BluRay bluRay) {
-        bluRayJpa.save(bluRay);
+    public void save(BluRayEntity bluRayEntity) {
+        bluRayJpa.save(bluRayEntity);
     }
 
     @Override
-    public void update(BluRay bluRay) {
-        bluRayJpa.update(bluRay);
+    public void update(BluRayEntity bluRayEntity) {
+        bluRayJpa.update(bluRayEntity);
     }
 
     @Override
-    public void delete(BluRay bluRay) {
-        bluRayJpa.delete(bluRay);
+    public void delete(BluRayEntity bluRayEntity) {
+        bluRayJpa.delete(bluRayEntity);
     }
 }

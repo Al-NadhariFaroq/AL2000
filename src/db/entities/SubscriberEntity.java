@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "SUBSCRIBERS", schema = "ALNADHAF", catalog = "")
-public class Subscriber {
+public class SubscriberEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "SUBSCRIBER_ID")
@@ -19,7 +19,7 @@ public class Subscriber {
     private long cardNumber;
 
     @OneToMany(mappedBy="subscriberId", cascade = CascadeType.ALL)
-    private List<SubscriberCards> subscriberCardsList;
+    private List<SubscribeCardEntity> subscriberCardsList;
     public int getSubscriberId() {
         return subscriberId;
     }
@@ -43,7 +43,7 @@ public class Subscriber {
     public void setCardNumber(long cardNumber) {
         this.cardNumber = cardNumber;
     }
-    public List<SubscriberCards> getSubscriberCardsList(){
+    public List<SubscribeCardEntity> getSubscriberCardsList(){
         return subscriberCardsList;
     }
     @Override
@@ -54,7 +54,7 @@ public class Subscriber {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Subscriber that = (Subscriber) o;
+        SubscriberEntity that = (SubscriberEntity) o;
         return subscriberId == that.subscriberId && cardNumber == that.cardNumber && Objects.equals(email, that.email);
     }
 

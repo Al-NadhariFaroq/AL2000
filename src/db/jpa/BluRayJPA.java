@@ -1,6 +1,6 @@
 package db.jpa;
 
-import db.entities.BluRay;
+import db.entities.BluRayEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -19,30 +19,30 @@ public class BluRayJPA implements Serializable {
         this.entityManager = em;
     }
 
-    public BluRay get(long id) {
-        BluRay bluRay = entityManager.find(BluRay.class, id);
-        if (bluRay == null) {
+    public BluRayEntity get(long id) {
+        BluRayEntity bluRayEntity = entityManager.find(BluRayEntity.class, id);
+        if (bluRayEntity == null) {
             throw new EntityNotFoundException("Can't find bluray for ID " + id);
         }
-        return bluRay;
+        return bluRayEntity;
     }
 
-    public List<BluRay> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM BluRay e");
+    public List<BluRayEntity> getAll() {
+        Query query = entityManager.createQuery("SELECT e FROM BluRayEntity e");
         return query.getResultList();
     }
 
-    public void save(BluRay bluRay) {
-        executeInsideTransaction(entityManager -> entityManager.persist(bluRay));
+    public void save(BluRayEntity bluRayEntity) {
+        executeInsideTransaction(entityManager -> entityManager.persist(bluRayEntity));
     }
 
-    public void update(BluRay bluRay) {
-        executeInsideTransaction(entityManager -> entityManager.merge(bluRay));
+    public void update(BluRayEntity bluRayEntity) {
+        executeInsideTransaction(entityManager -> entityManager.merge(bluRayEntity));
     }
 
-    public void delete(BluRay bluRay) {
+    public void delete(BluRayEntity bluRayEntity) {
 
-        executeInsideTransaction(entityManager -> entityManager.remove(bluRay));
+        executeInsideTransaction(entityManager -> entityManager.remove(bluRayEntity));
     }
 
     private void executeInsideTransaction(Consumer<EntityManager> action) {

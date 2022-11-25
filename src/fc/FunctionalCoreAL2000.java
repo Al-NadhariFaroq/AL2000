@@ -1,6 +1,10 @@
 package fc;
 
-import java.util.Date;
+import db.dao.SubscriberDAO;
+import db.entities.SubscribeCardEntity;
+import db.entities.SubscriberEntity;
+
+import java.sql.Date;
 
 public class FunctionalCoreAL2000 {
     Facade facade;
@@ -65,16 +69,31 @@ public class FunctionalCoreAL2000 {
     }
 
     public SubscribeCard subscription(String firstName, String lastName, Date dateOfBirth, String email) {
-        Subscriber subscriber = client.getClass() == Subscriber.class ? (Subscriber) client : null;
-        SubscribeCard newCard = new SubscribeCard(0, firstName, lastName, dateOfBirth, email, client.creditCard,
-                                                  subscriber
+        /*Subscriber subscriber = client.getClass() == Subscriber.class ? (Subscriber) client : null;
+        Lecture BD : trouver plus petit card number dispo
+        SubscribeCard newCard = new SubscribeCard(0, firstName, lastName, dateOfBirth, email,
+                client.creditCard, subscriber
         );
         Subscriber newSubscriber = new Subscriber(client.getCreditCard(), newCard);
         if (subscriber != null) {
             subscriber.addSubscribeCard(newCard);
-        }
-        // maj BD : subscribeCards + subscribers
-        return newCard;
+        }*/
+        /*SubscribeCardEntity subscribeCardEntity = new SubscribeCardEntity();
+        subscribeCardEntity.setSubscriberCardId(0);
+        subscribeCardEntity.setSubscriber(true);
+        subscribeCardEntity.setCardholderFirstName(firstName);
+        subscribeCardEntity.setCardholderLastName(lastName);
+        subscribeCardEntity.setBirthDate(dateOfBirth);
+        subscribeCardEntity.setCardBalance(0);*/
+        SubscriberEntity subscriberEntity = new SubscriberEntity();
+        subscriberEntity.setSubscriberId(666);
+        subscriberEntity.setEmail(email);
+        subscriberEntity.setCardNumber(0);
+        //SubscribeCardDAO subscribeCardDAO = new SubscribeCardDAO();
+        //subscribeCardDAO.save(subscribeCardEntity);
+        SubscriberDAO subscriberDAO = new SubscriberDAO();
+        subscriberDAO.save(subscriberEntity);
+        return null;
     }
 
     @Override

@@ -2,46 +2,52 @@ package ui.panels;
 
 import ui.StackLayout;
 import ui.interactions.CardInteraction;
+import ui.interactions.PreferencesInteraction;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class SubscriptionPanel extends JPanel {
-    JButton btnValid, btnBack;
+    JButton btnValid, btnBack, btn1, btn2, btn3, btn4;
+    JTextField firstNameText, lastNameText, mailText, dateOfBirthText;
+    DefaultListModel<String> favoriteModel, neutralModel, forbiddenModel;
+    JList<String> favoriteList, neutralList, forbiddenList;
 
     public SubscriptionPanel() {
         setLayout(new BorderLayout());
-        JPanel informations = new JPanel(new StackLayout());
+        JPanel information = new JPanel(new StackLayout());
 
         JPanel layer1 = new JPanel(new BorderLayout());
-        JLabel name = new JLabel("Name : ");
-        JTextField textName = new JTextField();
-        layer1.add(name, BorderLayout.WEST);
-        layer1.add(textName, BorderLayout.CENTER);
+        JLabel firstNameLabel = new JLabel("Name : ");
+        firstNameText = new JTextField();
+        layer1.add(firstNameLabel, BorderLayout.WEST);
+        layer1.add(firstNameText, BorderLayout.CENTER);
 
         JPanel layer2 = new JPanel(new BorderLayout());
-        JLabel lastName = new JLabel("Last name : ");
-        JTextField textLastName = new JTextField();
-        layer2.add(lastName, BorderLayout.WEST);
-        layer2.add(textLastName, BorderLayout.CENTER);
+        JLabel lastNameLabel = new JLabel("Last name : ");
+        lastNameText = new JTextField();
+        layer2.add(lastNameLabel, BorderLayout.WEST);
+        layer2.add(lastNameText, BorderLayout.CENTER);
 
         JPanel layer3 = new JPanel(new BorderLayout());
-        JLabel mail = new JLabel("Mail : ");
-        JTextField textMail = new JTextField();
-        layer3.add(mail, BorderLayout.WEST);
-        layer3.add(textMail, BorderLayout.CENTER);
+        JLabel mailLabel = new JLabel("Mail : ");
+        mailText = new JTextField();
+        layer3.add(mailLabel, BorderLayout.WEST);
+        layer3.add(mailText, BorderLayout.CENTER);
 
         JPanel layer4 = new JPanel(new BorderLayout());
-        JLabel dateOfBirth = new JLabel("Date of birth : ");
-        JTextField textDateOfBirth = new JTextField();
-        layer4.add(dateOfBirth, BorderLayout.WEST);
-        layer4.add(textDateOfBirth, BorderLayout.CENTER);
+        JLabel dateOfBirthLabel = new JLabel("Date of birth : ");
+        dateOfBirthText = new JTextField();
+        layer4.add(dateOfBirthLabel, BorderLayout.WEST);
+        layer4.add(dateOfBirthText, BorderLayout.CENTER);
 
-        informations.add(layer1);
-        informations.add(layer2);
-        informations.add(layer3);
-        informations.add(layer4);
-        add(informations, BorderLayout.CENTER);
+        information.add(layer1);
+        information.add(layer2);
+        information.add(layer3);
+        information.add(layer4);
+        information.add(createPreferencePanel());
+        add(information, BorderLayout.CENTER);
 
         btnValid = new JButton("valid");
         btnBack = new JButton("back");
@@ -53,10 +59,10 @@ public class SubscriptionPanel extends JPanel {
         btnBack.addActionListener(CardInteraction.getInstance());
         btnValid.addActionListener(CardInteraction.getInstance());
 
-        add(creatTopPanel(), BorderLayout.NORTH);
+        add(createTopPanel(), BorderLayout.NORTH);
     }
 
-    JPanel creatTopPanel() {
+    JPanel createTopPanel() {
         JPanel topPanel = new JPanel(new FlowLayout());
         topPanel.setBackground(Color.gray);
 
@@ -66,11 +72,130 @@ public class SubscriptionPanel extends JPanel {
         return topPanel;
     }
 
+    JPanel createPreferencePanel() {
+        JPanel preference = new JPanel(new BorderLayout());
+
+        JLabel titlePreference = new JLabel("Theme preferences and restrictions");
+        titlePreference.setBorder(new EmptyBorder(20, 0, 20, 0));
+        preference.add(titlePreference, BorderLayout.NORTH);
+
+        JLabel favoriteLabel = new JLabel("Favorites");
+        JLabel neutralLabel = new JLabel("Neutrals");
+        JLabel forbiddenLabel = new JLabel("Forbidden");
+
+        favoriteModel = new DefaultListModel<>();
+        neutralModel = new DefaultListModel<>();
+        forbiddenModel = new DefaultListModel<>();
+        favoriteModel.addElement("Drama");
+        favoriteModel.addElement("Animation");
+        neutralModel.addElement("Comedy");
+        neutralModel.addElement("Western");
+        forbiddenModel.addElement("Science fiction");
+        forbiddenModel.addElement("Thriller");
+        forbiddenModel.addElement("Policy");
+        favoriteList = new JList<>(favoriteModel);
+        neutralList = new JList<>(neutralModel);
+        forbiddenList = new JList<>(forbiddenModel);
+
+        Box buttons1 = Box.createVerticalBox();
+        Box buttons2 = Box.createVerticalBox();
+        btn1 = new JButton("<-");
+        btn2 = new JButton("->");
+        btn3 = new JButton("<-");
+        btn4 = new JButton("->");
+        btn1.addActionListener(new PreferencesInteraction(this));
+        btn2.addActionListener(new PreferencesInteraction(this));
+        btn3.addActionListener(new PreferencesInteraction(this));
+        btn4.addActionListener(new PreferencesInteraction(this));
+        buttons1.add(btn1);
+        buttons1.add(btn2);
+        buttons2.add(btn3);
+        buttons2.add(btn4);
+
+        Box favoriteBox = Box.createVerticalBox();
+        Box neutralBox = Box.createVerticalBox();
+        Box forbiddenBox = Box.createVerticalBox();
+        favoriteBox.add(favoriteLabel);
+        favoriteBox.add(favoriteList);
+        neutralBox.add(neutralLabel);
+        neutralBox.add(neutralList);
+        forbiddenBox.add(forbiddenLabel);
+        forbiddenBox.add(forbiddenList);
+
+        Box box = Box.createHorizontalBox();
+        box.add(Box.createHorizontalGlue());
+        box.add(favoriteBox);
+        box.add(buttons1);
+        box.add(neutralBox);
+        box.add(buttons2);
+        box.add(forbiddenBox);
+        box.add(Box.createHorizontalGlue());
+
+        preference.add(box, BorderLayout.CENTER);
+        return preference;
+    }
+
     public JButton getBtnValid() {
         return btnValid;
     }
 
     public JButton getBtnBack() {
         return btnBack;
+    }
+
+    public JButton getBtn1() {
+        return btn1;
+    }
+
+    public JButton getBtn2() {
+        return btn2;
+    }
+
+    public JButton getBtn3() {
+        return btn3;
+    }
+
+    public JButton getBtn4() {
+        return btn4;
+    }
+
+    public JTextField getFirstNameText() {
+        return firstNameText;
+    }
+
+    public JTextField getLastNameText() {
+        return lastNameText;
+    }
+
+    public JTextField getMailText() {
+        return mailText;
+    }
+
+    public JTextField getDateOfBirthText() {
+        return dateOfBirthText;
+    }
+
+    public DefaultListModel<String> getFavoriteModel() {
+        return favoriteModel;
+    }
+
+    public DefaultListModel<String> getNeutralModel() {
+        return neutralModel;
+    }
+
+    public DefaultListModel<String> getForbiddenModel() {
+        return forbiddenModel;
+    }
+
+    public JList<String> getFavoriteList() {
+        return favoriteList;
+    }
+
+    public JList<String> getNeutralList() {
+        return neutralList;
+    }
+
+    public JList<String> getForbiddenList() {
+        return forbiddenList;
     }
 }

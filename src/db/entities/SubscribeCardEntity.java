@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "SUBSCRIBER_CARDS", schema = "ALNADHAF", catalog = "")
-public class SubscriberCards {
+public class SubscribeCardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "SUBSCRIBER_CARD_ID")
@@ -32,7 +32,7 @@ public class SubscriberCards {
     @JoinColumn(name="SUBSCRIBER_ID", referencedColumnName = "SUBSCRIBER_ID")
     @ManyToOne(optional = false)
 //    @Column(name = "SUBSCRIBER_ID")
-    private Subscriber subscriberId;
+    private SubscriberEntity subscriberId;
 
     public int getSubscriberCardId() {
         return subscriberCardId;
@@ -106,7 +106,7 @@ public class SubscriberCards {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        SubscriberCards that = (SubscriberCards) o;
+        SubscribeCardEntity that = (SubscribeCardEntity) o;
         return subscriberCardId == that.subscriberCardId && subscriberCardNumber == that.subscriberCardNumber && isSubscriber == that.isSubscriber && subscriberId == that.subscriberId && Objects.equals(
                 cardholderLastName, that.cardholderLastName) && Objects.equals(cardholderFirstName,
                                                                                that.cardholderFirstName

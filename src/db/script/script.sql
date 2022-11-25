@@ -66,7 +66,7 @@ CREATE TABLE blu_rays (
 
 CREATE TABLE themes (
 	theme_id number(10) NOT NULL,
-	theme    varchar2(1000),
+	themeEntity    varchar2(1000),
 	CONSTRAINT themes_pk PRIMARY KEY (theme_id)
 );
 

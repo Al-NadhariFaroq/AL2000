@@ -2,29 +2,29 @@ package db;
 
 import db.dao.SubscriberDAO;
 import db.dao.ThemeDAO;
-import db.entities.Subscriber;
-import db.entities.Theme;
+import db.entities.SubscriberEntity;
+import db.entities.ThemeEntity;
 
 public class TestBD {
 
     public static void main(String args[]) {
         ThemeDAO themeDAO = new ThemeDAO();
 
-        /*Theme theme = new Theme();
-        theme.setThemeId(1);
-        theme.setTheme("test");
+        ThemeEntity themeEntity = new ThemeEntity();
+        themeEntity.setThemeId(666);
+        themeEntity.setTheme("essais");
 
-        themeDAO.save(theme);
+        themeDAO.save(themeEntity);
 
-        Theme theme1 = themeDAO.get(1);
-        theme1.setTheme("essais");
-        themeDAO.update(theme1);
+        ThemeEntity themeEntity1 = themeDAO.get(666);
+        themeEntity1.setTheme("test");
+        themeDAO.update(themeEntity1);
 
-        Theme theme2 = themeDAO.get(1);
-        themeDAO.delete(theme2);*/
+        ThemeEntity themeEntity2 = themeDAO.get(666);
+        themeDAO.delete(themeEntity2);
 
         SubscriberDAO subscriberDAO = new SubscriberDAO();
-        Subscriber subscriber = subscriberDAO.get(1);
+        SubscriberEntity subscriber = subscriberDAO.get(1);
         System.out.println(subscriberDAO.getAll());
         subscriberDAO.getAll().forEach(subscriber1 -> System.out.println(subscriber1.getEmail()));
         subscriber.getSubscriberCardsList().forEach(subscriberCards -> System.out.println(subscriberCards.getCardBalance()));

@@ -1,6 +1,6 @@
 package db.jpa;
 
-import db.entities.Restriction;
+import db.entities.RestrictionEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -19,30 +19,30 @@ public class RestrictionJPA implements Serializable {
         this.entityManager = em;
     }
 
-    public Restriction get(long id) {
-        Restriction restriction = entityManager.find(Restriction.class, id);
-        if (restriction == null) {
+    public RestrictionEntity get(long id) {
+        RestrictionEntity restrictionEntity = entityManager.find(RestrictionEntity.class, id);
+        if (restrictionEntity == null) {
             throw new EntityNotFoundException("Can't find restriction for ID " + id);
         }
-        return restriction;
+        return restrictionEntity;
     }
 
-    public List<Restriction> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM Restriction e");
+    public List<RestrictionEntity> getAll() {
+        Query query = entityManager.createQuery("SELECT e FROM RestrictionEntity e");
         return query.getResultList();
     }
 
-    public void save(Restriction restriction) {
-        executeInsideTransaction(entityManager -> entityManager.persist(restriction));
+    public void save(RestrictionEntity restrictionEntity) {
+        executeInsideTransaction(entityManager -> entityManager.persist(restrictionEntity));
     }
 
-    public void update(Restriction restriction) {
-        executeInsideTransaction(entityManager -> entityManager.merge(restriction));
+    public void update(RestrictionEntity restrictionEntity) {
+        executeInsideTransaction(entityManager -> entityManager.merge(restrictionEntity));
     }
 
-    public void delete(Restriction restriction) {
+    public void delete(RestrictionEntity restrictionEntity) {
 
-        executeInsideTransaction(entityManager -> entityManager.remove(restriction));
+        executeInsideTransaction(entityManager -> entityManager.remove(restrictionEntity));
     }
 
     private void executeInsideTransaction(Consumer<EntityManager> action) {

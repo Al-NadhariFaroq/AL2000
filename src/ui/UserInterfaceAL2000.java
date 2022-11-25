@@ -16,6 +16,8 @@ public class UserInterfaceAL2000 extends JFrame {
     int WIDTH = 960;
     int HEIGHT = 720;
 
+    FunctionalCoreAL2000 fc;
+
     List<JPanel> panels;
     Panel currentPanel;
 
@@ -26,6 +28,8 @@ public class UserInterfaceAL2000 extends JFrame {
         setMinimumSize(new Dimension(720, 480));
         getContentPane().setLayout(new CardLayout());
         CardInteraction.setUI(this);
+
+        this.fc = fc;
 
         HomePanel homePanel = new HomePanel();
         MovieInfoPanel movieInfoPanel = new MovieInfoPanel(new Movie("Avatar"));
@@ -55,6 +59,10 @@ public class UserInterfaceAL2000 extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
+    }
+
+    public FunctionalCoreAL2000 getFC() {
+        return fc;
     }
 
     public Panel getCurrentPanel() {

@@ -1,6 +1,6 @@
 package db.jpa;
 
-import db.entities.Professional;
+import db.entities.ProfessionalEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -19,31 +19,31 @@ public class ProfessionalJPA implements Serializable {
         this.entityManager = em;
     }
 
-    public Professional get(long id) {
-        Professional professional = entityManager.find(Professional.class, id);
-        if (professional == null) {
+    public ProfessionalEntity get(long id) {
+        ProfessionalEntity professionalEntity = entityManager.find(ProfessionalEntity.class, id);
+        if (professionalEntity == null) {
             throw new EntityNotFoundException("Can't find professional for ID " + id);
         }
-        return professional;
+        return professionalEntity;
     }
 
-    public List<Professional> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM Professional e");
-        List<Professional> professionalList = query.getResultList();
-        return professionalList;
+    public List<ProfessionalEntity> getAll() {
+        Query query = entityManager.createQuery("SELECT e FROM ProfessionalEntity e");
+        List<ProfessionalEntity> professionalEntityList = query.getResultList();
+        return professionalEntityList;
     }
 
-    public void save(Professional professional) {
-        executeInsideTransaction(entityManager -> entityManager.persist(professional));
+    public void save(ProfessionalEntity professionalEntity) {
+        executeInsideTransaction(entityManager -> entityManager.persist(professionalEntity));
     }
 
-    public void update(Professional professional) {
-        executeInsideTransaction(entityManager -> entityManager.merge(professional));
+    public void update(ProfessionalEntity professionalEntity) {
+        executeInsideTransaction(entityManager -> entityManager.merge(professionalEntity));
     }
 
-    public void delete(Professional professional) {
+    public void delete(ProfessionalEntity professionalEntity) {
 
-        executeInsideTransaction(entityManager -> entityManager.remove(professional));
+        executeInsideTransaction(entityManager -> entityManager.remove(professionalEntity));
     }
 
     private void executeInsideTransaction(Consumer<EntityManager> action) {
