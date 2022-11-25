@@ -1,13 +1,13 @@
 package ui.panels;
 
-import ui.CyberVideo;
 import ui.StackLayout;
+import ui.interactions.CardInteraction;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class SubscriptionPanel extends JPanel {
-    JButton btnValid, btnGoBack;
+    JButton btnValid, btnBack;
 
     public SubscriptionPanel() {
         setLayout(new BorderLayout());
@@ -44,16 +44,14 @@ public class SubscriptionPanel extends JPanel {
         add(informations, BorderLayout.CENTER);
 
         btnValid = new JButton("valid");
-        btnGoBack = new JButton("back");
+        btnBack = new JButton("back");
 
         JPanel southPanel = new JPanel();
         southPanel.add(btnValid);
-        southPanel.add(btnGoBack);
+        southPanel.add(btnBack);
         add(southPanel, BorderLayout.SOUTH);
-        btnGoBack.addActionListener(e -> CyberVideo.changeState(Panels.SUBSCRIBER_INFO));
-        btnValid.addActionListener(e -> {
-            CyberVideo.changeState(Panels.SUBSCRIBER_INFO);
-        });
+        btnBack.addActionListener(CardInteraction.getInstance());
+        btnValid.addActionListener(CardInteraction.getInstance());
 
         add(creatTopPanel(), BorderLayout.NORTH);
     }
@@ -66,5 +64,13 @@ public class SubscriptionPanel extends JPanel {
         topPanel.add(title);
 
         return topPanel;
+    }
+
+    public JButton getBtnValid() {
+        return btnValid;
+    }
+
+    public JButton getBtnBack() {
+        return btnBack;
     }
 }

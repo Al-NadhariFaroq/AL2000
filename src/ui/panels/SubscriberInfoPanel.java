@@ -1,12 +1,12 @@
 package ui.panels;
 
-import ui.CyberVideo;
+import ui.interactions.CardInteraction;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class SubscriberInfoPanel extends JPanel {
-    JButton historyButton, btnGoBack;
+    JButton btnSubscription, btnBack;
 
     public SubscriberInfoPanel() {
         setLayout(new BorderLayout());
@@ -25,19 +25,27 @@ public class SubscriberInfoPanel extends JPanel {
 
     JPanel creatTopPanel() {
         JPanel topPanel = new JPanel(new FlowLayout());
-        btnGoBack = new JButton("back");
-        btnGoBack.addActionListener(e -> CyberVideo.changeState(Panels.HOME));
+        btnBack = new JButton("back");
+        btnBack.addActionListener(CardInteraction.getInstance());
         topPanel.setBackground(new Color(170, 200, 0));
-        topPanel.add(btnGoBack);
+        topPanel.add(btnBack);
         return topPanel;
     }
 
     JPanel creatCenterPanel() {
         JPanel centerPanel = new JPanel(new FlowLayout());
-        btnGoBack = new JButton("subscription");
-        btnGoBack.addActionListener(e -> CyberVideo.changeState(Panels.SUBSCRIPTION));
+        btnSubscription = new JButton("subscription");
+        btnSubscription.addActionListener(CardInteraction.getInstance());
         centerPanel.setBackground(new Color(0, 200, 163));
-        centerPanel.add(btnGoBack);
+        centerPanel.add(btnSubscription);
         return centerPanel;
+    }
+
+    public JButton getBtnSubscription() {
+        return btnSubscription;
+    }
+
+    public JButton getBtnBack() {
+        return btnBack;
     }
 }

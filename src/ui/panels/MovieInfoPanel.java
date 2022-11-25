@@ -1,8 +1,8 @@
 package ui.panels;
 
 import fc.Movie;
-import ui.CyberVideo;
 import ui.StackLayout;
+import ui.interactions.CardInteraction;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,44 +11,48 @@ import java.awt.*;
 public class MovieInfoPanel extends JPanel {
     JLabel titleLabel, dateLabel, noteLabel, synopsisLabel;
     JLabel directorsLabel, actorsLabel, themesLabel;
-    JButton rentBtn, btnGoBack;
+    JButton btnRent, btnBack;
 
     public MovieInfoPanel(Movie movie) {
         setLayout(new BorderLayout());
 
-        JPanel topPanel = creatTopPanel();
+        JPanel topPanel = createTopPanel();
         add(topPanel, BorderLayout.NORTH);
 
         createComponent(movie);
 
-        JPanel movieInfoPanel = creatMovieInfoPanel(movie);
+        JPanel movieInfoPanel = createMovieInfoPanel(movie);
         add(movieInfoPanel, BorderLayout.CENTER);
     }
 
-    void createComponent(Movie movie) {
-        titleLabel = creatLabel(movie.getTitle() + ": The Way of Water", 30);
-        dateLabel = creatLabel("<html><font color=black>Released:</font> " + "16/12/2022", 16);
-        themesLabel = creatLabel("<html><font color=black>Genre:</font> " + "Science fiction, action", 16);
-        synopsisLabel = creatLabel("<html><font color=black>Synopsis:</font><br/>" + "movie.getSynopsis()", 16);
-        directorsLabel = creatLabel("<html><font color=black>Directors:</font> " + "James Cameron & Jon Landau", 16);
-        actorsLabel = creatLabel("<html><font color=black>Main actors:</font> " + "Sam Worthington, Zoe Saldana, Sigourney Weaver, Stephen Lang, Kate Winslet, ...", 16);
-        noteLabel = creatLabel("<html><font color=black>Rate:</font> " + "5*", 16);
-
-        rentBtn = new JButton("RentPanel");
-        rentBtn.addActionListener(e -> CyberVideo.changeState(Panels.HOME));
+    public JButton getBtnBack() {
+        return btnBack;
     }
 
-    JPanel creatTopPanel() {
+    void createComponent(Movie movie) {
+        titleLabel = createLabel(movie.getTitle() + ": The Way of Water", 30);
+        dateLabel = createLabel("<html><font color=black>Released:</font> " + "16/12/2022", 16);
+        themesLabel = createLabel("<html><font color=black>Genre:</font> " + "Science fiction, action", 16);
+        synopsisLabel = createLabel("<html><font color=black>Synopsis:</font><br/>" + "movie.getSynopsis()", 16);
+        directorsLabel = createLabel("<html><font color=black>Directors:</font> " + "James Cameron & Jon Landau", 16);
+        actorsLabel = createLabel("<html><font color=black>Main actors:</font> " + "Sam Worthington, Zoe Saldana, Sigourney Weaver, Stephen Lang, Kate Winslet, ...", 16);
+        noteLabel = createLabel("<html><font color=black>Rate:</font> " + "5*", 16);
+
+        btnRent = new JButton("RentPanel");
+        btnRent.addActionListener(CardInteraction.getInstance());
+    }
+
+    JPanel createTopPanel() {
         JPanel topPanel = new JPanel(new FlowLayout());
         topPanel.setPreferredSize(new Dimension(960, 100));
         topPanel.setBackground(Color.gray);
-        btnGoBack = new JButton("Go Back");
-        btnGoBack.addActionListener(e -> CyberVideo.changeState(Panels.HOME));
-        topPanel.add(btnGoBack, BorderLayout.WEST);
+        btnBack = new JButton("Go Back");
+        btnBack.addActionListener(CardInteraction.getInstance());
+        topPanel.add(btnBack, BorderLayout.WEST);
         return topPanel;
     }
 
-    JPanel creatMovieInfoPanel(Movie movie) {
+    JPanel createMovieInfoPanel(Movie movie) {
         JPanel movieInfoPanel = new JPanel(new StackLayout());
         movieInfoPanel.setBackground(Color.cyan);
         movieInfoPanel.setBorder(new EmptyBorder(0, 10, 10, 10));
@@ -85,16 +89,20 @@ public class MovieInfoPanel extends JPanel {
         /*********************************************/
         //JPanel lastPanel = new JPanel(new GridLayout(1,20));
         //lastPanel.setBorder(new EmptyBorder(0, 20, 0, 20));
-        imagePanel.add(rentBtn);
+        imagePanel.add(btnRent);
         //lastPanel.add(noteLabel);
         //infoPanel.add(lastPanel);
 
         return movieInfoPanel;
     }
 
-    JLabel creatLabel(String text, int size) {
+    JLabel createLabel(String text, int size) {
         JLabel label = new JLabel(text);
         label.setFont(new Font("Arial", Font.BOLD, size));
         return label;
+    }
+
+    public void update(String title) {
+        // update data in function of title
     }
 }

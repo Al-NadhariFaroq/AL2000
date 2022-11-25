@@ -1,17 +1,23 @@
 package ui.panels;
 
-import ui.Interaction;
-import ui.MoviePanel;
+import ui.interactions.CardInteraction;
+import ui.MovieButton;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomePanel extends JPanel {
-    public JButton btnPopular, btnNew, btnFilter, btnBluRay;
+    public JButton btnMenu, btnUser, btnPopular, btnNew, btnFilter, btnBluRay;
+
+    List<MovieButton> movieButtons;
 
     public HomePanel() {
         setLayout(new BorderLayout());
+
+        movieButtons = new ArrayList<>();
 
         JPanel topPanel = mainTopPanel();
         JPanel centerPanel = mainCenterPanel();
@@ -29,23 +35,23 @@ public class HomePanel extends JPanel {
 
         ImageIcon menuIcon = new ImageIcon(
                 new ImageIcon("./rsc/images/listicon.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
-        JLabel menuLabel = new JLabel(menuIcon);
-        menuLabel.addMouseListener(new Interaction(Panels.MOVIE_INFO));
-        menuLabel.setBorder(new EmptyBorder(0, 10, 0, 10));
+        btnMenu = new JButton(menuIcon);
+        btnMenu.addActionListener(CardInteraction.getInstance());
+        btnMenu.setBorder(new EmptyBorder(0, 10, 0, 10));
 
         ImageIcon userIcon = new ImageIcon(
                 new ImageIcon("./rsc/images/user.png").getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
-        JLabel userLabel = new JLabel(userIcon);
-        userLabel.addMouseListener(new Interaction(Panels.SUBSCRIBER_INFO));
-        userLabel.setBorder(new EmptyBorder(0, 10, 0, 10));
+        btnUser = new JButton(userIcon);
+        btnUser.addActionListener(CardInteraction.getInstance());
+        btnUser.setBorder(new EmptyBorder(0, 10, 0, 10));
 
         JTextField textField = new JTextField();
         textField.setPreferredSize(new Dimension(200, 32));
         textField.setBorder(new EmptyBorder(0, 5, 0, 5));
 
-        searchPanel.add(menuLabel, BorderLayout.WEST);
+        searchPanel.add(btnMenu, BorderLayout.WEST);
         searchPanel.add(textField, BorderLayout.CENTER);
-        searchPanel.add(userLabel, BorderLayout.EAST);
+        searchPanel.add(btnUser, BorderLayout.EAST);
 
         JPanel buttonsPanel = new JPanel(new FlowLayout());
         buttonsPanel.setBackground(Color.orange);
@@ -75,6 +81,7 @@ public class HomePanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(null, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                                                  ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
         );
+        scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 
         JPanel moviesPanel = new JPanel(new GridLayout(10, 5)) {
             public Dimension getPreferredSize() {
@@ -87,12 +94,26 @@ public class HomePanel extends JPanel {
         scrollPane.getViewport().add(moviesPanel);
 
         for (int i = 0; i < 50; i++) {
-            moviesPanel.add(new MoviePanel("Avatar " + i));
+            MovieButton movieButton = new MovieButton("Avatar " + i);
+            moviesPanel.add(movieButton);
+            movieButtons.add(movieButton);
         }
 
         mainCenterPanel.add(scrollPane, BorderLayout.CENTER);
 
         return mainCenterPanel;
+    }
+
+    public JButton getBtnMenu() {
+        return btnMenu;
+    }
+
+    public JButton getBtnUser() {
+        return btnUser;
+    }
+
+    public MovieButton getMovieButton(int i) {
+        return movieButtons.get(i);
     }
 }
 
