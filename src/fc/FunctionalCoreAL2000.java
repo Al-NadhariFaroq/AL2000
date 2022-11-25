@@ -2,14 +2,12 @@ package fc;
 
 import java.util.Date;
 
-import javax.management.RuntimeErrorException;
-
-public class MachineAL2000 {
+public class FunctionalCoreAL2000 {
     Facade facade;
     private Client client;
     private BluRayTable blurays;
 
-    public MachineAL2000() {
+    public FunctionalCoreAL2000() {
         facade = new Facade();
         blurays = new BluRayTable();
     }

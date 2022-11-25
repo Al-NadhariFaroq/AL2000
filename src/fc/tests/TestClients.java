@@ -4,13 +4,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 import fc.CreditCard;
-import fc.MachineAL2000;
+import fc.FunctionalCoreAL2000;
 import fc.SubscribeCard;
 import fc.Subscriber;
 
 public class TestClients {
     public static void main(String args[]) {
-        MachineAL2000 m = new MachineAL2000();
+        FunctionalCoreAL2000 m = new FunctionalCoreAL2000();
         System.out.println(m);
 
         CreditCard fatherCreditCard = new CreditCard(0);

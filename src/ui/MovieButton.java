@@ -1,16 +1,16 @@
 package ui;
 
-import ui.panels.Panels;
+import ui.interactions.CardInteraction;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class MoviePanel extends JPanel {
+public class MovieButton extends JPanel {
     Image img;
     JButton btn;
     String title;
 
-    public MoviePanel(String title) {
+    public MovieButton(String title) {
         this.title = title;
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.black));
@@ -19,17 +19,13 @@ public class MoviePanel extends JPanel {
         btn = new JButton();
         chargeImage();
 
-        btn.addActionListener(e -> openMovieMenu());
+        btn.addActionListener(CardInteraction.getInstance());
         add(btn, BorderLayout.CENTER);
 
         JLabel titleLabel = new JLabel(title, SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
         add(titleLabel, BorderLayout.SOUTH);
         //setPreferredSize(new Dimension(120, 300));
-    }
-
-    void openMovieMenu() {
-        CyberVideo.changeState(Panels.MOVIE_INFO);
     }
 
     void chargeImage() {
@@ -52,10 +48,6 @@ public class MoviePanel extends JPanel {
 
     public JButton getBtn() {
         return btn;
-    }
-
-    public void setBtn(JButton btn) {
-        this.btn = btn;
     }
 
     public String getTitle() {
