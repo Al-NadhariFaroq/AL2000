@@ -1,6 +1,6 @@
 package db.jpa;
 
-import db.entities.Film;
+import db.entities.Movie;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -10,39 +10,39 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class FilmJPA implements Serializable {
+public class MovieJPA implements Serializable {
 
     private final EntityManager entityManager;
 
     // standard constructors
-    public FilmJPA(EntityManager em) {
+    public MovieJPA(EntityManager em) {
         this.entityManager = em;
     }
 
-    public Film get(long id) {
-        Film film = entityManager.find(Film.class, id);
-        if (film == null) {
-            throw new EntityNotFoundException("Can't find film for ID " + id);
+    public Movie get(int id) {
+        Movie movie = entityManager.find(Movie.class, id);
+        if (movie == null) {
+            throw new EntityNotFoundException("Can't find movie for ID " + id);
         }
-        return film;
+        return movie;
     }
 
-    public List<Film> getAll() {
-        Query query = entityManager.createQuery("SELECT e FROM Film e");
+    public List<Movie> getAll() {
+        Query query = entityManager.createQuery("SELECT e FROM Movie e");
         return query.getResultList();
     }
 
-    public void save(Film film) {
-        executeInsideTransaction(entityManager -> entityManager.persist(film));
+    public void save(Movie movie) {
+        executeInsideTransaction(entityManager -> entityManager.persist(movie));
     }
 
-    public void update(Film film) {
-        executeInsideTransaction(entityManager -> entityManager.merge(film));
+    public void update(Movie movie) {
+        executeInsideTransaction(entityManager -> entityManager.merge(movie));
     }
 
-    public void delete(Film film) {
+    public void delete(Movie movie) {
 
-        executeInsideTransaction(entityManager -> entityManager.remove(film));
+        executeInsideTransaction(entityManager -> entityManager.remove(movie));
     }
 
     private void executeInsideTransaction(Consumer<EntityManager> action) {

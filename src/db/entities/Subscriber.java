@@ -1,6 +1,7 @@
 package db.entities;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +18,8 @@ public class Subscriber {
     @Column(name = "CARD_NUMBER")
     private long cardNumber;
 
+    @OneToMany(mappedBy="subscriberId", cascade = CascadeType.ALL)
+    private List<SubscriberCards> subscriberCardsList;
     public int getSubscriberId() {
         return subscriberId;
     }
@@ -40,7 +43,9 @@ public class Subscriber {
     public void setCardNumber(long cardNumber) {
         this.cardNumber = cardNumber;
     }
-
+    public List<SubscriberCards> getSubscriberCardsList(){
+        return subscriberCardsList;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {

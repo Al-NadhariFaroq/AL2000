@@ -29,9 +29,10 @@ public class SubscriberCards {
     @Basic
     @Column(name = "CARD_BALANCE")
     private Integer cardBalance;
-    @Basic
-    @Column(name = "SUBSCRIBER_ID")
-    private int subscriberId;
+    @JoinColumn(name="SUBSCRIBER_ID", referencedColumnName = "SUBSCRIBER_ID")
+    @ManyToOne(optional = false)
+//    @Column(name = "SUBSCRIBER_ID")
+    private Subscriber subscriberId;
 
     public int getSubscriberCardId() {
         return subscriberCardId;
@@ -89,13 +90,13 @@ public class SubscriberCards {
         this.cardBalance = cardBalance;
     }
 
-    public int getSubscriberId() {
-        return subscriberId;
-    }
-
-    public void setSubscriberId(int subscriberId) {
-        this.subscriberId = subscriberId;
-    }
+//    public int getSubscriberId() {
+//        return subscriberId;
+//    }
+//
+//    public void setSubscriberId(int subscriberId) {
+//        this.subscriberId = subscriberId;
+//    }
 
     @Override
     public boolean equals(Object o) {

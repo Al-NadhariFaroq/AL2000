@@ -12,7 +12,7 @@
         <class>db.entities.Card</class>
         <class>db.entities.Restriction</class>
         <class>db.entities.Theme</class>
-        <class>db.entities.Film</class>
+        <class>db.entities.Movie</class>
         <class>db.entities.Rental</class>
         <class>db.entities.Role</class>
         <class>db.entities.SubscriberCards</class>
@@ -24,7 +24,12 @@
             <property name="javax.persistence.jdbc.password" value="e3d46ebeca" />
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle8iDialect" />
-<!--            <property name="hibernate.connection.url"-->
+            <property name="hibernate.connection.url"
+                      value="jdbc:oracle:thin:@im2ag-oracle.univ-grenoble-alpes.fr:1521:im2ag"/>
+            <property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/>
+            <property name="hibernate.connection.username" value="alnadhaf"/>
+            <property name="hibernate.connection.password" value="e3d46ebeca"/>
+            <!--            <property name="hibernate.connection.url"-->
 <!--                      value="jdbc:oracle:thin:@im2ag-oracle.univ-grenoble-alpes.fr:1521:im2ag"/>-->
 <!--            <property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/>-->
 <!--            <property name="hibernate.connection.username" value="alnadhaf"/>-->

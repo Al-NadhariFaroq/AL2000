@@ -5,12 +5,12 @@ import java.sql.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "FILMS", schema = "ALNADHAF", catalog = "")
-public class Film {
+@Table(name = "MOVIES", schema = "ALNADHAF", catalog = "")
+public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "FILM_ID")
-    private int filmId;
+    @Column(name = "MOVIE_ID")
+    private int movieId;
     @Basic
     @Column(name = "TITLE")
     private String title;
@@ -27,12 +27,15 @@ public class Film {
     @Column(name = "AGE_LIMIT")
     private Byte ageLimit;
 
-    public int getFilmId() {
-        return filmId;
+    public Movie() {
     }
 
-    public void setFilmId(int filmId) {
-        this.filmId = filmId;
+    public int getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
     public String getTitle() {
@@ -77,22 +80,14 @@ public class Film {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Film that = (Film) o;
-        return filmId == that.filmId && Objects.equals(title, that.title) && Objects.equals(releaseDate,
-                                                                                            that.releaseDate
-        ) && Objects.equals(synopsis, that.synopsis) && Objects.equals(rating, that.rating) && Objects.equals(ageLimit,
-                                                                                                              that.ageLimit
-        );
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie that = (Movie) o;
+        return movieId == that.movieId && Objects.equals(title, that.title) && Objects.equals(releaseDate, that.releaseDate) && Objects.equals(synopsis, that.synopsis) && Objects.equals(rating, that.rating) && Objects.equals(ageLimit, that.ageLimit);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(filmId, title, releaseDate, synopsis, rating, ageLimit);
+        return Objects.hash(movieId, title, releaseDate, synopsis, rating, ageLimit);
     }
 }

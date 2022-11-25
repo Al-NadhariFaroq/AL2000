@@ -17,8 +17,8 @@ public class BluRay {
     @Column(name = "BLU_RAY_POSITION")
     private Byte bluRayPosition;
     @Basic
-    @Column(name = "FILM_ID")
-    private int filmId;
+    @Column(name = "MOVIE_ID")
+    private int movieId;
 
     public int getBluRayId() {
         return bluRayId;
@@ -44,29 +44,24 @@ public class BluRay {
         this.bluRayPosition = bluRayPosition;
     }
 
-    public int getFilmId() {
-        return filmId;
+    public int getMovieId() {
+        return movieId;
     }
 
-    public void setFilmId(int filmId) {
-        this.filmId = filmId;
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         BluRay that = (BluRay) o;
-        return bluRayId == that.bluRayId && serialNumber == that.serialNumber && filmId == that.filmId && Objects.equals(
-                bluRayPosition, that.bluRayPosition);
+        return bluRayId == that.bluRayId && serialNumber == that.serialNumber && movieId == that.movieId && Objects.equals(bluRayPosition, that.bluRayPosition);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bluRayId, serialNumber, bluRayPosition, filmId);
+        return Objects.hash(bluRayId, serialNumber, bluRayPosition, movieId);
     }
 }

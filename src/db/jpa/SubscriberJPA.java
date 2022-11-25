@@ -19,7 +19,7 @@ public class SubscriberJPA implements Serializable {
         this.entityManager = em;
     }
 
-    public Subscriber get(long id) {
+    public Subscriber get(int id) {
         Subscriber subscriber = entityManager.find(Subscriber.class, id);
         if (subscriber == null) {
             throw new EntityNotFoundException("Can't find subscriber for ID " + id);
