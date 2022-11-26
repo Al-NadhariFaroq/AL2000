@@ -1,4 +1,4 @@
-package ui;
+package ui.component;
 
 import ui.interactions.CardInteraction;
 

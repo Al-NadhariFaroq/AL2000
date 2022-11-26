@@ -1,7 +1,8 @@
 package ui.panels;
 
+import ui.component.SearchBar;
 import ui.interactions.CardInteraction;
-import ui.MovieButton;
+import ui.component.MovieButton;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -45,12 +46,10 @@ public class HomePanel extends JPanel {
         btnUser.addActionListener(CardInteraction.getInstance());
         btnUser.setBorder(new EmptyBorder(0, 10, 0, 10));
 
-        JTextField textField = new JTextField();
-        textField.setPreferredSize(new Dimension(200, 32));
-        textField.setBorder(new EmptyBorder(0, 5, 0, 5));
+        SearchBar searchBar = new SearchBar();
 
         searchPanel.add(btnMenu, BorderLayout.WEST);
-        searchPanel.add(textField, BorderLayout.CENTER);
+        searchPanel.add(searchBar, BorderLayout.CENTER);
         searchPanel.add(btnUser, BorderLayout.EAST);
 
         JPanel buttonsPanel = new JPanel(new FlowLayout());

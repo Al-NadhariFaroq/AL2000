@@ -1,6 +1,6 @@
 package ui.panels;
 
-import ui.StackLayout;
+import ui.util.StackLayout;
 import ui.interactions.CardInteraction;
 import ui.interactions.PreferencesInteraction;
 

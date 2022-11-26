@@ -1,7 +1,7 @@
 package ui.panels;
 
 import fc.Movie;
-import ui.StackLayout;
+import ui.util.StackLayout;
 import ui.interactions.CardInteraction;
 
 import javax.swing.*;

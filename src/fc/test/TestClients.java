@@ -1,4 +1,4 @@
-package fc.tests;
+package fc.test;
 
 import java.util.Calendar;
 import java.sql.Date;

@@ -1,4 +1,4 @@
-package fc.tests;
+package fc.test;
 
 import fc.BluRay;
 import fc.BluRayTable;

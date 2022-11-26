@@ -1,5 +1,7 @@
 package ui;
 
+import ui.util.StackLayout;
+
 import javax.swing.*;
 import java.awt.*;
 

@@ -1,6 +1,6 @@
 /* (c) blanch@imag.fr 2021–2023 */
 
-package ui;
+package ui.util;
 
 import java.awt.LayoutManager;
 import java.awt.Component;

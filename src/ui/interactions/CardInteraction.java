@@ -5,8 +5,6 @@ import ui.panels.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
 
 public class CardInteraction implements ActionListener {
