@@ -1,11 +1,11 @@
-package db.entities;
+package db.pojo;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "PROFESSIONALS", schema = "ALNADHAF", catalog = "")
-public class ProfessionalEntity {
+public class ProfessionalPOJO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "PROFESSIONAL_ID")
@@ -49,7 +49,7 @@ public class ProfessionalEntity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ProfessionalEntity that = (ProfessionalEntity) o;
+        ProfessionalPOJO that = (ProfessionalPOJO) o;
         return professionalId == that.professionalId && Objects.equals(lastName, that.lastName) && Objects.equals(
                 firstName, that.firstName);
     }

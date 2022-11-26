@@ -1,11 +1,11 @@
-package db.entities;
+package db.pojo;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "RESTRICTIONS", schema = "ALNADHAF", catalog = "")
-public class RestrictionEntity {
+public class RestrictionPOJO {
     //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "RESTRICTION_ID")
@@ -41,13 +41,13 @@ public class RestrictionEntity {
         this.themeId = themeId;
     }
 
-    public RestrictionEntity(int restrictionId, long cardNumber, Integer themeId) {
+    public RestrictionPOJO(int restrictionId, long cardNumber, Integer themeId) {
         this.restrictionId = restrictionId;
         this.cardNumber = cardNumber;
         this.themeId = themeId;
     }
 
-    public RestrictionEntity() {
+    public RestrictionPOJO() {
     }
 
     @Override
@@ -58,7 +58,7 @@ public class RestrictionEntity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        RestrictionEntity that = (RestrictionEntity) o;
+        RestrictionPOJO that = (RestrictionPOJO) o;
         return restrictionId == that.restrictionId && cardNumber == that.cardNumber && Objects.equals(themeId,
                                                                                                       that.themeId
         );

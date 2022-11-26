@@ -1,48 +1,22 @@
 package db.dao;
 
-import db.entities.BluRayEntity;
+import db.pojo.BluRayPOJO;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 
-import db.jpa.BluRayJPA;
+public class BluRayDAO extends DAO<BluRayPOJO> {
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-public class BluRayDAO implements DAO<BluRayEntity> {
-
-    private final List<BluRayEntity> bluRayEntities = new ArrayList<>();
-    public EntityManagerFactory emf;
-    private final BluRayJPA bluRayJpa;
-
-    public BluRayDAO() {
-        emf = Persistence.createEntityManagerFactory("AL2000");
-        bluRayJpa = new BluRayJPA(emf.createEntityManager());
+    protected BluRayDAO(EntityManager entityManager) {
+        super(entityManager);
     }
 
     @Override
-    public BluRayEntity get(int id) {
-        return bluRayJpa.get(id);
-    }
-
-    @Override
-    public List<BluRayEntity> getAll() {
-        return bluRayJpa.getAll();
-    }
-
-    @Override
-    public void save(BluRayEntity bluRayEntity) {
-        bluRayJpa.save(bluRayEntity);
-    }
-
-    @Override
-    public void update(BluRayEntity bluRayEntity) {
-        bluRayJpa.update(bluRayEntity);
-    }
-
-    @Override
-    public void delete(BluRayEntity bluRayEntity) {
-        bluRayJpa.delete(bluRayEntity);
+    public BluRayPOJO read(int id) {
+        BluRayPOJO bluRayPOJO = entityManager.find(BluRayPOJO.class, id);
+        if (bluRayPOJO == null) {
+            throw new EntityNotFoundException("Can't find blu-ray for ID " + id);
+        }
+        return bluRayPOJO;
     }
 }

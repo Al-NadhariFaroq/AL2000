@@ -1,48 +1,22 @@
 package db.dao;
 
-import db.entities.CardEntity;
+import db.pojo.CardPOJO;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 
-import db.jpa.CardJPA;
+public class CardDAO extends DAO<CardPOJO> {
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-public class CardDAO implements DAO<CardEntity> {
-
-    private final List<CardEntity> cardEntities = new ArrayList<>();
-    public EntityManagerFactory emf;
-    private final CardJPA cardJPA;
-
-    public CardDAO() {
-        emf = Persistence.createEntityManagerFactory("AL2000");
-        cardJPA = new CardJPA(emf.createEntityManager());
+    protected CardDAO(EntityManager entityManager) {
+        super(entityManager);
     }
 
     @Override
-    public CardEntity get(int id) {
-        return cardJPA.get(id);
-    }
-
-    @Override
-    public List<CardEntity> getAll() {
-        return cardJPA.getAll();
-    }
-
-    @Override
-    public void save(CardEntity cardEntity) {
-        cardJPA.save(cardEntity);
-    }
-
-    @Override
-    public void update(CardEntity cardEntity) {
-        cardJPA.update(cardEntity);
-    }
-
-    @Override
-    public void delete(CardEntity cardEntity) {
-        cardJPA.delete(cardEntity);
+    public CardPOJO read(int id) {
+        CardPOJO cardPOJO = entityManager.find(CardPOJO.class, id);
+        if (cardPOJO == null) {
+            throw new EntityNotFoundException("Can't find card for ID " + id);
+        }
+        return cardPOJO;
     }
 }

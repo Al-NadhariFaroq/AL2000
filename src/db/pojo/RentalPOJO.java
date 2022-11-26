@@ -1,4 +1,4 @@
-package db.entities;
+package db.pojo;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "RENTALS", schema = "ALNADHAF", catalog = "")
-public class RentalEntity {
+public class RentalPOJO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "RENTAL_ID")
@@ -105,7 +105,7 @@ public class RentalEntity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        RentalEntity that = (RentalEntity) o;
+        RentalPOJO that = (RentalPOJO) o;
         return rentalId == that.rentalId && cardNumber == that.cardNumber && filmId == that.filmId && cardId == that.cardId && Objects.equals(
                 rentalDate, that.rentalDate) && Objects.equals(returnDate, that.returnDate) && Objects.equals(
                 billingAddress, that.billingAddress) && Objects.equals(isBluRay, that.isBluRay);

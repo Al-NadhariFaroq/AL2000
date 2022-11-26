@@ -1,11 +1,11 @@
-package db.entities;
+package db.pojo;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "CARDS", schema = "ALNADHAF", catalog = "")
-public class CardEntity {
+public class CardPOJO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "CARD_ID")
@@ -38,7 +38,7 @@ public class CardEntity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CardEntity that = (CardEntity) o;
+        CardPOJO that = (CardPOJO) o;
         return cardId == that.cardId && cardNumber == that.cardNumber;
     }
 

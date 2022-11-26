@@ -1,33 +1,32 @@
 package db;
 
+import db.dao.DAOFactory;
 import db.dao.SubscriberDAO;
 import db.dao.ThemeDAO;
-import db.entities.SubscriberEntity;
-import db.entities.ThemeEntity;
+import db.pojo.SubscriberPOJO;
+import db.pojo.ThemePOJO;
 
 public class TestBD {
 
     public static void main(String args[]) {
-        ThemeDAO themeDAO = new ThemeDAO();
+        ThemeDAO themeDAO = DAOFactory.getThemeDAO();
 
-        ThemeEntity themeEntity = new ThemeEntity();
-        themeEntity.setThemeId(666);
-        themeEntity.setTheme("essais");
+        ThemePOJO themePOJO1 = new ThemePOJO();
+        themePOJO1.setThemeId(666);
+        themePOJO1.setTheme("essais");
+        themeDAO.create(themePOJO1);
 
-        themeDAO.save(themeEntity);
+        ThemePOJO themePOJO2 = themeDAO.read(666);
+        themePOJO2.setTheme("test");
+        themeDAO.update(themePOJO2);
 
-        ThemeEntity themeEntity1 = themeDAO.get(666);
-        themeEntity1.setTheme("test");
-        themeDAO.update(themeEntity1);
+        ThemePOJO themePOJO3 = themeDAO.read(666);
+        themeDAO.delete(themePOJO3);
 
-        ThemeEntity themeEntity2 = themeDAO.get(666);
-        themeDAO.delete(themeEntity2);
-
-        SubscriberDAO subscriberDAO = new SubscriberDAO();
-        SubscriberEntity subscriber = subscriberDAO.get(1);
-        System.out.println(subscriberDAO.getAll());
-        subscriberDAO.getAll().forEach(subscriber1 -> System.out.println(subscriber1.getEmail()));
-        subscriber.getSubscriberCardsList().forEach(subscriberCards -> System.out.println(subscriberCards.getCardBalance()));
+        SubscriberDAO subscriberDAO = DAOFactory.getSubscriberDAO();
+        SubscriberPOJO subscriberPOJO = subscriberDAO.read(1);
+        subscriberPOJO.getSubscribeCardsList().forEach(
+                subscribeCard -> System.out.println(subscribeCard.getCardBalance()));
     }
 }
 

@@ -9,6 +9,6 @@ public class MainAL2000 {
         // DataBaseAL2000 bd = new DataBaseAL2000();
         FunctionalCoreAL2000 fc = new FunctionalCoreAL2000();
         UserInterfaceAL2000 ui = new UserInterfaceAL2000(fc);
-        SwingUtilities.invokeLater(()-> ui.setVisible(true));
+        SwingUtilities.invokeLater(() -> ui.setVisible(true));
     }
 }

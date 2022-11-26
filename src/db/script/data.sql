@@ -1,4 +1,3 @@
-
 /*************************************************************/
 /*************************************************************/
 /************************* CARDS ****************************/
@@ -60,34 +59,51 @@ VALUES (9876541233, 'stange784@gmail.com', 4568452136548953);
 /*************************  THEMES  **************************/
 /*************************************************************/
 /*************************************************************/
-INSERT INTO THEMES VALUES (1, 'Actions');
-INSERT INTO THEMES VALUES (2, 'Sci-Fi');
-INSERT INTO THEMES VALUES (3, 'Drama');
-INSERT INTO THEMES VALUES (4, 'Romance');
-INSERT INTO THEMES VALUES (5, 'History');
-INSERT INTO THEMES VALUES (6, 'Cartoon');
-INSERT INTO THEMES VALUES (7, 'Documentary');
+INSERT
+INTO THEMES
+VALUES (1, 'Actions');
+INSERT
+INTO THEMES
+VALUES (2, 'Sci-Fi');
+INSERT
+INTO THEMES
+VALUES (3, 'Drama');
+INSERT
+INTO THEMES
+VALUES (4, 'Romance');
+INSERT
+INTO THEMES
+VALUES (5, 'History');
+INSERT
+INTO THEMES
+VALUES (6, 'Cartoon');
+INSERT
+INTO THEMES
+VALUES (7, 'Documentary');
 
 /*************************************************************/
 /*************************************************************/
 /******************    SUBSCRIBER CARDs   ********************/
 /*************************************************************/
 /*************************************************************/
-INSERT INTO SUBSCRIBER_CARDS VALUES (   subscriber_card_id,
-                                        subscriber_card_number,
-                                        is_subscriber,
-                                        cardholder_last_name,
-                                        cardholder_first_name,
-                                        birth_date,
-                                        card_balance,
-                                        subscriber_id
-                                        );
+INSERT
+INTO SUBSCRIBER_CARDS
+VALUES (subscriber_card_id,
+		subscriber_card_number,
+		is_subscriber,
+		cardholder_last_name,
+		cardholder_first_name,
+		birth_date,
+		card_balance,
+		subscriber_id);
 
 /*************************************************************/
 /*************************************************************/
 /***********************    ROLES   **************************/
 /*************************************************************/
 /*************************************************************/
-INSERT INTO ROLES VALUES (12012350, 'Harry Poter', false,10203040, 1234560);
+INSERT
+INTO ROLES
+VALUES (12012350, 'Harry Poter', FALSE, 10203040, 1234560);
 
 

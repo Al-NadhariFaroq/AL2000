@@ -1,16 +1,45 @@
 package db.dao;
 
-import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.EntityTransaction;
+import java.io.Serializable;
+import java.util.function.Consumer;
 
-public interface DAO<T> {
+abstract class DAO<T> implements Serializable {
+    protected final EntityManager entityManager;
 
-    T get(int id);
+    protected DAO(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
-    List<T> getAll();
+    /* CRUD methods */
 
-    void save(T t);
+    public void create(T t) {
+        executeInsideTransaction(entityManager -> entityManager.persist(t));
+    }
 
-    void update(T t);
+    public T read(int id) {
+        throw new EntityNotFoundException("Can't find entity for ID " + id);
+    }
 
-    void delete(T t);
+    public void update(T t) {
+        executeInsideTransaction(entityManager -> entityManager.merge(t));
+    }
+
+    public void delete(T t) {
+        executeInsideTransaction(entityManager -> entityManager.remove(t));
+    }
+
+    private void executeInsideTransaction(Consumer<EntityManager> action) {
+        EntityTransaction tx = entityManager.getTransaction();
+        try {
+            tx.begin();
+            action.accept(entityManager);
+            tx.commit();
+        } catch (RuntimeException e) {
+            tx.rollback();
+            throw e;
+        }
+    }
 }

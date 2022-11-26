@@ -1,11 +1,11 @@
-package db.entities;
+package db.pojo;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "THEMES", schema = "ALNADHAF", catalog = "")
-public class ThemeEntity {
+public class ThemePOJO {
     //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "THEME_ID")
@@ -30,7 +30,7 @@ public class ThemeEntity {
         this.theme = theme;
     }
 
-    public ThemeEntity() {
+    public ThemePOJO() {
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ThemeEntity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ThemeEntity that = (ThemeEntity) o;
+        ThemePOJO that = (ThemePOJO) o;
         return themeId == that.themeId && Objects.equals(theme, that.theme);
     }
 

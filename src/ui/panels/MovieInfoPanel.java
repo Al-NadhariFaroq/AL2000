@@ -35,7 +35,10 @@ public class MovieInfoPanel extends JPanel {
         themesLabel = createLabel("<html><font color=black>Genre:</font> " + "Science fiction, action", 16);
         synopsisLabel = createLabel("<html><font color=black>Synopsis:</font><br/>" + "movie.getSynopsis()", 16);
         directorsLabel = createLabel("<html><font color=black>Directors:</font> " + "James Cameron & Jon Landau", 16);
-        actorsLabel = createLabel("<html><font color=black>Main actors:</font> " + "Sam Worthington, Zoe Saldana, Sigourney Weaver, Stephen Lang, Kate Winslet, ...", 16);
+        actorsLabel = createLabel(
+                "<html><font color=black>Main actors:</font> " + "Sam Worthington, Zoe Saldana, Sigourney Weaver, Stephen Lang, Kate Winslet, ...",
+                16
+        );
         noteLabel = createLabel("<html><font color=black>Rate:</font> " + "5*", 16);
 
         btnRent = new JButton("RentPanel");

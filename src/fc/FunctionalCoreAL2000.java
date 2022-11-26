@@ -1,8 +1,8 @@
 package fc;
 
-import db.dao.SubscriberDAO;
-import db.entities.SubscribeCardEntity;
-import db.entities.SubscriberEntity;
+import db.dao.DAOFactory;
+import db.pojo.SubscribeCardPOJO;
+import db.pojo.SubscriberPOJO;
 
 import java.sql.Date;
 
@@ -78,21 +78,20 @@ public class FunctionalCoreAL2000 {
         if (subscriber != null) {
             subscriber.addSubscribeCard(newCard);
         }*/
-        /*SubscribeCardEntity subscribeCardEntity = new SubscribeCardEntity();
-        subscribeCardEntity.setSubscriberCardId(0);
-        subscribeCardEntity.setSubscriber(true);
-        subscribeCardEntity.setCardholderFirstName(firstName);
-        subscribeCardEntity.setCardholderLastName(lastName);
-        subscribeCardEntity.setBirthDate(dateOfBirth);
-        subscribeCardEntity.setCardBalance(0);*/
-        SubscriberEntity subscriberEntity = new SubscriberEntity();
-        subscriberEntity.setSubscriberId(666);
-        subscriberEntity.setEmail(email);
-        subscriberEntity.setCardNumber(0);
-        //SubscribeCardDAO subscribeCardDAO = new SubscribeCardDAO();
-        //subscribeCardDAO.save(subscribeCardEntity);
-        SubscriberDAO subscriberDAO = new SubscriberDAO();
-        subscriberDAO.save(subscriberEntity);
+        SubscribeCardPOJO subscribeCardPOJO = new SubscribeCardPOJO();
+        subscribeCardPOJO.setSubscriberCardId(0);
+        subscribeCardPOJO.setSubscriber(true);
+        subscribeCardPOJO.setCardholderFirstName(firstName);
+        subscribeCardPOJO.setCardholderLastName(lastName);
+        subscribeCardPOJO.setBirthDate(dateOfBirth);
+        subscribeCardPOJO.setCardBalance(0);
+        DAOFactory.getSubscribeCardDAO().create(subscribeCardPOJO);
+
+        SubscriberPOJO subscriberPOJO = new SubscriberPOJO();
+        subscriberPOJO.setSubscriberId(666);
+        subscriberPOJO.setEmail(email);
+        subscriberPOJO.setCardNumber(0);
+        DAOFactory.getSubscriberDAO().create(subscriberPOJO);
         return null;
     }
 

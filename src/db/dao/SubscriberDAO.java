@@ -1,48 +1,22 @@
 package db.dao;
 
-import db.entities.SubscriberEntity;
+import db.pojo.SubscriberPOJO;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 
-import db.jpa.SubscriberJPA;
+public class SubscriberDAO extends DAO<SubscriberPOJO> {
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-public class SubscriberDAO implements DAO<SubscriberEntity> {
-
-    private final List<SubscriberEntity> subscriberEntities = new ArrayList<>();
-    public EntityManagerFactory emf;
-    private final SubscriberJPA subscriberJPA;
-
-    public SubscriberDAO() {
-        emf = Persistence.createEntityManagerFactory("AL2000");
-        subscriberJPA = new SubscriberJPA(emf.createEntityManager());
+    protected SubscriberDAO(EntityManager entityManager) {
+        super(entityManager);
     }
 
     @Override
-    public SubscriberEntity get(int id) {
-        return subscriberJPA.get(id);
-    }
-
-    @Override
-    public List<SubscriberEntity> getAll() {
-        return subscriberJPA.getAll();
-    }
-
-    @Override
-    public void save(SubscriberEntity subscriberEntity) {
-        subscriberJPA.save(subscriberEntity);
-    }
-
-    @Override
-    public void update(SubscriberEntity subscriberEntity) {
-        subscriberJPA.update(subscriberEntity);
-    }
-
-    @Override
-    public void delete(SubscriberEntity subscriberEntity) {
-        subscriberJPA.delete(subscriberEntity);
+    public SubscriberPOJO read(int id) {
+        SubscriberPOJO subscriberPOJO = entityManager.find(SubscriberPOJO.class, id);
+        if (subscriberPOJO == null) {
+            throw new EntityNotFoundException("Can't find subscriber for ID " + id);
+        }
+        return subscriberPOJO;
     }
 }

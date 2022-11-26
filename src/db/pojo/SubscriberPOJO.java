@@ -1,4 +1,4 @@
-package db.entities;
+package db.pojo;
 
 import javax.persistence.*;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "SUBSCRIBERS", schema = "ALNADHAF", catalog = "")
-public class SubscriberEntity {
+public class SubscriberPOJO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "SUBSCRIBER_ID")
@@ -18,8 +18,9 @@ public class SubscriberEntity {
     @Column(name = "CARD_NUMBER")
     private long cardNumber;
 
-    @OneToMany(mappedBy="subscriberId", cascade = CascadeType.ALL)
-    private List<SubscribeCardEntity> subscriberCardsList;
+    @OneToMany(mappedBy = "subscriberId", cascade = CascadeType.ALL)
+    private List<SubscribeCardPOJO> subscribeCardsList;
+
     public int getSubscriberId() {
         return subscriberId;
     }
@@ -43,9 +44,11 @@ public class SubscriberEntity {
     public void setCardNumber(long cardNumber) {
         this.cardNumber = cardNumber;
     }
-    public List<SubscribeCardEntity> getSubscriberCardsList(){
-        return subscriberCardsList;
+
+    public List<SubscribeCardPOJO> getSubscribeCardsList() {
+        return subscribeCardsList;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -54,7 +57,7 @@ public class SubscriberEntity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        SubscriberEntity that = (SubscriberEntity) o;
+        SubscriberPOJO that = (SubscriberPOJO) o;
         return subscriberId == that.subscriberId && cardNumber == that.cardNumber && Objects.equals(email, that.email);
     }
 

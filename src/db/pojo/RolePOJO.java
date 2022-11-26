@@ -1,11 +1,11 @@
-package db.entities;
+package db.pojo;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "ROLES", schema = "ALNADHAF", catalog = "")
-public class RoleEntity {
+public class RolePOJO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ROLE_ID")
@@ -71,7 +71,7 @@ public class RoleEntity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        RoleEntity that = (RoleEntity) o;
+        RolePOJO that = (RolePOJO) o;
         return roleId == that.roleId && professionalId == that.professionalId && filmId == that.filmId && Objects.equals(
                 roleName, that.roleName) && Objects.equals(isProducer, that.isProducer);
     }

@@ -1,4 +1,4 @@
-package db.entities;
+package db.pojo;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "SUBSCRIBER_CARDS", schema = "ALNADHAF", catalog = "")
-public class SubscribeCardEntity {
+public class SubscribeCardPOJO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "SUBSCRIBER_CARD_ID")
@@ -29,10 +29,10 @@ public class SubscribeCardEntity {
     @Basic
     @Column(name = "CARD_BALANCE")
     private Integer cardBalance;
-    @JoinColumn(name="SUBSCRIBER_ID", referencedColumnName = "SUBSCRIBER_ID")
+    @JoinColumn(name = "SUBSCRIBER_ID", referencedColumnName = "SUBSCRIBER_ID")
     @ManyToOne(optional = false)
-//    @Column(name = "SUBSCRIBER_ID")
-    private SubscriberEntity subscriberId;
+    //    @Column(name = "SUBSCRIBER_ID")
+    private SubscriberPOJO subscriberId;
 
     public int getSubscriberCardId() {
         return subscriberCardId;
@@ -90,13 +90,13 @@ public class SubscribeCardEntity {
         this.cardBalance = cardBalance;
     }
 
-//    public int getSubscriberId() {
-//        return subscriberId;
-//    }
-//
-//    public void setSubscriberId(int subscriberId) {
-//        this.subscriberId = subscriberId;
-//    }
+    //    public int getSubscriberId() {
+    //        return subscriberId;
+    //    }
+    //
+    //    public void setSubscriberId(int subscriberId) {
+    //        this.subscriberId = subscriberId;
+    //    }
 
     @Override
     public boolean equals(Object o) {
@@ -106,7 +106,7 @@ public class SubscribeCardEntity {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        SubscribeCardEntity that = (SubscribeCardEntity) o;
+        SubscribeCardPOJO that = (SubscribeCardPOJO) o;
         return subscriberCardId == that.subscriberCardId && subscriberCardNumber == that.subscriberCardNumber && isSubscriber == that.isSubscriber && subscriberId == that.subscriberId && Objects.equals(
                 cardholderLastName, that.cardholderLastName) && Objects.equals(cardholderFirstName,
                                                                                that.cardholderFirstName

@@ -1,49 +1,23 @@
 package db.dao;
 
-import db.entities.RestrictionEntity;
+import db.pojo.RestrictionPOJO;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 
-import db.jpa.RestrictionJPA;
+public class RestrictionDAO extends DAO<RestrictionPOJO> {
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-public class RestrictionDAO implements DAO<RestrictionEntity> {
-
-    private final List<RestrictionEntity> cards = new ArrayList<>();
-    public EntityManagerFactory emf;
-    private final RestrictionJPA restrictionJPA;
-
-    public RestrictionDAO() {
-        emf = Persistence.createEntityManagerFactory("AL2000");
-        restrictionJPA = new RestrictionJPA(emf.createEntityManager());
+    protected RestrictionDAO(EntityManager entityManager) {
+        super(entityManager);
     }
 
     @Override
-    public RestrictionEntity get(int id) {
-        return restrictionJPA.get(id);
-    }
-
-    @Override
-    public List<RestrictionEntity> getAll() {
-        return restrictionJPA.getAll();
-    }
-
-    @Override
-    public void save(RestrictionEntity card) {
-        restrictionJPA.save(card);
-    }
-
-    @Override
-    public void update(RestrictionEntity card) {
-        restrictionJPA.update(card);
-    }
-
-    @Override
-    public void delete(RestrictionEntity card) {
-        restrictionJPA.delete(card);
+    public RestrictionPOJO read(int id) {
+        RestrictionPOJO restrictionPOJO = entityManager.find(RestrictionPOJO.class, id);
+        if (restrictionPOJO == null) {
+            throw new EntityNotFoundException("Can't find restriction for ID " + id);
+        }
+        return restrictionPOJO;
     }
 }
 
