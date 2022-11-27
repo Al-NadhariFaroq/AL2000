@@ -10,6 +10,7 @@ public class Movie {
     String[] directors;
     String[] actors;
     String[] themes;
+    String posterURL;
 
     public Movie(String title) {
         this.title = title;
@@ -71,6 +72,14 @@ public class Movie {
         this.themes = themes;
     }
 
+    public String getPosterURL() {
+        return posterURL;
+    }
+
+    public void setPosterURL(String posterURL) {
+        this.posterURL = posterURL;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -79,7 +88,8 @@ public class Movie {
 
         Movie movie = (Movie) o;
 
-        if (movie.title == title && movie.date == date && movie.synopsis == synopsis && movie.directors == directors && movie.actors == actors && movie.themes == themes) {
+        if (movie.title == title && movie.date == date && movie.synopsis == synopsis && movie.directors == directors &&
+            movie.actors == actors && movie.themes == themes) {
             return true;
         }
 

@@ -16,8 +16,13 @@ public class SubscribeCard extends Card {
     List<Rental> rentals;
     float balance;
 
-    public SubscribeCard(int cardNumber, String firstName, String lastName, Date dateOfBirth, String email,
-                         CreditCard creditCard, Subscriber subscriber
+    public SubscribeCard(int cardNumber,
+                         String firstName,
+                         String lastName,
+                         Date dateOfBirth,
+                         String email,
+                         CreditCard creditCard,
+                         Subscriber subscriber
     ) {
         super(cardNumber);
         this.firstName = firstName;

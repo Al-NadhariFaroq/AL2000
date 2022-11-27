@@ -59,9 +59,8 @@ public class RestrictionPOJO {
             return false;
         }
         RestrictionPOJO that = (RestrictionPOJO) o;
-        return restrictionId == that.restrictionId && cardNumber == that.cardNumber && Objects.equals(themeId,
-                                                                                                      that.themeId
-        );
+        return restrictionId == that.restrictionId && cardNumber == that.cardNumber &&
+               Objects.equals(themeId, that.themeId);
     }
 
     @Override

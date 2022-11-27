@@ -39,7 +39,8 @@ public class SearchBarTest extends JFrame {
         list.setFont(list.getFont().deriveFont(Font.PLAIN));
         ((DefaultListCellRenderer) list.getCellRenderer()).setHorizontalAlignment(SwingConstants.CENTER);
 
-        JScrollPane scrollPane = new JScrollPane(list, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+        JScrollPane scrollPane = new JScrollPane(list,
+                                                 JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                                                  JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED
         );
         scrollPane.setBorder(BorderFactory.createEmptyBorder());

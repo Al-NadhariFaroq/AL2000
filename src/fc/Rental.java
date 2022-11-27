@@ -37,8 +37,8 @@ public class Rental {
 
         Rental rental = (Rental) o;
 
-        return rental.rentalDate.equals(rentalDate) && rental.returnDate.equals(returnDate) && rental.support.equals(
-                support);
+        return rental.rentalDate.equals(rentalDate) && rental.returnDate.equals(returnDate) &&
+               rental.support.equals(support);
     }
 
     @Override

@@ -25,8 +25,8 @@ public class TestBD {
 
         SubscriberDAO subscriberDAO = DAOFactory.getSubscriberDAO();
         SubscriberPOJO subscriberPOJO = subscriberDAO.read(1);
-        subscriberPOJO.getSubscribeCardsList().forEach(
-                subscribeCard -> System.out.println(subscribeCard.getCardBalance()));
+        subscriberPOJO.getSubscribeCardsList()
+                      .forEach(subscribeCard -> System.out.println(subscribeCard.getCardBalance()));
     }
 }
 

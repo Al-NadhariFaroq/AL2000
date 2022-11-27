@@ -1,3 +1,8 @@
+/**
+ * By Rob Camick
+ * November 2009
+ */
+
 package ui.component;
 
 import javax.swing.JLabel;
@@ -167,7 +172,7 @@ public class TextPrompt extends JLabel implements FocusListener, DocumentListene
         }
     }
 
-    //  Implement FocusListener
+    /*  Implement FocusListener */
 
     public void focusGained(FocusEvent e) {
         checkForPrompt();
@@ -178,7 +183,7 @@ public class TextPrompt extends JLabel implements FocusListener, DocumentListene
         checkForPrompt();
     }
 
-    //  Implement DocumentListener
+    /*  Implement DocumentListener */
 
     public void insertUpdate(DocumentEvent e) {
         checkForPrompt();

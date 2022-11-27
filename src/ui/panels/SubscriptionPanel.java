@@ -99,10 +99,14 @@ public class SubscriptionPanel extends JPanel {
 
         Box buttons1 = Box.createVerticalBox();
         Box buttons2 = Box.createVerticalBox();
-        btn1 = new JButton("<-");
-        btn2 = new JButton("->");
-        btn3 = new JButton("<-");
-        btn4 = new JButton("->");
+        btn1 = new JButton("⇐");
+        btn2 = new JButton("⇒");
+        btn3 = new JButton("⇐");
+        btn4 = new JButton("⇒");
+        btn1.setFont(btn1.getFont().deriveFont(20f));
+        btn2.setFont(btn2.getFont().deriveFont(20f));
+        btn3.setFont(btn3.getFont().deriveFont(20f));
+        btn4.setFont(btn4.getFont().deriveFont(20f));
         btn1.addActionListener(new PreferencesInteraction(this));
         btn2.addActionListener(new PreferencesInteraction(this));
         btn3.addActionListener(new PreferencesInteraction(this));

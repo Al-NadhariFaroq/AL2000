@@ -87,11 +87,9 @@ public class MoviePOJO {
             return false;
         }
         MoviePOJO that = (MoviePOJO) o;
-        return movieId == that.movieId && Objects.equals(title, that.title) && Objects.equals(releaseDate,
-                                                                                              that.releaseDate
-        ) && Objects.equals(synopsis, that.synopsis) && Objects.equals(rating, that.rating) && Objects.equals(ageLimit,
-                                                                                                              that.ageLimit
-        );
+        return movieId == that.movieId && Objects.equals(title, that.title) &&
+               Objects.equals(releaseDate, that.releaseDate) && Objects.equals(synopsis, that.synopsis) &&
+               Objects.equals(rating, that.rating) && Objects.equals(ageLimit, that.ageLimit);
     }
 
     @Override

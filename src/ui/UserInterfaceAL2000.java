@@ -26,7 +26,7 @@ public class UserInterfaceAL2000 extends JFrame {
 
         this.fc = fc;
 
-        HomePanel homePanel = new HomePanel();
+        HomePanel homePanel = new HomePanel(this);
         MovieInfoPanel movieInfoPanel = new MovieInfoPanel(new Movie("Avatar"));
         SubscriberInfoPanel subscriberInfoPanel = new SubscriberInfoPanel();
         SubscriptionPanel subscriptionPanel = new SubscriptionPanel();

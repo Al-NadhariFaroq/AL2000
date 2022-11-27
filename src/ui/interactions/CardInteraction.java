@@ -36,12 +36,6 @@ public class CardInteraction implements ActionListener {
                 } else if (src == homePanel.getBtnUser()) {
                     UI.changePanel(Panel.SUBSCRIBER_INFO);
                 }
-                for (int i = 0; i < 50; i++) {
-                    if (src == homePanel.getMovieButton(i).getBtn()) {
-                        UI.changePanel(Panel.MOVIE_INFO);
-                        ((MovieInfoPanel) UI.getPanel(Panel.MOVIE_INFO)).update(homePanel.getMovieButton(i).getTitle());
-                    }
-                }
                 break;
             case MOVIE_INFO:
                 MovieInfoPanel movieInfoPanel = (MovieInfoPanel) UI.getPanel(Panel.MOVIE_INFO);
@@ -63,11 +57,12 @@ public class CardInteraction implements ActionListener {
                     UI.changePanel(Panel.HOME);
                 } else if (src == subscriptionPanel.getBtnValid()) {
                     UI.changePanel(Panel.HOME);
-                    UI.getFC().subscription(subscriptionPanel.getFirstNameText().getText(),
-                                            subscriptionPanel.getLastNameText().getText(),
-                                            Date.valueOf(subscriptionPanel.getDateOfBirthText().getText()),
-                                            subscriptionPanel.getMailText().getText()
-                    );
+                    UI.getFC()
+                      .subscription(subscriptionPanel.getFirstNameText().getText(),
+                                    subscriptionPanel.getLastNameText().getText(),
+                                    Date.valueOf(subscriptionPanel.getDateOfBirthText().getText()),
+                                    subscriptionPanel.getMailText().getText()
+                      );
                 }
                 break;
             case HISTORY:

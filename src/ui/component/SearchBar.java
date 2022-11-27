@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -58,9 +59,9 @@ public class SearchBar extends JPanel {
         setForeground(new Color(51, 51, 51));
         deleteBtn.setForeground(getBackground());
 
-        add(textField, new GBC(0, 0).setFill(GBC.BOTH).setWeight(1, 1));
-        add(deleteBtn, new GBC(1, 0).setFill(GBC.VERTICAL).setWeighty(1));
-        add(searchBtn, new GBC(2, 0).setFill(GBC.VERTICAL).setWeighty(1));
+        add(textField, GBC.placeAt(0, 0).setFill(GBC.BOTH).setWeight(1, 1));
+        add(deleteBtn, GBC.placeAt(1, 0).setFill(GBC.VERTICAL).setWeightY(1));
+        add(searchBtn, GBC.placeAt(2, 0).setFill(GBC.VERTICAL).setWeightY(1));
     }
 
     public String getText() {
@@ -130,7 +131,7 @@ public class SearchBar extends JPanel {
     }
 
     private MouseListener createMouseListener() {
-        return new MouseListener() {
+        return new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getSource() == textField) {

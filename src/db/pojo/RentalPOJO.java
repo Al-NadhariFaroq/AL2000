@@ -106,9 +106,10 @@ public class RentalPOJO {
             return false;
         }
         RentalPOJO that = (RentalPOJO) o;
-        return rentalId == that.rentalId && cardNumber == that.cardNumber && filmId == that.filmId && cardId == that.cardId && Objects.equals(
-                rentalDate, that.rentalDate) && Objects.equals(returnDate, that.returnDate) && Objects.equals(
-                billingAddress, that.billingAddress) && Objects.equals(isBluRay, that.isBluRay);
+        return rentalId == that.rentalId && cardNumber == that.cardNumber && filmId == that.filmId &&
+               cardId == that.cardId && Objects.equals(rentalDate, that.rentalDate) &&
+               Objects.equals(returnDate, that.returnDate) && Objects.equals(billingAddress, that.billingAddress) &&
+               Objects.equals(isBluRay, that.isBluRay);
     }
 
     @Override

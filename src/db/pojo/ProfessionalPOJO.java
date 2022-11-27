@@ -50,8 +50,8 @@ public class ProfessionalPOJO {
             return false;
         }
         ProfessionalPOJO that = (ProfessionalPOJO) o;
-        return professionalId == that.professionalId && Objects.equals(lastName, that.lastName) && Objects.equals(
-                firstName, that.firstName);
+        return professionalId == that.professionalId && Objects.equals(lastName, that.lastName) &&
+               Objects.equals(firstName, that.firstName);
     }
 
     @Override

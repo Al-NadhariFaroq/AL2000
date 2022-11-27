@@ -61,8 +61,8 @@ public class BluRayPOJO {
             return false;
         }
         BluRayPOJO that = (BluRayPOJO) o;
-        return bluRayId == that.bluRayId && serialNumber == that.serialNumber && movieId == that.movieId && Objects.equals(
-                bluRayPosition, that.bluRayPosition);
+        return bluRayId == that.bluRayId && serialNumber == that.serialNumber && movieId == that.movieId &&
+               Objects.equals(bluRayPosition, that.bluRayPosition);
     }
 
     @Override

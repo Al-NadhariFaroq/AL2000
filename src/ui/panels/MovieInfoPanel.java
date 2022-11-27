@@ -35,9 +35,9 @@ public class MovieInfoPanel extends JPanel {
         themesLabel = createLabel("<html><font color=black>Genre:</font> " + "Science fiction, action", 16);
         synopsisLabel = createLabel("<html><font color=black>Synopsis:</font><br/>" + "movie.getSynopsis()", 16);
         directorsLabel = createLabel("<html><font color=black>Directors:</font> " + "James Cameron & Jon Landau", 16);
-        actorsLabel = createLabel(
-                "<html><font color=black>Main actors:</font> " + "Sam Worthington, Zoe Saldana, Sigourney Weaver, Stephen Lang, Kate Winslet, ...",
-                16
+        actorsLabel = createLabel("<html><font color=black>Main actors:</font> " +
+                                  "Sam Worthington, Zoe Saldana, Sigourney Weaver, Stephen Lang, Kate Winslet, ...",
+                                  16
         );
         noteLabel = createLabel("<html><font color=black>Rate:</font> " + "5*", 16);
 
@@ -66,8 +66,7 @@ public class MovieInfoPanel extends JPanel {
 
         java.net.URL imgUrl = getClass().getResource("/images/avatar.jpg");
         assert imgUrl != null;
-        ImageIcon icon = new ImageIcon(
-                new ImageIcon(imgUrl).getImage());//.getScaledInstance(300, 450, Image.SCALE_DEFAULT));
+        ImageIcon icon = new ImageIcon(new ImageIcon(imgUrl).getImage());//.getScaledInstance(300, 450, Image.SCALE_DEFAULT));
         JLabel label = new JLabel(icon);
         label.setBorder(new EmptyBorder(0, 25, 10, 5));
         imagePanel.add(label);
@@ -105,7 +104,7 @@ public class MovieInfoPanel extends JPanel {
         return label;
     }
 
-    public void update(String title) {
+    public void update(Movie movie) {
         // update data in function of title
     }
 }

@@ -107,16 +107,23 @@ public class SubscribeCardPOJO {
             return false;
         }
         SubscribeCardPOJO that = (SubscribeCardPOJO) o;
-        return subscriberCardId == that.subscriberCardId && subscriberCardNumber == that.subscriberCardNumber && isSubscriber == that.isSubscriber && subscriberId == that.subscriberId && Objects.equals(
-                cardholderLastName, that.cardholderLastName) && Objects.equals(cardholderFirstName,
-                                                                               that.cardholderFirstName
-        ) && Objects.equals(birthDate, that.birthDate) && Objects.equals(cardBalance, that.cardBalance);
+        return subscriberCardId == that.subscriberCardId && subscriberCardNumber == that.subscriberCardNumber &&
+               isSubscriber == that.isSubscriber && subscriberId == that.subscriberId &&
+               Objects.equals(cardholderLastName, that.cardholderLastName) &&
+               Objects.equals(cardholderFirstName, that.cardholderFirstName) &&
+               Objects.equals(birthDate, that.birthDate) && Objects.equals(cardBalance, that.cardBalance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(subscriberCardId, subscriberCardNumber, isSubscriber, cardholderLastName,
-                            cardholderFirstName, birthDate, cardBalance, subscriberId
+        return Objects.hash(subscriberCardId,
+                            subscriberCardNumber,
+                            isSubscriber,
+                            cardholderLastName,
+                            cardholderFirstName,
+                            birthDate,
+                            cardBalance,
+                            subscriberId
         );
     }
 }

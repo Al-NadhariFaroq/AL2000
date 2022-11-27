@@ -1,60 +1,131 @@
 package ui.component;
 
-import ui.interactions.CardInteraction;
+import fc.Movie;
+import ui.util.GBC;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.font.TextAttribute;
+import java.net.URL;
+import java.util.Map;
 
 public class MovieButton extends JPanel {
-    Image img;
-    JButton btn;
-    String title;
+    Movie movie;
+    private final ButtonImage posterBtn;
+    private final JButton titleBtn;
 
-    public MovieButton(String title) {
-        this.title = title;
-        setLayout(new BorderLayout());
-        setBorder(BorderFactory.createLineBorder(Color.black));
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+    public MovieButton(Movie movie) {
+        setLayout(new GridBagLayout());
+        setBorder(BorderFactory.createEmptyBorder());
+        setBackground(null);
 
-        btn = new JButton();
-        chargeImage();
+        posterBtn = new ButtonImage();
+        posterBtn.setForeground(Color.GRAY);
+        posterBtn.setFont(posterBtn.getFont().deriveFont(Font.BOLD));
+        posterBtn.setContentAreaFilled(false);
+        posterBtn.setFocusPainted(false);
+        posterBtn.addComponentListener(createComponentListener());
 
-        btn.addActionListener(CardInteraction.getInstance());
-        add(btn, BorderLayout.CENTER);
+        titleBtn = new JButton();
+        titleBtn.setHorizontalAlignment(SwingConstants.CENTER);
+        titleBtn.setFont(titleBtn.getFont().deriveFont(Font.BOLD));
+        titleBtn.setBorder(BorderFactory.createEmptyBorder());
+        titleBtn.setBackground(new Color(0, 0, 0, 255));
+        titleBtn.setContentAreaFilled(false);
+        titleBtn.setFocusPainted(false);
+        titleBtn.addMouseListener(createMouseListener());
 
-        JLabel titleLabel = new JLabel(title, SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        add(titleLabel, BorderLayout.SOUTH);
-        //setPreferredSize(new Dimension(120, 300));
+        setMovie(movie);
+
+        add(posterBtn, GBC.placeAt(0, 0).setFill(GBC.BOTH).setWeight(1, 1));
+        add(titleBtn, GBC.placeAt(0, 1));
     }
 
-    void chargeImage() {
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+
+        titleBtn.setText(movie.getTitle());
         try {
-            img = new ImageIcon("./rsc/images/avatar.jpg").getImage();
-            ImageIcon icon = new ImageIcon(img.getScaledInstance(160, 260, Image.SCALE_DEFAULT));
-            btn.setIcon(icon);
-        } catch (Exception ex) {
-            System.out.println(ex);
+            posterBtn.setText(null);
+            posterBtn.setImage(ImageIO.read(new URL(movie.getPosterURL())));
+        } catch (Exception e) {
+            posterBtn.setImage(null);
+            posterBtn.setText("<html><p style=\"text-align:center;\">no<br>poster<br>available</p>");
         }
     }
 
-    public Image getImg() {
-        return img;
+    public void addActionListener(ActionListener actionListener) {
+        posterBtn.addActionListener(actionListener);
+        titleBtn.addActionListener(actionListener);
     }
 
-    public void setImg(Image img) {
-        this.img = img;
+    private MouseListener createMouseListener() {
+        return new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                e.getComponent().setForeground(getForeground().brighter().brighter());
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                e.getComponent().setForeground(getForeground());
+            }
+
+            @SuppressWarnings({"rawtypes", "unchecked"})
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                Component button = e.getComponent();
+                Font font = button.getFont();
+                Map attributes = font.getAttributes();
+                attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+                button.setFont(font.deriveFont(attributes));
+            }
+
+            @SuppressWarnings({"rawtypes", "unchecked"})
+            @Override
+            public void mouseExited(MouseEvent e) {
+                Component button = e.getComponent();
+                Font font = button.getFont();
+                Map attributes = font.getAttributes();
+                attributes.put(TextAttribute.UNDERLINE, null);
+                button.setFont(font.deriveFont(attributes));
+            }
+        };
     }
 
-    public JButton getBtn() {
-        return btn;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    private ComponentListener createComponentListener() {
+        return new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                if (posterBtn.getImage() != null) {
+                    Dimension btnSize = posterBtn.getSize();
+                    int imgWidth = posterBtn.getImage().getWidth(null);
+                    int imgHeight = posterBtn.getImage().getHeight(null);
+                    btnSize.height = imgHeight * btnSize.width / imgWidth;
+                    posterBtn.setPreferredSize(btnSize);
+                } else {
+                    super.componentResized(e);
+                }
+            }
+        };
     }
 }

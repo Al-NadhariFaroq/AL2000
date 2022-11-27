@@ -72,8 +72,8 @@ public class RolePOJO {
             return false;
         }
         RolePOJO that = (RolePOJO) o;
-        return roleId == that.roleId && professionalId == that.professionalId && filmId == that.filmId && Objects.equals(
-                roleName, that.roleName) && Objects.equals(isProducer, that.isProducer);
+        return roleId == that.roleId && professionalId == that.professionalId && filmId == that.filmId &&
+               Objects.equals(roleName, that.roleName) && Objects.equals(isProducer, that.isProducer);
     }
 
     @Override

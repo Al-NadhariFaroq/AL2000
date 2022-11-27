@@ -5,8 +5,8 @@ import javax.persistence.Persistence;
 
 public class DAOFactory {
     private static final String persistenceUnitName = "AL2000";
-    private static final EntityManager entityManager = Persistence.createEntityManagerFactory(
-            persistenceUnitName).createEntityManager();
+    private static final EntityManager entityManager = Persistence.createEntityManagerFactory(persistenceUnitName)
+                                                                  .createEntityManager();
 
     /* DAO singletons */
     private static BluRayDAO blurayDAO;
