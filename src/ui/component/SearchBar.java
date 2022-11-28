@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
@@ -28,13 +29,11 @@ public class SearchBar extends JPanel {
     public SearchBar(String startText, String defaultText, int columns) {
         setLayout(new GridBagLayout());
         setBorder(new JTextField().getBorder());
-
-        MouseListener mouseListener = createMouseListener();
-        addMouseListener(mouseListener);
+        addMouseListener(createTextFieldMouseListener());
 
         textField = new JTextField(startText, columns);
         textField.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 0));
-        textField.addMouseListener(mouseListener);
+        textField.addMouseListener(createTextFieldMouseListener());
 
         textPrompt = new TextPrompt(textField, defaultText);
         textPrompt.changeStyle(Font.ITALIC);
@@ -45,14 +44,14 @@ public class SearchBar extends JPanel {
         deleteBtn.setContentAreaFilled(false);
         deleteBtn.setVerticalAlignment(SwingConstants.TOP);
         deleteBtn.addActionListener(e -> textField.setText(""));
-        deleteBtn.addMouseListener(mouseListener);
+        deleteBtn.addMouseListener(createDeleteBtnMouseListener());
 
         searchBtn = new JButton("\uD83D\uDD0D");
         searchBtn.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 4));
         searchBtn.setFocusPainted(false);
         searchBtn.setContentAreaFilled(false);
         searchBtn.setVerticalAlignment(SwingConstants.TOP);
-        searchBtn.addMouseListener(mouseListener);
+        searchBtn.addMouseListener(createSearchBtnMouseListener());
 
         setFont(textField.getFont());
         setBackground(Color.WHITE);
@@ -130,47 +129,79 @@ public class SearchBar extends JPanel {
         searchBtn.addActionListener(actionListener);
     }
 
-    private MouseListener createMouseListener() {
+    private MouseListener createTextFieldMouseListener() {
         return new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getSource() == textField) {
-                    if (e.getButton() == MouseEvent.BUTTON3) {
-                        textField.copy();
-                    } else if (e.getButton() == MouseEvent.BUTTON2) {
-                        textField.paste();
-                    }
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                if (e.getSource() == deleteBtn) {
-                    deleteBtn.setForeground(getForeground().brighter().brighter());
-                } else if (e.getSource() == searchBtn) {
-                    searchBtn.setForeground(getForeground().brighter().brighter());
-                }
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                if (e.getSource() == deleteBtn) {
-                    deleteBtn.setForeground(getForeground());
-                } else if (e.getSource() == searchBtn) {
-                    searchBtn.setForeground(getForeground());
+                if (e.getButton() == MouseEvent.BUTTON3) {
+                    textField.copy();
+                } else if (e.getButton() == MouseEvent.BUTTON2) {
+                    textField.paste();
                 }
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                deleteBtn.setForeground(e.getSource() == deleteBtn ? Color.RED : getForeground());
-                searchBtn.setForeground(e.getSource() == searchBtn ? Color.BLUE : getForeground());
+                deleteBtn.setForeground(getForeground());
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                deleteBtn.setForeground(e.getSource() == deleteBtn ? getForeground() : getBackground());
+                deleteBtn.setForeground(getBackground());
+            }
+        };
+    }
+
+    private MouseListener createDeleteBtnMouseListener() {
+        return new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                deleteBtn.setForeground(getForeground().brighter().brighter());
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                deleteBtn.setForeground(getForeground());
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                deleteBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                deleteBtn.setForeground(Color.RED);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                deleteBtn.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                deleteBtn.setForeground(getForeground());
+            }
+        };
+    }
+
+    private MouseListener createSearchBtnMouseListener() {
+        return new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                searchBtn.setForeground(getForeground().brighter().brighter());
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
                 searchBtn.setForeground(getForeground());
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                searchBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                searchBtn.setForeground(Color.BLUE);
+                deleteBtn.setForeground(getForeground());
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                searchBtn.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                searchBtn.setForeground(getForeground());
+                deleteBtn.setForeground(getBackground());
             }
         };
     }

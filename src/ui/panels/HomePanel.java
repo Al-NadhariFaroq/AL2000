@@ -2,23 +2,21 @@ package ui.panels;
 
 import fc.Movie;
 import ui.UserInterfaceAL2000;
+import ui.component.MovieGrid;
 import ui.component.SearchBar;
 import ui.interactions.CardInteraction;
 import ui.component.MovieButton;
-import ui.util.GBC;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomePanel extends JPanel {
     private final UserInterfaceAL2000 UI;
@@ -29,10 +27,25 @@ public class HomePanel extends JPanel {
 
         setLayout(new BorderLayout());
 
+        List<Movie> movies = new ArrayList<>();
+        for (int i = 1; i <= 156; i++) {
+            Movie movie = new Movie("Avatar " + i);
+            movie.setPosterURL("https://media.wdwnt.com/2022/11/avatar-the-way-of-water-poster-960x1200.jpg");
+            movies.add(movie);
+        }
+
         JPanel topPanel = mainTopPanel();
-        JPanel centerPanel = mainCenterPanel();
+        MovieGrid movieGrid = new MovieGrid(movies);
+
+        for (MovieButton movieButton : movieGrid.getMovieButtons()) {
+            movieButton.addActionListener(e -> {
+                ((MovieInfoPanel) UI.getPanel(Panel.MOVIE_INFO)).update(movieButton.getMovie());
+                UI.changePanel(Panel.MOVIE_INFO);
+            });
+        }
+
         add(topPanel, BorderLayout.NORTH);
-        add(centerPanel, BorderLayout.CENTER);
+        add(movieGrid, BorderLayout.CENTER);
     }
 
     private JPanel mainTopPanel() {
@@ -85,44 +98,6 @@ public class HomePanel extends JPanel {
         mainTopPanel.add(buttonsPanel, BorderLayout.SOUTH);
 
         return mainTopPanel;
-    }
-
-    private JPanel mainCenterPanel() {
-        JPanel mainCenterPanel = new JPanel();
-
-        mainCenterPanel.setLayout(new BorderLayout());
-
-        JScrollPane scrollPane = new JScrollPane(null,
-                                                 ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
-                                                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
-        );
-        scrollPane.getVerticalScrollBar().setUnitIncrement(20);
-
-        JPanel moviesPanel = new JPanel(new GridBagLayout()) {
-            @Override
-            public Dimension getPreferredSize() {
-                Dimension size = super.getPreferredSize();
-                size.width = scrollPane.getViewport().getSize().width;
-                return size;
-            }
-        };
-
-        scrollPane.getViewport().add(moviesPanel);
-
-        for (int i = 0; i < 50; i++) {
-            Movie movie = new Movie("Avatar " + i);
-            movie.setPosterURL("https://media.wdwnt.com/2022/11/avatar-the-way-of-water-poster-960x1200.jpg");
-            MovieButton movieButton = new MovieButton(movie);
-            movieButton.addActionListener(e -> {
-                ((MovieInfoPanel) UI.getPanel(Panel.MOVIE_INFO)).update(movieButton.getMovie());
-                UI.changePanel(Panel.MOVIE_INFO);
-            });
-            moviesPanel.add(movieButton, GBC.placeAt(i % 5, i / 5).setFill(GBC.BOTH).setInsets(5).setWeight(1, 1));
-        }
-
-        mainCenterPanel.add(scrollPane, BorderLayout.CENTER);
-
-        return mainCenterPanel;
     }
 
     public JButton getBtnMenu() {

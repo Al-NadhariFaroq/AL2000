@@ -9,17 +9,26 @@ import java.awt.Insets;
  * {@link java.awt.GridBagLayout GridBagLayout} layout manager.
  */
 public class GBC extends GridBagConstraints {
+    boolean clone;
 
     private GBC(int x, int y) {
-        this.gridx = x;
-        this.gridy = y;
+        this(x, y, true);
+    }
+
+    private GBC(int x, int y, boolean clone) {
+        this(x, y, 1, 1, clone);
     }
 
     private GBC(int x, int y, int width, int height) {
-        this.gridx = x;
-        this.gridy = y;
-        this.gridwidth = width;
-        this.gridheight = height;
+        this(x, y, width, height, true);
+    }
+
+    private GBC(int x, int y, int width, int height, boolean clone) {
+        gridx = x;
+        gridy = y;
+        gridwidth = width;
+        gridheight = height;
+        this.clone = clone;
     }
 
     /**
@@ -90,9 +99,10 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified positions
      */
     public GBC setPosition(int x, int y) {
-        this.gridx = x;
-        this.gridy = y;
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.gridx = x;
+        gbc.gridy = y;
+        return gbc;
     }
 
     /**
@@ -108,8 +118,9 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified row
      */
     public GBC setX(int x) {
-        this.gridx = x;
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.gridx = x;
+        return gbc;
     }
 
     /**
@@ -125,8 +136,9 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified column
      */
     public GBC setY(int y) {
-        this.gridy = y;
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.gridy = y;
+        return gbc;
     }
 
     /**
@@ -152,9 +164,10 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified span
      */
     public GBC setSpan(int width, int height) {
-        this.gridwidth = width;
-        this.gridheight = height;
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.gridwidth = width;
+        gbc.gridheight = height;
+        return gbc;
     }
 
     /**
@@ -172,8 +185,9 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified number of columns
      */
     public GBC setWidth(int width) {
-        this.gridwidth = width;
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.gridwidth = width;
+        return gbc;
     }
 
     /**
@@ -195,8 +209,9 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified number of rows
      */
     public GBC setHeight(int height) {
-        this.gridheight = height;
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.gridheight = height;
+        return gbc;
     }
 
     /**
@@ -220,8 +235,9 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified anchor
      */
     public GBC setAnchor(int anchor) {
-        this.anchor = anchor;
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.anchor = anchor;
+        return gbc;
     }
 
     /**
@@ -239,8 +255,9 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified fill value
      */
     public GBC setFill(int fill) {
-        this.fill = fill;
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.fill = fill;
+        return gbc;
     }
 
     /**
@@ -265,9 +282,10 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified weights
      */
     public GBC setWeight(double weightX, double weightY) {
-        this.weightx = weightX;
-        this.weighty = weightY;
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.weightx = weightX;
+        gbc.weighty = weightY;
+        return gbc;
     }
 
     /**
@@ -289,8 +307,9 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified weight on the column
      */
     public GBC setWeightX(double weightX) {
-        this.weightx = weightX;
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.weightx = weightX;
+        return gbc;
     }
 
     /**
@@ -312,8 +331,9 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified weight on the row
      */
     public GBC setWeightY(double weightY) {
-        this.weighty = weightY;
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.weighty = weightY;
+        return gbc;
     }
 
     /**
@@ -328,8 +348,9 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified external padding
      */
     public GBC setInsets(int top, int left, int bottom, int right) {
-        this.insets = new Insets(top, left, bottom, right);
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.insets = new Insets(top, left, bottom, right);
+        return gbc;
     }
 
     /**
@@ -342,8 +363,9 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified external padding
      */
     public GBC setInsets(int topBottom, int leftRight) {
-        this.insets = new Insets(topBottom, leftRight, topBottom, leftRight);
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.insets = new Insets(topBottom, leftRight, topBottom, leftRight);
+        return gbc;
     }
 
     /**
@@ -355,8 +377,9 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified external padding
      */
     public GBC setInsets(int distance) {
-        this.insets = new Insets(distance, distance, distance, distance);
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.insets = new Insets(distance, distance, distance, distance);
+        return gbc;
     }
 
     /**
@@ -368,8 +391,9 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified external padding
      */
     public GBC setInsets(Insets insets) {
-        this.insets = insets;
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.insets = insets;
+        return gbc;
     }
 
     /**
@@ -385,9 +409,10 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified internal padding
      */
     public GBC setIpad(int ipadX, int ipadY) {
-        this.ipadx = ipadX;
-        this.ipady = ipadY;
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.ipadx = ipadX;
+        gbc.ipady = ipadY;
+        return gbc;
     }
 
     /**
@@ -401,8 +426,9 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified internal padding on the left and right
      */
     public GBC setIpadX(int ipadX) {
-        this.ipadx = ipadX;
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.ipadx = ipadX;
+        return gbc;
     }
 
     /**
@@ -416,7 +442,8 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified internal padding on the top and bottom
      */
     public GBC setIpadY(int ipadY) {
-        this.ipady = ipadY;
-        return this;
+        GBC gbc = clone ? (GBC) clone() : this;
+        gbc.ipady = ipadY;
+        return gbc;
     }
 }
