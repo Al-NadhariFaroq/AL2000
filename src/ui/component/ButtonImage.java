@@ -51,11 +51,7 @@ public class ButtonImage extends JButton {
 
     public void setImage(Image image) {
         this.image = image;
-        if (image == null) {
-            super.setText(defaultText);
-        } else {
-            super.setText("");
-        }
+        super.setText(image == null ? defaultText : "");
         repaint();
     }
 
@@ -141,7 +137,7 @@ public class ButtonImage extends JButton {
                 if (getImage() != null && autoResizing != NONE) {
                     int imgWidth = getImage().getWidth(null);
                     int imgHeight = getImage().getHeight(null);
-                    Dimension btnSize = e.getComponent().getSize();
+                    Dimension btnSize = getSize();
                     if (autoResizing == WIDTH) {
                         btnSize.width = imgWidth * btnSize.height / imgHeight;
                     } else if (autoResizing == HEIGHT) {

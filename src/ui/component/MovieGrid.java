@@ -18,7 +18,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +29,7 @@ public class MovieGrid extends JPanel {
 
     private JScrollPane scrollPane;
     private JPanel gridPanel;
+    private GridLayout gridLayout;
     private JLabel resultLbl;
     private JLabel startLbl;
     private JLabel toLbl;
@@ -63,7 +63,7 @@ public class MovieGrid extends JPanel {
         add(createMovieGrid(), BorderLayout.CENTER);
         add(createNavBar(), BorderLayout.SOUTH);
 
-        emptyMoviesLbl = new JLabel("No results");
+        emptyMoviesLbl = new JLabel("No results", JLabel.CENTER);
         emptyMoviesLbl.setForeground(Color.GRAY);
 
         movieButtons = new ArrayList<>();
@@ -83,12 +83,12 @@ public class MovieGrid extends JPanel {
         nextPageBtn.setEnabled(currentPage < (movies.size() - 1) / resultsPerPage + 1);
     }
 
-    public int getResultsPerLine() {
+    public int getColumns() {
         return resultsPerLine;
     }
 
-    public void setResultsPerLine(int resultsPerLine) {
-        this.resultsPerLine = resultsPerLine;
+    public void setColumns(int cols) {
+        resultsPerLine = cols;
         setCurrentPage(1);
     }
 
@@ -110,9 +110,12 @@ public class MovieGrid extends JPanel {
         button.setEnabled(resultsPerPage != value);
     }
 
-    private void setCurrentPage(int currentPage) {
-        if (currentPage <= 0 || currentPage > (movies.size() - 1) / resultsPerPage + 1) {
-            throw new InvalidParameterException("invalid currentPage value");
+    private void setCurrentPage(int currentPage) throws IllegalArgumentException {
+        if (currentPage <= 0) {
+            throw new IllegalArgumentException("current page cannot be 0 or negative");
+        }
+        if (currentPage > (movies.size() - 1) / resultsPerPage + 1) {
+            throw new IllegalArgumentException("current page cannot be greater than the maximum number of pages");
         }
         this.currentPage = currentPage;
         prevPageBtn.setEnabled(currentPage > 1);
@@ -121,7 +124,7 @@ public class MovieGrid extends JPanel {
         updateMovies();
     }
 
-    public void setMovies(List<Movie> movies) {
+    public void setMovies(List<Movie> movies) throws NullPointerException {
         if (movies == null) {
             throw new NullPointerException("variable movies might not have been initialized");
         }
@@ -161,36 +164,38 @@ public class MovieGrid extends JPanel {
     }
 
     private void updateMovies() {
+        scrollPane.getVerticalScrollBar().setValue(0);
+        curPageLbl.setText(String.valueOf(currentPage));
+        nbPagesLbl.setText(String.valueOf((movies.size() - 1) / resultsPerPage + 1));
+        nbResultsLbl.setText(String.valueOf(movies.size()));
+
         if (movies.size() == 0) {
             gridPanel.removeAll();
-            gridPanel.add(emptyMoviesLbl, GBC.placeAt(0, 0));
+            gridLayout.setColumns(1);
+            gridPanel.add(emptyMoviesLbl);
+            startLbl.setText("0");
+            endLbl.setText("0");
         } else {
             gridPanel.remove(emptyMoviesLbl);
-            int componentCount = gridPanel.getComponentCount();
-            for (int buttonIdx = resultsPerPage - 1; buttonIdx >= 0; buttonIdx--) {
+            gridLayout.setColumns(resultsPerLine);
+
+            for (int buttonIdx = 0; buttonIdx < resultsPerPage; buttonIdx++) {
                 int movieIdx = (currentPage - 1) * resultsPerPage + buttonIdx;
+
                 if (movieIdx < movies.size()) {
-                    MovieButton movieButton = movieButtons.get(buttonIdx);
-                    if (buttonIdx >= componentCount) {
-                        int row = buttonIdx % resultsPerLine;
-                        int column = buttonIdx / resultsPerLine;
-                        gridPanel.add(movieButton,
-                                      GBC.placeAt(row, column).setFill(GBC.HORIZONTAL).setInsets(10).setWeight(1, 1),
-                                      componentCount
-                        );
+                    if (buttonIdx >= gridPanel.getComponentCount()) {
+                        gridPanel.add(movieButtons.get(buttonIdx));
                     }
-                    movieButton.setMovie(movies.get(movieIdx));
+                    movieButtons.get(buttonIdx).setMovie(movies.get(movieIdx));
                 } else {
                     gridPanel.remove(movieButtons.get(buttonIdx));
                 }
             }
+
+            startLbl.setText(String.valueOf((currentPage - 1) * resultsPerPage + 1));
+            endLbl.setText(String.valueOf((currentPage - 1) * resultsPerPage + gridPanel.getComponentCount()));
         }
-        scrollPane.getVerticalScrollBar().setValue(0);
-        startLbl.setText(String.valueOf((currentPage - 1) * resultsPerPage + 1));
-        endLbl.setText(String.valueOf((currentPage - 1) * resultsPerPage + gridPanel.getComponentCount()));
-        nbResultsLbl.setText(String.valueOf(movies.size()));
-        nbPagesLbl.setText(String.valueOf((movies.size() - 1) / resultsPerPage + 1));
-        revalidate();
+        repaint();
     }
 
     private JScrollPane createMovieGrid() {
@@ -199,7 +204,10 @@ public class MovieGrid extends JPanel {
         );
         scrollPane.getVerticalScrollBar().setUnitIncrement(20);
 
-        gridPanel = new JPanel(new GridBagLayout()) {
+        gridLayout = new GridLayout(0, 5, 10, 10);
+        gridPanel = new JPanel(gridLayout);
+
+        JPanel centerPanel = new JPanel(new GridBagLayout()) {
             @Override
             public Dimension getPreferredSize() {
                 Dimension size = super.getPreferredSize();
@@ -207,7 +215,15 @@ public class MovieGrid extends JPanel {
                 return size;
             }
         };
-        scrollPane.getViewport().add(gridPanel);
+
+        centerPanel.add(gridPanel,
+                        GBC.placeAt(0, 0, false)
+                           .setInsets(10)
+                           .setWeight(1, 1)
+                           .setFill(GBC.HORIZONTAL)
+                           .setAnchor(GBC.PAGE_START)
+        );
+        scrollPane.getViewport().add(centerPanel);
 
         return scrollPane;
     }
@@ -229,7 +245,7 @@ public class MovieGrid extends JPanel {
         nbResultsLbl = new JLabel("20");
 
         JPanel nbPagesInfo = new JPanel(new GridBagLayout());
-        GBC gbc = GBC.placeAt(GBC.RELATIVE, 0).setInsets(0, 2);
+        GBC gbc = GBC.placeAt(GBC.RELATIVE, 0, true).setInsets(0, 2);
         nbPagesInfo.add(resultLbl, gbc.setWeightX(0.1).setAnchor(GBC.LINE_END));
         nbPagesInfo.add(startLbl, gbc);
         nbPagesInfo.add(toLbl, gbc);
@@ -288,7 +304,7 @@ public class MovieGrid extends JPanel {
         btn100pages.addActionListener(e -> setResultsPerPage(100));
 
         JPanel quantityManagement = new JPanel(new GridBagLayout());
-        GBC gbc = GBC.placeAt(GBC.RELATIVE, 0).setInsets(0, 3);
+        GBC gbc = GBC.placeAt(GBC.RELATIVE, 0, true).setInsets(0, 3);
         quantityManagement.add(quantityLbl, gbc.setWeightX(0.9).setAnchor(GBC.LINE_END));
         quantityManagement.add(btn10pages, gbc);
         quantityManagement.add(btn20pages, gbc);
@@ -304,7 +320,7 @@ public class MovieGrid extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     setCurrentPage(Integer.parseInt(curPageLbl.getText()));
-                } catch (Exception ignore) {
+                } catch (IllegalArgumentException ignore) {
                     curPageLbl.setText(String.valueOf(currentPage));
                 }
             }

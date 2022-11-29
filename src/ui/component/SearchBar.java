@@ -3,12 +3,13 @@ package ui.component;
 import ui.util.GBC;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.Color;
-import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
@@ -19,8 +20,9 @@ import java.awt.event.MouseListener;
 public class SearchBar extends JPanel {
     private final JTextField textField;
     private final TextPrompt textPrompt;
-    private final JButton deleteBtn;
-    private final JButton searchBtn;
+    private final ButtonText deleteBtn;
+    private final ButtonText searchBtn;
+    private final JLabel pipeLbl;
 
     public SearchBar() {
         this("", "enter some text", 0);
@@ -29,38 +31,48 @@ public class SearchBar extends JPanel {
     public SearchBar(String startText, String defaultText, int columns) {
         setLayout(new GridBagLayout());
         setBorder(new JTextField().getBorder());
-        addMouseListener(createTextFieldMouseListener());
 
         textField = new JTextField(startText, columns);
         textField.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 0));
-        textField.addMouseListener(createTextFieldMouseListener());
+        textField.addMouseListener(createCopyPasteMouseListener());
+        textField.getDocument().addDocumentListener(createHideDeleteBtnListener());
 
         textPrompt = new TextPrompt(textField, defaultText);
         textPrompt.changeStyle(Font.ITALIC);
 
-        deleteBtn = new JButton("\uD83D\uDFA9");
-        deleteBtn.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 2));
-        deleteBtn.setFocusPainted(false);
-        deleteBtn.setContentAreaFilled(false);
+        deleteBtn = new ButtonText("\uD83D\uDFA9");
+        deleteBtn.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 2));
         deleteBtn.setVerticalAlignment(SwingConstants.TOP);
-        deleteBtn.addActionListener(e -> textField.setText(""));
-        deleteBtn.addMouseListener(createDeleteBtnMouseListener());
+        deleteBtn.setEnteredFeedback(ButtonText.COLOR);
+        deleteBtn.setPressedFeedback(ButtonText.COLOR);
+        deleteBtn.setEnteredColor(Color.RED.darker());
+        deleteBtn.setPressedColor(Color.RED.brighter());
+        deleteBtn.setVisible(false);
+        deleteBtn.addActionListener(e -> {
+            textField.setText("");
+            textField.requestFocus(true);
+        });
 
-        searchBtn = new JButton("\uD83D\uDD0D");
-        searchBtn.setBorder(BorderFactory.createEmptyBorder(0, 2, 0, 4));
-        searchBtn.setFocusPainted(false);
-        searchBtn.setContentAreaFilled(false);
+        searchBtn = new ButtonText("\uD83D\uDD0D");
+        searchBtn.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 3));
         searchBtn.setVerticalAlignment(SwingConstants.TOP);
-        searchBtn.addMouseListener(createSearchBtnMouseListener());
+        searchBtn.setEnteredFeedback(ButtonText.COLOR);
+        searchBtn.setPressedFeedback(ButtonText.COLOR);
+        searchBtn.setEnteredColor(Color.BLUE);
+        searchBtn.setPressedColor(Color.CYAN.darker().darker());
+
+        pipeLbl = new JLabel("ǀ");
+        pipeLbl.setForeground(Color.GRAY);
+        pipeLbl.setVerticalAlignment(SwingConstants.TOP);
 
         setFont(textField.getFont());
         setBackground(Color.WHITE);
-        setForeground(new Color(51, 51, 51));
-        deleteBtn.setForeground(getBackground());
+        setForeground(textField.getForeground());
 
-        add(textField, GBC.placeAt(0, 0).setFill(GBC.BOTH).setWeight(1, 1));
-        add(deleteBtn, GBC.placeAt(1, 0).setFill(GBC.VERTICAL).setWeightY(1));
-        add(searchBtn, GBC.placeAt(2, 0).setFill(GBC.VERTICAL).setWeightY(1));
+        add(textField, GBC.placeAt(0, 0).setWeight(1, 1).setFill(GBC.BOTH));
+        add(deleteBtn, GBC.placeAt(1, 0).setWeightY(1).setFill(GBC.VERTICAL));
+        add(pipeLbl, GBC.placeAt(2, 0));
+        add(searchBtn, GBC.placeAt(3, 0).setWeightY(1).setFill(GBC.VERTICAL));
     }
 
     public String getText() {
@@ -99,6 +111,7 @@ public class SearchBar extends JPanel {
             textPrompt.setFont(font.deriveFont(Font.ITALIC));
             deleteBtn.setFont(font.deriveFont(font.getSize() + 6f));
             searchBtn.setFont(font.deriveFont(font.getSize() + 4f));
+            pipeLbl.setFont(font.deriveFont(font.getSize() + 4f));
         }
         super.setFont(font);
     }
@@ -118,8 +131,8 @@ public class SearchBar extends JPanel {
         if (isForegroundSet()) {
             textField.setForeground(fg);
             textPrompt.setForeground(fg.brighter().brighter());
-            deleteBtn.setForeground(fg);
-            searchBtn.setForeground(fg);
+            deleteBtn.setTextColor(fg);
+            searchBtn.setTextColor(fg);
         }
         super.setForeground(fg);
     }
@@ -129,7 +142,7 @@ public class SearchBar extends JPanel {
         searchBtn.addActionListener(actionListener);
     }
 
-    private MouseListener createTextFieldMouseListener() {
+    private MouseListener createCopyPasteMouseListener() {
         return new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -139,69 +152,29 @@ public class SearchBar extends JPanel {
                     textField.paste();
                 }
             }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                deleteBtn.setForeground(getForeground());
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                deleteBtn.setForeground(getBackground());
-            }
         };
     }
 
-    private MouseListener createDeleteBtnMouseListener() {
-        return new MouseAdapter() {
+    private DocumentListener createHideDeleteBtnListener() {
+        return new DocumentListener() {
             @Override
-            public void mousePressed(MouseEvent e) {
-                deleteBtn.setForeground(getForeground().brighter().brighter());
+            public void insertUpdate(DocumentEvent e) {
+                hideDeleteBtn();
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-                deleteBtn.setForeground(getForeground());
+            public void removeUpdate(DocumentEvent e) {
+                hideDeleteBtn();
             }
 
             @Override
-            public void mouseEntered(MouseEvent e) {
-                deleteBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                deleteBtn.setForeground(Color.RED);
+            public void changedUpdate(DocumentEvent e) {
+                hideDeleteBtn();
             }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-                deleteBtn.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                deleteBtn.setForeground(getForeground());
-            }
-        };
-    }
-
-    private MouseListener createSearchBtnMouseListener() {
-        return new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                searchBtn.setForeground(getForeground().brighter().brighter());
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                searchBtn.setForeground(getForeground());
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                searchBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                searchBtn.setForeground(Color.BLUE);
-                deleteBtn.setForeground(getForeground());
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                searchBtn.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                searchBtn.setForeground(getForeground());
-                deleteBtn.setForeground(getBackground());
+            private void hideDeleteBtn() {
+                deleteBtn.setVisible(!textField.getText().equals(""));
+                revalidate();
             }
         };
     }

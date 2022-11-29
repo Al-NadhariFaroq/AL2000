@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
 import java.net.URL;
 
 public class MovieButton extends JPanel {
@@ -53,11 +54,17 @@ public class MovieButton extends JPanel {
             posterBtn.setImage(null);
         } else {
             titleBtn.setText(movie.getTitle());
-            try {
-                posterBtn.setImage(ImageIO.read(new URL(movie.getPosterURL())));
-            } catch (Exception e) {
-                posterBtn.setImage(null);
-            }
+            posterBtn.setImage(null);
+            new Thread(() -> {
+                try {
+                    posterBtn.setImage(ImageIO.read(new URL(movie.getPosterURL())));
+                } catch (Exception e) {
+                    posterBtn.setImage(null);
+                } finally {
+                    ComponentEvent e = new ComponentEvent(posterBtn, ComponentEvent.COMPONENT_RESIZED);
+                    posterBtn.getComponentListeners()[0].componentResized(e);
+                }
+            }).start();
         }
     }
 

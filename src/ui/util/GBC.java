@@ -11,18 +11,6 @@ import java.awt.Insets;
 public class GBC extends GridBagConstraints {
     boolean clone;
 
-    private GBC(int x, int y) {
-        this(x, y, true);
-    }
-
-    private GBC(int x, int y, boolean clone) {
-        this(x, y, 1, 1, clone);
-    }
-
-    private GBC(int x, int y, int width, int height) {
-        this(x, y, width, height, true);
-    }
-
     private GBC(int x, int y, int width, int height, boolean clone) {
         gridx = x;
         gridy = y;
@@ -46,7 +34,29 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified position
      */
     public static GBC placeAt(int x, int y) {
-        return new GBC(x, y);
+        return new GBC(x, y, 1, 1, false);
+    }
+
+    /**
+     * Create a {@link GridBagConstraints} with the specified row and column.
+     * The leftmost column has address {@code x=0} and the top row has address {@code y=0}.
+     * <p>
+     * Use {@code GBC.RELATIVE} (the default value) to specify that the component
+     * be placed just to the right of (for {@code x}) or just below (for {@code y})
+     * the component that was added to the container just before this component was added.
+     * We recommend specifying the {@code x} and {@code  y} values for each component
+     * rather than just using {@code GBC.RELATIVE}; this tends to result in more predictable layouts.
+     * <p>
+     * The {@code clone} parameter indicate whether, when methods are called on it,
+     * they will return a clone of the object or the object itself ({@code false} by default).
+     *
+     * @param x     the row
+     * @param y     the column
+     * @param clone the boolean that indicates whether the methods return clones
+     * @return a {@link GridBagConstraints} with the specified position
+     */
+    public static GBC placeAt(int x, int y, boolean clone) {
+        return new GBC(x, y, 1, 1, clone);
     }
 
     /**
@@ -81,7 +91,46 @@ public class GBC extends GridBagConstraints {
      * @return a {@link GridBagConstraints} with the specified position and span
      */
     public static GBC placeAt(int x, int y, int width, int height) {
-        return new GBC(x, y, width, height);
+        return new GBC(x, y, width, height, false);
+    }
+
+    /**
+     * Create a {@link GridBagConstraints} with the specified row, column,
+     * number of columns and number of rows in the component's display area.
+     * The leftmost column has address {@code x=0} and the top row has address {@code y=0}.
+     * The {@code width} and {@code height} constraints specify the number of cells the component uses,
+     * not the number of pixels it uses, the default value is 1.
+     * <p>
+     * Use {@code GBC.RELATIVE} (the default value) to specify that the component
+     * be placed just to the right of (for {@code x}) or just below (for {@code y})
+     * the component that was added to the container just before this component was added.
+     * We recommend specifying the {@code x} and {@code y} values for each component
+     * rather than just using {@code GBC.RELATIVE}; this tends to result in more predictable layouts.
+     * <p>
+     * Use {@code GBC.REMAINDER} to specify that the component be the last one
+     * in its row (for {@code width}) or column (for {@code height}).
+     * Use {@code GBC.RELATIVE} to specify that the component be the next to last one
+     * in its row (for {@code width}) or column (for {@code height}).
+     * We recommend specifying the {@code width} and {@code height} values for each component
+     * rather than just using {@code GBC.RELATIVE} and {@code GBC.REMAINDER};
+     * this tends to result in more predictable layouts.
+     * <p>
+     * Note: {@link java.awt.GridBagLayout GridBagLayout} does not allow components to span multiple rows
+     * unless the component is in the leftmost column,
+     * or you have specified positive {@code x} and {@code y} values for the component.
+     * <p>
+     * The {@code clone} parameter indicate whether, when methods are called on it,
+     * they will return a clone of the object or the object itself ({@code false} by default).
+     *
+     * @param x      the row
+     * @param y      the column
+     * @param width  the number of column
+     * @param height the number of row
+     * @param clone  the boolean that indicates whether the methods return clones
+     * @return a {@link GridBagConstraints} with the specified position and span
+     */
+    public static GBC placeAt(int x, int y, int width, int height, boolean clone) {
+        return new GBC(x, y, width, height, clone);
     }
 
     /**
