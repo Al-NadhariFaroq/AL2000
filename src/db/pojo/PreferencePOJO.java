@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "RESTRICTIONS", schema = "ALNADHAF", catalog = "")
-public class RestrictionPOJO {
+@Table(name = "PREFERENCE", schema = "ALNADHAF", catalog = "")
+public class PreferencePOJO {
     //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "RESTRICTION_ID")
@@ -16,6 +16,9 @@ public class RestrictionPOJO {
     @Basic
     @Column(name = "THEME_ID")
     private Integer themeId;
+    @Basic
+    @Column(name = "RESTRICTED")
+    private boolean restricted;
 
     public int getRestrictionId() {
         return restrictionId;
@@ -41,13 +44,22 @@ public class RestrictionPOJO {
         this.themeId = themeId;
     }
 
-    public RestrictionPOJO(int restrictionId, long cardNumber, Integer themeId) {
+    public boolean isRestricted() {
+        return restricted;
+    }
+
+    public void setRestricted(boolean restricted) {
+        this.restricted = restricted;
+    }
+
+    public PreferencePOJO(int restrictionId, long cardNumber, Integer themeId, boolean restricted) {
         this.restrictionId = restrictionId;
         this.cardNumber = cardNumber;
         this.themeId = themeId;
+        this.restricted = restricted;
     }
 
-    public RestrictionPOJO() {
+    public PreferencePOJO() {
     }
 
     @Override
@@ -58,13 +70,13 @@ public class RestrictionPOJO {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        RestrictionPOJO that = (RestrictionPOJO) o;
+        PreferencePOJO that = (PreferencePOJO) o;
         return restrictionId == that.restrictionId && cardNumber == that.cardNumber &&
-               Objects.equals(themeId, that.themeId);
+               Objects.equals(themeId, that.themeId) && Objects.equals(restricted, that.restricted);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(restrictionId, cardNumber, themeId);
+        return Objects.hash(restrictionId, cardNumber, themeId, restricted);
     }
 }

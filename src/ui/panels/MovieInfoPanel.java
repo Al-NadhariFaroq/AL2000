@@ -1,6 +1,6 @@
 package ui.panels;
 
-import fc.Movie;
+import fc.movie.Movie;
 import ui.util.StackLayout;
 import ui.interactions.CardInteraction;
 

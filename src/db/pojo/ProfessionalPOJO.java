@@ -11,11 +11,8 @@ public class ProfessionalPOJO {
     @Column(name = "PROFESSIONAL_ID")
     private int professionalId;
     @Basic
-    @Column(name = "LAST_NAME")
-    private String lastName;
-    @Basic
-    @Column(name = "FIRST_NAME")
-    private String firstName;
+    @Column(name = "NAME")
+    private String name;
 
     public int getProfessionalId() {
         return professionalId;
@@ -25,20 +22,12 @@ public class ProfessionalPOJO {
         this.professionalId = professionalId;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getName() {
+        return name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -50,12 +39,11 @@ public class ProfessionalPOJO {
             return false;
         }
         ProfessionalPOJO that = (ProfessionalPOJO) o;
-        return professionalId == that.professionalId && Objects.equals(lastName, that.lastName) &&
-               Objects.equals(firstName, that.firstName);
+        return professionalId == that.professionalId && Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(professionalId, lastName, firstName);
+        return Objects.hash(professionalId, name);
     }
 }

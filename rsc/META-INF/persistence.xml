@@ -11,7 +11,7 @@
         <class>db.pojo.MoviePOJO</class>
         <class>db.pojo.ProfessionalPOJO</class>
         <class>db.pojo.RentalPOJO</class>
-        <class>db.pojo.RestrictionPOJO</class>
+        <class>db.pojo.PreferencePOJO</class>
         <class>db.pojo.RolePOJO</class>
         <class>db.pojo.SubscribeCardPOJO</class>
         <class>db.pojo.SubscriberPOJO</class>

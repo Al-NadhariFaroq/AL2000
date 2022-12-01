@@ -11,8 +11,8 @@ public class SubscribeCard extends Card {
     String email;
     CreditCard creditCard;
     Subscriber subscriber;
-    List<String> restrictions;
-    List<String> preferences;
+    List<String> forbiddenThemes;
+    List<String> hiddenThemes;
     List<Rental> rentals;
     float balance;
 
@@ -31,8 +31,8 @@ public class SubscribeCard extends Card {
         this.email = email;
         this.creditCard = creditCard;
         this.subscriber = subscriber;
-        restrictions = new ArrayList<>();
-        preferences = new ArrayList<>();
+        forbiddenThemes = new ArrayList<>();
+        hiddenThemes = new ArrayList<>();
         rentals = new ArrayList<>();
         balance = 0;
     }
@@ -73,28 +73,28 @@ public class SubscribeCard extends Card {
         return subscriber;
     }
 
-    public List<String> getRestrictions() {
-        return restrictions;
+    public List<String> getForbiddenThemes() {
+        return forbiddenThemes;
     }
 
     public void addRestriction(String restriction) {
-        this.restrictions.add(restriction);
+        this.forbiddenThemes.add(restriction);
     }
 
     public void removeRestriction(String restriction) {
-        this.restrictions.remove(restriction);
+        this.forbiddenThemes.remove(restriction);
     }
 
-    public List<String> getPreferences() {
-        return preferences;
+    public List<String> getHiddenThemes() {
+        return hiddenThemes;
     }
 
     public void addPreference(String preference) {
-        this.preferences.add(preference);
+        this.hiddenThemes.add(preference);
     }
 
     public void removePreference(String preference) {
-        this.restrictions.remove(preference);
+        this.forbiddenThemes.remove(preference);
     }
 
     public List<Rental> getRentals() {

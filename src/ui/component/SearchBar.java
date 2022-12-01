@@ -13,16 +13,33 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class SearchBar extends JPanel {
+
+    private class TextFieldDocumentListener implements DocumentListener {
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            hideDeleteBtn();
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            hideDeleteBtn();
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            hideDeleteBtn();
+        }
+    }
+
     private final JTextField textField;
     private final TextPrompt textPrompt;
-    private final ButtonText deleteBtn;
-    private final ButtonText searchBtn;
+    private final TextButton deleteBtn;
+    private final TextButton searchBtn;
     private final JLabel pipeLbl;
+
+    private boolean actionPerformedOnDeletion = true;
 
     public SearchBar() {
         this("", "enter some text", 0);
@@ -34,30 +51,30 @@ public class SearchBar extends JPanel {
 
         textField = new JTextField(startText, columns);
         textField.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 0));
-        textField.addMouseListener(createCopyPasteMouseListener());
-        textField.getDocument().addDocumentListener(createHideDeleteBtnListener());
+        textField.getDocument().addDocumentListener(new TextFieldDocumentListener());
 
         textPrompt = new TextPrompt(textField, defaultText);
         textPrompt.changeStyle(Font.ITALIC);
 
-        deleteBtn = new ButtonText("\uD83D\uDFA9");
+        deleteBtn = new TextButton("\uD83D\uDFA9");
         deleteBtn.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 2));
-        deleteBtn.setVerticalAlignment(SwingConstants.TOP);
-        deleteBtn.setEnteredFeedback(ButtonText.COLOR);
-        deleteBtn.setPressedFeedback(ButtonText.COLOR);
+        deleteBtn.setEnteredFeedback(TextButton.COLOR);
+        deleteBtn.setPressedFeedback(TextButton.COLOR);
         deleteBtn.setEnteredColor(Color.RED.darker());
         deleteBtn.setPressedColor(Color.RED.brighter());
         deleteBtn.setVisible(false);
         deleteBtn.addActionListener(e -> {
             textField.setText("");
             textField.requestFocus(true);
+            if (actionPerformedOnDeletion) {
+                textField.postActionEvent();
+            }
         });
 
-        searchBtn = new ButtonText("\uD83D\uDD0D");
+        searchBtn = new TextButton("\uD83D\uDD0D");
         searchBtn.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 3));
-        searchBtn.setVerticalAlignment(SwingConstants.TOP);
-        searchBtn.setEnteredFeedback(ButtonText.COLOR);
-        searchBtn.setPressedFeedback(ButtonText.COLOR);
+        searchBtn.setEnteredFeedback(TextButton.COLOR);
+        searchBtn.setPressedFeedback(TextButton.COLOR);
         searchBtn.setEnteredColor(Color.BLUE);
         searchBtn.setPressedColor(Color.CYAN.darker().darker());
 
@@ -97,6 +114,14 @@ public class SearchBar extends JPanel {
 
     public void setColumns(int columns) {
         textField.setColumns(columns);
+    }
+
+    public boolean isActionPerformedOnDeletion() {
+        return actionPerformedOnDeletion;
+    }
+
+    public void setActionPerformedOnDeletion(boolean actionPerformedOnDeletion) {
+        this.actionPerformedOnDeletion = actionPerformedOnDeletion;
     }
 
     @Override
@@ -142,40 +167,8 @@ public class SearchBar extends JPanel {
         searchBtn.addActionListener(actionListener);
     }
 
-    private MouseListener createCopyPasteMouseListener() {
-        return new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getButton() == MouseEvent.BUTTON3) {
-                    textField.copy();
-                } else if (e.getButton() == MouseEvent.BUTTON2) {
-                    textField.paste();
-                }
-            }
-        };
-    }
-
-    private DocumentListener createHideDeleteBtnListener() {
-        return new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                hideDeleteBtn();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                hideDeleteBtn();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                hideDeleteBtn();
-            }
-
-            private void hideDeleteBtn() {
-                deleteBtn.setVisible(!textField.getText().equals(""));
-                revalidate();
-            }
-        };
+    private void hideDeleteBtn() {
+        deleteBtn.setVisible(!textField.getText().equals(""));
+        revalidate();
     }
 }

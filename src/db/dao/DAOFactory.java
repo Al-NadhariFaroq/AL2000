@@ -14,7 +14,7 @@ public class DAOFactory {
     private static MovieDAO movieDAO;
     private static ProfessionalDAO professionalDAO;
     private static RentalDAO rentalDAO;
-    private static RestrictionDAO restrictionDAO;
+    private static PreferenceDAO preferenceDAO;
     private static RoleDAO roleDAO;
     private static SubscribeCardDAO subscribeCardDAO;
     private static SubscriberDAO subscriberDAO;
@@ -55,11 +55,11 @@ public class DAOFactory {
         return rentalDAO;
     }
 
-    public static RestrictionDAO getRestrictionDAO() {
-        if (restrictionDAO == null) {
-            restrictionDAO = new RestrictionDAO(entityManager);
+    public static PreferenceDAO getRestrictionDAO() {
+        if (preferenceDAO == null) {
+            preferenceDAO = new PreferenceDAO(entityManager);
         }
-        return restrictionDAO;
+        return preferenceDAO;
     }
 
     public static RoleDAO getRoleDAO() {

@@ -22,10 +22,7 @@ public class MoviePOJO {
     private String synopsis;
     @Basic
     @Column(name = "RATING")
-    private Byte rating;
-    @Basic
-    @Column(name = "AGE_LIMIT")
-    private Byte ageLimit;
+    private String rating;
 
     public MoviePOJO() {
     }
@@ -62,20 +59,12 @@ public class MoviePOJO {
         this.synopsis = synopsis;
     }
 
-    public Byte getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(Byte rating) {
+    public void setRating(String rating) {
         this.rating = rating;
-    }
-
-    public Byte getAgeLimit() {
-        return ageLimit;
-    }
-
-    public void setAgeLimit(Byte ageLimit) {
-        this.ageLimit = ageLimit;
     }
 
     @Override
@@ -86,14 +75,13 @@ public class MoviePOJO {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        MoviePOJO that = (MoviePOJO) o;
-        return movieId == that.movieId && Objects.equals(title, that.title) &&
-               Objects.equals(releaseDate, that.releaseDate) && Objects.equals(synopsis, that.synopsis) &&
-               Objects.equals(rating, that.rating) && Objects.equals(ageLimit, that.ageLimit);
+        MoviePOJO movie = (MoviePOJO) o;
+        return movie.movieId == movieId && movie.title.equals(title) && movie.releaseDate.equals(releaseDate) &&
+               movie.synopsis.equals(synopsis) && movie.rating.equals(rating);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(movieId, title, releaseDate, synopsis, rating, ageLimit);
+        return Objects.hash(movieId, title, releaseDate, synopsis, rating);
     }
 }

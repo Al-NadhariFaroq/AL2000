@@ -1,6 +1,6 @@
 package ui.component;
 
-import fc.Movie;
+import fc.movie.Movie;
 import ui.util.GBC;
 
 import javax.swing.BorderFactory;
@@ -17,11 +17,22 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieGrid extends JPanel {
+public class MoviesGrid extends JPanel {
+
+    private class CurPageLblActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                setCurrentPage(Integer.parseInt(curPageLbl.getText()));
+            } catch (IllegalArgumentException ignore) {
+                curPageLbl.setText(String.valueOf(currentPage));
+            }
+        }
+    }
+
     private int resultsPerLine;
     private int resultsPerPage;
     private int currentPage;
@@ -36,24 +47,24 @@ public class MovieGrid extends JPanel {
     private JLabel endLbl;
     private JLabel onLbl;
     private JLabel nbResultsLbl;
-    private ButtonText prevPageBtn;
-    private ButtonText nextPageBtn;
+    private TextButton prevPageBtn;
+    private TextButton nextPageBtn;
     private JTextField curPageLbl;
     private JLabel slashLbl;
     private JLabel nbPagesLbl;
     private JLabel quantityLbl;
-    private ButtonText btn10pages;
-    private ButtonText btn20pages;
-    private ButtonText btn50pages;
-    private ButtonText btn100pages;
+    private TextButton btn10pages;
+    private TextButton btn20pages;
+    private TextButton btn50pages;
+    private TextButton btn100pages;
     private final JLabel emptyMoviesLbl;
     private final List<MovieButton> movieButtons;
 
-    public MovieGrid(List<Movie> movies) {
+    public MoviesGrid(List<Movie> movies) {
         this(movies, 5);
     }
 
-    public MovieGrid(List<Movie> movies, int resultsPerLine) {
+    public MoviesGrid(List<Movie> movies, int resultsPerLine) {
         if (movies == null) {
             throw new NullPointerException("variable movies might not have been initialized");
         }
@@ -94,20 +105,13 @@ public class MovieGrid extends JPanel {
 
     private void setResultsPerPage(int resultsPerPage) {
         this.resultsPerPage = resultsPerPage;
+        btn10pages.setEnabled(resultsPerPage != 10);
+        btn20pages.setEnabled(resultsPerPage != 20);
+        btn50pages.setEnabled(resultsPerPage != 50);
+        btn100pages.setEnabled(resultsPerPage != 100);
+
         gridPanel.removeAll();
         setCurrentPage(1);
-
-        deselectButton(btn10pages, 10);
-        deselectButton(btn20pages, 20);
-        deselectButton(btn50pages, 50);
-        deselectButton(btn100pages, 100);
-    }
-
-    private void deselectButton(ButtonText button, int value) {
-        MouseEvent e = new MouseEvent(button, 0, 0, 0, 0, 0, 0, false);
-        button.getMouseListeners()[1].mouseReleased(e);
-        button.getMouseListeners()[1].mouseExited(e);
-        button.setEnabled(resultsPerPage != value);
     }
 
     private void setCurrentPage(int currentPage) throws IllegalArgumentException {
@@ -257,12 +261,12 @@ public class MovieGrid extends JPanel {
     }
 
     private JPanel createPageManagement() {
-        prevPageBtn = new ButtonText("⮘");
-        prevPageBtn.setEnteredFeedback(ButtonText.COLOR);
+        prevPageBtn = new TextButton("⮘");
+        prevPageBtn.setEnteredFeedback(TextButton.COLOR);
         prevPageBtn.addActionListener(e -> setCurrentPage(currentPage - 1));
 
-        nextPageBtn = new ButtonText("⮚");
-        nextPageBtn.setEnteredFeedback(ButtonText.COLOR);
+        nextPageBtn = new TextButton("⮚");
+        nextPageBtn.setEnteredFeedback(TextButton.COLOR);
         nextPageBtn.addActionListener(e -> setCurrentPage(currentPage + 1));
 
         curPageLbl = new JTextField("1") {
@@ -276,7 +280,7 @@ public class MovieGrid extends JPanel {
         curPageLbl.setHorizontalAlignment(JTextField.RIGHT);
         curPageLbl.setBorder(BorderFactory.createEmptyBorder());
         curPageLbl.setOpaque(false);
-        curPageLbl.addActionListener(createCurPageLblActionListener());
+        curPageLbl.addActionListener(new CurPageLblActionListener());
 
         slashLbl = new JLabel("/");
         nbPagesLbl = new JLabel("100", JLabel.LEFT);
@@ -294,10 +298,10 @@ public class MovieGrid extends JPanel {
     private JPanel createQuantityManagement() {
         quantityLbl = new JLabel("Results per page:");
 
-        btn10pages = new ButtonText("10");
-        btn20pages = new ButtonText("20");
-        btn50pages = new ButtonText("50");
-        btn100pages = new ButtonText("100");
+        btn10pages = new TextButton("10");
+        btn20pages = new TextButton("20");
+        btn50pages = new TextButton("50");
+        btn100pages = new TextButton("100");
         btn10pages.addActionListener(e -> setResultsPerPage(10));
         btn20pages.addActionListener(e -> setResultsPerPage(20));
         btn50pages.addActionListener(e -> setResultsPerPage(50));
@@ -312,18 +316,5 @@ public class MovieGrid extends JPanel {
         quantityManagement.add(btn100pages, gbc.setWeightX(0.1).setAnchor(GBC.LINE_START));
 
         return quantityManagement;
-    }
-
-    private ActionListener createCurPageLblActionListener() {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    setCurrentPage(Integer.parseInt(curPageLbl.getText()));
-                } catch (IllegalArgumentException ignore) {
-                    curPageLbl.setText(String.valueOf(currentPage));
-                }
-            }
-        };
     }
 }

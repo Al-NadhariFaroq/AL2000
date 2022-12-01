@@ -1,6 +1,6 @@
 package ui.component;
 
-import fc.Movie;
+import fc.movie.Movie;
 import ui.util.GBC;
 
 import javax.imageio.ImageIO;
@@ -10,13 +10,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
 import java.net.URL;
 
 public class MovieButton extends JPanel {
     private Movie movie;
-    private final ButtonImage posterBtn;
-    private final ButtonText titleBtn;
+    private final ImageButton posterBtn;
+    private final TextButton titleBtn;
 
     public MovieButton() {
         this(null);
@@ -27,13 +26,13 @@ public class MovieButton extends JPanel {
         setBorder(BorderFactory.createEmptyBorder());
         setOpaque(false);
 
-        posterBtn = new ButtonImage();
-        posterBtn.setAutoResizing(ButtonImage.HEIGHT);
+        posterBtn = new ImageButton();
+        posterBtn.setAutoResizing(ImageButton.HEIGHT);
         posterBtn.setText("<html><p style=\"text-align:center;\">no<br>poster<br>available</p>");
         posterBtn.setForeground(Color.GRAY);
         posterBtn.setFont(posterBtn.getFont().deriveFont(Font.BOLD, 14f));
 
-        titleBtn = new ButtonText();
+        titleBtn = new TextButton();
         titleBtn.setFont(titleBtn.getFont().deriveFont(Font.BOLD, 13f));
 
         setMovie(movie);
@@ -60,9 +59,6 @@ public class MovieButton extends JPanel {
                     posterBtn.setImage(ImageIO.read(new URL(movie.getPosterURL())));
                 } catch (Exception e) {
                     posterBtn.setImage(null);
-                } finally {
-                    ComponentEvent e = new ComponentEvent(posterBtn, ComponentEvent.COMPONENT_RESIZED);
-                    posterBtn.getComponentListeners()[0].componentResized(e);
                 }
             }).start();
         }

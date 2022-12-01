@@ -46,18 +46,20 @@ public class SearchBarTest extends JFrame {
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
 
         SearchBar searchBar = new SearchBar();
+        searchBar.setActionPerformedOnDeletion(false);
         searchBar.addActionListener(e -> {
-            if (!searchBar.getText().equals("")) {
-                listModel.addElement(searchBar.getText());
-                searchBar.setText("");
-
-                scrollPane.validate();
-                Rectangle bounds = scrollPane.getViewport().getViewRect();
-                JScrollBar vertical = scrollPane.getVerticalScrollBar();
-                JScrollBar horizontal = scrollPane.getHorizontalScrollBar();
-                vertical.setValue(vertical.getMaximum());
-                horizontal.setValue((horizontal.getMaximum() - bounds.width) / 2);
+            if (searchBar.getText().equals("")) {
+                searchBar.setText("empty");
             }
+            listModel.addElement(searchBar.getText());
+            searchBar.setText("");
+
+            scrollPane.validate();
+            Rectangle bounds = scrollPane.getViewport().getViewRect();
+            JScrollBar vertical = scrollPane.getVerticalScrollBar();
+            JScrollBar horizontal = scrollPane.getHorizontalScrollBar();
+            vertical.setValue(vertical.getMaximum());
+            horizontal.setValue((horizontal.getMaximum() - bounds.width) / 2);
         });
 
         Box box = Box.createVerticalBox();

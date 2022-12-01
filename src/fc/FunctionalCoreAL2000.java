@@ -3,27 +3,32 @@ package fc;
 import db.dao.DAOFactory;
 import db.pojo.SubscribeCardPOJO;
 import db.pojo.SubscriberPOJO;
+import fc.movie.Movie;
+import fc.movie.MovieDatabase;
+import fc.support.BluRay;
+import fc.support.BluRayDatabase;
 
 import java.sql.Date;
 
 public class FunctionalCoreAL2000 {
     Facade facade;
     private Client client;
-    private BluRayTable blurays;
+    private final ThemeDatabase themes;
+    private final MovieDatabase movies;
+    private final BluRayDatabase bluRays;
 
     public FunctionalCoreAL2000() {
         facade = new Facade();
-        blurays = new BluRayTable();
+        themes = new ThemeDatabase();
+        movies = new MovieDatabase();
+        bluRays = new BluRayDatabase();
     }
 
-    public QRCode printQRCode(Movie movie) {
-        // maj BD : rentals
-        return new QRCode(movie);
-    }
-
-    public BluRay deliverBluRay(Movie movie) {
-        // maj BD : rentals + blurays
-        return blurays.getBluRay(movie);
+    public void rentBluRay(Movie movie) {
+        // maj BD : rentals + bluRays
+        BluRay bluRay = bluRays.getBluRayFromMovie(movie);
+        bluRays.rentBluRay(bluRay);
+        facade.extractBluRay(bluRays.getPosition(bluRay));
     }
 
     public CreditCard determineCreditCard(int cardNumber) {

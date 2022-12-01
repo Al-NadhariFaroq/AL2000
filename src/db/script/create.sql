@@ -39,19 +39,19 @@ CREATE TABLE subscriber_cards (
 );
 
 CREATE TABLE movies (
-	movie_id     number(10)    NOT NULL,
-	title        varchar2(100) NOT NULL,
-	release_date date,
+	movie_id     number(10)     NOT NULL,
+	title        varchar2(150)  NOT NULL,
+	release_date date           NOT NULL,
 	synopsis     varchar2(4000),
-	rating       number(3),
-	age_limit    number(3),
+	rating       varchar2(4)    NOT NULL,
+	link_url     varchar2(2083) NOT NULL,
+	poster_url   varchar2(2083),
 	CONSTRAINT movies_pk PRIMARY KEY (movie_id)
 );
 
 CREATE TABLE professionals (
-	professional_id number(10)   NOT NULL,
-	last_name       varchar2(50) NOT NULL,
-	first_name      varchar2(50) NOT NULL,
+	professional_id number(10)    NOT NULL,
+	name            varchar2(100) NOT NULL,
 	CONSTRAINT professionals_pk PRIMARY KEY (professional_id)
 );
 
@@ -65,8 +65,8 @@ CREATE TABLE blu_rays (
 );
 
 CREATE TABLE themes (
-	theme_id  number(10) NOT NULL,
-	themePOJO varchar2(1000),
+	theme_id number(10)    NOT NULL,
+	theme    varchar2(100) NOT NULL,
 	CONSTRAINT themes_pk PRIMARY KEY (theme_id)
 );
 
@@ -90,10 +90,11 @@ CREATE TABLE movies_themes (
 	CONSTRAINT movie_themes_theme_fk FOREIGN KEY (theme_id) REFERENCES themes (theme_id)
 );
 
-CREATE TABLE restrictions (
+CREATE TABLE preferences (
 	restriction_id number(10) NOT NULL,
 	card_number    number(16) NOT NULL,
-	theme_id       number(10),
+	theme_id       number(10) NOT NULL,
+	restricted     number(1)  NOT NULL,
 	CONSTRAINT restrictions_pk PRIMARY KEY (restriction_id),
 	CONSTRAINT restrictions_theme_fk FOREIGN KEY (theme_id) REFERENCES themes (theme_id)
 );

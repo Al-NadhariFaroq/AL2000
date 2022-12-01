@@ -1,7 +1,8 @@
 package ui;
 
 import fc.FunctionalCoreAL2000;
-import fc.Movie;
+import fc.movie.Movie;
+import fc.movie.Rating;
 import ui.interactions.CardInteraction;
 import ui.panels.*;
 import ui.panels.Panel;
@@ -27,7 +28,17 @@ public class UserInterfaceAL2000 extends JFrame {
         this.fc = fc;
 
         HomePanel homePanel = new HomePanel(this);
-        MovieInfoPanel movieInfoPanel = new MovieInfoPanel(new Movie("Avatar"));
+        MovieInfoPanel movieInfoPanel = new MovieInfoPanel(new Movie("Avatar: The Way of Water",
+                                                                     null,
+                                                                     null,
+                                                                     null,
+                                                                     null,
+                                                                     "",
+                                                                     Rating.G,
+                                                                     0f,
+                                                                     "",
+                                                                     "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg"
+        ));
         SubscriberInfoPanel subscriberInfoPanel = new SubscriberInfoPanel();
         SubscriptionPanel subscriptionPanel = new SubscriptionPanel();
         HistoryPanel historyPanel = new HistoryPanel();

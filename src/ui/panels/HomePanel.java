@@ -1,8 +1,9 @@
 package ui.panels;
 
-import fc.Movie;
+import fc.movie.Movie;
+import fc.movie.Rating;
 import ui.UserInterfaceAL2000;
-import ui.component.MovieGrid;
+import ui.component.MoviesGrid;
 import ui.component.SearchBar;
 import ui.interactions.CardInteraction;
 import ui.component.MovieButton;
@@ -23,21 +24,28 @@ public class HomePanel extends JPanel {
     public JButton btnMenu, btnUser, btnPopular, btnNew, btnFilter, btnBluRay;
 
     public HomePanel(UserInterfaceAL2000 ui) {
-        this.UI = ui;
-
         setLayout(new BorderLayout());
+        this.UI = ui;
 
         List<Movie> movies = new ArrayList<>();
         for (int i = 1; i <= 156; i++) {
-            Movie movie = new Movie("Avatar " + i);
-            movie.setPosterURL("https://media.wdwnt.com/2022/11/avatar-the-way-of-water-poster-960x1200.jpg");
-            movies.add(movie);
+            movies.add(new Movie("Avatar " + i,
+                                 null,
+                                 null,
+                                 null,
+                                 null,
+                                 "",
+                                 Rating.G,
+                                 0f,
+                                 "",
+                                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg"
+            ));
         }
 
         JPanel topPanel = mainTopPanel();
-        MovieGrid movieGrid = new MovieGrid(movies);
+        MoviesGrid moviesGrid = new MoviesGrid(movies);
 
-        for (MovieButton movieButton : movieGrid.getMovieButtons()) {
+        for (MovieButton movieButton : moviesGrid.getMovieButtons()) {
             movieButton.addActionListener(e -> {
                 ((MovieInfoPanel) UI.getPanel(Panel.MOVIE_INFO)).update(movieButton.getMovie());
                 UI.changePanel(Panel.MOVIE_INFO);
@@ -45,7 +53,7 @@ public class HomePanel extends JPanel {
         }
 
         add(topPanel, BorderLayout.NORTH);
-        add(movieGrid, BorderLayout.CENTER);
+        add(moviesGrid, BorderLayout.CENTER);
     }
 
     private JPanel mainTopPanel() {
