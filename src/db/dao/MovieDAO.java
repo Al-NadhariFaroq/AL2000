@@ -4,6 +4,8 @@ import db.pojo.MoviePOJO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MovieDAO extends DAO<MoviePOJO> {
 
@@ -18,5 +20,11 @@ public class MovieDAO extends DAO<MoviePOJO> {
             throw new EntityNotFoundException("Can't find movie for ID " + id);
         }
         return moviePOJO;
+    }
+
+    public Set<MoviePOJO> readAll() {
+        Set<MoviePOJO> moviesPOJO = new HashSet<>();
+        // TODO read all
+        return moviesPOJO;
     }
 }

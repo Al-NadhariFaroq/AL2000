@@ -23,6 +23,12 @@ public class MoviePOJO {
     @Basic
     @Column(name = "RATING")
     private String rating;
+    @Basic
+    @Column(name = "LINK_URL")
+    private String linkURL;
+    @Basic
+    @Column(name = "POSTER_URL")
+    private String posterURL;
 
     public MoviePOJO() {
     }
@@ -67,21 +73,39 @@ public class MoviePOJO {
         this.rating = rating;
     }
 
+    public String getLinkURL() {
+        return linkURL;
+    }
+
+    public void setLinkURL(String linkURL) {
+        this.linkURL = linkURL;
+    }
+
+    public String getPosterURL() {
+        return posterURL;
+    }
+
+    public void setPosterURL(String posterURL) {
+        this.posterURL = posterURL;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof MoviePOJO)) {
             return false;
         }
-        MoviePOJO movie = (MoviePOJO) o;
-        return movie.movieId == movieId && movie.title.equals(title) && movie.releaseDate.equals(releaseDate) &&
-               movie.synopsis.equals(synopsis) && movie.rating.equals(rating);
+        MoviePOJO moviePOJO = (MoviePOJO) o;
+        return movieId == moviePOJO.movieId && Objects.equals(title, moviePOJO.title) &&
+               Objects.equals(releaseDate, moviePOJO.releaseDate) && Objects.equals(synopsis, moviePOJO.synopsis) &&
+               Objects.equals(rating, moviePOJO.rating) && Objects.equals(linkURL, moviePOJO.linkURL) &&
+               Objects.equals(posterURL, moviePOJO.posterURL);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(movieId, title, releaseDate, synopsis, rating);
+        return Objects.hash(movieId, title, releaseDate, synopsis, rating, linkURL, posterURL);
     }
 }

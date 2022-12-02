@@ -61,25 +61,58 @@ VALUES (9876541233, 'stange784@gmail.com', 4568452136548953);
 /*************************************************************/
 INSERT
 INTO THEMES
-VALUES (1, 'Actions');
+VALUES (1, 'Action');
 INSERT
 INTO THEMES
-VALUES (2, 'Sci-Fi');
+VALUES (2, 'Adventure');
 INSERT
 INTO THEMES
-VALUES (3, 'Drama');
+VALUES (3, 'Science fiction');
 INSERT
 INTO THEMES
-VALUES (4, 'Romance');
+VALUES (4, 'Anime');
 INSERT
 INTO THEMES
-VALUES (5, 'History');
+VALUES (5, 'Animation');
 INSERT
 INTO THEMES
-VALUES (6, 'Cartoon');
+VALUES (6, 'Comedy');
 INSERT
 INTO THEMES
-VALUES (7, 'Documentary');
+VALUES (7, 'Drama');
+INSERT
+INTO THEMES
+VALUES (8, 'Crime');
+INSERT
+INTO THEMES
+VALUES (9, 'Horror');
+INSERT
+INTO THEMES
+VALUES (10, 'Fantasy');
+INSERT
+INTO THEMES
+VALUES (11, 'Thriller');
+INSERT
+INTO THEMES
+VALUES (12, 'Fantastique');
+INSERT
+INTO THEMES
+VALUES (13, 'Western');
+INSERT
+INTO THEMES
+VALUES (14, 'Romance');
+INSERT
+INTO THEMES
+VALUES (15, 'Musical');
+INSERT
+INTO THEMES
+VALUES (16, 'Historical');
+INSERT
+INTO THEMES
+VALUES (17, 'Documentary');
+INSERT
+INTO THEMES
+VALUES (18, 'Anthology');
 
 /*************************************************************/
 /*************************************************************/

@@ -12,13 +12,13 @@ public class BluRayPOJO {
     private int bluRayId;
     @Basic
     @Column(name = "SERIAL_NUMBER")
-    private long serialNumber;
-    @Basic
-    @Column(name = "BLU_RAY_POSITION")
-    private Byte bluRayPosition;
+    private int serialNumber;
     @Basic
     @Column(name = "MOVIE_ID")
     private int movieId;
+    @Basic
+    @Column(name = "BLU_RAY_POSITION")
+    private int bluRayPosition;
 
     public int getBluRayId() {
         return bluRayId;
@@ -28,20 +28,12 @@ public class BluRayPOJO {
         this.bluRayId = bluRayId;
     }
 
-    public long getSerialNumber() {
+    public int getSerialNumber() {
         return serialNumber;
     }
 
-    public void setSerialNumber(long serialNumber) {
+    public void setSerialNumber(int serialNumber) {
         this.serialNumber = serialNumber;
-    }
-
-    public Byte getBluRayPosition() {
-        return bluRayPosition;
-    }
-
-    public void setBluRayPosition(Byte bluRayPosition) {
-        this.bluRayPosition = bluRayPosition;
     }
 
     public int getMovieId() {
@@ -52,17 +44,25 @@ public class BluRayPOJO {
         this.movieId = movieId;
     }
 
+    public int getBluRayPosition() {
+        return bluRayPosition;
+    }
+
+    public void setBluRayPosition(int bluRayPosition) {
+        this.bluRayPosition = bluRayPosition;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof BluRayPOJO)) {
             return false;
         }
         BluRayPOJO that = (BluRayPOJO) o;
         return bluRayId == that.bluRayId && serialNumber == that.serialNumber && movieId == that.movieId &&
-               Objects.equals(bluRayPosition, that.bluRayPosition);
+               bluRayPosition == that.bluRayPosition;
     }
 
     @Override

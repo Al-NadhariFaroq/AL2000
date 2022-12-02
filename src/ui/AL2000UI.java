@@ -4,11 +4,19 @@ import fc.AL2000FC;
 import fc.movie.Movie;
 import fc.movie.Rating;
 import ui.interactions.CardInteraction;
-import ui.panels.*;
+import ui.panels.HistoryPanel;
+import ui.panels.HomePanel;
+import ui.panels.MovieInfoPanel;
 import ui.panels.Panel;
+import ui.panels.ReloadPanel;
+import ui.panels.RentPanel;
+import ui.panels.SubscriberInfoPanel;
+import ui.panels.SubscriptionPanel;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -20,9 +20,7 @@ public class BluRays {
     BluRays() {
         bluRays = new Hashtable<>();
         freePositions = new PriorityQueue<>();
-        for (int position = 0; position < NB_MOVIES_MAX; position++) {
-            freePositions.add(position);
-        }
+        updateFromDatabase();
     }
 
     public BluRay getBluRayFromMovie(Movie movie) {
@@ -64,22 +62,28 @@ public class BluRays {
 
     public void addBluRay(BluRay bluRay) throws IllegalStateException, IllegalArgumentException {
         validateOperation(bluRay, 0);
-        bluRays.put(bluRay, freePositions.poll());
+        Integer position = freePositions.poll();
+        bluRays.put(bluRay, position);
+        dbManagement.createBluRay(bluRay, position == null ? -2 : position);
     }
 
     public void removeBluRay(BluRay bluRay) throws IllegalArgumentException {
         validateOperation(bluRay, 1);
         freePositions.add(bluRays.remove(bluRay));
+        dbManagement.deleteBluRay(bluRay);
     }
 
     public void rentBluRay(BluRay bluRay) throws IllegalArgumentException {
         freePositions.add(validateOperation(bluRay, 2));
         bluRays.replace(bluRay, RENTED);
+        dbManagement.updateBluRay(bluRay, RENTED);
     }
 
     public void returnBluRay(BluRay bluRay) throws IllegalArgumentException {
         validateOperation(bluRay, 3);
-        bluRays.replace(bluRay, freePositions.poll());
+        Integer position = freePositions.poll();
+        bluRays.replace(bluRay, position);
+        dbManagement.updateBluRay(bluRay, position == null ? -2 : position);
     }
 
     private Integer validateOperation(BluRay bluRay, int op) throws IllegalArgumentException, IllegalStateException {
@@ -100,6 +104,17 @@ public class BluRays {
             throw new IllegalArgumentException("Invalid blu-ray value: not rented");
         }
         return position;
+    }
+
+    public void updateFromDatabase() {
+        bluRays.clear();
+        bluRays.putAll(dbManagement.readAllBluRays());
+
+        for (int position = 0; position < NB_MOVIES_MAX; position++) {
+            if (!bluRays.containsValue(position)) {
+                freePositions.add(position);
+            }
+        }
     }
 
     @Override

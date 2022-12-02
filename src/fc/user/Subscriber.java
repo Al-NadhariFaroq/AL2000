@@ -1,9 +1,10 @@
 package fc.user;
 
+import fc.Themes;
 import fc.support.Rental;
 
 import java.util.Calendar;
-import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,18 +16,34 @@ public class Subscriber implements User {
     private String lastName;
     private Calendar birthDate;
     private float balance;
-    private final Set<String> excludedThemes;
-    private final Set<String> forbiddenThemes;
-    private final Set<Subscriber> controlledSubscribers;
+    private final boolean isControlled;
+    private final Map<Subscriber, Boolean> controlledSubscribers;
+    private final Map<String, Integer> themes;
     private final Set<Rental> rentals;
 
-    public Subscriber(int subscriptionCardNumber) {
+    public Subscriber(int subscriptionCardNumber,
+                      int creditCardNumber,
+                      String email,
+                      String firstName,
+                      String lastName,
+                      Calendar birthDate,
+                      float balance,
+                      boolean isControlled,
+                      Map<Subscriber, Boolean> controlledSubscribers,
+                      Map<String, Integer> themes,
+                      Set<Rental> rentals
+    ) {
         this.subscriptionCardNumber = subscriptionCardNumber;
-        excludedThemes = new HashSet<>();
-        forbiddenThemes = new HashSet<>();
-        controlledSubscribers = new HashSet<>();
-        rentals = new HashSet<>();
-        // read all information in DB
+        this.creditCardNumber = creditCardNumber;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.balance = balance;
+        this.isControlled = isControlled;
+        this.controlledSubscribers = controlledSubscribers;
+        this.themes = themes;
+        this.rentals = rentals;
     }
 
     public int getSubscriptionCardNumber() {
@@ -89,45 +106,41 @@ public class Subscriber implements User {
         balance += amount;
     }
 
-    public Set<String> getForbiddenThemes() {
-        return forbiddenThemes;
+    public boolean isControlled() {
+        return isControlled;
     }
 
-    public boolean addForbiddenTheme(String theme) throws NullPointerException {
-        if (theme == null) {
-            throw new NullPointerException("variable theme might not have been initialized");
-        }
-        return forbiddenThemes.add(theme);
-    }
-
-    public boolean removeForbiddenTheme(String theme) {
-        return forbiddenThemes.remove(theme);
+    public Set<String> getIncludedThemes() {
+        return Themes.getSpecifiedThemes(themes, Themes.INCLUDED);
     }
 
     public Set<String> getExcludedThemes() {
-        return excludedThemes;
+        return Themes.getSpecifiedThemes(themes, Themes.EXCLUDED);
     }
 
-    public boolean addExcludedTheme(String theme) throws NullPointerException {
-        if (theme == null) {
-            throw new NullPointerException("variable theme might not have been initialized");
+    public Set<String> getForbiddenThemes() {
+        return Themes.getSpecifiedThemes(themes, Themes.FORBIDDEN);
+    }
+
+    public void setThemeAvailability(String theme, int availability) throws IllegalArgumentException {
+        if (!themes.containsKey(theme)) {
+            throw new IllegalArgumentException("Invalid theme value");
         }
-        return excludedThemes.add(theme);
-    }
-
-    public boolean removeExcludedTheme(String theme) {
-        return excludedThemes.remove(theme);
+        if (availability < Themes.INCLUDED || availability > Themes.FORBIDDEN) {
+            throw new IllegalArgumentException("Invalid availability value");
+        }
+        themes.replace(theme, availability);
     }
 
     public Set<Subscriber> getControlledSubscribers() {
-        return controlledSubscribers;
+        return controlledSubscribers.keySet();
     }
 
-    public boolean addControlledSubscriber(Subscriber subscriber) throws NullPointerException {
+    public boolean addControlledSubscriber(Subscriber subscriber, boolean isControlled) throws NullPointerException {
         if (subscriber == null) {
             throw new NullPointerException("variable subscriber might not have been initialized");
         }
-        return controlledSubscribers.add(subscriber);
+        return Boolean.TRUE.equals(controlledSubscribers.put(subscriber, isControlled));
     }
 
     public boolean removeControlledSubscriber(Subscriber subscriber) {
@@ -150,6 +163,16 @@ public class Subscriber implements User {
     }
 
     @Override
+    public String toString() {
+        StringBuilder txt = new StringBuilder();
+        txt.append(subscriptionCardNumber).append(" (").append(firstName).append(" ").append(lastName).append(")\n");
+        for (Subscriber subscriber : controlledSubscribers.keySet()) {
+            txt.append("\t").append(subscriber.getSubscriptionCardNumber()).append("\n");
+        }
+        return txt.toString();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -159,22 +182,11 @@ public class Subscriber implements User {
         }
         Subscriber that = (Subscriber) o;
         return subscriptionCardNumber == that.subscriptionCardNumber && creditCardNumber == that.creditCardNumber &&
-               Float.compare(that.balance, balance) == 0 && Objects.equals(email, that.email) &&
-               Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) &&
-               Objects.equals(birthDate, that.birthDate) && Objects.equals(forbiddenThemes, that.forbiddenThemes) &&
-               Objects.equals(excludedThemes, that.excludedThemes) &&
+               isControlled == that.isControlled && Float.compare(that.balance, balance) == 0 &&
+               Objects.equals(email, that.email) && Objects.equals(firstName, that.firstName) &&
+               Objects.equals(lastName, that.lastName) && Objects.equals(birthDate, that.birthDate) &&
                Objects.equals(controlledSubscribers, that.controlledSubscribers) &&
-               Objects.equals(rentals, that.rentals);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder txt = new StringBuilder();
-        txt.append(subscriptionCardNumber).append(" (").append(firstName).append(" ").append(lastName).append(")\n");
-        for (Subscriber subscriber : controlledSubscribers) {
-            txt.append("\t").append(subscriber.getSubscriptionCardNumber()).append("\n");
-        }
-        return txt.toString();
+               Objects.equals(themes, that.themes) && Objects.equals(rentals, that.rentals);
     }
 
     @Override
@@ -186,9 +198,9 @@ public class Subscriber implements User {
                             lastName,
                             birthDate,
                             balance,
-                            forbiddenThemes,
-                            excludedThemes,
+                            isControlled,
                             controlledSubscribers,
+                            themes,
                             rentals
         );
     }

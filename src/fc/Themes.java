@@ -19,7 +19,7 @@ public class Themes {
 
     Themes() {
         themes = new LinkedHashMap<>();
-        updateThemes();
+        updateFromDatabase();
     }
 
     public List<String> getThemes() {
@@ -27,18 +27,18 @@ public class Themes {
     }
 
     public Set<String> getIncludedThemes() {
-        return getSpecifiedThemes(INCLUDED);
+        return getSpecifiedThemes(themes, INCLUDED);
     }
 
     public Set<String> getExcludedThemes() {
-        return getSpecifiedThemes(EXCLUDED);
+        return getSpecifiedThemes(themes, EXCLUDED);
     }
 
     public Set<String> getForbiddenThemes() {
-        return getSpecifiedThemes(FORBIDDEN);
+        return getSpecifiedThemes(themes, FORBIDDEN);
     }
 
-    private Set<String> getSpecifiedThemes(int a) {
+    public static Set<String> getSpecifiedThemes(Map<String, Integer> themes, int a) {
         Set<String> includedThemes = new HashSet<>();
         themes.forEach((theme, availability) -> {
             if (availability == a) {
@@ -69,29 +69,10 @@ public class Themes {
         themes.forEach(action);
     }
 
-    public void updateThemes() {
+    public void updateFromDatabase() {
         themes.clear();
-        // read themes in DB
-        // insert them in importance order with DISPLAY
-
-        themes.put("action", INCLUDED);
-        themes.put("adventure", INCLUDED);
-        themes.put("science fiction", INCLUDED);
-        themes.put("anime", INCLUDED);
-        themes.put("animation", INCLUDED);
-        themes.put("comedy", INCLUDED);
-        themes.put("drama", INCLUDED);
-        themes.put("crime", INCLUDED);
-        themes.put("horror", INCLUDED);
-        themes.put("fantasy", INCLUDED);
-        themes.put("thriller", INCLUDED);
-        themes.put("fantastique", INCLUDED);
-        themes.put("western", INCLUDED);
-        themes.put("romance", INCLUDED);
-        themes.put("musical", INCLUDED);
-        themes.put("historical", INCLUDED);
-        themes.put("documentary", INCLUDED);
-        themes.put("anthology", INCLUDED);
+        List<String> newThemes = dbManagement.readAllThemes();
+        newThemes.forEach(theme -> themes.put(theme, INCLUDED));
     }
 
     public void updateAvailabilities(Subscriber subscriber) {
@@ -108,25 +89,18 @@ public class Themes {
 
     @Override
     public String toString() {
-        List<String> tmp = new ArrayList<>();
+        StringBuilder txt = new StringBuilder();
         themes.forEach((theme, availability) -> {
-            String availabilityString;
-            switch (availability) {
-                case INCLUDED:
-                    availabilityString = "included";
-                    break;
-                case EXCLUDED:
-                    availabilityString = "excluded";
-                    break;
-                case FORBIDDEN:
-                    availabilityString = "forbidden";
-                    break;
-                default:
-                    availabilityString = "error";
-                    break;
+            String availabilityString = "error";
+            if (availability == INCLUDED) {
+                availabilityString = "included";
+            } else if (availability == EXCLUDED) {
+                availabilityString = "excluded";
+            } else if (availability == FORBIDDEN) {
+                availabilityString = "forbidden";
             }
-            tmp.add(theme + " (" + availabilityString + ")");
+            txt.append(theme).append(" (").append(availabilityString).append(")\n");
         });
-        return String.join(", ", tmp);
+        return txt.toString();
     }
 }

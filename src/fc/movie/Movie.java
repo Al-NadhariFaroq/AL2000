@@ -93,10 +93,6 @@ public class Movie {
         return isContainedInString(title, text);
     }
 
-    public boolean isContainedInThemes(String text) {
-        return isContainedInString(String.join(" ", themes), text);
-    }
-
     public boolean isContainedInDirectors(String text) {
         return isContainedInString(String.join(" ", directors), text);
     }

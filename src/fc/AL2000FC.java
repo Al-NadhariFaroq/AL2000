@@ -64,7 +64,7 @@ public class AL2000FC {
         if (subscriptionCardNumber == 0) {
             user = new Technician();
         } else if (subscriptionCardNumber > 0) {
-            user = new Subscriber(subscriptionCardNumber);
+            user = null; //new Subscriber(subscriptionCardNumber);
         } else if (creditCardNumber >= 0) {
             user = new Client(creditCardNumber);
         }

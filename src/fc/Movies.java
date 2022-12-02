@@ -27,12 +27,14 @@ public class Movies {
     Movies(Rating rating, boolean bluRaysOnly, Set<String> themes, SearchType searchType, SortType sortType) {
         this.allMovies = new HashSet<>();
         this.sortedMovies = new Vector<>();
+
         this.rating = rating;
         this.bluRaysOnly = bluRaysOnly;
         this.themes = themes;
         this.searchType = searchType;
         this.sortType = sortType;
-        updateDatabase();
+
+        updateFromDatabase();
     }
 
     public List<Movie> getSortedMovies() {
@@ -79,11 +81,13 @@ public class Movies {
         this.sortType = sortType;
     }
 
-    public void updateDatabase() {
+    public void updateFromDatabase() {
         allMovies.clear();
-        // read in DB all movies
-        // insert in allMovies
-        // insert in sortedMovies
+        allMovies.addAll(dbManagement.readAllMovies());
+
+        sortedMovies.clear();
+        sortedMovies.addAll(allMovies);
+
         sortRating();
         sortBluRays();
         sortThemes();

@@ -38,11 +38,11 @@ public class ThemePOJO {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof ThemePOJO)) {
             return false;
         }
-        ThemePOJO that = (ThemePOJO) o;
-        return themeId == that.themeId && Objects.equals(theme, that.theme);
+        ThemePOJO themePOJO = (ThemePOJO) o;
+        return themeId == themePOJO.themeId && Objects.equals(theme, themePOJO.theme);
     }
 
     @Override

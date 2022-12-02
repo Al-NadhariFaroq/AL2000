@@ -33,11 +33,6 @@ public class MoviesGrid extends JPanel {
         }
     }
 
-    private int resultsPerLine;
-    private int resultsPerPage;
-    private int currentPage;
-    private List<Movie> movies;
-
     private JScrollPane scrollPane;
     private JPanel gridPanel;
     private GridLayout gridLayout;
@@ -59,6 +54,11 @@ public class MoviesGrid extends JPanel {
     private TextButton btn100pages;
     private final JLabel emptyMoviesLbl;
     private final List<MovieButton> movieButtons;
+
+    private int resultsPerLine;
+    private int resultsPerPage;
+    private int currentPage;
+    private List<Movie> movies;
 
     public MoviesGrid(List<Movie> movies) {
         this(movies, 5);
