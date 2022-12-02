@@ -2,7 +2,7 @@ package ui.panels;
 
 import fc.movie.Movie;
 import fc.movie.Rating;
-import ui.UserInterfaceAL2000;
+import ui.AL2000UI;
 import ui.component.MoviesGrid;
 import ui.component.SearchBar;
 import ui.interactions.CardInteraction;
@@ -20,10 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomePanel extends JPanel {
-    private final UserInterfaceAL2000 UI;
+    private final AL2000UI UI;
     public JButton btnMenu, btnUser, btnPopular, btnNew, btnFilter, btnBluRay;
 
-    public HomePanel(UserInterfaceAL2000 ui) {
+    public HomePanel(AL2000UI ui) {
         setLayout(new BorderLayout());
         this.UI = ui;
 

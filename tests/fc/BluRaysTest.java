@@ -8,9 +8,11 @@ import java.util.Calendar;
 
 public class BluRaysTest {
 
-    private static Movie createMovie(String title) {
+    private static Movie createMovie(String title, int year) {
+        Calendar date = Calendar.getInstance();
+        date.set(year, Calendar.JANUARY, 1);
         return new Movie(title,
-                         Calendar.getInstance(),
+                         date,
                          null,
                          null,
                          null,
@@ -23,11 +25,11 @@ public class BluRaysTest {
     }
 
     public static void main(String[] args) {
-        Movie avatar = createMovie("Avatar");
-        Movie harryPotter = createMovie("Harry Potter");
-        Movie laCiteDeLaPeur = createMovie("La Cite de la peur");
-        Movie toyStory = createMovie("Toy Story");
-        Movie oldBoy = createMovie("Old Boy");
+        Movie avatar = createMovie("Avatar", 2009);
+        Movie harryPotter = createMovie("Harry Potter", 2001);
+        Movie laCiteDeLaPeur = createMovie("La Cite de la peur", 1994);
+        Movie toyStory = createMovie("Toy Story", 1995);
+        Movie oldBoy = createMovie("Old Boy", 2003);
 
         BluRays bluRays = new BluRays();
         bluRays.addBluRay(new BluRay(0, avatar));

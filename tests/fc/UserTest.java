@@ -1,41 +1,23 @@
 package fc;
 
 import java.util.Calendar;
-import java.sql.Date;
-
-import fc.user.CreditCard;
-import fc.user.SubscribeCard;
-import fc.user.Subscriber;
 
 public class UserTest {
-    public static void main(String args[]) {
-        FunctionalCoreAL2000 m = new FunctionalCoreAL2000();
-        System.out.println(m);
+    public static void main(String[] args) {
+        Calendar subscriptionDate = Calendar.getInstance();
 
-        CreditCard fatherCreditCard = new CreditCard(0);
-        SubscribeCard fatherSubscribeCard = new SubscribeCard(0,
-                                                              "Pere",
-                                                              "Father",
-                                                              Calendar.getInstance().getTime(),
-                                                              "pere.father@gmail.com",
-                                                              fatherCreditCard,
-                                                              null
-        );
-        Subscriber father = new Subscriber(fatherCreditCard, fatherSubscribeCard);
-        Date inscriptionDate = Date.valueOf(Calendar.getInstance().getTime().toString());
+        AL2000FC al2000 = new AL2000FC();
+        System.out.println(al2000);
 
-        m.connection(fatherSubscribeCard);
-        System.out.println(m);
+        al2000.connection();
+        System.out.println(al2000);
 
-        SubscribeCard sonSubscribeCard = m.subscription("Fils", "Son", inscriptionDate, "fils.son@gmail.com");
-        System.out.println(m);
+        al2000.subscription("adresse.mail@gmail.com", "firstName", "lastName", subscriptionDate);
+        System.out.println(al2000);
 
-        m.rechargeSubscribeCard(20);
-        System.out.println(m);
+        al2000.rechargeSubscriptionCard(20);
+        System.out.println(al2000);
 
-        m.rechargeSubSubscribeCard(sonSubscribeCard, 50);
-        System.out.println(m);
-
-        m.close();
+        al2000.close();
     }
 }

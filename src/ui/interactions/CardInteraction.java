@@ -1,15 +1,16 @@
 package ui.interactions;
 
-import ui.UserInterfaceAL2000;
+import ui.AL2000UI;
 import ui.panels.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
+import java.util.Calendar;
 
 public class CardInteraction implements ActionListener {
     private static CardInteraction cardInteraction = null;
-    private static UserInterfaceAL2000 UI;
+    private static AL2000UI UI;
 
     private CardInteraction() {
     }
@@ -21,7 +22,7 @@ public class CardInteraction implements ActionListener {
         return cardInteraction;
     }
 
-    public static void setUI(UserInterfaceAL2000 ui) {
+    public static void setUI(AL2000UI ui) {
         UI = ui;
     }
 
@@ -57,11 +58,13 @@ public class CardInteraction implements ActionListener {
                     UI.changePanel(Panel.HOME);
                 } else if (src == subscriptionPanel.getBtnValid()) {
                     UI.changePanel(Panel.HOME);
+                    Calendar date = Calendar.getInstance();
+                    date.setTime(Date.valueOf(subscriptionPanel.getDateOfBirthText().getText()));
                     UI.getFC()
-                      .subscription(subscriptionPanel.getFirstNameText().getText(),
+                      .subscription(subscriptionPanel.getMailText().getText(),
+                                    subscriptionPanel.getFirstNameText().getText(),
                                     subscriptionPanel.getLastNameText().getText(),
-                                    Date.valueOf(subscriptionPanel.getDateOfBirthText().getText()),
-                                    subscriptionPanel.getMailText().getText()
+                                    date
                       );
                 }
                 break;

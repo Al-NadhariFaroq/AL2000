@@ -11,7 +11,7 @@ public enum Rating {
     private final int ageLimit;
     private final String description;
 
-    private Rating(int ageLimit, String description) {
+    Rating(int ageLimit, String description) {
         this.ageLimit = ageLimit;
         this.description = description;
     }

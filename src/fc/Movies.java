@@ -20,11 +20,11 @@ public class Movies {
     private SearchType searchType;
     private SortType sortType;
 
-    public Movies() {
-        this(Rating.UR, false, null, SearchType.TITLE, SortType.DATE_ASC);
+    Movies() {
+        this(Rating.UR, false, new HashSet<>(), SearchType.TITLE, SortType.DATE_ASC);
     }
 
-    public Movies(Rating rating, boolean bluRaysOnly, Set<String> themes, SearchType searchType, SortType sortType) {
+    Movies(Rating rating, boolean bluRaysOnly, Set<String> themes, SearchType searchType, SortType sortType) {
         this.allMovies = new HashSet<>();
         this.sortedMovies = new Vector<>();
         this.rating = rating;

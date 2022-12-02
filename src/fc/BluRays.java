@@ -17,7 +17,7 @@ public class BluRays {
     private final Map<BluRay, Integer> bluRays;
     private final Queue<Integer> freePositions;
 
-    public BluRays() {
+    BluRays() {
         bluRays = new Hashtable<>();
         freePositions = new PriorityQueue<>();
         for (int position = 0; position < NB_MOVIES_MAX; position++) {
@@ -104,10 +104,11 @@ public class BluRays {
 
     @Override
     public String toString() {
-        StringBuilder txt = new StringBuilder("");
-        bluRays.forEach((bluRay, position) -> {
-            txt.append(bluRay).append(" : ").append(position == RENTED ? "rented" : position).append("\n");
-        });
+        StringBuilder txt = new StringBuilder();
+        bluRays.forEach((bluRay, position) -> txt.append(bluRay)
+                                                 .append(" : ")
+                                                 .append(position == RENTED ? "rented" : position)
+                                                 .append("\n"));
         return txt.toString();
     }
 }

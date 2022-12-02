@@ -1,14 +1,7 @@
 package fc.user;
 
-public class Technician {
-    int technicianId;
+public class Technician implements User {
 
     public Technician() {
-    }
-
-    void insertBluRay() {
-    }
-
-    void removeBluRay() {
     }
 }

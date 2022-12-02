@@ -1,14 +1,22 @@
 package fc.user;
 
-public class Client {
-    CreditCard creditCard;
+import fc.support.Rental;
 
-    public Client(CreditCard creditCard) {
-        this.creditCard = creditCard;
+public class Client implements User {
+    private final int creditCardNumber;
+    private Rental rental;
+
+    public Client(int creditCardNumber) {
+        this.creditCardNumber = creditCardNumber;
+        // search rental in DB
     }
 
-    public CreditCard getCreditCard() {
-        return creditCard;
+    public int getCreditCardNumber() {
+        return creditCardNumber;
+    }
+
+    public Rental getRental() {
+        return rental;
     }
 
     @Override
@@ -16,14 +24,15 @@ public class Client {
         if (this == o) {
             return true;
         }
-
+        if (!(o instanceof Client)) {
+            return false;
+        }
         Client client = (Client) o;
-
-        return client.creditCard.equals(creditCard);
+        return creditCardNumber == client.creditCardNumber && rental.equals(client.rental);
     }
 
     @Override
     public String toString() {
-        return "Client : " + creditCard.toString();
+        return String.valueOf(creditCardNumber);
     }
 }

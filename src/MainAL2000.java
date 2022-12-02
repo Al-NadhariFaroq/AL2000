@@ -1,14 +1,14 @@
-import fc.FunctionalCoreAL2000;
-import ui.UserInterfaceAL2000;
+import fc.AL2000FC;
+import ui.AL2000UI;
 
-import javax.swing.*;
+import javax.swing.SwingUtilities;
 
 public class MainAL2000 {
 
-    public static void main(String args[]) {
-        // DataBaseAL2000 bd = new DataBaseAL2000();
-        FunctionalCoreAL2000 fc = new FunctionalCoreAL2000();
-        UserInterfaceAL2000 ui = new UserInterfaceAL2000(fc);
+    public static void main(String[] args) {
+        // AL2000DB bd = new AL2000DB();
+        AL2000FC fc = new AL2000FC();
+        AL2000UI ui = new AL2000UI(fc);
         SwingUtilities.invokeLater(() -> ui.setVisible(true));
     }
 }

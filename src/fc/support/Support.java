@@ -7,7 +7,7 @@ import java.util.Objects;
 public abstract class Support {
     protected final Movie movie;
 
-    public Support(Movie movie) {
+    protected Support(Movie movie) {
         this.movie = movie;
     }
 

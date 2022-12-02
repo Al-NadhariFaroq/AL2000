@@ -26,7 +26,7 @@ import java.awt.event.FocusListener;
  * class construction.
  */
 public class TextPrompt extends JLabel implements FocusListener, DocumentListener {
-    public enum Show {ALWAYS, FOCUS_GAINED, FOCUS_LOST;}
+    public enum Show {ALWAYS, FOCUS_GAINED, FOCUS_LOST}
 
     private final JTextComponent component;
     private final Document document;
@@ -93,7 +93,7 @@ public class TextPrompt extends JLabel implements FocusListener, DocumentListene
     /**
      * Convenience method to change the style of the current Font. The style
      * values are found in the Font class. Common values might be:
-     * Font.BOLD, Font.ITALIC and Font.BOLD + Font.ITALIC.
+     * {@code Font.BOLD}, {@code Font.ITALIC} and {@code Font.BOLD} + {@code Font.ITALIC}.
      *
      * @param style value representing the new style of the Font.
      */

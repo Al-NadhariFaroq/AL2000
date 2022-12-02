@@ -3,11 +3,11 @@ package fc;
 import fc.user.Subscriber;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiConsumer;
 
 public class Themes {
@@ -17,7 +17,7 @@ public class Themes {
 
     private final Map<String, Integer> themes;
 
-    public Themes() {
+    Themes() {
         themes = new LinkedHashMap<>();
         updateThemes();
     }
@@ -26,10 +26,22 @@ public class Themes {
         return new ArrayList<>(themes.keySet());
     }
 
-    public Collection<String> getIncludedThemes() {
-        Collection<String> includedThemes = new HashSet<>();
+    public Set<String> getIncludedThemes() {
+        return getSpecifiedThemes(INCLUDED);
+    }
+
+    public Set<String> getExcludedThemes() {
+        return getSpecifiedThemes(EXCLUDED);
+    }
+
+    public Set<String> getForbiddenThemes() {
+        return getSpecifiedThemes(FORBIDDEN);
+    }
+
+    private Set<String> getSpecifiedThemes(int a) {
+        Set<String> includedThemes = new HashSet<>();
         themes.forEach((theme, availability) -> {
-            if (availability == INCLUDED) {
+            if (availability == a) {
                 includedThemes.add(theme);
             }
         });
@@ -84,9 +96,9 @@ public class Themes {
 
     public void updateAvailabilities(Subscriber subscriber) {
         themes.forEach((theme, available) -> {
-            if (subscriber.getSubscribeCard().getForbiddenThemes().contains(theme)) {
+            if (subscriber.getForbiddenThemes().contains(theme)) {
                 available = FORBIDDEN;
-            } else if (subscriber.getSubscribeCard().getHiddenThemes().contains(theme)) {
+            } else if (subscriber.getExcludedThemes().contains(theme)) {
                 available = EXCLUDED;
             } else {
                 available = INCLUDED;

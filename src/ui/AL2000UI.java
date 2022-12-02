@@ -1,6 +1,6 @@
 package ui;
 
-import fc.FunctionalCoreAL2000;
+import fc.AL2000FC;
 import fc.movie.Movie;
 import fc.movie.Rating;
 import ui.interactions.CardInteraction;
@@ -12,13 +12,13 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserInterfaceAL2000 extends JFrame {
-    private final FunctionalCoreAL2000 fc;
+public class AL2000UI extends JFrame {
+    private final AL2000FC fc;
     private final List<JPanel> panels;
     private Panel currentPanel;
 
-    public UserInterfaceAL2000(FunctionalCoreAL2000 fc) {
-        super("CyberVideo 2.0");
+    public AL2000UI(AL2000FC fc) {
+        super("AL2000");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(960, 720));
         setMinimumSize(new Dimension(720, 480));
@@ -67,7 +67,7 @@ public class UserInterfaceAL2000 extends JFrame {
         currentPanel = Panel.HOME;
     }
 
-    public FunctionalCoreAL2000 getFC() {
+    public AL2000FC getFC() {
         return fc;
     }
 

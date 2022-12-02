@@ -1,6 +1,5 @@
 package ui;
 
-import fc.Themes;
 import ui.component.MoviesBar;
 
 import javax.swing.JFrame;
@@ -8,8 +7,11 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class MoviesBarTest extends JFrame {
 
@@ -20,29 +22,9 @@ public class MoviesBarTest extends JFrame {
         setMinimumSize(new Dimension(720, 480));
         getContentPane().setLayout(new BorderLayout());
 
-        Themes themes = new Themes();
-        themes.setAvailability("anime", Themes.FORBIDDEN);
-        themes.setAvailability("drama", Themes.EXCLUDED);
-        themes.setAvailability("crime", Themes.EXCLUDED);
-        themes.setAvailability("horror", Themes.FORBIDDEN);
-        themes.setAvailability("thriller", Themes.FORBIDDEN);
-        themes.setAvailability("fantastique", Themes.EXCLUDED);
-        themes.setAvailability("romance", Themes.EXCLUDED);
-        themes.setAvailability("musical", Themes.EXCLUDED);
-        themes.setAvailability("historical", Themes.EXCLUDED);
-        themes.setAvailability("documentary", Themes.FORBIDDEN);
-        themes.setAvailability("anthology", Themes.FORBIDDEN);
+        Map<String, Boolean> data = createData(createInput());
 
-        Map<String, Boolean> in = new LinkedHashMap<>();
-        themes.forEach((theme, availability) -> {
-            if (availability == Themes.INCLUDED) {
-                in.put(theme, false);
-            } else if (availability == Themes.EXCLUDED) {
-                in.put(theme, true);
-            }
-        });
-
-        JTextArea textArea = new JTextArea(themes.toString().replace(", ", ",\n"));
+        JTextArea textArea = new JTextArea(printData(data));
         textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
@@ -54,6 +36,47 @@ public class MoviesBarTest extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
+    }
+
+    private Map<String, Boolean> createData(List<String> input) {
+        Random random = new Random();
+        Map<String, Boolean> data = new LinkedHashMap<>();
+        input.forEach(word -> data.put(word, random.nextBoolean()));
+        return data;
+    }
+
+    private List<String> createInput() {
+        List<String> input = new ArrayList<>();
+        input.add("first");
+        input.add("second");
+        input.add("third");
+        input.add("fourth");
+        input.add("fifth");
+        input.add("sixth");
+        input.add("seventh");
+        input.add("eighth");
+        input.add("ninth");
+        input.add("tenth");
+        input.add("eleventh");
+        input.add("twelfth");
+        input.add("thirteenth");
+        input.add("fourteenth");
+        input.add("fifteenth");
+        input.add("sixteenth");
+        input.add("seventeenth");
+        input.add("eighteenth");
+        input.add("nineteenth");
+        input.add("twentieth");
+        return input;
+    }
+
+    private String printData(Map<String, Boolean> data) {
+        StringBuilder txt = new StringBuilder();
+        data.forEach((word, selected) -> txt.append(word)
+                                            .append(": ")
+                                            .append(selected ? "selected" : "unselected")
+                                            .append("\n"));
+        return txt.toString();
     }
 
     public static void main(String[] args) {
