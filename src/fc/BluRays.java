@@ -1,6 +1,7 @@
-package fc.support;
+package fc;
 
 import fc.movie.Movie;
+import fc.support.BluRay;
 
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -9,14 +10,14 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 
-public class BluRayDatabase {
+public class BluRays {
     public static final int RENTED = -1;
     public static final int NB_MOVIES_MAX = 100;
 
     private final Map<BluRay, Integer> bluRays;
     private final Queue<Integer> freePositions;
 
-    public BluRayDatabase() {
+    public BluRays() {
         bluRays = new Hashtable<>();
         freePositions = new PriorityQueue<>();
         for (int position = 0; position < NB_MOVIES_MAX; position++) {
@@ -31,6 +32,10 @@ public class BluRayDatabase {
             }
         }
         return null;
+    }
+
+    public int getPosition(BluRay bluRay) {
+        return bluRays.get(bluRay);
     }
 
     public Set<BluRay> getBluRays() {
@@ -55,10 +60,6 @@ public class BluRayDatabase {
             }
         });
         return unavailableBluRays;
-    }
-
-    public int getPosition(BluRay bluRay) {
-        return bluRays.get(bluRay);
     }
 
     public void addBluRay(BluRay bluRay) throws IllegalStateException, IllegalArgumentException {

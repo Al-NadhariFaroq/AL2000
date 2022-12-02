@@ -1,4 +1,4 @@
-package ui.test;
+package ui;
 
 import ui.component.SearchBar;
 

@@ -1,5 +1,7 @@
 package fc;
 
+import fc.user.Subscriber;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -8,14 +10,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
-public class ThemeDatabase {
+public class Themes {
     public static final int INCLUDED = 0;
     public static final int EXCLUDED = 1;
     public static final int FORBIDDEN = 2;
 
     private final Map<String, Integer> themes;
 
-    public ThemeDatabase() {
+    public Themes() {
         themes = new LinkedHashMap<>();
         updateThemes();
     }

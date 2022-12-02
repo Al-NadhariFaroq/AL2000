@@ -1,4 +1,4 @@
-package fc;
+package fc.user;
 
 public abstract class Card {
     int cardNumber;

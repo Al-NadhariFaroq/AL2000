@@ -1,4 +1,6 @@
-package fc;
+package fc.user;
+
+import fc.Rental;
 
 import java.util.ArrayList;
 import java.util.Date;

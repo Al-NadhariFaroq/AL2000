@@ -1,14 +1,13 @@
-package fc.test;
+package fc;
 
 import java.util.Calendar;
 import java.sql.Date;
 
-import fc.CreditCard;
-import fc.FunctionalCoreAL2000;
-import fc.SubscribeCard;
-import fc.Subscriber;
+import fc.user.CreditCard;
+import fc.user.SubscribeCard;
+import fc.user.Subscriber;
 
-public class TestClients {
+public class UserTest {
     public static void main(String args[]) {
         FunctionalCoreAL2000 m = new FunctionalCoreAL2000();
         System.out.println(m);

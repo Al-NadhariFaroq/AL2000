@@ -4,24 +4,27 @@ import db.dao.DAOFactory;
 import db.pojo.SubscribeCardPOJO;
 import db.pojo.SubscriberPOJO;
 import fc.movie.Movie;
-import fc.movie.MovieDatabase;
 import fc.support.BluRay;
-import fc.support.BluRayDatabase;
+import fc.user.Card;
+import fc.user.Client;
+import fc.user.CreditCard;
+import fc.user.SubscribeCard;
+import fc.user.Subscriber;
 
 import java.sql.Date;
 
 public class FunctionalCoreAL2000 {
     Facade facade;
     private Client client;
-    private final ThemeDatabase themes;
-    private final MovieDatabase movies;
-    private final BluRayDatabase bluRays;
+    private final Themes themes;
+    private final Movies movies;
+    private final BluRays bluRays;
 
     public FunctionalCoreAL2000() {
         facade = new Facade();
-        themes = new ThemeDatabase();
-        movies = new MovieDatabase();
-        bluRays = new BluRayDatabase();
+        themes = new Themes();
+        movies = new Movies();
+        bluRays = new BluRays();
     }
 
     public void rentBluRay(Movie movie) {

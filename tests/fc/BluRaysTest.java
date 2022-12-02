@@ -1,13 +1,12 @@
-package fc.test;
+package fc;
 
 import fc.support.BluRay;
-import fc.support.BluRayDatabase;
 import fc.movie.Movie;
 import fc.movie.Rating;
 
 import java.util.Calendar;
 
-public class TestBluRayDatabase {
+public class BluRaysTest {
 
     private static Movie createMovie(String title) {
         return new Movie(title,
@@ -30,7 +29,7 @@ public class TestBluRayDatabase {
         Movie toyStory = createMovie("Toy Story");
         Movie oldBoy = createMovie("Old Boy");
 
-        BluRayDatabase bluRays = new BluRayDatabase();
+        BluRays bluRays = new BluRays();
         bluRays.addBluRay(new BluRay(0, avatar));
         bluRays.addBluRay(new BluRay(0, harryPotter));
         bluRays.addBluRay(new BluRay(0, laCiteDeLaPeur));

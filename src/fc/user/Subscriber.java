@@ -1,4 +1,4 @@
-package fc;
+package fc.user;
 
 import java.util.ArrayList;
 import java.util.List;

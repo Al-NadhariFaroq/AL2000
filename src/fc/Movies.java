@@ -1,27 +1,34 @@
-package fc.movie;
+package fc;
+
+import fc.movie.Movie;
+import fc.movie.Rating;
+import fc.movie.SearchType;
+import fc.movie.SortType;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.List;
 import java.util.Vector;
 
-public class MovieDatabase {
+public class Movies {
     private final Set<Movie> allMovies;
     private final List<Movie> sortedMovies;
 
     private Rating rating;
+    private boolean bluRaysOnly;
     private Set<String> themes;
     private SearchType searchType;
     private SortType sortType;
 
-    public MovieDatabase() {
-        this(Rating.UR, null, SearchType.TITLE, SortType.DATE_ASC);
+    public Movies() {
+        this(Rating.UR, false, null, SearchType.TITLE, SortType.DATE_ASC);
     }
 
-    public MovieDatabase(Rating rating, Set<String> themes, SearchType searchType, SortType sortType) {
+    public Movies(Rating rating, boolean bluRaysOnly, Set<String> themes, SearchType searchType, SortType sortType) {
         this.allMovies = new HashSet<>();
         this.sortedMovies = new Vector<>();
         this.rating = rating;
+        this.bluRaysOnly = bluRaysOnly;
         this.themes = themes;
         this.searchType = searchType;
         this.sortType = sortType;
@@ -38,6 +45,14 @@ public class MovieDatabase {
 
     public void setRating(Rating rating) {
         this.rating = rating;
+    }
+
+    public boolean isBluRaysOnly() {
+        return bluRaysOnly;
+    }
+
+    public void setBluRaysOnly(boolean bluRaysOnly) {
+        this.bluRaysOnly = bluRaysOnly;
     }
 
     public Set<String> getThemes() {
@@ -70,6 +85,7 @@ public class MovieDatabase {
         // insert in allMovies
         // insert in sortedMovies
         sortRating();
+        sortBluRays();
         sortThemes();
         orderMovies();
     }
@@ -81,6 +97,10 @@ public class MovieDatabase {
                 sortedMovies.add(movie);
             }
         });
+    }
+
+    public void sortBluRays() {
+        // keep only movie which has a Blu-ray
     }
 
     public void sortThemes() {

@@ -1,4 +1,4 @@
-package ui.test;
+package ui;
 
 import fc.movie.Movie;
 import fc.movie.Rating;

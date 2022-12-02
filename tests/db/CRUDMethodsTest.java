@@ -6,9 +6,9 @@ import db.dao.ThemeDAO;
 import db.pojo.SubscriberPOJO;
 import db.pojo.ThemePOJO;
 
-public class TestBD {
+public class CRUDMethodsTest {
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         ThemeDAO themeDAO = DAOFactory.getThemeDAO();
 
         ThemePOJO themePOJO1 = new ThemePOJO();

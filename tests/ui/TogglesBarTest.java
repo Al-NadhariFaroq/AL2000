@@ -1,6 +1,6 @@
-package ui.test;
+package ui;
 
-import fc.ThemeDatabase;
+import fc.Themes;
 import ui.component.TogglesBar;
 
 import javax.swing.JFrame;
@@ -20,24 +20,24 @@ public class TogglesBarTest extends JFrame {
         setMinimumSize(new Dimension(720, 480));
         getContentPane().setLayout(new BorderLayout());
 
-        ThemeDatabase themes = new ThemeDatabase();
-        themes.setAvailability("anime", ThemeDatabase.FORBIDDEN);
-        themes.setAvailability("drama", ThemeDatabase.EXCLUDED);
-        themes.setAvailability("crime", ThemeDatabase.EXCLUDED);
-        themes.setAvailability("horror", ThemeDatabase.FORBIDDEN);
-        themes.setAvailability("thriller", ThemeDatabase.FORBIDDEN);
-        themes.setAvailability("fantastique", ThemeDatabase.EXCLUDED);
-        themes.setAvailability("romance", ThemeDatabase.EXCLUDED);
-        themes.setAvailability("musical", ThemeDatabase.EXCLUDED);
-        themes.setAvailability("historical", ThemeDatabase.EXCLUDED);
-        themes.setAvailability("documentary", ThemeDatabase.FORBIDDEN);
-        themes.setAvailability("anthology", ThemeDatabase.FORBIDDEN);
+        Themes themes = new Themes();
+        themes.setAvailability("anime", Themes.FORBIDDEN);
+        themes.setAvailability("drama", Themes.EXCLUDED);
+        themes.setAvailability("crime", Themes.EXCLUDED);
+        themes.setAvailability("horror", Themes.FORBIDDEN);
+        themes.setAvailability("thriller", Themes.FORBIDDEN);
+        themes.setAvailability("fantastique", Themes.EXCLUDED);
+        themes.setAvailability("romance", Themes.EXCLUDED);
+        themes.setAvailability("musical", Themes.EXCLUDED);
+        themes.setAvailability("historical", Themes.EXCLUDED);
+        themes.setAvailability("documentary", Themes.FORBIDDEN);
+        themes.setAvailability("anthology", Themes.FORBIDDEN);
 
         Map<String, Boolean> in = new LinkedHashMap<>();
         themes.forEach((theme, availability) -> {
-            if (availability == ThemeDatabase.INCLUDED) {
+            if (availability == Themes.INCLUDED) {
                 in.put(theme, false);
-            } else if (availability == ThemeDatabase.EXCLUDED) {
+            } else if (availability == Themes.EXCLUDED) {
                 in.put(theme, true);
             }
         });
@@ -50,7 +50,7 @@ public class TogglesBarTest extends JFrame {
         TogglesBar togglesBar = new TogglesBar(in);
         togglesBar.setFont(togglesBar.getFont().deriveFont(13f));
         togglesBar.getButtons().forEach(btn -> btn.addActionListener(e -> {
-            themes.setAvailability(btn.getText(), btn.isSelected() ? ThemeDatabase.EXCLUDED : ThemeDatabase.INCLUDED);
+            themes.setAvailability(btn.getText(), btn.isSelected() ? Themes.EXCLUDED : Themes.INCLUDED);
             textArea.setText(themes.toString().replace(", ", ",\n"));
         }));
 

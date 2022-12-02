@@ -1,4 +1,4 @@
-package fc;
+package fc.user;
 
 public class Client {
     CreditCard creditCard;
