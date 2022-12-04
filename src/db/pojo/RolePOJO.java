@@ -11,56 +11,71 @@ public class RolePOJO {
     @Column(name = "ROLE_ID")
     private int roleId;
     @Basic
-    @Column(name = "ROLE_NAME")
-    private String roleName;
+    @Column(name = "MOVIE_ID")
+    private int movieId;
     @Basic
-    @Column(name = "IS_PRODUCER")
-    private Boolean isProducer;
+    @Column(name = "NAME")
+    private String name;
     @Basic
-    @Column(name = "PROFESSIONAL_ID")
-    private int professionalId;
+    @Column(name = "ACTOR_RANK")
+    private int actorRank;
     @Basic
-    @Column(name = "FILM_ID")
-    private int filmId;
+    @Column(name = "DIRECTOR_RANK")
+    private int directorRank;
+    @Basic
+    @Column(name = "CHARACTER")
+    private String character;
 
-    public int getRoleId() {
-        return roleId;
+    public RolePOJO() {
+
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public RolePOJO(int movieId, String name, int actorRank, int directorRank, String character) {
+        this.movieId = movieId;
+        this.name = name;
+        this.actorRank = actorRank;
+        this.directorRank = directorRank;
+        this.character = character;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public int getMovieId() {
+        return movieId;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
-    public Boolean getProducer() {
-        return isProducer;
+    public String getName() {
+        return name;
     }
 
-    public void setProducer(Boolean producer) {
-        isProducer = producer;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getProfessionalId() {
-        return professionalId;
+    public int getActorRank() {
+        return actorRank;
     }
 
-    public void setProfessionalId(int professionalId) {
-        this.professionalId = professionalId;
+    public void setActorRank(int actor) {
+        this.actorRank = actor;
     }
 
-    public int getFilmId() {
-        return filmId;
+    public int getDirectorRank() {
+        return directorRank;
     }
 
-    public void setFilmId(int filmId) {
-        this.filmId = filmId;
+    public void setDirectorRank(int director) {
+        this.directorRank = director;
+    }
+
+    public String getCharacter() {
+        return character;
+    }
+
+    public void setCharacter(String character) {
+        this.character = character;
     }
 
     @Override
@@ -68,16 +83,17 @@ public class RolePOJO {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof RolePOJO)) {
             return false;
         }
-        RolePOJO that = (RolePOJO) o;
-        return roleId == that.roleId && professionalId == that.professionalId && filmId == that.filmId &&
-               Objects.equals(roleName, that.roleName) && Objects.equals(isProducer, that.isProducer);
+        RolePOJO rolePOJO = (RolePOJO) o;
+        return roleId == rolePOJO.roleId && movieId == rolePOJO.movieId && actorRank == rolePOJO.actorRank &&
+               directorRank == rolePOJO.directorRank && Objects.equals(name, rolePOJO.name) &&
+               Objects.equals(character, rolePOJO.character);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(roleId, roleName, isProducer, professionalId, filmId);
+        return Objects.hash(roleId, movieId, name, actorRank, directorRank, character);
     }
 }

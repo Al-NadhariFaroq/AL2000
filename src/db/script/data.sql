@@ -1,142 +1,88 @@
 /*************************************************************/
+/*************************  THEMES  **************************/
 /*************************************************************/
-/************************* CARDS ****************************/
-/*************************************************************/
-/*************************************************************/
-INSERT
-INTO cards
-VALUES (0123456789, 4568452136548951);
-INSERT
-INTO cards
-VALUES (0123456788, 4568452136548952);
-INSERT
-INTO cards
-VALUES (0123456787, 4568452136548953);
-INSERT
-INTO cards
-VALUES (0123456786, 4568452136548954);
-INSERT
-INTO cards
-VALUES (0123456785, 4568452136548955);
-INSERT
-INTO cards
-VALUES (0123456784, 4568452136548956);
+
+INSERT INTO THEMES VALUES (1, 'Action');
+INSERT INTO THEMES VALUES (2, 'Adventure');
+INSERT INTO THEMES VALUES (3, 'Animation');
+INSERT INTO THEMES VALUES (4, 'Anime');
+INSERT INTO THEMES VALUES (5, 'Anthology');
+INSERT INTO THEMES VALUES (6, 'Comedy');
+INSERT INTO THEMES VALUES (7, 'Crime');
+INSERT INTO THEMES VALUES (8, 'Documentary');
+INSERT INTO THEMES VALUES (9, 'Drama');
+INSERT INTO THEMES VALUES (10, 'Fantastique');
+INSERT INTO THEMES VALUES (11, 'Fantasy');
+INSERT INTO THEMES VALUES (12, 'Historical');
+INSERT INTO THEMES VALUES (13, 'Horror');
+INSERT INTO THEMES VALUES (14, 'Musical');
+INSERT INTO THEMES VALUES (15, 'Romance');
+INSERT INTO THEMES VALUES (16, 'Science fiction');
+INSERT INTO THEMES VALUES (17, 'Thriller');
+INSERT INTO THEMES VALUES (18, 'Western');
 
 /*************************************************************/
+/*************************  MOVIES  **************************/
 /*************************************************************/
-/********************** SUBSCRIBERS **************************/
-/*************************************************************/
-/*************************************************************/
-INSERT
-INTO subscribers
-VALUES (9876541230, 'stange@gmail.com', 4568452136548956);
-INSERT
-INTO subscribers
-VALUES (9876541231, 'stangesub@gmail.com', 4568452136548955);
-INSERT
-INTO subscribers
-VALUES (9876541232, 'stange12@gmail.com', 4568452136548954);
-INSERT
-INTO subscribers
-VALUES (9876541233, 'stange784@gmail.com', 4568452136548953);
 
-
-/*************************************************************/
-/*************************************************************/
-/**********************    MOVIES   **************************/
-/*************************************************************/
-/*************************************************************/
 -- INSERT INTO movies VALUES ();
 
 /*************************************************************/
+/************************  BLU-RAYS  *************************/
 /*************************************************************/
-/********************    MOVIE THEMEs   **********************/
-/*************************************************************/
-/*************************************************************/
--- INSERT INTO MOVIES_THEMES VALUES ();
-/*************************************************************/
-/*************************************************************/
-/*************************  THEMES  **************************/
-/*************************************************************/
-/*************************************************************/
-INSERT
-INTO THEMES
-VALUES (1, 'Action');
-INSERT
-INTO THEMES
-VALUES (2, 'Adventure');
-INSERT
-INTO THEMES
-VALUES (3, 'Science fiction');
-INSERT
-INTO THEMES
-VALUES (4, 'Anime');
-INSERT
-INTO THEMES
-VALUES (5, 'Animation');
-INSERT
-INTO THEMES
-VALUES (6, 'Comedy');
-INSERT
-INTO THEMES
-VALUES (7, 'Drama');
-INSERT
-INTO THEMES
-VALUES (8, 'Crime');
-INSERT
-INTO THEMES
-VALUES (9, 'Horror');
-INSERT
-INTO THEMES
-VALUES (10, 'Fantasy');
-INSERT
-INTO THEMES
-VALUES (11, 'Thriller');
-INSERT
-INTO THEMES
-VALUES (12, 'Fantastique');
-INSERT
-INTO THEMES
-VALUES (13, 'Western');
-INSERT
-INTO THEMES
-VALUES (14, 'Romance');
-INSERT
-INTO THEMES
-VALUES (15, 'Musical');
-INSERT
-INTO THEMES
-VALUES (16, 'Historical');
-INSERT
-INTO THEMES
-VALUES (17, 'Documentary');
-INSERT
-INTO THEMES
-VALUES (18, 'Anthology');
+
+-- INSERT INTO blu_rays VALUES ();
 
 /*************************************************************/
+/************************ SUBSCRIBERS ************************/
 /*************************************************************/
-/******************    SUBSCRIBER CARDs   ********************/
-/*************************************************************/
-/*************************************************************/
-INSERT
-INTO SUBSCRIBER_CARDS
-VALUES (subscriber_card_id,
-		subscriber_card_number,
-		is_subscriber,
-		cardholder_last_name,
-		cardholder_first_name,
-		birth_date,
-		card_balance,
-		subscriber_id);
+
+-- INSERT INTO subscribers VALUES ();
 
 /*************************************************************/
+/*************************  RENTALS  *************************/
 /*************************************************************/
-/***********************    ROLES   **************************/
-/*************************************************************/
-/*************************************************************/
-INSERT
-INTO ROLES
-VALUES (12012350, 'Harry Poter', FALSE, 10203040, 1234560);
 
+-- INSERT INTO rentals VALUES ();
 
+/*************************************************************/
+/*********************  BLU-RAY RENTALS  *********************/
+/*************************************************************/
+
+-- INSERT INTO blu_ray_rentals VALUES ();
+
+/*************************************************************/
+/**************************  ROLES  **************************/
+/*************************************************************/
+
+-- INSERT INTO ROLES VALUES ();
+
+/*************************************************************/
+/**********************  MOVIES THEMES  **********************/
+/*************************************************************/
+
+-- INSERT INTO movies_themes VALUES ();
+
+/*************************************************************/
+/***********************  PREFERENCES  ***********************/
+/*************************************************************/
+
+-- INSERT INTO preferences VALUES ();
+
+/*************************************************************/
+/**************************  SCORES  *************************/
+/*************************************************************/
+
+-- INSERT INTO scores VALUES ();
+
+/*************************************************************/
+/*******************  SUBSCRIBER RENTALS  ********************/
+/*************************************************************/
+
+-- INSERT INTO subscriber_rentals VALUES ();
+
+/*************************************************************/
+/*****************  NON SUBSCRIBER RENTALS  ******************/
+/*************************************************************/
+
+-- INSERT INTO non_subscriber_rentals VALUES ();

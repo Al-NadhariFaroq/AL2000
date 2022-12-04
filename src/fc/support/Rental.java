@@ -1,37 +1,35 @@
 package fc.support;
 
+import fc.movie.Movie;
+
 import java.util.Calendar;
 import java.util.Objects;
 
 public class Rental {
-    Support support;
+    Movie movie;
     Calendar rentalDate;
-    Calendar returnDate;
 
-    public Rental(Support s) {
-        support = s;
-        rentalDate = Calendar.getInstance();
+    public Rental(Movie movie) {
+        this.movie = movie;
+        this.rentalDate = Calendar.getInstance();
     }
 
-    public Support getSupport() {
-        return support;
+    public Rental(Movie movie, Calendar rentalDate) {
+        this.movie = movie;
+        this.rentalDate = rentalDate;
+    }
+
+    public Movie getMovie() {
+        return movie;
     }
 
     public Calendar getRentalDate() {
         return rentalDate;
     }
 
-    public Calendar getReturnDate() {
-        return returnDate;
-    }
-
-    public void returnSupport() {
-        this.returnDate = Calendar.getInstance();
-    }
-
     @Override
     public String toString() {
-        return "Rental: " + support + " at " + rentalDate;
+        return "Rental: " + movie + " at " + rentalDate;
     }
 
     @Override
@@ -42,13 +40,12 @@ public class Rental {
         if (!(o instanceof Rental)) {
             return false;
         }
-        Rental rental = (Rental) o;
-        return Objects.equals(support, rental.support) && Objects.equals(rentalDate, rental.rentalDate) &&
-               Objects.equals(returnDate, rental.returnDate);
+        Rental bluRayRental = (Rental) o;
+        return Objects.equals(movie, bluRayRental.movie) && Objects.equals(rentalDate, bluRayRental.rentalDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(support, rentalDate, returnDate);
+        return Objects.hash(movie, rentalDate);
     }
 }

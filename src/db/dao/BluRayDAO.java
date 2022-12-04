@@ -24,7 +24,7 @@ public class BluRayDAO extends DAO<BluRayPOJO> {
 
     public BluRayPOJO readFromSerialNumber(int serialNumber) {
         BluRayPOJO bluRayPOJO = null;
-        // TODO find from a serial number
+        // TODO find blu-ray from a serial number
         if (bluRayPOJO == null) {
             throw new EntityNotFoundException("Can't find blu-ray for serial number " + serialNumber);
         }
@@ -33,7 +33,7 @@ public class BluRayDAO extends DAO<BluRayPOJO> {
 
     public Set<BluRayPOJO> readAll() {
         Set<BluRayPOJO> bluRaysPOJO = new HashSet<>();
-        // TODO read all
+        // TODO read all blu-rays
         return bluRaysPOJO;
     }
 }

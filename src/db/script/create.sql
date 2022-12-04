@@ -1,41 +1,20 @@
-DROP TABLE blu_rays CASCADE CONSTRAINTS;
-DROP TABLE subscriber_cards;
-DROP TABLE cards CASCADE CONSTRAINTS;
-DROP TABLE movies_themes CASCADE CONSTRAINTS;
 DROP TABLE themes CASCADE CONSTRAINTS;
-DROP TABLE rentals CASCADE CONSTRAINTS;
 DROP TABLE movies CASCADE CONSTRAINTS;
-DROP TABLE professionals CASCADE CONSTRAINTS;
+DROP TABLE blu_rays CASCADE CONSTRAINTS;
 DROP TABLE subscribers CASCADE CONSTRAINTS;
+DROP TABLE blu_ray_rentals CASCADE CONSTRAINTS;
 DROP TABLE roles CASCADE CONSTRAINTS;
-DROP TABLE restrictions CASCADE CONSTRAINTS;
+DROP TABLE movies_themes CASCADE CONSTRAINTS;
+DROP TABLE preferences CASCADE CONSTRAINTS;
+DROP TABLE scores CASCADE CONSTRAINTS;
+DROP TABLE controlled_subscribers CASCADE CONSTRAINTS;
+DROP TABLE subscriber_rentals CASCADE CONSTRAINTS;
+DROP TABLE non_subscriber_rentals CASCADE CONSTRAINTS;
 
-
-CREATE TABLE subscribers (
-	subscriber_id number(10)   NOT NULL,
-	email         varchar2(50) NOT NULL,
-	card_number   number(16)   NOT NULL,
-	CONSTRAINT subscribers_pk PRIMARY KEY (subscriber_id),
-	CONSTRAINT subscribers_email_unique UNIQUE (email)
-);
-
-CREATE TABLE cards (
-	card_id     number(10) NOT NULL,
-	card_number number(16) NOT NULL,
-	CONSTRAINT cards_pk PRIMARY KEY (card_id)
-);
-
-CREATE TABLE subscriber_cards (
-	subscriber_card_id     number(10)   NOT NULL,
-	subscriber_card_number number(16)   NOT NULL,
-	is_subscriber          number(1)    NOT NULL,
-	cardholder_last_name   varchar2(50) NOT NULL,
-	cardholder_first_name  varchar2(50) NOT NULL,
-	birth_date             date,
-	card_balance           number(10),
-	subscriber_id          number(10)   NOT NULL,
-	CONSTRAINT subscriber_cards_pk PRIMARY KEY (subscriber_card_id),
-	CONSTRAINT subscriber_cards_subscriber_fk FOREIGN KEY (subscriber_id) REFERENCES subscribers (subscriber_id)
+CREATE TABLE themes (
+	theme_id number(10)    NOT NULL,
+	name     varchar2(100) NOT NULL UNIQUE,
+	CONSTRAINT themes_pk PRIMARY KEY (theme_id)
 );
 
 CREATE TABLE movies (
@@ -49,35 +28,53 @@ CREATE TABLE movies (
 	CONSTRAINT movies_pk PRIMARY KEY (movie_id)
 );
 
-CREATE TABLE professionals (
-	professional_id number(10)    NOT NULL,
-	name            varchar2(100) NOT NULL,
-	CONSTRAINT professionals_pk PRIMARY KEY (professional_id)
-);
-
 CREATE TABLE blu_rays (
-	blu_ray_id       number(10) NOT NULL,
-	serial_number    number(16) NOT NULL,
-	blu_ray_position number(3),
-	movie_id         number(10) NOT NULL,
+	blu_ray_id    number(10) NOT NULL,
+	serial_number number(16) NOT NULL UNIQUE,
+	movie_id      number(10) NOT NULL,
+	position      number(3) UNIQUE,
 	CONSTRAINT blu_rays_pk PRIMARY KEY (blu_ray_id),
 	CONSTRAINT blu_rays_movie_fk FOREIGN KEY (movie_id) REFERENCES movies (movie_id)
 );
 
-CREATE TABLE themes (
-	theme_id number(10)    NOT NULL,
-	theme    varchar2(100) NOT NULL,
-	CONSTRAINT themes_pk PRIMARY KEY (theme_id)
+CREATE TABLE subscribers (
+	subscriber_id            number(10)   NOT NULL,
+	subscription_card_number number(16)   NOT NULL UNIQUE,
+	credit_card_number       number(16)   NOT NULL,
+	first_name               varchar2(50) NOT NULL,
+	last_name                varchar2(50) NOT NULL,
+	email                    varchar2(50) NOT NULL,
+	birth_date               date         NOT NULL,
+	balance                  number(10)   NOT NULL,
+	CONSTRAINT subscribers_pk PRIMARY KEY (subscriber_id)
+);
+
+CREATE TABLE rentals (
+	rental_id   number(10) NOT NULL,
+	movie_id    number(10) NOT NULL,
+	rental_date date       NOT NULL,
+	CONSTRAINT rentals_pk PRIMARY KEY (rental_id),
+	CONSTRAINT rentals_movie_fk FOREIGN KEY (movie_id) REFERENCES movies (movie_id)
+);
+
+CREATE TABLE blu_ray_rentals (
+	blu_ray_rental_id number(10) NOT NULL,
+	rental_id         number(10) NOT NULL UNIQUE,
+	blu_ray_id        number(10) NOT NULL,
+	return_date       date,
+	CONSTRAINT blu_ray_rentals_pk PRIMARY KEY (blu_ray_rental_id),
+	CONSTRAINT blu_ray_rentals_rental_fk FOREIGN KEY (rental_id) REFERENCES rentals (rental_id),
+	CONSTRAINT blu_ray_rentals_blu_ray_fk FOREIGN KEY (blu_ray_id) REFERENCES blu_rays (blu_ray_id)
 );
 
 CREATE TABLE roles (
-	role_id         number(10) NOT NULL,
-	role_name       varchar2(250),
-	is_producer     number(1),
-	professional_id number(10) NOT NULL,
-	movie_id        number(10) NOT NULL,
+	role_id       number(10)    NOT NULL,
+	movie_id      number(10)    NOT NULL,
+	name          varchar2(100) NOT NULL,
+	actor_rank    number(1)     NOT NULL,
+	director_rank number(1)     NOT NULL,
+	character     varchar2(100),
 	CONSTRAINT roles_pk PRIMARY KEY (role_id),
-	CONSTRAINT roles_professional_fk FOREIGN KEY (professional_id) REFERENCES professionals (professional_id),
 	CONSTRAINT roles_movie_fk FOREIGN KEY (movie_id) REFERENCES movies (movie_id)
 );
 
@@ -85,33 +82,55 @@ CREATE TABLE movies_themes (
 	movie_theme_id number(10) NOT NULL,
 	movie_id       number(10) NOT NULL,
 	theme_id       number(10) NOT NULL,
+	theme_rank     number(1)  NOT NULL,
 	CONSTRAINT movies_themes_pk PRIMARY KEY (movie_theme_id),
 	CONSTRAINT movies_themes_movie_fk FOREIGN KEY (movie_id) REFERENCES movies (movie_id),
-	CONSTRAINT movie_themes_theme_fk FOREIGN KEY (theme_id) REFERENCES themes (theme_id)
+	CONSTRAINT movies_themes_theme_fk FOREIGN KEY (theme_id) REFERENCES themes (theme_id)
 );
 
 CREATE TABLE preferences (
-	restriction_id number(10) NOT NULL,
-	card_number    number(16) NOT NULL,
-	theme_id       number(10) NOT NULL,
-	restricted     number(1)  NOT NULL,
-	CONSTRAINT restrictions_pk PRIMARY KEY (restriction_id),
-	CONSTRAINT restrictions_theme_fk FOREIGN KEY (theme_id) REFERENCES themes (theme_id)
+	preference_id number(10) NOT NULL,
+	subscriber_id number(10) NOT NULL,
+	theme_id      number(10) NOT NULL,
+	forbidden     number(1)  NOT NULL,
+	CONSTRAINT preferences_pk PRIMARY KEY (preference_id),
+	CONSTRAINT preferences_subscriber_fk FOREIGN KEY (subscriber_id) REFERENCES subscribers (subscriber_id),
+	CONSTRAINT preferences_theme_fk FOREIGN KEY (theme_id) REFERENCES themes (theme_id)
 );
 
-CREATE TABLE rentals (
-	rental_id       number(10) NOT NULL,
-	card_number     number(16) NOT NULL,
-	rental_date     date,
-	return_date     date,
-	billing_address varchar2(250),
-	is_blu_ray      number(10),
-	movie_id        number(10) NOT NULL,
-	card_id         number(10) NOT NULL,
-	CONSTRAINT rentals_pk PRIMARY KEY (rental_id),
-	CONSTRAINT rentals_movie_fk FOREIGN KEY (movie_id) REFERENCES movies (movie_id),
-	CONSTRAINT rentals_card_fk FOREIGN KEY (card_id) REFERENCES cards (card_id)
+CREATE TABLE scores (
+	score_id      number(10) NOT NULL,
+	subscriber_id number(10) NOT NULL,
+	movie_id      number(10) NOT NULL,
+	score         number(1)  NOT NULL,
+	CONSTRAINT scores_pk PRIMARY KEY (score_id),
+	CONSTRAINT scores_subscriber_fk FOREIGN KEY (subscriber_id) REFERENCES subscribers (subscriber_id),
+	CONSTRAINT scores_movie_fk FOREIGN KEY (movie_id) REFERENCES movies (movie_id)
 );
 
+CREATE TABLE controlled_subscribers (
+	controlled_subscriber_id number(10) NOT NULL,
+	subscriber_id            number(10) NOT NULL,
+	sub_subscriber_id        number(10) NOT NULL,
+	is_controlled            number(1)  NOT NULL,
+	CONSTRAINT controlled_subscribers_pk PRIMARY KEY (controlled_subscriber_id),
+	CONSTRAINT controlled_subscribers_subscriber_fk FOREIGN KEY (subscriber_id) REFERENCES subscribers (subscriber_id),
+	CONSTRAINT controlled_subscribers_sub_subscriber_fk FOREIGN KEY (sub_subscriber_id) REFERENCES subscribers (subscriber_id)
+);
 
+CREATE TABLE non_subscriber_rentals (
+	non_subscriber_rental_id number(10) NOT NULL,
+	rental_id                number(10) NOT NULL,
+	credit_card_number       number(16) NOT NULL,
+	CONSTRAINT non_subscriber_rentals_pk PRIMARY KEY (non_subscriber_rental_id),
+	CONSTRAINT non_subscriber_rentals_rental_fk FOREIGN KEY (rental_id) REFERENCES rentals (rental_id)
+);
 
+CREATE TABLE subscriber_rentals (
+	subscriber_rental_id number(10) NOT NULL,
+	rental_id            number(10) NOT NULL,
+	subscriber_id        number(10) NOT NULL,
+	CONSTRAINT subscriber_rentals_pk PRIMARY KEY (subscriber_rental_id),
+	CONSTRAINT subscriber_rentals_rental_fk FOREIGN KEY (rental_id) REFERENCES rentals (rental_id),
+	CONSTRAINT subscriber_rentals_subscriber_fk FOREIGN KEY (subscriber_id) REFERENCES subscribers (subscriber_id)
+);

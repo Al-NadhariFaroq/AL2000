@@ -4,36 +4,38 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "PREFERENCE", schema = "ALNADHAF", catalog = "")
+@Table(name = "PREFERENCES", schema = "ALNADHAF", catalog = "")
 public class PreferencePOJO {
-    //    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "RESTRICTION_ID")
-    private int restrictionId;
+    @Column(name = "PREFERENCE_ID")
+    private int preferenceId;
     @Basic
-    @Column(name = "CARD_NUMBER")
-    private long cardNumber;
+    @Column(name = "SUBSCRIBER_ID")
+    private int subscriberId;
     @Basic
     @Column(name = "THEME_ID")
     private Integer themeId;
     @Basic
-    @Column(name = "RESTRICTED")
-    private boolean restricted;
+    @Column(name = "FORBIDDEN")
+    private boolean forbidden;
 
-    public int getRestrictionId() {
-        return restrictionId;
+    public PreferencePOJO() {
+
     }
 
-    public void setRestrictionId(int restrictionId) {
-        this.restrictionId = restrictionId;
+    public PreferencePOJO(int subscriberId, Integer themeId, boolean forbidden) {
+        this.subscriberId = subscriberId;
+        this.themeId = themeId;
+        this.forbidden = forbidden;
     }
 
-    public long getCardNumber() {
-        return cardNumber;
+    public int getSubscriberId() {
+        return subscriberId;
     }
 
-    public void setCardNumber(long cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setSubscriberId(int subscriberId) {
+        this.subscriberId = subscriberId;
     }
 
     public Integer getThemeId() {
@@ -44,22 +46,12 @@ public class PreferencePOJO {
         this.themeId = themeId;
     }
 
-    public boolean isRestricted() {
-        return restricted;
+    public boolean isForbidden() {
+        return forbidden;
     }
 
-    public void setRestricted(boolean restricted) {
-        this.restricted = restricted;
-    }
-
-    public PreferencePOJO(int restrictionId, long cardNumber, Integer themeId, boolean restricted) {
-        this.restrictionId = restrictionId;
-        this.cardNumber = cardNumber;
-        this.themeId = themeId;
-        this.restricted = restricted;
-    }
-
-    public PreferencePOJO() {
+    public void setForbidden(boolean forbidden) {
+        this.forbidden = forbidden;
     }
 
     @Override
@@ -67,16 +59,16 @@ public class PreferencePOJO {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof PreferencePOJO)) {
             return false;
         }
         PreferencePOJO that = (PreferencePOJO) o;
-        return restrictionId == that.restrictionId && cardNumber == that.cardNumber &&
-               Objects.equals(themeId, that.themeId) && Objects.equals(restricted, that.restricted);
+        return preferenceId == that.preferenceId && subscriberId == that.subscriberId && forbidden == that.forbidden &&
+               Objects.equals(themeId, that.themeId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(restrictionId, cardNumber, themeId, restricted);
+        return Objects.hash(preferenceId, subscriberId, themeId, forbidden);
     }
 }

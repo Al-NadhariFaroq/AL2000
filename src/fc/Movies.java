@@ -83,7 +83,7 @@ public class Movies {
 
     public void updateFromDatabase() {
         allMovies.clear();
-        allMovies.addAll(dbManagement.readAllMovies());
+        allMovies.addAll(DatabaseManagement.readAllMovies());
 
         sortedMovies.clear();
         sortedMovies.addAll(allMovies);

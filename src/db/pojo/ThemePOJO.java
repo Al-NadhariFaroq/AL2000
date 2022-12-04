@@ -6,31 +6,28 @@ import java.util.Objects;
 @Entity
 @Table(name = "THEMES", schema = "ALNADHAF", catalog = "")
 public class ThemePOJO {
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "THEME_ID")
     private int themeId;
     @Basic
-    @Column(name = "THEME")
-    private String theme;
-
-    public int getThemeId() {
-        return themeId;
-    }
-
-    public void setThemeId(int themeId) {
-        this.themeId = themeId;
-    }
-
-    public String getTheme() {
-        return theme;
-    }
-
-    public void setTheme(String theme) {
-        this.theme = theme;
-    }
+    @Column(name = "NAME")
+    private String name;
 
     public ThemePOJO() {
+
+    }
+
+    public ThemePOJO(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String theme) {
+        this.name = theme;
     }
 
     @Override
@@ -42,11 +39,11 @@ public class ThemePOJO {
             return false;
         }
         ThemePOJO themePOJO = (ThemePOJO) o;
-        return themeId == themePOJO.themeId && Objects.equals(theme, themePOJO.theme);
+        return themeId == themePOJO.themeId && Objects.equals(name, themePOJO.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(themeId, theme);
+        return Objects.hash(themeId, name);
     }
 }

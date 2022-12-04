@@ -4,16 +4,26 @@ import fc.movie.Movie;
 
 import java.util.Objects;
 
-public class BluRay extends Support {
+public class BluRay {
     private final int serialNumber;
+    private final Movie movie;
 
     public BluRay(int serialNumber, Movie movie) {
-        super(movie);
         this.serialNumber = serialNumber;
+        this.movie = movie;
     }
 
     public int getSerialNumber() {
         return serialNumber;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    @Override
+    public String toString() {
+        return serialNumber + " (" + movie.toString() + ")";
     }
 
     @Override
@@ -25,16 +35,11 @@ public class BluRay extends Support {
             return false;
         }
         BluRay bluRay = (BluRay) o;
-        return serialNumber == bluRay.serialNumber && movie.equals(bluRay.movie);
-    }
-
-    @Override
-    public String toString() {
-        return serialNumber + " (" + movie.toString() + ")";
+        return serialNumber == bluRay.serialNumber && Objects.equals(movie, bluRay.movie);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getSerialNumber(), movie);
+        return Objects.hash(serialNumber, movie);
     }
 }

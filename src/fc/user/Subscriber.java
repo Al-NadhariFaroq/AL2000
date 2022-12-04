@@ -1,14 +1,17 @@
 package fc.user;
 
+import fc.DatabaseManagement;
 import fc.Themes;
-import fc.support.Rental;
+import fc.support.BluRayRental;
 
 import java.util.Calendar;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-public class Subscriber implements User {
+public class Subscriber implements Client {
+    public static final int MAX_RENTALS = 3;
+
     private final int subscriptionCardNumber;
     private int creditCardNumber;
     private String email;
@@ -19,7 +22,7 @@ public class Subscriber implements User {
     private final boolean isControlled;
     private final Map<Subscriber, Boolean> controlledSubscribers;
     private final Map<String, Integer> themes;
-    private final Set<Rental> rentals;
+    private final Set<BluRayRental> bluRayRentals;
 
     public Subscriber(int subscriptionCardNumber,
                       int creditCardNumber,
@@ -31,7 +34,7 @@ public class Subscriber implements User {
                       boolean isControlled,
                       Map<Subscriber, Boolean> controlledSubscribers,
                       Map<String, Integer> themes,
-                      Set<Rental> rentals
+                      Set<BluRayRental> bluRayRentals
     ) {
         this.subscriptionCardNumber = subscriptionCardNumber;
         this.creditCardNumber = creditCardNumber;
@@ -43,7 +46,7 @@ public class Subscriber implements User {
         this.isControlled = isControlled;
         this.controlledSubscribers = controlledSubscribers;
         this.themes = themes;
-        this.rentals = rentals;
+        this.bluRayRentals = bluRayRentals;
     }
 
     public int getSubscriptionCardNumber() {
@@ -147,19 +150,29 @@ public class Subscriber implements User {
         return controlledSubscribers.remove(subscriber);
     }
 
-    public Set<Rental> getRentals() {
-        return rentals;
+    public Set<BluRayRental> getBluRayRentals() {
+        return bluRayRentals;
     }
 
-    public boolean addRental(Rental rental) throws NullPointerException {
-        if (rental == null) {
-            throw new NullPointerException("variable rental might not have been initialized");
+    public void addBluRayRental(BluRayRental bluRayRental)
+            throws IllegalStateException, NullPointerException, IllegalArgumentException {
+        if (bluRayRentals.size() == MAX_RENTALS) {
+            throw new IllegalStateException("no more than " + MAX_RENTALS + " blu-ray rentals authorized");
         }
-        return rentals.add(rental);
+        if (bluRayRental == null) {
+            throw new NullPointerException("variable bluRayRental might not have been initialized");
+        }
+        if (!bluRayRentals.add(bluRayRental)) {
+            throw new IllegalArgumentException("invalid blu-ray rental value: already in list");
+        }
+        DatabaseManagement.createSubscriberRental(bluRayRental, this);
     }
 
-    public boolean removeRental(Rental rental) {
-        return rentals.remove(rental);
+    public void removeBluRayRental(BluRayRental bluRayRental) {
+        if (!bluRayRentals.remove(bluRayRental)) {
+            throw new IllegalArgumentException("invalid blu-ray rental value: not in list");
+        }
+        // DB
     }
 
     @Override
@@ -167,7 +180,13 @@ public class Subscriber implements User {
         StringBuilder txt = new StringBuilder();
         txt.append(subscriptionCardNumber).append(" (").append(firstName).append(" ").append(lastName).append(")\n");
         for (Subscriber subscriber : controlledSubscribers.keySet()) {
-            txt.append("\t").append(subscriber.getSubscriptionCardNumber()).append("\n");
+            txt.append("\t")
+               .append(subscriber.getSubscriptionCardNumber())
+               .append(" (")
+               .append(subscriber.getFirstName())
+               .append(" ")
+               .append(subscriber.getLastName())
+               .append("\n");
         }
         return txt.toString();
     }
@@ -182,11 +201,11 @@ public class Subscriber implements User {
         }
         Subscriber that = (Subscriber) o;
         return subscriptionCardNumber == that.subscriptionCardNumber && creditCardNumber == that.creditCardNumber &&
-               isControlled == that.isControlled && Float.compare(that.balance, balance) == 0 &&
+               Float.compare(that.balance, balance) == 0 && isControlled == that.isControlled &&
                Objects.equals(email, that.email) && Objects.equals(firstName, that.firstName) &&
                Objects.equals(lastName, that.lastName) && Objects.equals(birthDate, that.birthDate) &&
                Objects.equals(controlledSubscribers, that.controlledSubscribers) &&
-               Objects.equals(themes, that.themes) && Objects.equals(rentals, that.rentals);
+               Objects.equals(themes, that.themes) && Objects.equals(bluRayRentals, that.bluRayRentals);
     }
 
     @Override
@@ -201,7 +220,7 @@ public class Subscriber implements User {
                             isControlled,
                             controlledSubscribers,
                             themes,
-                            rentals
+                            bluRayRentals
         );
     }
 }

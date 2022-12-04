@@ -19,7 +19,7 @@ abstract class DAO<T> implements Serializable {
         executeInsideTransaction(entityManager -> entityManager.persist(t));
     }
 
-    public T read(int id) {
+    public T read(int id) throws EntityNotFoundException {
         throw new EntityNotFoundException("Can't find entity for ID " + id);
     }
 

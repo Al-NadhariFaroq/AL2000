@@ -24,7 +24,7 @@ public class ThemeDAO extends DAO<ThemePOJO> {
 
     public List<ThemePOJO> readAll() {
         List<ThemePOJO> themesPOJO = new ArrayList<>();
-        // TODO read all order by count(*)
+        // TODO read all themes order by count(*)
         return themesPOJO;
     }
 }

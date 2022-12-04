@@ -12,41 +12,31 @@ public class RentalPOJO {
     @Column(name = "RENTAL_ID")
     private int rentalId;
     @Basic
-    @Column(name = "CARD_NUMBER")
-    private long cardNumber;
+    @Column(name = "MOVIE_ID")
+    private int movieId;
     @Basic
     @Column(name = "RENTAL_DATE")
     private Date rentalDate;
-    @Basic
-    @Column(name = "RETURN_DATE")
-    private Date returnDate;
-    @Basic
-    @Column(name = "BILLING_ADDRESS")
-    private String billingAddress;
-    @Basic
-    @Column(name = "IS_BLU_RAY")
-    private Integer isBluRay;
-    @Basic
-    @Column(name = "FILM_ID")
-    private int filmId;
-    @Basic
-    @Column(name = "CARD_ID")
-    private int cardId;
+
+    public RentalPOJO() {
+
+    }
+
+    public RentalPOJO(int movieId, Date rentalDate) {
+        this.movieId = movieId;
+        this.rentalDate = rentalDate;
+    }
 
     public int getRentalId() {
         return rentalId;
     }
 
-    public void setRentalId(int rentalId) {
-        this.rentalId = rentalId;
+    public int getMovieId() {
+        return movieId;
     }
 
-    public long getCardNumber() {
-        return cardNumber;
-    }
-
-    public void setCardNumber(long cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
     public Date getRentalDate() {
@@ -57,63 +47,20 @@ public class RentalPOJO {
         this.rentalDate = rentalDate;
     }
 
-    public Date getReturnDate() {
-        return returnDate;
-    }
-
-    public void setReturnDate(Date returnDate) {
-        this.returnDate = returnDate;
-    }
-
-    public String getBillingAddress() {
-        return billingAddress;
-    }
-
-    public void setBillingAddress(String billingAddress) {
-        this.billingAddress = billingAddress;
-    }
-
-    public Integer getIsBluRay() {
-        return isBluRay;
-    }
-
-    public void setIsBluRay(Integer isBluRay) {
-        this.isBluRay = isBluRay;
-    }
-
-    public int getFilmId() {
-        return filmId;
-    }
-
-    public void setFilmId(int filmId) {
-        this.filmId = filmId;
-    }
-
-    public int getCardId() {
-        return cardId;
-    }
-
-    public void setCardId(int cardId) {
-        this.cardId = cardId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof RentalPOJO)) {
             return false;
         }
         RentalPOJO that = (RentalPOJO) o;
-        return rentalId == that.rentalId && cardNumber == that.cardNumber && filmId == that.filmId &&
-               cardId == that.cardId && Objects.equals(rentalDate, that.rentalDate) &&
-               Objects.equals(returnDate, that.returnDate) && Objects.equals(billingAddress, that.billingAddress) &&
-               Objects.equals(isBluRay, that.isBluRay);
+        return rentalId == that.rentalId && movieId == that.movieId && Objects.equals(rentalDate, that.rentalDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(rentalId, cardNumber, rentalDate, returnDate, billingAddress, isBluRay, filmId, cardId);
+        return Objects.hash(rentalId, movieId, rentalDate);
     }
 }

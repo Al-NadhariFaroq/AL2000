@@ -64,51 +64,51 @@ public class BluRays {
         validateOperation(bluRay, 0);
         Integer position = freePositions.poll();
         bluRays.put(bluRay, position);
-        dbManagement.createBluRay(bluRay, position == null ? -2 : position);
+        DatabaseManagement.createBluRay(bluRay, position == null ? -2 : position);
     }
 
     public void removeBluRay(BluRay bluRay) throws IllegalArgumentException {
         validateOperation(bluRay, 1);
         freePositions.add(bluRays.remove(bluRay));
-        dbManagement.deleteBluRay(bluRay);
+        DatabaseManagement.deleteBluRay(bluRay);
     }
 
     public void rentBluRay(BluRay bluRay) throws IllegalArgumentException {
         freePositions.add(validateOperation(bluRay, 2));
         bluRays.replace(bluRay, RENTED);
-        dbManagement.updateBluRay(bluRay, RENTED);
+        DatabaseManagement.updateBluRay(bluRay, RENTED);
     }
 
     public void returnBluRay(BluRay bluRay) throws IllegalArgumentException {
         validateOperation(bluRay, 3);
         Integer position = freePositions.poll();
         bluRays.replace(bluRay, position);
-        dbManagement.updateBluRay(bluRay, position == null ? -2 : position);
+        DatabaseManagement.updateBluRay(bluRay, position == null ? -2 : position);
     }
 
     private Integer validateOperation(BluRay bluRay, int op) throws IllegalArgumentException, IllegalStateException {
         if (op == 0 && bluRays.size() == NB_MOVIES_MAX) {
-            throw new IllegalStateException("Impossible to insert a Blu-ray: database full");
+            throw new IllegalStateException("canot add a blu-ray: database full");
         }
         Integer position = bluRays.get(bluRay);
         if (op == 0 && position != null) {
-            throw new IllegalArgumentException("Invalid blu-ray value: already in database");
+            throw new IllegalArgumentException("invalid blu-ray value: already in database");
         }
         if (op != 0 && position == null) {
-            throw new IllegalArgumentException("Invalid blu-ray value: not in database");
+            throw new IllegalArgumentException("invalid blu-ray value: not in database");
         }
         if ((op == 1 || op == 2) && position == RENTED) {
-            throw new IllegalArgumentException("Invalid blu-ray value: currently rented");
+            throw new IllegalArgumentException("invalid blu-ray value: currently rented");
         }
         if (op == 3 && position != RENTED) {
-            throw new IllegalArgumentException("Invalid blu-ray value: not rented");
+            throw new IllegalArgumentException("invalid blu-ray value: not rented");
         }
         return position;
     }
 
     public void updateFromDatabase() {
         bluRays.clear();
-        bluRays.putAll(dbManagement.readAllBluRays());
+        bluRays.putAll(DatabaseManagement.readAllBluRays());
 
         for (int position = 0; position < NB_MOVIES_MAX; position++) {
             if (!bluRays.containsValue(position)) {

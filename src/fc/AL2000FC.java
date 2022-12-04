@@ -1,11 +1,9 @@
 package fc;
 
 import db.dao.DAOFactory;
-import db.pojo.SubscribeCardPOJO;
 import db.pojo.SubscriberPOJO;
 import fc.movie.Movie;
 import fc.support.BluRay;
-import fc.user.Client;
 import fc.user.Subscriber;
 import fc.user.Technician;
 import fc.user.User;
@@ -66,7 +64,7 @@ public class AL2000FC {
         } else if (subscriptionCardNumber > 0) {
             user = null; //new Subscriber(subscriptionCardNumber);
         } else if (creditCardNumber >= 0) {
-            user = new Client(creditCardNumber);
+            user = null; //new NonSubscriber(creditCardNumber);
         }
     }
 
@@ -75,19 +73,14 @@ public class AL2000FC {
     }
 
     public void subscription(String email, String firstName, String lastName, Calendar birthDate) {
-        SubscribeCardPOJO subscribeCardPOJO = new SubscribeCardPOJO();
-        subscribeCardPOJO.setSubscriberCardId(0);
-        subscribeCardPOJO.setSubscriber(true);
-        subscribeCardPOJO.setCardholderFirstName(firstName);
-        subscribeCardPOJO.setCardholderLastName(lastName);
-        subscribeCardPOJO.setBirthDate(new Date(birthDate.getTimeInMillis()));
-        subscribeCardPOJO.setCardBalance(0);
-        DAOFactory.getSubscribeCardDAO().create(subscribeCardPOJO);
-
         SubscriberPOJO subscriberPOJO = new SubscriberPOJO();
-        subscriberPOJO.setSubscriberId(666);
+        subscriberPOJO.setSubscriptionCardNumber(0);
+        subscriberPOJO.setCreditCardNumber(0);
+        subscriberPOJO.setFirstName(firstName);
+        subscriberPOJO.setLastName(lastName);
         subscriberPOJO.setEmail(email);
-        subscriberPOJO.setCardNumber(0);
+        subscriberPOJO.setBirthDate(new Date(birthDate.getTimeInMillis()));
+        subscriberPOJO.setBalance(0);
         DAOFactory.getSubscriberDAO().create(subscriberPOJO);
     }
 

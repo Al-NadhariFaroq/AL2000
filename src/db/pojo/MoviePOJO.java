@@ -31,14 +31,20 @@ public class MoviePOJO {
     private String posterURL;
 
     public MoviePOJO() {
+
+    }
+
+    public MoviePOJO(String title, Date releaseDate, String synopsis, String rating, String linkURL, String posterURL) {
+        this.title = title;
+        this.releaseDate = releaseDate;
+        this.synopsis = synopsis;
+        this.rating = rating;
+        this.linkURL = linkURL;
+        this.posterURL = posterURL;
     }
 
     public int getMovieId() {
         return movieId;
-    }
-
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
     }
 
     public String getTitle() {

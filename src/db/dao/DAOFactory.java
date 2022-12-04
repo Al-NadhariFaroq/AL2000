@@ -9,29 +9,39 @@ public class DAOFactory {
                                                                   .createEntityManager();
 
     /* DAO singletons */
-    private static BluRayDAO blurayDAO;
-    private static CardDAO cardDAO;
+    private static BluRayDAO bluRayDAO;
+    private static BluRayRentalDAO bluRayRentalDAO;
+    private static CtrlSubDAO ctrlSubDAO;
     private static MovieDAO movieDAO;
-    private static ProfessionalDAO professionalDAO;
-    private static RentalDAO rentalDAO;
+    private static MovieThemeDAO movieThemeDAO;
+    private static NonSubRentalDAO nonSubRentalDAO;
     private static PreferenceDAO preferenceDAO;
+    private static RentalDAO rentalDAO;
     private static RoleDAO roleDAO;
-    private static SubscribeCardDAO subscribeCardDAO;
+    private static ScoreDAO scoreDAO;
     private static SubscriberDAO subscriberDAO;
+    private static SubRentalDAO subRentalDAO;
     private static ThemeDAO themeDAO;
 
     public static BluRayDAO getBluRayDAO() {
-        if (blurayDAO == null) {
-            blurayDAO = new BluRayDAO(entityManager);
+        if (bluRayDAO == null) {
+            bluRayDAO = new BluRayDAO(entityManager);
         }
-        return blurayDAO;
+        return bluRayDAO;
     }
 
-    public static CardDAO getCardDAO() {
-        if (cardDAO == null) {
-            cardDAO = new CardDAO(entityManager);
+    public static BluRayRentalDAO getBluRayRentalDAO() {
+        if (bluRayRentalDAO == null) {
+            bluRayRentalDAO = new BluRayRentalDAO(entityManager);
         }
-        return cardDAO;
+        return bluRayRentalDAO;
+    }
+
+    public static CtrlSubDAO getCtrlSubDAO() {
+        if (ctrlSubDAO == null) {
+            ctrlSubDAO = new CtrlSubDAO(entityManager);
+        }
+        return ctrlSubDAO;
     }
 
     public static MovieDAO getMovieDAO() {
@@ -41,18 +51,18 @@ public class DAOFactory {
         return movieDAO;
     }
 
-    public static ProfessionalDAO getProfessionalDAO() {
-        if (professionalDAO == null) {
-            professionalDAO = new ProfessionalDAO(entityManager);
+    public static MovieThemeDAO getMovieThemeDAO() {
+        if (movieThemeDAO == null) {
+            movieThemeDAO = new MovieThemeDAO(entityManager);
         }
-        return professionalDAO;
+        return movieThemeDAO;
     }
 
-    public static RentalDAO getRentalDAO() {
-        if (rentalDAO == null) {
-            rentalDAO = new RentalDAO(entityManager);
+    public static NonSubRentalDAO getNonSubRentalDAO() {
+        if (nonSubRentalDAO == null) {
+            nonSubRentalDAO = new NonSubRentalDAO(entityManager);
         }
-        return rentalDAO;
+        return nonSubRentalDAO;
     }
 
     public static PreferenceDAO getRestrictionDAO() {
@@ -62,6 +72,13 @@ public class DAOFactory {
         return preferenceDAO;
     }
 
+    public static RentalDAO getRentalDAO() {
+        if (rentalDAO == null) {
+            rentalDAO = new RentalDAO(entityManager);
+        }
+        return rentalDAO;
+    }
+
     public static RoleDAO getRoleDAO() {
         if (roleDAO == null) {
             roleDAO = new RoleDAO(entityManager);
@@ -69,11 +86,11 @@ public class DAOFactory {
         return roleDAO;
     }
 
-    public static SubscribeCardDAO getSubscribeCardDAO() {
-        if (subscribeCardDAO == null) {
-            subscribeCardDAO = new SubscribeCardDAO(entityManager);
+    public static ScoreDAO getScoreDAO() {
+        if (scoreDAO == null) {
+            scoreDAO = new ScoreDAO(entityManager);
         }
-        return subscribeCardDAO;
+        return scoreDAO;
     }
 
     public static SubscriberDAO getSubscriberDAO() {
@@ -81,6 +98,13 @@ public class DAOFactory {
             subscriberDAO = new SubscriberDAO(entityManager);
         }
         return subscriberDAO;
+    }
+
+    public static SubRentalDAO getSubRentalDAO() {
+        if (subRentalDAO == null) {
+            subRentalDAO = new SubRentalDAO(entityManager);
+        }
+        return subRentalDAO;
     }
 
     public static ThemeDAO getThemeDAO() {

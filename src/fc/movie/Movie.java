@@ -121,23 +121,24 @@ public class Movie {
     }
 
     @Override
+    public String toString() {
+        return title + " (" + date.get(Calendar.YEAR) + ")";
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof Movie)) {
             return false;
         }
         Movie movie = (Movie) o;
-        return title.equals(movie.title) && date.equals(movie.date) && themes.equals(movie.themes) &&
-               directors.equals(movie.directors) && actors.equals(movie.actors) && synopsis.equals(movie.synopsis) &&
-               rating.equals(movie.rating) && score.equals(movie.score) && linkURL.equals(movie.linkURL) &&
-               posterURL.equals(movie.posterURL);
-    }
-
-    @Override
-    public String toString() {
-        return title + " (" + date.get(Calendar.YEAR) + ")";
+        return Objects.equals(title, movie.title) && Objects.equals(date, movie.date) &&
+               Objects.equals(themes, movie.themes) && Objects.equals(directors, movie.directors) &&
+               Objects.equals(actors, movie.actors) && Objects.equals(synopsis, movie.synopsis) &&
+               rating == movie.rating && Objects.equals(score, movie.score) && Objects.equals(linkURL, movie.linkURL) &&
+               Objects.equals(posterURL, movie.posterURL);
     }
 
     @Override

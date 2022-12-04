@@ -1,38 +1,16 @@
 package fc.user;
 
-import fc.support.Rental;
+import fc.support.BluRayRental;
 
-public class Client implements User {
-    private final int creditCardNumber;
-    private Rental rental;
+import java.util.Set;
 
-    public Client(int creditCardNumber) {
-        this.creditCardNumber = creditCardNumber;
-        // search rental in DB
-    }
+public interface Client extends User {
 
-    public int getCreditCardNumber() {
-        return creditCardNumber;
-    }
+    int getCreditCardNumber();
 
-    public Rental getRental() {
-        return rental;
-    }
+    Set<BluRayRental> getBluRayRentals();
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Client)) {
-            return false;
-        }
-        Client client = (Client) o;
-        return creditCardNumber == client.creditCardNumber && rental.equals(client.rental);
-    }
+    void addBluRayRental(BluRayRental bluRayRental);
 
-    @Override
-    public String toString() {
-        return String.valueOf(creditCardNumber);
-    }
+    void removeBluRayRental(BluRayRental bluRayRental);
 }

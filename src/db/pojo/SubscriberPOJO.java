@@ -1,7 +1,7 @@
 package db.pojo;
 
 import javax.persistence.*;
-import java.util.List;
+import java.sql.Date;
 import java.util.Objects;
 
 @Entity
@@ -12,21 +12,78 @@ public class SubscriberPOJO {
     @Column(name = "SUBSCRIBER_ID")
     private int subscriberId;
     @Basic
+    @Column(name = "SUBSCRIPTION_CARD_NUMBER")
+    private int subscriptionCardNumber;
+    @Basic
+    @Column(name = "CREDIT_CARD_NUMBER")
+    private int creditCardNumber;
+    @Basic
+    @Column(name = "FIRST_NAME")
+    private String firstName;
+    @Basic
+    @Column(name = "LAST_NAME")
+    private String lastName;
+    @Basic
     @Column(name = "EMAIL")
     private String email;
     @Basic
-    @Column(name = "CARD_NUMBER")
-    private long cardNumber;
+    @Column(name = "BIRTH_DATE")
+    private Date birthDate;
+    @Basic
+    @Column(name = "BALANCE")
+    private float balance;
 
-    @OneToMany(mappedBy = "subscriberId", cascade = CascadeType.ALL)
-    private List<SubscribeCardPOJO> subscribeCardsList;
+    public SubscriberPOJO() {
 
-    public int getSubscriberId() {
-        return subscriberId;
     }
 
-    public void setSubscriberId(int subscriberId) {
-        this.subscriberId = subscriberId;
+    public SubscriberPOJO(int subscriptionCardNumber,
+                          int creditCardNumber,
+                          String firstName,
+                          String lastName,
+                          String email,
+                          Date birthDate,
+                          float balance
+    ) {
+        this.subscriptionCardNumber = subscriptionCardNumber;
+        this.creditCardNumber = creditCardNumber;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.birthDate = birthDate;
+        this.balance = balance;
+    }
+
+    public int getSubscriptionCardNumber() {
+        return subscriptionCardNumber;
+    }
+
+    public void setSubscriptionCardNumber(int subscriptionCardNumber) {
+        this.subscriptionCardNumber = subscriptionCardNumber;
+    }
+
+    public int getCreditCardNumber() {
+        return creditCardNumber;
+    }
+
+    public void setCreditCardNumber(int creditCardNumber) {
+        this.creditCardNumber = creditCardNumber;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -37,16 +94,20 @@ public class SubscriberPOJO {
         this.email = email;
     }
 
-    public long getCardNumber() {
-        return cardNumber;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public void setCardNumber(long cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
-    public List<SubscribeCardPOJO> getSubscribeCardsList() {
-        return subscribeCardsList;
+    public float getBalance() {
+        return balance;
+    }
+
+    public void setBalance(float balance) {
+        this.balance = balance;
     }
 
     @Override
@@ -54,15 +115,26 @@ public class SubscriberPOJO {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (!(o instanceof SubscriberPOJO)) {
             return false;
         }
         SubscriberPOJO that = (SubscriberPOJO) o;
-        return subscriberId == that.subscriberId && cardNumber == that.cardNumber && Objects.equals(email, that.email);
+        return subscriberId == that.subscriberId && subscriptionCardNumber == that.subscriptionCardNumber &&
+               creditCardNumber == that.creditCardNumber && Float.compare(that.balance, balance) == 0 &&
+               Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) &&
+               Objects.equals(email, that.email) && Objects.equals(birthDate, that.birthDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(subscriberId, email, cardNumber);
+        return Objects.hash(subscriberId,
+                            subscriptionCardNumber,
+                            creditCardNumber,
+                            firstName,
+                            lastName,
+                            email,
+                            birthDate,
+                            balance
+        );
     }
 }

@@ -17,15 +17,21 @@ public class BluRayPOJO {
     @Column(name = "MOVIE_ID")
     private int movieId;
     @Basic
-    @Column(name = "BLU_RAY_POSITION")
-    private int bluRayPosition;
+    @Column(name = "POSITION")
+    private int position;
+
+    public BluRayPOJO() {
+
+    }
+
+    public BluRayPOJO(int serialNumber, int movieId, int position) {
+        this.serialNumber = serialNumber;
+        this.movieId = movieId;
+        this.position = position;
+    }
 
     public int getBluRayId() {
         return bluRayId;
-    }
-
-    public void setBluRayId(int bluRayId) {
-        this.bluRayId = bluRayId;
     }
 
     public int getSerialNumber() {
@@ -44,12 +50,12 @@ public class BluRayPOJO {
         this.movieId = movieId;
     }
 
-    public int getBluRayPosition() {
-        return bluRayPosition;
+    public int getPosition() {
+        return position;
     }
 
-    public void setBluRayPosition(int bluRayPosition) {
-        this.bluRayPosition = bluRayPosition;
+    public void setPosition(int bluRayPosition) {
+        this.position = bluRayPosition;
     }
 
     @Override
@@ -62,11 +68,11 @@ public class BluRayPOJO {
         }
         BluRayPOJO that = (BluRayPOJO) o;
         return bluRayId == that.bluRayId && serialNumber == that.serialNumber && movieId == that.movieId &&
-               bluRayPosition == that.bluRayPosition;
+               position == that.position;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bluRayId, serialNumber, bluRayPosition, movieId);
+        return Objects.hash(bluRayId, serialNumber, movieId, position);
     }
 }

@@ -71,7 +71,7 @@ public class Themes {
 
     public void updateFromDatabase() {
         themes.clear();
-        List<String> newThemes = dbManagement.readAllThemes();
+        List<String> newThemes = DatabaseManagement.readAllThemes();
         newThemes.forEach(theme -> themes.put(theme, INCLUDED));
     }
 
