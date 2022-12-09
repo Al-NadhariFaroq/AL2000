@@ -3,6 +3,7 @@ package fc;
 import db.dao.DAOFactory;
 import db.pojo.SubscriberPOJO;
 import fc.movie.Movie;
+import fc.movie.Rating;
 import fc.support.BluRay;
 import fc.user.*;
 
@@ -24,6 +25,22 @@ public class AL2000FC {
         bluRays = new BluRays();
         userType = UserType.NONE;
         user = new NonSubscriber(1254882, null);
+
+        movies.setThemes(themes.getIncludedThemes());
+        movies.updateFromDatabase();
+        bluRays.updateFromDatabase();
+    }
+
+    public Themes getThemes() {
+        return themes;
+    }
+
+    public Movies getMovies() {
+        return movies;
+    }
+
+    public BluRays getBluRays() {
+        return bluRays;
     }
 
     public void rentBluRay(Movie movie) {

@@ -21,7 +21,7 @@ public class MoviesGridTest extends JFrame {
         getContentPane().setLayout(new BorderLayout());
 
         List<Movie> movies = new ArrayList<>();
-        for (int i = 0; i < 156; i++) {
+        for (int i = 0; i < 243; i++) {
             Movie movie = new Movie("Avatar " + i,
                                     null,
                                     null,

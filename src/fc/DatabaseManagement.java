@@ -57,7 +57,7 @@ public class DatabaseManagement {
 
     public static Set<Movie> readAllMovies() {
         Set<Movie> movies = new HashSet<>();
-        Set<MoviePOJO> moviesPOJO = DAOFactory.getMovieDAO().readAll();
+        List<MoviePOJO> moviesPOJO = DAOFactory.getMovieDAO().readAll();
         moviesPOJO.forEach(moviePOJO -> movies.add(convertFromMoviePOJO(moviePOJO)));
         return movies;
     }

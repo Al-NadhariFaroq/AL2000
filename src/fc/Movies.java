@@ -97,7 +97,7 @@ public class Movies {
     public void sortRating() {
         sortedMovies.clear();
         allMovies.forEach(movie -> {
-            if (movie.getRating().compareTo(rating) <= 0) {
+            if (movie.getRating().ordinal() <= rating.ordinal()) {
                 sortedMovies.add(movie);
             }
         });
