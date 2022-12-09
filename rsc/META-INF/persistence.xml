@@ -7,25 +7,22 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <!-- POJO classes -->
         <class>db.pojo.BluRayPOJO</class>
-        <class>db.pojo.CardPOJO</class>
         <class>db.pojo.MoviePOJO</class>
-        <class>db.pojo.ProfessionalPOJO</class>
         <class>db.pojo.RentalPOJO</class>
         <class>db.pojo.PreferencePOJO</class>
         <class>db.pojo.RolePOJO</class>
-        <class>db.pojo.SubscribeCardPOJO</class>
         <class>db.pojo.SubscriberPOJO</class>
         <class>db.pojo.ThemePOJO</class>
         <properties>
             <!-- to define later -->
             <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@im2ag-oracle.univ-grenoble-alpes.fr:1521:im2ag" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:im2ag" />
             <property name="javax.persistence.jdbc.user" value="alnadhaf" />
             <property name="javax.persistence.jdbc.password" value="e3d46ebeca" />
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle8iDialect" />
             <property name="hibernate.connection.url"
-                      value="jdbc:oracle:thin:@im2ag-oracle.univ-grenoble-alpes.fr:1521:im2ag"/>
+                      value="jdbc:oracle:thin:@im2ag-oracle.e.ujf-grenoble.fr:1521:im2ag"/>
             <property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/>
             <property name="hibernate.connection.username" value="alnadhaf"/>
             <property name="hibernate.connection.password" value="e3d46ebeca"/>
