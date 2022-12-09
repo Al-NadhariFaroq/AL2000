@@ -23,6 +23,15 @@ public class MovieThemeDAO extends DAO<MovieThemePOJO> {
         return movieThemePOJO;
     }
 
+    @Override
+    public int getNextId() {
+        Integer maxId = entityManager.createQuery("select max(movieThemeId) from Movies_Themes ", Integer.class).getSingleResult();
+        if (maxId == null) {
+            return 0;
+        }
+        return maxId + 1;
+    }
+
     public List<ThemePOJO> readFromMovieId(int movieId) {
         List<ThemePOJO> themesPOJO = new ArrayList<>();
         // TODO find all themes from a movie ID order by theme_rank

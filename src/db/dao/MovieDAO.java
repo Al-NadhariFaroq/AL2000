@@ -23,6 +23,15 @@ public class MovieDAO extends DAO<MoviePOJO> {
         return moviePOJO;
     }
 
+    @Override
+    public int getNextId() {
+        Integer maxId = entityManager.createQuery("select max(movieId) from Movies", Integer.class).getSingleResult();
+        if (maxId == null) {
+            return 0;
+        }
+        return maxId + 1;
+    }
+
     public MoviePOJO readFromTitleAndDate(String title, Date date) {
         MoviePOJO moviePOJO = null;
         // TODO find movie from a title and a date

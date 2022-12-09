@@ -3,13 +3,12 @@ package db.pojo;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "Controlled_Subscribers")
 @Table(name = "CONTROLLED_SUBSCRIBERS", schema = "ALNADHAF", catalog = "")
 public class CtrlSubPOJO {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "CONTROLLED_SUBSCRIBER_ID")
-    private int scoreId;
+    private int controlledSubscriberId;
     @Basic
     @Column(name = "SUBSCRIBER_ID")
     private int subscriberId;
@@ -24,10 +23,19 @@ public class CtrlSubPOJO {
 
     }
 
-    public CtrlSubPOJO(int subscriberId, int subSubscriberId, boolean isControlled) {
+    public CtrlSubPOJO(int controlledSubscriberId, int subscriberId, int subSubscriberId, boolean isControlled) {
+        this.controlledSubscriberId = controlledSubscriberId;
         this.subscriberId = subscriberId;
         this.subSubscriberId = subSubscriberId;
         this.isControlled = isControlled;
+    }
+
+    public int getControlledSubscriberId() {
+        return controlledSubscriberId;
+    }
+
+    public void setControlledSubscriberId(int controlledSubscriberId) {
+        this.controlledSubscriberId = controlledSubscriberId;
     }
 
     public int getSubscriberId() {
@@ -63,12 +71,12 @@ public class CtrlSubPOJO {
             return false;
         }
         CtrlSubPOJO that = (CtrlSubPOJO) o;
-        return scoreId == that.scoreId && subscriberId == that.subscriberId &&
+        return controlledSubscriberId == that.controlledSubscriberId && subscriberId == that.subscriberId &&
                subSubscriberId == that.subSubscriberId && isControlled == that.isControlled;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(scoreId, subscriberId, subSubscriberId, isControlled);
+        return Objects.hash(controlledSubscriberId, subscriberId, subSubscriberId, isControlled);
     }
 }

@@ -4,10 +4,9 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "Blu_Ray_Rentals")
 @Table(name = "BLU_RAY_RENTALS", schema = "ALNADHAF", catalog = "")
 public class BluRayRentalPOJO {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "BLU_RAY_RENTAL_ID")
     private int bluRayRentalId;
@@ -25,10 +24,19 @@ public class BluRayRentalPOJO {
 
     }
 
-    public BluRayRentalPOJO(int rentalId, int bluRayId, Date returnDate) {
+    public BluRayRentalPOJO(int bluRayRentalId, int rentalId, int bluRayId, Date returnDate) {
+        this.bluRayRentalId = bluRayRentalId;
         this.rentalId = rentalId;
         this.bluRayId = bluRayId;
         this.returnDate = returnDate;
+    }
+
+    public int getBluRayRentalId() {
+        return bluRayRentalId;
+    }
+
+    public void setBluRayRentalId(int bluRayRentalId) {
+        this.bluRayRentalId = bluRayRentalId;
     }
 
     public int getRentalId() {

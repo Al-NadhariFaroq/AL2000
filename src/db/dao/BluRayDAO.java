@@ -22,6 +22,15 @@ public class BluRayDAO extends DAO<BluRayPOJO> {
         return bluRayPOJO;
     }
 
+    @Override
+    public int getNextId() {
+        Integer maxId = entityManager.createQuery("select max(bluRayId) from Blu_Rays", Integer.class).getSingleResult();
+        if (maxId == null) {
+            return 0;
+        }
+        return maxId + 1;
+    }
+
     public BluRayPOJO readFromSerialNumber(int serialNumber) {
         BluRayPOJO bluRayPOJO = null;
         // TODO find blu-ray from a serial number

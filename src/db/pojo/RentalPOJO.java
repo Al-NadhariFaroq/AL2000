@@ -4,10 +4,9 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "Rentals")
 @Table(name = "RENTALS", schema = "ALNADHAF", catalog = "")
 public class RentalPOJO {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "RENTAL_ID")
     private int rentalId;
@@ -22,13 +21,18 @@ public class RentalPOJO {
 
     }
 
-    public RentalPOJO(int movieId, Date rentalDate) {
+    public RentalPOJO(int rentalId, int movieId, Date rentalDate) {
+        this.rentalId = rentalId;
         this.movieId = movieId;
         this.rentalDate = rentalDate;
     }
 
     public int getRentalId() {
         return rentalId;
+    }
+
+    public void setRentalId(int rentalId) {
+        this.rentalId = rentalId;
     }
 
     public int getMovieId() {

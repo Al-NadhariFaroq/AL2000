@@ -3,10 +3,9 @@ package db.pojo;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "Blu_Rays")
 @Table(name = "BLU_RAYS", schema = "ALNADHAF", catalog = "")
 public class BluRayPOJO {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "BLU_RAY_ID")
     private int bluRayId;
@@ -24,7 +23,8 @@ public class BluRayPOJO {
 
     }
 
-    public BluRayPOJO(int serialNumber, int movieId, int position) {
+    public BluRayPOJO(int bluRayId, int serialNumber, int movieId, int position) {
+        this.bluRayId = bluRayId;
         this.serialNumber = serialNumber;
         this.movieId = movieId;
         this.position = position;
@@ -32,6 +32,10 @@ public class BluRayPOJO {
 
     public int getBluRayId() {
         return bluRayId;
+    }
+
+    public void setBluRayId(int bluRayId) {
+        this.bluRayId = bluRayId;
     }
 
     public int getSerialNumber() {

@@ -20,7 +20,7 @@ abstract class DAO<T> implements Serializable {
     }
 
     public T read(int id) throws EntityNotFoundException {
-        throw new EntityNotFoundException("Can't find entity for ID " + id);
+        throw new EntityNotFoundException("can't find entity for ID " + id);
     }
 
     public void update(T t) {
@@ -29,6 +29,10 @@ abstract class DAO<T> implements Serializable {
 
     public void delete(T t) {
         executeInsideTransaction(entityManager -> entityManager.remove(t));
+    }
+
+    public int getNextId() {
+        throw new EntityNotFoundException("can't find next ID");
     }
 
     private void executeInsideTransaction(Consumer<EntityManager> action) {

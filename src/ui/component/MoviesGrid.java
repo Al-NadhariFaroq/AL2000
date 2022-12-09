@@ -261,11 +261,11 @@ public class MoviesGrid extends JPanel {
     }
 
     private JPanel createPageManagement() {
-        prevPageBtn = new TextButton("⮘");
+        prevPageBtn = new TextButton("<");
         prevPageBtn.setEnteredFeedback(TextButton.COLOR);
         prevPageBtn.addActionListener(e -> setCurrentPage(currentPage - 1));
 
-        nextPageBtn = new TextButton("⮚");
+        nextPageBtn = new TextButton(">");
         nextPageBtn.setEnteredFeedback(TextButton.COLOR);
         nextPageBtn.addActionListener(e -> setCurrentPage(currentPage + 1));
 

@@ -21,6 +21,15 @@ public class RentalDAO extends DAO<RentalPOJO> {
         return rentalPOJO;
     }
 
+    @Override
+    public int getNextId() {
+        Integer maxId = entityManager.createQuery("select max(rentalId) from Rentals", Integer.class).getSingleResult();
+        if (maxId == null) {
+            return 0;
+        }
+        return maxId + 1;
+    }
+
     public RentalPOJO readFromMovieAndDate(int movieId, Date date) {
         RentalPOJO rentalPOJO = null;
         // TODO find rental from a movie ID and a date

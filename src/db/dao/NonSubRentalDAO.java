@@ -19,4 +19,13 @@ public class NonSubRentalDAO extends DAO<NonSubRentalPOJO> {
         }
         return nonSubRentalPOJO;
     }
+
+    @Override
+    public int getNextId() {
+        Integer maxId = entityManager.createQuery("select max(nonSubscriberRentalId) from Non_Subscriber_rentals", Integer.class).getSingleResult();
+        if (maxId == null) {
+            return 0;
+        }
+        return maxId + 1;
+    }
 }

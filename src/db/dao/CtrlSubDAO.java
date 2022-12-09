@@ -19,4 +19,13 @@ public class CtrlSubDAO extends DAO<CtrlSubPOJO> {
         }
         return ctrlSubPOJO;
     }
+
+    @Override
+    public int getNextId() {
+        Integer maxId = entityManager.createQuery("select max(controlledSubscriberId) from Controlled_Subscribers ", Integer.class).getSingleResult();
+        if (maxId == null) {
+            return 0;
+        }
+        return maxId + 1;
+    }
 }
