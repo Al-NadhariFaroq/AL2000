@@ -52,14 +52,18 @@ VALUES (18, 'Western');
 INSERT INTO Movies
 VALUES (0, 'Avatar', to_date('16-12-2009', 'dd-mm-yyyy'),
         'A paraplegic Marine is dispatched to the moon Pandora on a unique mission.', 'PG13',
-        'null',
+        'https://myflixer.to/watch-movie/avatar-19690.5297449',
         'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg');
 INSERT INTO Movies
 VALUES (1, 'Avatar: The Way of Water', to_date('14-12-2022', 'dd-mm-yyyy'),
         'Set more than a decade after the events of the first film, learn the story of the Sully family.', 'PG13',
         'null',
         'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg');
-
+ INSERT INTO Movies
+ VALUES ( 100, 'Baby Driver', to_date('19/07/2017'),
+         'After being coerced into working for a crime boss, a young getaway driver finds himself taking part in a heist doomed to fail.', 'PG13',
+                             'https://myflixer.to/watch-movie/baby-driver-19604.5297575',
+                             'https://www.themoviedb.org/t/p/original/uR7Z2TWMLyZHaFFQV6Rv9aEmRR0.jpg');
 /*************************************************************/
 /************************  BLU-RAYS  *************************/
 /*************************************************************/
@@ -70,6 +74,9 @@ INSERT INTO Blu_Rays
 VALUES (1, 100000002, 1, 1);
 INSERT INTO Blu_Rays
 VALUES (2, 100000003, 0, 2);
+INSERT INTO blu_rays
+VALUES (3,100000003,100,1);
+
 
 /*************************************************************/
 /************************ SUBSCRIBERS ************************/
@@ -92,6 +99,14 @@ VALUES (2, 100000003, 0, 2);
 /*************************************************************/
 /**************************  ROLES  **************************/
 /*************************************************************/
+INSERT INTO ROLES
+VALUES (105,100,'Edgar Wright', -1,1,NULL);
+INSERT INTO ROLES
+VALUES (107,100,'Ansel Elgort', 0,0,'Baby');
+INSERT INTO ROLES
+VALUES (107,100,'Kevin Spacey', 0,0,'Doc');
+INSERT INTO ROLES
+VALUES (107,100,'Lily James', 0,0,'Debora');
 
 INSERT INTO ROLES
 VALUES (0, 0, 'James Cameron', -1, 1, NULL);
@@ -121,6 +136,10 @@ VALUES (11, 1, 'Kate Winslet', 5, -1, 'Ronal');
 /*************************************************************/
 /**********************  MOVIES THEMES  **********************/
 /*************************************************************/
+INSERT INTO Movies_themes
+VALUES (100,7);
+INSERT INTO Movies_themes
+VALUES (100,1);
 
 INSERT INTO movies_themes
 VALUES (0, 0, 16, 1);
