@@ -2,6 +2,7 @@ package db.pojo;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -32,7 +33,8 @@ public class SubscriberPOJO {
     @Basic
     @Column(name = "BALANCE")
     private float balance;
-
+    @OneToMany(mappedBy="subscriber", cascade = CascadeType.ALL)
+    private List<CtrlSubPOJO> controlledSubscriber;
     public SubscriberPOJO() {
 
     }
@@ -109,7 +111,9 @@ public class SubscriberPOJO {
     public void setBalance(float balance) {
         this.balance = balance;
     }
-
+    public List<CtrlSubPOJO> getControlledSubcriberList(){
+        return controlledSubscriber;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {

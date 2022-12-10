@@ -9,13 +9,10 @@ public class CtrlSubPOJO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "CONTROLLED_SUBSCRIBER_ID")
-    private int scoreId;
-    @Basic
-    @Column(name = "SUBSCRIBER_ID")
-    private int subscriberId;
-    @Basic
-    @Column(name = "SUB_SUBSCRIBER_ID")
-    private int subSubscriberId;
+    private int controlledSubscriberId;
+    @JoinColumn(name="SUBSCRIBER_ID", referencedColumnName = "SUBSCRIBER_ID")
+    @ManyToOne(optional = false)
+    private SubscriberPOJO subscriber;
     @Basic
     @Column(name = "IS_CONTROLLED")
     private boolean isControlled;
@@ -24,26 +21,23 @@ public class CtrlSubPOJO {
 
     }
 
-    public CtrlSubPOJO(int subscriberId, int subSubscriberId, boolean isControlled) {
-        this.subscriberId = subscriberId;
-        this.subSubscriberId = subSubscriberId;
+    public CtrlSubPOJO(SubscriberPOJO subscriber, int controlledSubscriberId, boolean isControlled) {
+        this.subscriber = subscriber;
+        this.controlledSubscriberId = controlledSubscriberId;
         this.isControlled = isControlled;
     }
 
-    public int getSubscriberId() {
-        return subscriberId;
+    public SubscriberPOJO getSubscriber() {
+        return subscriber;
     }
 
-    public void setSubscriberId(int subscriberId) {
-        this.subscriberId = subscriberId;
+
+    public int getControlledSubscriberId() {
+        return controlledSubscriberId;
     }
 
-    public int getSubSubscriberId() {
-        return subSubscriberId;
-    }
-
-    public void setSubSubscriberId(int subSubscriberId) {
-        this.subSubscriberId = subSubscriberId;
+    public void setControlledSubscriberId(int subSubscriberId) {
+        this.controlledSubscriberId = subSubscriberId;
     }
 
     public boolean isControlled() {
@@ -63,12 +57,12 @@ public class CtrlSubPOJO {
             return false;
         }
         CtrlSubPOJO that = (CtrlSubPOJO) o;
-        return scoreId == that.scoreId && subscriberId == that.subscriberId &&
-               subSubscriberId == that.subSubscriberId && isControlled == that.isControlled;
+        return subscriber.getCreditCardNumber() == that.subscriber.getCreditCardNumber() &&
+               controlledSubscriberId == that.controlledSubscriberId && isControlled == that.isControlled;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(scoreId, subscriberId, subSubscriberId, isControlled);
+        return Objects.hash(subscriber.getFirstName()+" "+subscriber.getLastName(), controlledSubscriberId, isControlled);
     }
 }

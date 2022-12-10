@@ -10,9 +10,10 @@ public class NonSubRentalPOJO {
     @Id
     @Column(name = "NON_SUBSCRIBER_RENTAL_ID")
     private int nonSubscriberRentalId;
-    @Basic
-    @Column(name = "RENTAL_ID")
-    private int rentalId;
+
+    @JoinColumn(name="RENTAL_ID", referencedColumnName = "RENTAL_ID")
+    @ManyToOne(optional = false)
+    private RentalPOJO rental;
     @Basic
     @Column(name = "CREDIT_CARD_NUMBER")
     private int creditCardNumber;
@@ -21,17 +22,13 @@ public class NonSubRentalPOJO {
 
     }
 
-    public NonSubRentalPOJO(int rentalId, int creditCardNumber) {
-        this.rentalId = rentalId;
+    public NonSubRentalPOJO(RentalPOJO rental, int creditCardNumber) {
+        this.rental = rental;
         this.creditCardNumber = creditCardNumber;
     }
 
-    public int getRentalId() {
-        return rentalId;
-    }
-
-    public void setRentalId(int rentalId) {
-        this.rentalId = rentalId;
+    public RentalPOJO getRental() {
+        return rental;
     }
 
     public int getCreditCardNumber() {
@@ -51,12 +48,12 @@ public class NonSubRentalPOJO {
             return false;
         }
         NonSubRentalPOJO that = (NonSubRentalPOJO) o;
-        return nonSubscriberRentalId == that.nonSubscriberRentalId && rentalId == that.rentalId &&
+        return nonSubscriberRentalId == that.nonSubscriberRentalId && rental.getMovie() == that.rental.getMovie() &&
                creditCardNumber == that.creditCardNumber;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nonSubscriberRentalId, rentalId, creditCardNumber);
+        return Objects.hash(nonSubscriberRentalId, rental.getMovie(), creditCardNumber);
     }
 }

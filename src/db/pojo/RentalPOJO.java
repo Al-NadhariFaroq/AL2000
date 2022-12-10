@@ -2,6 +2,7 @@ package db.pojo;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,31 +13,32 @@ public class RentalPOJO {
     @Column(name = "RENTAL_ID")
     private int rentalId;
     @Basic
-    @Column(name = "MOVIE_ID")
-    private int movieId;
+    @Column(name = "SUBSCRIBER_ID")
+    private int subscriberId;
+    @JoinColumn(name="MOVIE_ID", referencedColumnName = "MOVIE_ID")
+    @ManyToOne(optional = false)
+    private MoviePOJO movie;
     @Basic
     @Column(name = "RENTAL_DATE")
     private Date rentalDate;
+
+//    @OneToMany(mappedBy="rental", cascade = CascadeType.ALL)
+//    private List<NonSubRentalPOJO> nonSubRentalPOJOList;
 
     public RentalPOJO() {
 
     }
 
-    public RentalPOJO(int movieId, Date rentalDate) {
-        this.movieId = movieId;
+    public RentalPOJO(MoviePOJO movie, Date rentalDate) {
+        this.movie = movie;
         this.rentalDate = rentalDate;
     }
-
     public int getRentalId() {
         return rentalId;
     }
 
-    public int getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
+    public MoviePOJO getMovie() {
+        return movie;
     }
 
     public Date getRentalDate() {
@@ -56,11 +58,11 @@ public class RentalPOJO {
             return false;
         }
         RentalPOJO that = (RentalPOJO) o;
-        return rentalId == that.rentalId && movieId == that.movieId && Objects.equals(rentalDate, that.rentalDate);
+        return rentalId == that.rentalId && movie.getMovieId() == that.movie.getMovieId() && Objects.equals(rentalDate, that.rentalDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(rentalId, movieId, rentalDate);
+        return Objects.hash(rentalId, movie.getTitle(), rentalDate);
     }
 }

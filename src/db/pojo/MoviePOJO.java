@@ -2,6 +2,7 @@ package db.pojo;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -29,7 +30,14 @@ public class MoviePOJO {
     @Basic
     @Column(name = "POSTER_URL")
     private String posterURL;
+    @OneToMany(mappedBy="movie", cascade = CascadeType.ALL)
+    private List<RentalPOJO> rentalPOJOList;
 
+    @OneToMany(mappedBy="movie", cascade = CascadeType.ALL)
+    private List<RolePOJO> rolePOJOList;
+
+    @OneToMany(mappedBy="movie", cascade = CascadeType.ALL)
+    private List<BluRayPOJO> bluRayPOJOList;
     public MoviePOJO() {
 
     }
@@ -94,7 +102,15 @@ public class MoviePOJO {
     public void setPosterURL(String posterURL) {
         this.posterURL = posterURL;
     }
-
+    public List<RentalPOJO> getRentalPOJOList(){
+        return rentalPOJOList;
+    }
+    public List<BluRayPOJO> getBluRayPOJOList(){
+        return bluRayPOJOList;
+    }
+    public List<RolePOJO> getRolePOJOList(){
+        return rolePOJOList;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {

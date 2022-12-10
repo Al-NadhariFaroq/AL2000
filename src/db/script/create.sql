@@ -1,7 +1,7 @@
 DROP TABLE themes CASCADE CONSTRAINTS;
 DROP TABLE movies CASCADE CONSTRAINTS;
 DROP TABLE blu_rays CASCADE CONSTRAINTS;
-DROP TABLE subscribers CASCADE CONSTRAINTS;
+ DROP TABLE subscribers CASCADE CONSTRAINTS;
 DROP TABLE blu_ray_rentals CASCADE CONSTRAINTS;
 DROP TABLE roles CASCADE CONSTRAINTS;
 DROP TABLE movies_themes CASCADE CONSTRAINTS;
@@ -115,8 +115,7 @@ CREATE TABLE controlled_subscribers (
 	sub_subscriber_id        number(8) NOT NULL,
 	is_controlled            number(1)  NOT NULL,
 	CONSTRAINT controlled_subscribers_pk PRIMARY KEY (controlled_subscriber_id),
-	CONSTRAINT controlled_subscriber_fk FOREIGN KEY (subscriber_id) REFERENCES subscribers (subscriber_id),
-	CONSTRAINT controlled_sub_subscriber_fk FOREIGN KEY (sub_subscriber_id) REFERENCES subscribers (subscriber_id)
+	CONSTRAINT controlled_subscriber_fk FOREIGN KEY (subscriber_id) REFERENCES subscribers (subscriber_id)
 );
 
 CREATE TABLE non_subscriber_rentals (
