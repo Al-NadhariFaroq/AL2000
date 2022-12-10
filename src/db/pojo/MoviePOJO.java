@@ -40,6 +40,9 @@ public class MoviePOJO {
 
     @OneToMany(mappedBy="movie", cascade = CascadeType.ALL)
     private List<ScorePOJO> scorePOJOList;
+
+    @OneToMany(mappedBy="movie", cascade = CascadeType.ALL)
+    private List<MovieThemePOJO> movieThemePOJOList;
     public MoviePOJO() {
 
     }

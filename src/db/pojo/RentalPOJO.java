@@ -21,6 +21,12 @@ public class RentalPOJO {
     @OneToMany(mappedBy="rental", cascade = CascadeType.ALL)
     private List<NonSubRentalPOJO> nonSubRentalPOJOList;
 
+    @OneToMany(mappedBy="rental", cascade = CascadeType.ALL)
+    private List<BluRayRentalPOJO> bluRayRentalPOJOList;
+
+    @OneToMany(mappedBy="rental", cascade = CascadeType.ALL)
+    private List<SubRentalPOJO> subRentalPOJOList;
+
     public RentalPOJO() {
 
     }

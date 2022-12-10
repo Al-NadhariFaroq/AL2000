@@ -1,6 +1,7 @@
 package db.pojo;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "Themes")
@@ -14,6 +15,11 @@ public class ThemePOJO {
     @Column(name = "NAME")
     private String name;
 
+    @OneToMany(mappedBy="theme", cascade = CascadeType.ALL)
+    private List<MovieThemePOJO> movieThemePOJOList;
+
+    @OneToMany(mappedBy="theme", cascade = CascadeType.ALL)
+    private List<PreferencePOJO> preferencePOJOList;
     public ThemePOJO() {
 
     }
@@ -29,6 +35,14 @@ public class ThemePOJO {
 
     public void setName(String theme) {
         this.name = theme;
+    }
+
+    public int getThemeId() {
+        return themeId;
+    }
+
+    public void setThemeId(int themeId) {
+        this.themeId = themeId;
     }
 
     @Override

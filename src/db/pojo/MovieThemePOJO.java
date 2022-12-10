@@ -9,12 +9,12 @@ public class MovieThemePOJO {
     @Id
     @Column(name = "MOVIE_THEME_ID")
     private int movieThemeId;
-    @Basic
-    @Column(name = "MOVIE_ID")
-    private int movieId;
-    @Basic
-    @Column(name = "Theme_ID")
-    private int themeId;
+    @ManyToOne
+    @JoinColumn(name = "MOVIE_ID")
+    private MoviePOJO movie;
+    @ManyToOne
+    @JoinColumn(name = "Theme_ID")
+    private ThemePOJO theme;
     @Basic
     @Column(name = "THEME_RANK")
     private int themeRank;
@@ -23,10 +23,10 @@ public class MovieThemePOJO {
 
     }
 
-    public MovieThemePOJO(int movieThemeId,int movieId, int themeId, int themeRank) {
+    public MovieThemePOJO(int movieThemeId,MoviePOJO movie, ThemePOJO theme, int themeRank) {
         this.movieThemeId = movieThemeId;
-        this.movieId = movieId;
-        this.themeId = themeId;
+        this.movie = movie;
+        this.theme = theme;
         this.themeRank = themeRank;
     }
 
@@ -38,20 +38,20 @@ public class MovieThemePOJO {
         this.movieThemeId = movieThemeId;
     }
 
-    public int getMovieId() {
-        return movieId;
+    public MoviePOJO getMovie() {
+        return movie;
     }
 
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
+    public void setMovie(MoviePOJO movie) {
+        this.movie = movie;
     }
 
-    public int getThemeId() {
-        return themeId;
+    public ThemePOJO getTheme() {
+        return theme;
     }
 
-    public void setThemeId(int themeId) {
-        this.themeId = themeId;
+    public void setTheme(ThemePOJO theme) {
+        this.theme = theme;
     }
 
     public int getThemeRank() {
@@ -71,12 +71,12 @@ public class MovieThemePOJO {
             return false;
         }
         MovieThemePOJO that = (MovieThemePOJO) o;
-        return movieThemeId == that.movieThemeId && movieId == that.movieId && themeId == that.themeId &&
+        return movieThemeId == that.movieThemeId && movie.getMovieId() == that.movie.getMovieId() && theme.getThemeId() == that.theme.getThemeId() &&
                themeRank == that.themeRank;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(movieThemeId, movieId, themeId, themeRank);
+        return Objects.hash(movieThemeId, movie.getMovieId(), theme.getThemeId(), themeRank);
     }
 }

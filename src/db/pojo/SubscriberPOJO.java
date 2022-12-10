@@ -37,6 +37,12 @@ public class SubscriberPOJO {
 
     @OneToMany(mappedBy="subscriber", cascade = CascadeType.ALL)
     private List<ScorePOJO> scorePOJOList;
+
+    @OneToMany(mappedBy="subscriber", cascade = CascadeType.ALL)
+    private List<SubRentalPOJO> subRentalPOJOList;
+
+    @OneToMany(mappedBy="subscriber", cascade = CascadeType.ALL)
+    private List<PreferencePOJO> preferencePOJOList;
     public SubscriberPOJO() {
 
     }

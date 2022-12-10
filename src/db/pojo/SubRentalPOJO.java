@@ -9,21 +9,22 @@ public class SubRentalPOJO {
     @Id
     @Column(name = "SUBSCRIBER_RENTAL_ID")
     private int subscriberRentalId;
-    @Basic
-    @Column(name = "RENTAL_ID")
-    private int rentalId;
-    @Basic
-    @Column(name = "SUBSCRIBER_ID")
-    private int subscriberID;
+    @ManyToOne
+    @JoinColumn(name = "RENTAL_ID")
+    private RentalPOJO rental;
+
+    @ManyToOne
+    @JoinColumn(name = "SUBSCRIBER_ID")
+    private SubscriberPOJO subscriber;
 
     public SubRentalPOJO() {
 
     }
 
-    public SubRentalPOJO(int subscriberRentalId,int rentalId, int subscriberID) {
+    public SubRentalPOJO(int subscriberRentalId,RentalPOJO rental, SubscriberPOJO subscriber) {
         this.subscriberRentalId = subscriberRentalId;
-        this.rentalId = rentalId;
-        this.subscriberID = subscriberID;
+        this.rental = rental;
+        this.subscriber = subscriber;
     }
 
     public int getSubscriberRentalId() {
@@ -34,20 +35,20 @@ public class SubRentalPOJO {
         this.subscriberRentalId = subscriberRentalId;
     }
 
-    public int getRentalId() {
-        return rentalId;
+    public RentalPOJO getRental() {
+        return rental;
     }
 
-    public void setRentalId(int rentalId) {
-        this.rentalId = rentalId;
+    public void setRental(RentalPOJO rental) {
+        this.rental = rental;
     }
 
-    public int getSubscriberID() {
-        return subscriberID;
+    public SubscriberPOJO getSubscriber() {
+        return subscriber;
     }
 
-    public void setSubscriberID(int subscriberID) {
-        this.subscriberID = subscriberID;
+    public void setSubscriber(SubscriberPOJO subscriber) {
+        this.subscriber = subscriber;
     }
 
     @Override
@@ -59,12 +60,12 @@ public class SubRentalPOJO {
             return false;
         }
         SubRentalPOJO that = (SubRentalPOJO) o;
-        return subscriberRentalId == that.subscriberRentalId && rentalId == that.rentalId &&
-               subscriberID == that.subscriberID;
+        return subscriberRentalId == that.subscriberRentalId && rental.getRentalId() == that.rental.getRentalId() &&
+               subscriber.getSubscriberId() == that.subscriber.getSubscriberId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(subscriberRentalId, rentalId, subscriberID);
+        return Objects.hash(subscriberRentalId, rental.getRentalId(), subscriber.getSubscriberId());
     }
 }

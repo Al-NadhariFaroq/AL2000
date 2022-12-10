@@ -9,12 +9,12 @@ public class PreferencePOJO {
     @Id
     @Column(name = "PREFERENCE_ID")
     private int preferenceId;
-    @Basic
-    @Column(name = "SUBSCRIBER_ID")
-    private int subscriberId;
-    @Basic
-    @Column(name = "THEME_ID")
-    private Integer themeId;
+    @ManyToOne
+    @JoinColumn(name = "SUBSCRIBER_ID")
+    private SubscriberPOJO subscriber;
+    @ManyToOne
+    @JoinColumn(name = "THEME_ID")
+    private ThemePOJO theme;
     @Basic
     @Column(name = "FORBIDDEN")
     private boolean forbidden;
@@ -23,10 +23,10 @@ public class PreferencePOJO {
 
     }
 
-    public PreferencePOJO(int preferenceId,int subscriberId, Integer themeId, boolean forbidden) {
+    public PreferencePOJO(int preferenceId,SubscriberPOJO subscriber, ThemePOJO theme, boolean forbidden) {
         this.preferenceId = preferenceId;
-        this.subscriberId = subscriberId;
-        this.themeId = themeId;
+        this.subscriber = subscriber;
+        this.theme = theme;
         this.forbidden = forbidden;
     }
 
@@ -38,20 +38,20 @@ public class PreferencePOJO {
         this.preferenceId = preferenceId;
     }
 
-    public int getSubscriberId() {
-        return subscriberId;
+    public SubscriberPOJO getSubscriber() {
+        return subscriber;
     }
 
-    public void setSubscriberId(int subscriberId) {
-        this.subscriberId = subscriberId;
+    public void setSubscriber(SubscriberPOJO subscriber) {
+        this.subscriber = subscriber;
     }
 
-    public Integer getThemeId() {
-        return themeId;
+    public ThemePOJO getTheme() {
+        return theme;
     }
 
-    public void setThemeId(Integer themeId) {
-        this.themeId = themeId;
+    public void setTheme(ThemePOJO theme) {
+        this.theme = theme;
     }
 
     public boolean isForbidden() {
@@ -71,12 +71,12 @@ public class PreferencePOJO {
             return false;
         }
         PreferencePOJO that = (PreferencePOJO) o;
-        return preferenceId == that.preferenceId && subscriberId == that.subscriberId && forbidden == that.forbidden &&
-               Objects.equals(themeId, that.themeId);
+        return preferenceId == that.preferenceId && subscriber.getSubscriberId() == that.subscriber.getSubscriberId() && forbidden == that.forbidden &&
+               Objects.equals(theme.getThemeId(), that.theme.getThemeId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(preferenceId, subscriberId, themeId, forbidden);
+        return Objects.hash(preferenceId, subscriber.getSubscriberId(), theme.getThemeId(), forbidden);
     }
 }

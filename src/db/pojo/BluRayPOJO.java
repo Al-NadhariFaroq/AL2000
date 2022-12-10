@@ -1,6 +1,7 @@
 package db.pojo;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "Blu_Rays")
@@ -18,6 +19,9 @@ public class BluRayPOJO {
     @Basic
     @Column(name = "POSITION")
     private int position;
+
+    @OneToMany(mappedBy="bluRay", cascade = CascadeType.ALL)
+    private List<BluRayRentalPOJO> bluRayRentalPOJOList;
 
     public BluRayPOJO() {
 

@@ -84,8 +84,8 @@ public class DatabaseManagement {
 
         int bluRayRentalId = DAOFactory.getBluRayDAO().getNextId();
         rentalPOJO = DAOFactory.getRentalDAO().readFromMovieAndDate(moviePOJO.getMovieId(), rentalDate);
-        BluRayRentalPOJO brRentalPOJO = new BluRayRentalPOJO(bluRayRentalId, rentalPOJO.getRentalId(),
-                bluRayPOJO.getBluRayId(), null);
+        BluRayRentalPOJO brRentalPOJO = new BluRayRentalPOJO(bluRayRentalId, rentalPOJO,
+                bluRayPOJO, null);
         DAOFactory.getBluRayRentalDAO().create(brRentalPOJO);
 
         int nonSubRentalId = DAOFactory.getNonSubRentalDAO().getNextId();

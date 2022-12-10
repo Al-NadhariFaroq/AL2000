@@ -1,5 +1,8 @@
 package db.pojo;
 
+import fc.support.BluRay;
+import fc.support.Rental;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Objects;
@@ -10,12 +13,14 @@ public class BluRayRentalPOJO {
     @Id
     @Column(name = "BLU_RAY_RENTAL_ID")
     private int bluRayRentalId;
-    @Basic
-    @Column(name = "RENTAL_ID")
-    private int rentalId;
-    @Basic
-    @Column(name = "BLU_RAY_ID")
-    private int bluRayId;
+
+    @ManyToOne
+    @JoinColumn(name = "RENTAL_ID")
+    private RentalPOJO rental;
+
+    @ManyToOne
+    @JoinColumn(name = "BLU_RAY_ID")
+    private BluRayPOJO bluRay;
     @Basic
     @Column(name = "RETURN_DATE")
     private Date returnDate;
@@ -24,10 +29,10 @@ public class BluRayRentalPOJO {
 
     }
 
-    public BluRayRentalPOJO(int bluRayRentalId, int rentalId, int bluRayId, Date returnDate) {
+    public BluRayRentalPOJO(int bluRayRentalId, RentalPOJO rental, BluRayPOJO bluRay, Date returnDate) {
         this.bluRayRentalId = bluRayRentalId;
-        this.rentalId = rentalId;
-        this.bluRayId = bluRayId;
+        this.rental = rental;
+        this.bluRay = bluRay;
         this.returnDate = returnDate;
     }
 
@@ -39,20 +44,20 @@ public class BluRayRentalPOJO {
         this.bluRayRentalId = bluRayRentalId;
     }
 
-    public int getRentalId() {
-        return rentalId;
+    public RentalPOJO getRental() {
+        return rental;
     }
 
-    public void setRentalId(int rentalId) {
-        this.rentalId = rentalId;
+    public void setRental(RentalPOJO rental) {
+        this.rental = rental;
     }
 
-    public int getBluRayId() {
-        return bluRayId;
+    public BluRayPOJO getBluRay() {
+        return bluRay;
     }
 
-    public void setBluRayId(int bluRayId) {
-        this.bluRayId = bluRayId;
+    public void setBluRay(BluRayPOJO bluRay) {
+        this.bluRay = bluRay;
     }
 
     public Date getReturnDate() {
@@ -72,12 +77,12 @@ public class BluRayRentalPOJO {
             return false;
         }
         BluRayRentalPOJO that = (BluRayRentalPOJO) o;
-        return bluRayRentalId == that.bluRayRentalId && rentalId == that.rentalId && bluRayId == that.bluRayId &&
+        return bluRayRentalId == that.bluRayRentalId && rental.getRentalId() == that.rental.getRentalId() && bluRay.getBluRayId() == that.bluRay.getBluRayId() &&
                Objects.equals(returnDate, that.returnDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bluRayRentalId, rentalId, bluRayId, returnDate);
+        return Objects.hash(bluRayRentalId, rental.getRentalId(), bluRay.getBluRayId(), returnDate);
     }
 }
