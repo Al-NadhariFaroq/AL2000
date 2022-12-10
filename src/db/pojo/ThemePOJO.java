@@ -3,10 +3,9 @@ package db.pojo;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "Themes")
 @Table(name = "THEMES", schema = "ALNADHAF", catalog = "")
 public class ThemePOJO {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "THEME_ID")
     private int themeId;

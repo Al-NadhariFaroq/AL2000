@@ -22,6 +22,15 @@ public class RoleDAO extends DAO<RolePOJO> {
         return rolePOJO;
     }
 
+    @Override
+    public int getNextId() {
+        Integer maxId = entityManager.createQuery("select max(roleId) from Roles", Integer.class).getSingleResult();
+        if (maxId == null) {
+            return 0;
+        }
+        return maxId + 1;
+    }
+
     public List<RolePOJO> readDirectorsFromMovieId(int movieId) {
         List<RolePOJO> rolesPOJO = new ArrayList<>();
         // TODO find all directors from a movie ID order by director_rank

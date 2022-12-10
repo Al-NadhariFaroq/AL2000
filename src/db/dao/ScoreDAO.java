@@ -22,6 +22,15 @@ public class ScoreDAO extends DAO<ScorePOJO> {
         return scorePOJO;
     }
 
+    @Override
+    public int getNextId() {
+        Integer maxId = entityManager.createQuery("select max(scoreId) from Scores", Integer.class).getSingleResult();
+        if (maxId == null) {
+            return 0;
+        }
+        return maxId + 1;
+    }
+
     public Set<ScorePOJO> readFromMovieId(int movieId) {
         Set<ScorePOJO> scoresPOJO = new HashSet<>();
         // TODO find all scores from a movie ID

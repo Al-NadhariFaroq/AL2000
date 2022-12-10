@@ -3,19 +3,18 @@ package db.pojo;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "Blu_Rays")
 @Table(name = "BLU_RAYS", schema = "ALNADHAF", catalog = "")
 public class BluRayPOJO {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "BLU_RAY_ID")
     private int bluRayId;
     @Basic
     @Column(name = "SERIAL_NUMBER")
     private int serialNumber;
-    @JoinColumn(name="MOVIE_ID", referencedColumnName = "MOVIE_ID")
-    @ManyToOne(optional = false)
-    private MoviePOJO movie;
+    @Basic
+    @Column(name = "MOVIE_ID")
+    private int movieId;
     @Basic
     @Column(name = "POSITION")
     private int position;
@@ -24,14 +23,19 @@ public class BluRayPOJO {
 
     }
 
-    public BluRayPOJO(int serialNumber, MoviePOJO movie, int position) {
+    public BluRayPOJO(int bluRayId, int serialNumber, int movieId, int position) {
+        this.bluRayId = bluRayId;
         this.serialNumber = serialNumber;
-        this.movie = movie;
+        this.movieId = movieId;
         this.position = position;
     }
 
     public int getBluRayId() {
         return bluRayId;
+    }
+
+    public void setBluRayId(int bluRayId) {
+        this.bluRayId = bluRayId;
     }
 
     public int getSerialNumber() {
@@ -42,8 +46,12 @@ public class BluRayPOJO {
         this.serialNumber = serialNumber;
     }
 
-    public MoviePOJO getMovie() {
-        return movie;
+    public int getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
     public int getPosition() {
@@ -63,12 +71,12 @@ public class BluRayPOJO {
             return false;
         }
         BluRayPOJO that = (BluRayPOJO) o;
-        return bluRayId == that.bluRayId && serialNumber == that.serialNumber && movie.getTitle() == that.movie.getTitle() &&
+        return bluRayId == that.bluRayId && serialNumber == that.serialNumber && movieId == that.movieId &&
                position == that.position;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bluRayId, serialNumber, movie.getTitle(), position);
+        return Objects.hash(bluRayId, serialNumber, movieId, position);
     }
 }

@@ -5,10 +5,9 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "Movies")
 @Table(name = "MOVIES", schema = "ALNADHAF", catalog = "")
 public class MoviePOJO {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "MOVIE_ID")
     private int movieId;
@@ -42,7 +41,8 @@ public class MoviePOJO {
 
     }
 
-    public MoviePOJO(String title, Date releaseDate, String synopsis, String rating, String linkURL, String posterURL) {
+    public MoviePOJO(int movieId, String title, Date releaseDate, String synopsis, String rating, String linkURL, String posterURL) {
+        this.movieId = movieId;
         this.title = title;
         this.releaseDate = releaseDate;
         this.synopsis = synopsis;
@@ -53,6 +53,10 @@ public class MoviePOJO {
 
     public int getMovieId() {
         return movieId;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
     public String getTitle() {

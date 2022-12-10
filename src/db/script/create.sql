@@ -1,7 +1,7 @@
 DROP TABLE themes CASCADE CONSTRAINTS;
 DROP TABLE movies CASCADE CONSTRAINTS;
 DROP TABLE blu_rays CASCADE CONSTRAINTS;
- DROP TABLE subscribers CASCADE CONSTRAINTS;
+DROP TABLE subscribers CASCADE CONSTRAINTS;
 DROP TABLE blu_ray_rentals CASCADE CONSTRAINTS;
 DROP TABLE roles CASCADE CONSTRAINTS;
 DROP TABLE movies_themes CASCADE CONSTRAINTS;
@@ -35,7 +35,7 @@ CREATE TABLE blu_rays (
 	movie_id      number(8) NOT NULL,
 	position      number(3) UNIQUE,
 	CONSTRAINT blu_rays_pk PRIMARY KEY (blu_ray_id),
-	CONSTRAINT blu_rays_movie_fk FOREIGN KEY (movie_id) REFERENCES movies (movie_id)
+	CONSTRAINT blu_rays_movie_fk FOREIGN KEY (movie_id) REFERENCES movies (movie_id) ON DELETE CASCADE
 );
 
 CREATE TABLE subscribers (
@@ -55,7 +55,7 @@ CREATE TABLE rentals (
 	movie_id    number(8) NOT NULL,
 	rental_date date       NOT NULL,
 	CONSTRAINT rentals_pk PRIMARY KEY (rental_id),
-	CONSTRAINT movies_rentals_fk FOREIGN KEY (movie_id) REFERENCES movies (movie_id)
+	CONSTRAINT movies_rentals_fk FOREIGN KEY (movie_id) REFERENCES movies (movie_id) ON DELETE CASCADE
 );
 
 CREATE TABLE blu_ray_rentals (
@@ -64,8 +64,8 @@ CREATE TABLE blu_ray_rentals (
 	blu_ray_id        number(8) NOT NULL,
 	return_date       date,
 	CONSTRAINT blu_ray_rentals_pk PRIMARY KEY (blu_ray_rental_id),
-	CONSTRAINT blu_ray_rentals_rental_fk FOREIGN KEY (rental_id) REFERENCES rentals (rental_id),
-	CONSTRAINT blu_ray_rentals_blu_ray_fk FOREIGN KEY (blu_ray_id) REFERENCES blu_rays (blu_ray_id)
+	CONSTRAINT blu_ray_rentals_rental_fk FOREIGN KEY (rental_id) REFERENCES rentals (rental_id) ON DELETE CASCADE,
+	CONSTRAINT blu_ray_rentals_blu_ray_fk FOREIGN KEY (blu_ray_id) REFERENCES blu_rays (blu_ray_id) ON DELETE CASCADE
 );
 
 CREATE TABLE roles (
@@ -76,7 +76,7 @@ CREATE TABLE roles (
 	director_rank number(1)     NOT NULL,
 	character     varchar2(100),
 	CONSTRAINT roles_pk PRIMARY KEY (role_id),
-	CONSTRAINT roles_movie_fk FOREIGN KEY (movie_id) REFERENCES movies (movie_id)
+	CONSTRAINT roles_movie_fk FOREIGN KEY (movie_id) REFERENCES movies (movie_id) ON DELETE CASCADE
 );
 
 CREATE TABLE movies_themes (
@@ -85,8 +85,8 @@ CREATE TABLE movies_themes (
 	theme_id       number(8) NOT NULL,
 	theme_rank     number(1)  NOT NULL,
 	CONSTRAINT movies_themes_pk PRIMARY KEY (movie_theme_id),
-	CONSTRAINT movies_themes_movie_fk FOREIGN KEY (movie_id) REFERENCES movies (movie_id),
-	CONSTRAINT movies_themes_theme_fk FOREIGN KEY (theme_id) REFERENCES themes (theme_id)
+	CONSTRAINT movies_themes_movie_fk FOREIGN KEY (movie_id) REFERENCES movies (movie_id) ON DELETE CASCADE,
+	CONSTRAINT movies_themes_theme_fk FOREIGN KEY (theme_id) REFERENCES themes (theme_id) ON DELETE CASCADE
 );
 
 CREATE TABLE preferences (
@@ -95,8 +95,8 @@ CREATE TABLE preferences (
 	theme_id      number(8) NOT NULL,
 	forbidden     number(1)  NOT NULL,
 	CONSTRAINT preferences_pk PRIMARY KEY (preference_id),
-	CONSTRAINT preferences_subscriber_fk FOREIGN KEY (subscriber_id) REFERENCES subscribers (subscriber_id),
-	CONSTRAINT preferences_theme_fk FOREIGN KEY (theme_id) REFERENCES themes (theme_id)
+	CONSTRAINT preferences_subscriber_fk FOREIGN KEY (subscriber_id) REFERENCES subscribers (subscriber_id) ON DELETE CASCADE,
+	CONSTRAINT preferences_theme_fk FOREIGN KEY (theme_id) REFERENCES themes (theme_id) ON DELETE CASCADE
 );
 
 CREATE TABLE scores (
@@ -105,8 +105,8 @@ CREATE TABLE scores (
 	movie_id      number(8) NOT NULL,
 	score         number(1)  NOT NULL,
 	CONSTRAINT scores_pk PRIMARY KEY (score_id),
-	CONSTRAINT scores_subscriber_fk FOREIGN KEY (subscriber_id) REFERENCES subscribers (subscriber_id),
-	CONSTRAINT scores_movie_fk FOREIGN KEY (movie_id) REFERENCES movies (movie_id)
+	CONSTRAINT scores_subscriber_fk FOREIGN KEY (subscriber_id) REFERENCES subscribers (subscriber_id) ON DELETE CASCADE,
+	CONSTRAINT scores_movie_fk FOREIGN KEY (movie_id) REFERENCES movies (movie_id) ON DELETE CASCADE
 );
 
 CREATE TABLE controlled_subscribers (
@@ -115,7 +115,8 @@ CREATE TABLE controlled_subscribers (
 	sub_subscriber_id        number(8) NOT NULL,
 	is_controlled            number(1)  NOT NULL,
 	CONSTRAINT controlled_subscribers_pk PRIMARY KEY (controlled_subscriber_id),
-	CONSTRAINT controlled_subscriber_fk FOREIGN KEY (subscriber_id) REFERENCES subscribers (subscriber_id)
+	CONSTRAINT controlled_subscriber_fk FOREIGN KEY (subscriber_id) REFERENCES subscribers (subscriber_id) ON DELETE CASCADE,
+	CONSTRAINT controlled_sub_subscriber_fk FOREIGN KEY (sub_subscriber_id) REFERENCES subscribers (subscriber_id) ON DELETE CASCADE
 );
 
 CREATE TABLE non_subscriber_rentals (
@@ -123,7 +124,7 @@ CREATE TABLE non_subscriber_rentals (
 	rental_id                number(8) NOT NULL,
 	credit_card_number       number(16) NOT NULL,
 	CONSTRAINT non_subscriber_rentals_pk PRIMARY KEY (non_subscriber_rental_id),
-	CONSTRAINT non_subscriber_rental_fk FOREIGN KEY (rental_id) REFERENCES rentals (rental_id)
+	CONSTRAINT non_subscriber_rental_fk FOREIGN KEY (rental_id) REFERENCES rentals (rental_id) ON DELETE CASCADE
 );
 
 CREATE TABLE subscriber_rentals (
@@ -131,6 +132,6 @@ CREATE TABLE subscriber_rentals (
 	rental_id            number(8) NOT NULL,
 	subscriber_id        number(8) NOT NULL,
 	CONSTRAINT subscriber_rentals_pk PRIMARY KEY (subscriber_rental_id),
-	CONSTRAINT subscriber_rentals_fk FOREIGN KEY (rental_id) REFERENCES rentals (rental_id),
-	CONSTRAINT subscriber_rental_sub_fk FOREIGN KEY (subscriber_id) REFERENCES subscribers (subscriber_id)
+	CONSTRAINT subscriber_rentals_fk FOREIGN KEY (rental_id) REFERENCES rentals (rental_id) ON DELETE CASCADE,
+	CONSTRAINT subscriber_rental_sub_fk FOREIGN KEY (subscriber_id) REFERENCES subscribers (subscriber_id) ON DELETE CASCADE
 );

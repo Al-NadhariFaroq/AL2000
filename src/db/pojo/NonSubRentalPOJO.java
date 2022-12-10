@@ -3,17 +3,15 @@ package db.pojo;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "Non_Subscriber_rentals")
 @Table(name = "NON_SUBSCRIBER_RENTALS", schema = "ALNADHAF", catalog = "")
 public class NonSubRentalPOJO {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "NON_SUBSCRIBER_RENTAL_ID")
     private int nonSubscriberRentalId;
-
-    @JoinColumn(name="RENTAL_ID", referencedColumnName = "RENTAL_ID")
-    @ManyToOne(optional = false)
-    private RentalPOJO rental;
+    @Basic
+    @Column(name = "RENTAL_ID")
+    private int rentalId;
     @Basic
     @Column(name = "CREDIT_CARD_NUMBER")
     private int creditCardNumber;
@@ -22,13 +20,26 @@ public class NonSubRentalPOJO {
 
     }
 
-    public NonSubRentalPOJO(RentalPOJO rental, int creditCardNumber) {
-        this.rental = rental;
+    public NonSubRentalPOJO(int nonSubscriberRentalId, int rentalId, int creditCardNumber) {
+        this.nonSubscriberRentalId = nonSubscriberRentalId;
+        this.rentalId = rentalId;
         this.creditCardNumber = creditCardNumber;
     }
 
-    public RentalPOJO getRental() {
-        return rental;
+    public int getNonSubscriberRentalId() {
+        return nonSubscriberRentalId;
+    }
+
+    public void setNonSubscriberRentalId(int nonSubscriberRentalId) {
+        this.nonSubscriberRentalId = nonSubscriberRentalId;
+    }
+
+    public int getRentalId() {
+        return rentalId;
+    }
+
+    public void setRentalId(int rentalId) {
+        this.rentalId = rentalId;
     }
 
     public int getCreditCardNumber() {
@@ -48,12 +59,12 @@ public class NonSubRentalPOJO {
             return false;
         }
         NonSubRentalPOJO that = (NonSubRentalPOJO) o;
-        return nonSubscriberRentalId == that.nonSubscriberRentalId && rental.getMovie() == that.rental.getMovie() &&
+        return nonSubscriberRentalId == that.nonSubscriberRentalId && rentalId == that.rentalId &&
                creditCardNumber == that.creditCardNumber;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nonSubscriberRentalId, rental.getMovie(), creditCardNumber);
+        return Objects.hash(nonSubscriberRentalId, rentalId, creditCardNumber);
     }
 }

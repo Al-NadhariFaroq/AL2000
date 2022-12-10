@@ -3,16 +3,18 @@ package db.pojo;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "Controlled_Subscribers")
 @Table(name = "CONTROLLED_SUBSCRIBERS", schema = "ALNADHAF", catalog = "")
 public class CtrlSubPOJO {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "CONTROLLED_SUBSCRIBER_ID")
     private int controlledSubscriberId;
-    @JoinColumn(name="SUBSCRIBER_ID", referencedColumnName = "SUBSCRIBER_ID")
-    @ManyToOne(optional = false)
-    private SubscriberPOJO subscriber;
+    @Basic
+    @Column(name = "SUBSCRIBER_ID")
+    private int subscriberId;
+    @Basic
+    @Column(name = "SUB_SUBSCRIBER_ID")
+    private int subSubscriberId;
     @Basic
     @Column(name = "IS_CONTROLLED")
     private boolean isControlled;
@@ -21,23 +23,35 @@ public class CtrlSubPOJO {
 
     }
 
-    public CtrlSubPOJO(SubscriberPOJO subscriber, int controlledSubscriberId, boolean isControlled) {
-        this.subscriber = subscriber;
+    public CtrlSubPOJO(int controlledSubscriberId, int subscriberId, int subSubscriberId, boolean isControlled) {
         this.controlledSubscriberId = controlledSubscriberId;
+        this.subscriberId = subscriberId;
+        this.subSubscriberId = subSubscriberId;
         this.isControlled = isControlled;
     }
-
-    public SubscriberPOJO getSubscriber() {
-        return subscriber;
-    }
-
 
     public int getControlledSubscriberId() {
         return controlledSubscriberId;
     }
 
-    public void setControlledSubscriberId(int subSubscriberId) {
-        this.controlledSubscriberId = subSubscriberId;
+    public void setControlledSubscriberId(int controlledSubscriberId) {
+        this.controlledSubscriberId = controlledSubscriberId;
+    }
+
+    public int getSubscriberId() {
+        return subscriberId;
+    }
+
+    public void setSubscriberId(int subscriberId) {
+        this.subscriberId = subscriberId;
+    }
+
+    public int getSubSubscriberId() {
+        return subSubscriberId;
+    }
+
+    public void setSubSubscriberId(int subSubscriberId) {
+        this.subSubscriberId = subSubscriberId;
     }
 
     public boolean isControlled() {
@@ -57,12 +71,12 @@ public class CtrlSubPOJO {
             return false;
         }
         CtrlSubPOJO that = (CtrlSubPOJO) o;
-        return subscriber.getCreditCardNumber() == that.subscriber.getCreditCardNumber() &&
-               controlledSubscriberId == that.controlledSubscriberId && isControlled == that.isControlled;
+        return controlledSubscriberId == that.controlledSubscriberId && subscriberId == that.subscriberId &&
+               subSubscriberId == that.subSubscriberId && isControlled == that.isControlled;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(subscriber.getFirstName()+" "+subscriber.getLastName(), controlledSubscriberId, isControlled);
+        return Objects.hash(controlledSubscriberId, subscriberId, subSubscriberId, isControlled);
     }
 }

@@ -1,5 +1,6 @@
 package ui.panels;
 
+import fc.AL2000FC;
 import fc.movie.Movie;
 import fc.movie.Rating;
 import ui.AL2000UI;
@@ -21,29 +22,16 @@ import java.util.List;
 
 public class HomePanel extends JPanel {
     private final AL2000UI UI;
+    private final AL2000FC FC;
     public JButton btnMenu, btnUser, btnPopular, btnNew, btnFilter, btnBluRay;
 
-    public HomePanel(AL2000UI ui) {
+    public HomePanel(AL2000UI ui, AL2000FC fc) {
         setLayout(new BorderLayout());
         this.UI = ui;
-
-        List<Movie> movies = new ArrayList<>();
-        for (int i = 1; i <= 156; i++) {
-            movies.add(new Movie("Avatar " + i,
-                                 null,
-                                 null,
-                                 null,
-                                 null,
-                                 "",
-                                 Rating.G,
-                                 0f,
-                                 "",
-                                 "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg"
-            ));
-        }
+        this.FC = fc;
 
         JPanel topPanel = mainTopPanel();
-        MoviesGrid moviesGrid = new MoviesGrid(movies);
+        MoviesGrid moviesGrid = new MoviesGrid(FC.getMovies().getSortedMovies());
 
         for (MovieButton movieButton : moviesGrid.getMovieButtons()) {
             movieButton.addActionListener(e -> {

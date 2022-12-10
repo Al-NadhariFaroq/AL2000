@@ -5,8 +5,7 @@ import db.pojo.MoviePOJO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import java.sql.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 public class MovieDAO extends DAO<MoviePOJO> {
 
@@ -23,6 +22,15 @@ public class MovieDAO extends DAO<MoviePOJO> {
         return moviePOJO;
     }
 
+    @Override
+    public int getNextId() {
+        Integer maxId = entityManager.createQuery("select max(movieId) from Movies", Integer.class).getSingleResult();
+        if (maxId == null) {
+            return 0;
+        }
+        return maxId + 1;
+    }
+
     public MoviePOJO readFromTitleAndDate(String title, Date date) {
         MoviePOJO moviePOJO = null;
         // TODO find movie from a title and a date
@@ -32,9 +40,8 @@ public class MovieDAO extends DAO<MoviePOJO> {
         return moviePOJO;
     }
 
-    public Set<MoviePOJO> readAll() {
-        Set<MoviePOJO> moviesPOJO = new HashSet<>();
-        // TODO read all movies
+    public List<MoviePOJO> readAll() {
+        List<MoviePOJO> moviesPOJO = entityManager.createQuery("select M from Movies M", MoviePOJO.class).getResultList();
         return moviesPOJO;
     }
 }

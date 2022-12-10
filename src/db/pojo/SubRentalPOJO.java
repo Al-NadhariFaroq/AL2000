@@ -3,10 +3,9 @@ package db.pojo;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "Subscriber_Rentals")
 @Table(name = "SUBSCRIBER_RENTALS", schema = "ALNADHAF", catalog = "")
 public class SubRentalPOJO {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "SUBSCRIBER_RENTAL_ID")
     private int subscriberRentalId;
@@ -21,9 +20,18 @@ public class SubRentalPOJO {
 
     }
 
-    public SubRentalPOJO(int rentalId, int subscriberID) {
+    public SubRentalPOJO(int subscriberRentalId, int rentalId, int subscriberID) {
+        this.subscriberRentalId = subscriberRentalId;
         this.rentalId = rentalId;
         this.subscriberID = subscriberID;
+    }
+
+    public int getSubscriberRentalId() {
+        return subscriberRentalId;
+    }
+
+    public void setSubscriberRentalId(int subscriberRentalId) {
+        this.subscriberRentalId = subscriberRentalId;
     }
 
     public int getRentalId() {

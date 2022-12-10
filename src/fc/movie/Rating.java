@@ -1,12 +1,12 @@
 package fc.movie;
 
 public enum Rating {
-    UR(0, "Unrated"),
     G(0, "General audiences"),
     PG(0, "Parental guidance suggested"),
     PG13(13, "Parents strongly cautioned"),
     R(13, "Restricted"),
-    NC17(17, "Adults Only");
+    NC17(17, "Adults Only"),
+    UR(0, "Unrated");
 
     private final int ageLimit;
     private final String description;

@@ -3,16 +3,15 @@ package db.pojo;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "Roles")
 @Table(name = "ROLES", schema = "ALNADHAF", catalog = "")
 public class RolePOJO {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ROLE_ID")
     private int roleId;
-    @JoinColumn(name="MOVIE_ID", referencedColumnName = "MOVIE_ID")
-    @ManyToOne(optional = false)
-    private MoviePOJO movie;
+    @Basic
+    @Column(name = "MOVIE_ID")
+    private int movieId;
     @Basic
     @Column(name = "NAME")
     private String name;
@@ -30,16 +29,29 @@ public class RolePOJO {
 
     }
 
-    public RolePOJO(MoviePOJO movie, String name, int actorRank, int directorRank, String character) {
-        this.movie = movie;
+    public RolePOJO(int roleId, int movieId, String name, int actorRank, int directorRank, String character) {
+        this.roleId = roleId;
+        this.movieId = movieId;
         this.name = name;
         this.actorRank = actorRank;
         this.directorRank = directorRank;
         this.character = character;
     }
 
-    public MoviePOJO getMovie() {
-        return movie;
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public int getMovieId() {
+        return movieId;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
     }
 
     public String getName() {
@@ -83,13 +95,13 @@ public class RolePOJO {
             return false;
         }
         RolePOJO rolePOJO = (RolePOJO) o;
-        return roleId == rolePOJO.roleId && movie.getTitle() == rolePOJO.movie.getTitle() && actorRank == rolePOJO.actorRank &&
+        return roleId == rolePOJO.roleId && movieId == rolePOJO.movieId && actorRank == rolePOJO.actorRank &&
                directorRank == rolePOJO.directorRank && Objects.equals(name, rolePOJO.name) &&
                Objects.equals(character, rolePOJO.character);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(roleId, movie.getTitle(), name, actorRank, directorRank, character);
+        return Objects.hash(roleId, movieId, name, actorRank, directorRank, character);
     }
 }

@@ -3,10 +3,9 @@ package db.pojo;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "Movies_Themes")
 @Table(name = "MOVIES_THEMES", schema = "ALNADHAF", catalog = "")
 public class MovieThemePOJO {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "MOVIE_THEME_ID")
     private int movieThemeId;
@@ -24,10 +23,19 @@ public class MovieThemePOJO {
 
     }
 
-    public MovieThemePOJO(int movieId, int themeId, int themeRank) {
+    public MovieThemePOJO(int movieThemeId, int movieId, int themeId, int themeRank) {
+        this.movieThemeId = movieThemeId;
         this.movieId = movieId;
         this.themeId = themeId;
         this.themeRank = themeRank;
+    }
+
+    public int getMovieThemeId() {
+        return movieThemeId;
+    }
+
+    public void setMovieThemeId(int movieThemeId) {
+        this.movieThemeId = movieThemeId;
     }
 
     public int getMovieId() {

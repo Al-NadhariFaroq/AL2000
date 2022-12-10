@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CardInteraction implements ActionListener {
     private static CardInteraction cardInteraction = null;
@@ -60,11 +62,13 @@ public class CardInteraction implements ActionListener {
                     UI.changePanel(Panel.HOME);
                     Calendar date = Calendar.getInstance();
                     date.setTime(Date.valueOf(subscriptionPanel.getDateOfBirthText().getText()));
+                    Map<String, Integer> preferences = new HashMap<>();
+
                     UI.getFC()
                       .subscription(subscriptionPanel.getMailText().getText(),
                                     subscriptionPanel.getFirstNameText().getText(),
                                     subscriptionPanel.getLastNameText().getText(),
-                                    date
+                                    date, preferences
                       );
                 }
                 break;

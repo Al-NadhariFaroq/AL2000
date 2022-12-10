@@ -19,4 +19,13 @@ public class SubRentalDAO extends DAO<SubRentalPOJO> {
         }
         return subRentalPOJO;
     }
+
+    @Override
+    public int getNextId() {
+        Integer maxId = entityManager.createQuery("select max(subscriberRentalId) from Subscriber_Rentals", Integer.class).getSingleResult();
+        if (maxId == null) {
+            return 0;
+        }
+        return maxId + 1;
+    }
 }

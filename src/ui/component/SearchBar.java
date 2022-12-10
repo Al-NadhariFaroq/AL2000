@@ -56,7 +56,7 @@ public class SearchBar extends JPanel {
         textPrompt = new TextPrompt(textField, defaultText);
         textPrompt.changeStyle(Font.ITALIC);
 
-        deleteBtn = new TextButton("\uD83D\uDFA9");
+        deleteBtn = new TextButton("X");
         deleteBtn.setBorder(BorderFactory.createEmptyBorder(0, 1, 0, 2));
         deleteBtn.setEnteredFeedback(TextButton.COLOR);
         deleteBtn.setPressedFeedback(TextButton.COLOR);
@@ -71,7 +71,7 @@ public class SearchBar extends JPanel {
             }
         });
 
-        searchBtn = new TextButton("\uD83D\uDD0D");
+        searchBtn = new TextButton("P");
         searchBtn.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 3));
         searchBtn.setEnteredFeedback(TextButton.COLOR);
         searchBtn.setPressedFeedback(TextButton.COLOR);

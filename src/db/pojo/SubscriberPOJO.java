@@ -5,10 +5,9 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "Subscribers")
 @Table(name = "SUBSCRIBERS", schema = "ALNADHAF", catalog = "")
 public class SubscriberPOJO {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "SUBSCRIBER_ID")
     private int subscriberId;
@@ -39,7 +38,8 @@ public class SubscriberPOJO {
 
     }
 
-    public SubscriberPOJO(int subscriptionCardNumber,
+    public SubscriberPOJO(int subscriberId,
+                          int subscriptionCardNumber,
                           int creditCardNumber,
                           String firstName,
                           String lastName,
@@ -47,6 +47,7 @@ public class SubscriberPOJO {
                           Date birthDate,
                           float balance
     ) {
+        this.subscriberId = subscriberId;
         this.subscriptionCardNumber = subscriptionCardNumber;
         this.creditCardNumber = creditCardNumber;
         this.firstName = firstName;
@@ -54,6 +55,14 @@ public class SubscriberPOJO {
         this.email = email;
         this.birthDate = birthDate;
         this.balance = balance;
+    }
+
+    public int getSubscriberId() {
+        return subscriberId;
+    }
+
+    public void setSubscriberId(int subscriberId) {
+        this.subscriberId = subscriberId;
     }
 
     public int getSubscriptionCardNumber() {

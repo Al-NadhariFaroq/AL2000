@@ -19,5 +19,14 @@ public class PreferenceDAO extends DAO<PreferencePOJO> {
         }
         return preferencePOJO;
     }
+
+    @Override
+    public int getNextId() {
+        Integer maxId = entityManager.createQuery("select max(preferenceId) from Preferences", Integer.class).getSingleResult();
+        if (maxId == null) {
+            return 0;
+        }
+        return maxId + 1;
+    }
 }
 

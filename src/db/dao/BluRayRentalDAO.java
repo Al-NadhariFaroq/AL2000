@@ -19,4 +19,13 @@ public class BluRayRentalDAO extends DAO<BluRayRentalPOJO> {
         }
         return bluRayRentalPOJO;
     }
+
+    @Override
+    public int getNextId() {
+        Integer maxId = entityManager.createQuery("select max(bluRayRentalId) from Blu_Ray_Rentals ", Integer.class).getSingleResult();
+        if (maxId == null) {
+            return 0;
+        }
+        return maxId + 1;
+    }
 }

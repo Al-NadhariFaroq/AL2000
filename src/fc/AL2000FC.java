@@ -3,14 +3,12 @@ package fc;
 import db.dao.DAOFactory;
 import db.pojo.SubscriberPOJO;
 import fc.movie.Movie;
+import fc.movie.Rating;
 import fc.support.BluRay;
-import fc.user.Subscriber;
-import fc.user.Technician;
-import fc.user.User;
-import fc.user.UserType;
+import fc.user.*;
 
 import java.sql.Date;
-import java.util.Calendar;
+import java.util.*;
 
 public class AL2000FC {
     private final MachineFacade machineFacade;
@@ -26,7 +24,23 @@ public class AL2000FC {
         movies = new Movies();
         bluRays = new BluRays();
         userType = UserType.NONE;
-        user = null;
+        user = new NonSubscriber(1254882, null);
+
+        movies.setThemes(themes.getIncludedThemes());
+        movies.updateFromDatabase();
+        bluRays.updateFromDatabase();
+    }
+
+    public Themes getThemes() {
+        return themes;
+    }
+
+    public Movies getMovies() {
+        return movies;
+    }
+
+    public BluRays getBluRays() {
+        return bluRays;
     }
 
     public void rentBluRay(Movie movie) {
@@ -72,16 +86,9 @@ public class AL2000FC {
         user = null;
     }
 
-    public void subscription(String email, String firstName, String lastName, Calendar birthDate) {
-        SubscriberPOJO subscriberPOJO = new SubscriberPOJO();
-        subscriberPOJO.setSubscriptionCardNumber(0);
-        subscriberPOJO.setCreditCardNumber(0);
-        subscriberPOJO.setFirstName(firstName);
-        subscriberPOJO.setLastName(lastName);
-        subscriberPOJO.setEmail(email);
-        subscriberPOJO.setBirthDate(new Date(birthDate.getTimeInMillis()));
-        subscriberPOJO.setBalance(0);
-        DAOFactory.getSubscriberDAO().create(subscriberPOJO);
+    public void subscription(String email, String firstName, String lastName, Calendar birthDate, Map<String, Integer> preferences) {
+        Subscriber subscriber = new Subscriber(0, ((Client) user).getCreditCardNumber(), email, firstName, lastName, birthDate, 0, false, new HashMap<>(), preferences, new HashSet<>());
+        DatabaseManagement.createSubscriber(subscriber);
     }
 
     @Override

@@ -12,7 +12,7 @@ public class UserTest {
         al2000.connection();
         System.out.println(al2000);
 
-        al2000.subscription("adresse.mail@gmail.com", "firstName", "lastName", subscriptionDate);
+        al2000.subscription("adresse.mail@gmail.com", "firstName", "lastName", subscriptionDate, null);
         System.out.println(al2000);
 
         al2000.rechargeSubscriptionCard(20);

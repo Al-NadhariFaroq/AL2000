@@ -22,6 +22,15 @@ public class ThemeDAO extends DAO<ThemePOJO> {
         return themePOJO;
     }
 
+    @Override
+    public int getNextId() {
+        Integer maxId = entityManager.createQuery("select max(themeId) from Themes", Integer.class).getSingleResult();
+        if (maxId == null) {
+            return 0;
+        }
+        return maxId + 1;
+    }
+
     public List<ThemePOJO> readAll() {
         List<ThemePOJO> themesPOJO = new ArrayList<>();
         // TODO read all themes order by count(*)
