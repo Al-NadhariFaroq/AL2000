@@ -7,6 +7,7 @@ import java.util.Objects;
 @Table(name = "MOVIES_THEMES", schema = "ALNADHAF", catalog = "")
 public class MovieThemePOJO {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MOVIE_THEME_ID")
     private int movieThemeId;
     @Basic
@@ -23,8 +24,7 @@ public class MovieThemePOJO {
 
     }
 
-    public MovieThemePOJO(int movieThemeId, int movieId, int themeId, int themeRank) {
-        this.movieThemeId = movieThemeId;
+    public MovieThemePOJO(int movieId, int themeId, int themeRank) {
         this.movieId = movieId;
         this.themeId = themeId;
         this.themeRank = themeRank;

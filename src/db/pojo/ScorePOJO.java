@@ -7,14 +7,17 @@ import java.util.Objects;
 @Table(name = "SCORES", schema = "ALNADHAF", catalog = "")
 public class ScorePOJO {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SCORE_ID")
     private int scoreId;
-    @Basic
-    @Column(name = "SUBSCRIBER_ID")
-    private int subscriberId;
-    @Basic
-    @Column(name = "MOVIE_ID")
-    private int movieId;
+
+    @ManyToOne
+    @JoinColumn(name = "SUBSCRIBER_ID")
+    private SubscriberPOJO subscriber;
+
+    @ManyToOne
+    @JoinColumn(name = "MOVIE_ID")
+    private MoviePOJO movie;
     @Basic
     @Column(name = "SCORE")
     private int score;
@@ -23,10 +26,9 @@ public class ScorePOJO {
 
     }
 
-    public ScorePOJO(int scoreId, int subscriberId, int movieId, int score) {
-        this.scoreId = scoreId;
-        this.subscriberId = subscriberId;
-        this.movieId = movieId;
+    public ScorePOJO(SubscriberPOJO subscriber, MoviePOJO movie, int score) {
+        this.subscriber = subscriber;
+        this.movie = movie;
         this.score = score;
     }
 
@@ -38,20 +40,20 @@ public class ScorePOJO {
         this.scoreId = scoreId;
     }
 
-    public int getSubscriberId() {
-        return subscriberId;
+    public SubscriberPOJO getSubscriber() {
+        return subscriber;
     }
 
-    public void setSubscriberId(int subscriberId) {
-        this.subscriberId = subscriberId;
+    public void setSubscriber(SubscriberPOJO subscriber) {
+        this.subscriber = subscriber;
     }
 
-    public int getMovieId() {
-        return movieId;
+    public MoviePOJO getMovieId() {
+        return movie;
     }
 
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
+    public void setMovie(MoviePOJO movie) {
+        this.movie = movie;
     }
 
     public int getScore() {
@@ -71,12 +73,12 @@ public class ScorePOJO {
             return false;
         }
         ScorePOJO scorePOJO = (ScorePOJO) o;
-        return scoreId == scorePOJO.scoreId && subscriberId == scorePOJO.subscriberId && movieId == scorePOJO.movieId &&
+        return scoreId == scorePOJO.scoreId && subscriber.getSubscriberId() == scorePOJO.subscriber.getSubscriberId() && movie.getMovieId() == scorePOJO.movie.getMovieId() &&
                score == scorePOJO.score;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(scoreId, subscriberId, movieId, score);
+        return Objects.hash(scoreId, subscriber.getFirstName()+" "+subscriber.getLastName(), movie.getTitle(), score);
     }
 }

@@ -9,6 +9,7 @@ import java.util.Objects;
 @Table(name = "SUBSCRIBERS", schema = "ALNADHAF", catalog = "")
 public class SubscriberPOJO {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SUBSCRIBER_ID")
     private int subscriberId;
     @Basic
@@ -34,12 +35,14 @@ public class SubscriberPOJO {
     private float balance;
     @OneToMany(mappedBy="subscriber", cascade = CascadeType.ALL)
     private List<CtrlSubPOJO> controlledSubscriber;
+
+    @OneToMany(mappedBy="subscriber", cascade = CascadeType.ALL)
+    private List<ScorePOJO> scorePOJOList;
     public SubscriberPOJO() {
 
     }
 
-    public SubscriberPOJO(int subscriberId,
-                          int subscriptionCardNumber,
+    public SubscriberPOJO(int subscriptionCardNumber,
                           int creditCardNumber,
                           String firstName,
                           String lastName,
@@ -47,7 +50,6 @@ public class SubscriberPOJO {
                           Date birthDate,
                           float balance
     ) {
-        this.subscriberId = subscriberId;
         this.subscriptionCardNumber = subscriptionCardNumber;
         this.creditCardNumber = creditCardNumber;
         this.firstName = firstName;

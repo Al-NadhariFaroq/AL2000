@@ -9,6 +9,7 @@ import java.util.Objects;
 @Table(name = "MOVIES", schema = "ALNADHAF", catalog = "")
 public class MoviePOJO {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MOVIE_ID")
     private int movieId;
     @Basic
@@ -37,12 +38,14 @@ public class MoviePOJO {
 
     @OneToMany(mappedBy="movie", cascade = CascadeType.ALL)
     private List<BluRayPOJO> bluRayPOJOList;
+
+    @OneToMany(mappedBy="movie", cascade = CascadeType.ALL)
+    private List<ScorePOJO> scorePOJOList;
     public MoviePOJO() {
 
     }
 
-    public MoviePOJO(int movieId, String title, Date releaseDate, String synopsis, String rating, String linkURL, String posterURL) {
-        this.movieId = movieId;
+    public MoviePOJO(String title, Date releaseDate, String synopsis, String rating, String linkURL, String posterURL) {
         this.title = title;
         this.releaseDate = releaseDate;
         this.synopsis = synopsis;
@@ -115,6 +118,7 @@ public class MoviePOJO {
     public List<RolePOJO> getRolePOJOList(){
         return rolePOJOList;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

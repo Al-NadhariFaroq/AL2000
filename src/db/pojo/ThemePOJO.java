@@ -7,6 +7,7 @@ import java.util.Objects;
 @Table(name = "THEMES", schema = "ALNADHAF", catalog = "")
 public class ThemePOJO {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "THEME_ID")
     private int themeId;
     @Basic

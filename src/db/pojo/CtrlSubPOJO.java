@@ -7,6 +7,7 @@ import java.util.Objects;
 @Table(name = "CONTROLLED_SUBSCRIBERS", schema = "ALNADHAF", catalog = "")
 public class CtrlSubPOJO {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CONTROLLED_SUBSCRIBER_ID")
     private int controlledSubscriberId;
 
@@ -21,8 +22,7 @@ public class CtrlSubPOJO {
 
     }
 
-    public CtrlSubPOJO(int controlledSubscriberId, SubscriberPOJO subscriber, int subSubscriberId, boolean isControlled) {
-        this.controlledSubscriberId = controlledSubscriberId;
+    public CtrlSubPOJO(SubscriberPOJO subscriber, int subSubscriberId, boolean isControlled) {
         this.subscriber = subscriber;
         this.isControlled = isControlled;
     }
