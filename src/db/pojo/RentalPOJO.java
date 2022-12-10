@@ -10,9 +10,9 @@ public class RentalPOJO {
     @Id
     @Column(name = "RENTAL_ID")
     private int rentalId;
-    @Basic
-    @Column(name = "MOVIE_ID")
-    private int movieId;
+    @JoinColumn(name="MOVIE_ID", referencedColumnName = "MOVIE_ID")
+    @ManyToOne(optional = false)
+    private MoviePOJO movie;
     @Basic
     @Column(name = "RENTAL_DATE")
     private Date rentalDate;
@@ -21,9 +21,9 @@ public class RentalPOJO {
 
     }
 
-    public RentalPOJO(int rentalId, int movieId, Date rentalDate) {
+    public RentalPOJO(int rentalId, MoviePOJO movie, Date rentalDate) {
         this.rentalId = rentalId;
-        this.movieId = movieId;
+        this.movie = movie;
         this.rentalDate = rentalDate;
     }
 
@@ -35,12 +35,11 @@ public class RentalPOJO {
         this.rentalId = rentalId;
     }
 
-    public int getMovieId() {
-        return movieId;
+    public MoviePOJO getMovie() {
+        return movie;
     }
-
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
+    public void setMovie(MoviePOJO movie) {
+        this.movie = movie;
     }
 
     public Date getRentalDate() {
@@ -60,11 +59,11 @@ public class RentalPOJO {
             return false;
         }
         RentalPOJO that = (RentalPOJO) o;
-        return rentalId == that.rentalId && movieId == that.movieId && Objects.equals(rentalDate, that.rentalDate);
+        return rentalId == that.rentalId && movie.getMovieId() == that.movie.getMovieId() && Objects.equals(rentalDate, that.rentalDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(rentalId, movieId, rentalDate);
+        return Objects.hash(rentalId, movie.getTitle(), rentalDate);
     }
 }

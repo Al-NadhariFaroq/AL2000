@@ -27,7 +27,7 @@ public class DatabaseManagement {
         Date releaseDate = new Date(bluRay.getMovie().getDate().getTimeInMillis());
         MoviePOJO moviePOJO = DAOFactory.getMovieDAO().readFromTitleAndDate(title, releaseDate);
 
-        BluRayPOJO bluRayPOJO = new BluRayPOJO(bluRayId, bluRay.getSerialNumber(), moviePOJO.getMovieId(), position);
+        BluRayPOJO bluRayPOJO = new BluRayPOJO(bluRayId, bluRay.getSerialNumber(), moviePOJO, position);
         DAOFactory.getBluRayDAO().create(bluRayPOJO);
     }
 
@@ -36,7 +36,7 @@ public class DatabaseManagement {
         Set<BluRayPOJO> bluRaysPOJO = DAOFactory.getBluRayDAO().readAll();
 
         bluRaysPOJO.forEach(bluRayPOJO -> {
-            Movie movie = convertFromMoviePOJO(DAOFactory.getMovieDAO().read(bluRayPOJO.getMovieId()));
+            Movie movie = convertFromMoviePOJO(DAOFactory.getMovieDAO().read(bluRayPOJO.getMovie().getMovieId()));
             BluRay bluRay = new BluRay(bluRayPOJO.getSerialNumber(), movie);
             bluRays.put(bluRay, bluRayPOJO.getPosition());
         });
@@ -79,7 +79,7 @@ public class DatabaseManagement {
 
         int rentalId = DAOFactory.getRentalDAO().getNextId();
         Date rentalDate = new Date(bluRayRental.getRentalDate().getTimeInMillis());
-        RentalPOJO rentalPOJO = new RentalPOJO(rentalId, moviePOJO.getMovieId(), rentalDate);
+        RentalPOJO rentalPOJO = new RentalPOJO(rentalId, moviePOJO, rentalDate);
         DAOFactory.getRentalDAO().create(rentalPOJO);
 
         int bluRayRentalId = DAOFactory.getBluRayDAO().getNextId();
@@ -89,7 +89,7 @@ public class DatabaseManagement {
         DAOFactory.getBluRayRentalDAO().create(brRentalPOJO);
 
         int nonSubRentalId = DAOFactory.getNonSubRentalDAO().getNextId();
-        NonSubRentalPOJO nonSubRentalPOJO = new NonSubRentalPOJO(nonSubRentalId, rentalPOJO.getRentalId(),
+        NonSubRentalPOJO nonSubRentalPOJO = new NonSubRentalPOJO(nonSubRentalId, rentalPOJO,
                 user.getCreditCardNumber());
         DAOFactory.getNonSubRentalDAO().create(nonSubRentalPOJO);
     }

@@ -12,9 +12,9 @@ public class BluRayPOJO {
     @Basic
     @Column(name = "SERIAL_NUMBER")
     private int serialNumber;
-    @Basic
-    @Column(name = "MOVIE_ID")
-    private int movieId;
+    @JoinColumn(name="MOVIE_ID", referencedColumnName = "MOVIE_ID")
+    @ManyToOne(optional = false)
+    private MoviePOJO movie;
     @Basic
     @Column(name = "POSITION")
     private int position;
@@ -23,10 +23,10 @@ public class BluRayPOJO {
 
     }
 
-    public BluRayPOJO(int bluRayId, int serialNumber, int movieId, int position) {
+    public BluRayPOJO(int bluRayId, int serialNumber, MoviePOJO movie, int position) {
         this.bluRayId = bluRayId;
         this.serialNumber = serialNumber;
-        this.movieId = movieId;
+        this.movie = movie;
         this.position = position;
     }
 
@@ -46,12 +46,11 @@ public class BluRayPOJO {
         this.serialNumber = serialNumber;
     }
 
-    public int getMovieId() {
-        return movieId;
+    public MoviePOJO getMovie() {
+        return movie;
     }
-
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
+    public void setMovie(MoviePOJO movie) {
+        this.movie = movie;
     }
 
     public int getPosition() {
@@ -71,12 +70,12 @@ public class BluRayPOJO {
             return false;
         }
         BluRayPOJO that = (BluRayPOJO) o;
-        return bluRayId == that.bluRayId && serialNumber == that.serialNumber && movieId == that.movieId &&
+        return bluRayId == that.bluRayId && serialNumber == that.serialNumber && movie == that.movie &&
                position == that.position;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(bluRayId, serialNumber, movieId, position);
+        return Objects.hash(bluRayId, serialNumber, movie.getTitle(), position);
     }
 }

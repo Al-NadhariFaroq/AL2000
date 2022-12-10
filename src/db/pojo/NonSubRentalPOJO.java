@@ -1,5 +1,7 @@
 package db.pojo;
 
+import db.dao.RentalDAO;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -9,9 +11,10 @@ public class NonSubRentalPOJO {
     @Id
     @Column(name = "NON_SUBSCRIBER_RENTAL_ID")
     private int nonSubscriberRentalId;
-    @Basic
-    @Column(name = "RENTAL_ID")
-    private int rentalId;
+
+    @JoinColumn(name="RENTAL_ID", referencedColumnName = "RENTAL_ID")
+    @ManyToOne(optional = false)
+    private RentalPOJO rental;
     @Basic
     @Column(name = "CREDIT_CARD_NUMBER")
     private int creditCardNumber;
@@ -20,9 +23,9 @@ public class NonSubRentalPOJO {
 
     }
 
-    public NonSubRentalPOJO(int nonSubscriberRentalId, int rentalId, int creditCardNumber) {
+    public NonSubRentalPOJO(int nonSubscriberRentalId, RentalPOJO rental, int creditCardNumber) {
         this.nonSubscriberRentalId = nonSubscriberRentalId;
-        this.rentalId = rentalId;
+        this.rental = rental;
         this.creditCardNumber = creditCardNumber;
     }
 
@@ -34,12 +37,12 @@ public class NonSubRentalPOJO {
         this.nonSubscriberRentalId = nonSubscriberRentalId;
     }
 
-    public int getRentalId() {
-        return rentalId;
+    public RentalPOJO getRental() {
+        return rental;
     }
 
-    public void setRentalId(int rentalId) {
-        this.rentalId = rentalId;
+    public void setRental(RentalPOJO rental) {
+        this.rental = rental;
     }
 
     public int getCreditCardNumber() {
@@ -59,12 +62,12 @@ public class NonSubRentalPOJO {
             return false;
         }
         NonSubRentalPOJO that = (NonSubRentalPOJO) o;
-        return nonSubscriberRentalId == that.nonSubscriberRentalId && rentalId == that.rentalId &&
+        return nonSubscriberRentalId == that.nonSubscriberRentalId && rental.getRentalId() == that.rental.getRentalId() &&
                creditCardNumber == that.creditCardNumber;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nonSubscriberRentalId, rentalId, creditCardNumber);
+        return Objects.hash(nonSubscriberRentalId, rental.getMovie().getTitle(), creditCardNumber);
     }
 }
