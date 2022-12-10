@@ -7,7 +7,6 @@ import java.util.Objects;
 @Table(name = "ROLES", schema = "ALNADHAF", catalog = "")
 public class RolePOJO {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ROLE_ID")
     private int roleId;
     @JoinColumn(name="MOVIE_ID", referencedColumnName = "MOVIE_ID")
@@ -30,7 +29,8 @@ public class RolePOJO {
 
     }
 
-    public RolePOJO(MoviePOJO movie, String name, int actorRank, int directorRank, String character) {
+    public RolePOJO(int roleId,MoviePOJO movie, String name, int actorRank, int directorRank, String character) {
+        this.roleId = roleId;
         this.movie = movie;
         this.name = name;
         this.actorRank = actorRank;

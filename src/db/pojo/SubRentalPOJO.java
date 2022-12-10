@@ -7,7 +7,6 @@ import java.util.Objects;
 @Table(name = "SUBSCRIBER_RENTALS", schema = "ALNADHAF", catalog = "")
 public class SubRentalPOJO {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SUBSCRIBER_RENTAL_ID")
     private int subscriberRentalId;
     @Basic
@@ -21,7 +20,8 @@ public class SubRentalPOJO {
 
     }
 
-    public SubRentalPOJO(int rentalId, int subscriberID) {
+    public SubRentalPOJO(int subscriberRentalId,int rentalId, int subscriberID) {
+        this.subscriberRentalId = subscriberRentalId;
         this.rentalId = rentalId;
         this.subscriberID = subscriberID;
     }

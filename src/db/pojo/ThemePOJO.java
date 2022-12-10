@@ -18,7 +18,8 @@ public class ThemePOJO {
 
     }
 
-    public ThemePOJO(String name) {
+    public ThemePOJO(int themeId,String name) {
+        this.themeId = themeId;
         this.name = name;
     }
 

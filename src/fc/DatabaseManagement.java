@@ -27,7 +27,7 @@ public class DatabaseManagement {
         Date releaseDate = new Date(bluRay.getMovie().getDate().getTimeInMillis());
         MoviePOJO moviePOJO = DAOFactory.getMovieDAO().readFromTitleAndDate(title, releaseDate);
 
-        BluRayPOJO bluRayPOJO = new BluRayPOJO(bluRay.getSerialNumber(), moviePOJO, position);
+        BluRayPOJO bluRayPOJO = new BluRayPOJO(bluRayId, bluRay.getSerialNumber(), moviePOJO, position);
         DAOFactory.getBluRayDAO().create(bluRayPOJO);
     }
 
@@ -79,17 +79,17 @@ public class DatabaseManagement {
 
         int rentalId = DAOFactory.getRentalDAO().getNextId();
         Date rentalDate = new Date(bluRayRental.getRentalDate().getTimeInMillis());
-        RentalPOJO rentalPOJO = new RentalPOJO(moviePOJO, rentalDate);
+        RentalPOJO rentalPOJO = new RentalPOJO(rentalId,moviePOJO, rentalDate);
         DAOFactory.getRentalDAO().create(rentalPOJO);
 
         int bluRayRentalId = DAOFactory.getBluRayDAO().getNextId();
         rentalPOJO = DAOFactory.getRentalDAO().readFromMovieAndDate(moviePOJO.getMovieId(), rentalDate);
-        BluRayRentalPOJO brRentalPOJO = new BluRayRentalPOJO(rentalPOJO.getRentalId(),
+        BluRayRentalPOJO brRentalPOJO = new BluRayRentalPOJO(bluRayRentalId, rentalPOJO.getRentalId(),
                 bluRayPOJO.getBluRayId(), null);
         DAOFactory.getBluRayRentalDAO().create(brRentalPOJO);
 
         int nonSubRentalId = DAOFactory.getNonSubRentalDAO().getNextId();
-        NonSubRentalPOJO nonSubRentalPOJO = new NonSubRentalPOJO(rentalPOJO,
+        NonSubRentalPOJO nonSubRentalPOJO = new NonSubRentalPOJO(nonSubRentalId,rentalPOJO,
                 user.getCreditCardNumber());
         DAOFactory.getNonSubRentalDAO().create(nonSubRentalPOJO);
     }
@@ -99,7 +99,7 @@ public class DatabaseManagement {
     }
 
     public static void createSubscriber(Subscriber subscriber) {
-        SubscriberPOJO subscriberPOJO = new SubscriberPOJO(
+        SubscriberPOJO subscriberPOJO = new SubscriberPOJO(DAOFactory.getSubscriberDAO().getNextId(),
                 DAOFactory.getSubscriberDAO().readNextSubscriptionCardNumber(),
                 subscriber.getCreditCardNumber(),
                 subscriber.getFirstName(),

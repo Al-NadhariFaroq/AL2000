@@ -7,7 +7,6 @@ import java.util.Objects;
 @Table(name = "PREFERENCES", schema = "ALNADHAF", catalog = "")
 public class PreferencePOJO {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PREFERENCE_ID")
     private int preferenceId;
     @Basic
@@ -24,7 +23,8 @@ public class PreferencePOJO {
 
     }
 
-    public PreferencePOJO(int subscriberId, Integer themeId, boolean forbidden) {
+    public PreferencePOJO(int preferenceId,int subscriberId, Integer themeId, boolean forbidden) {
+        this.preferenceId = preferenceId;
         this.subscriberId = subscriberId;
         this.themeId = themeId;
         this.forbidden = forbidden;

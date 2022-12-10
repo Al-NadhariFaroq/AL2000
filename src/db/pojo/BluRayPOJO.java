@@ -7,7 +7,6 @@ import java.util.Objects;
 @Table(name = "BLU_RAYS", schema = "ALNADHAF", catalog = "")
 public class BluRayPOJO {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BLU_RAY_ID")
     private int bluRayId;
     @Basic
@@ -24,7 +23,8 @@ public class BluRayPOJO {
 
     }
 
-    public BluRayPOJO(int serialNumber, MoviePOJO movie, int position) {
+    public BluRayPOJO(int bluRayId,int serialNumber, MoviePOJO movie, int position) {
+        this.bluRayId = bluRayId;
         this.serialNumber = serialNumber;
         this.movie = movie;
         this.position = position;

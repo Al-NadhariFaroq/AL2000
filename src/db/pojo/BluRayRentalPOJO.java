@@ -8,7 +8,6 @@ import java.util.Objects;
 @Table(name = "BLU_RAY_RENTALS", schema = "ALNADHAF", catalog = "")
 public class BluRayRentalPOJO {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BLU_RAY_RENTAL_ID")
     private int bluRayRentalId;
     @Basic
@@ -25,7 +24,8 @@ public class BluRayRentalPOJO {
 
     }
 
-    public BluRayRentalPOJO(int rentalId, int bluRayId, Date returnDate) {
+    public BluRayRentalPOJO(int bluRayRentalId, int rentalId, int bluRayId, Date returnDate) {
+        this.bluRayRentalId = bluRayRentalId;
         this.rentalId = rentalId;
         this.bluRayId = bluRayId;
         this.returnDate = returnDate;

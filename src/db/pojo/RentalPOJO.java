@@ -9,7 +9,6 @@ import java.util.Objects;
 @Table(name = "RENTALS", schema = "ALNADHAF", catalog = "")
 public class RentalPOJO {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "RENTAL_ID")
     private int rentalId;
     @JoinColumn(name="MOVIE_ID", referencedColumnName = "MOVIE_ID")
@@ -27,7 +26,8 @@ public class RentalPOJO {
     }
 
 
-    public RentalPOJO(MoviePOJO movie, Date rentalDate) {
+    public RentalPOJO(int rentalId,MoviePOJO movie, Date rentalDate) {
+        this.rentalId = rentalId;
         this.movie = movie;
         this.rentalDate = rentalDate;
     }

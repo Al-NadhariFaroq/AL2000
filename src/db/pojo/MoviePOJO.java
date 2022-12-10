@@ -9,7 +9,6 @@ import java.util.Objects;
 @Table(name = "MOVIES", schema = "ALNADHAF", catalog = "")
 public class MoviePOJO {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MOVIE_ID")
     private int movieId;
     @Basic
@@ -45,7 +44,8 @@ public class MoviePOJO {
 
     }
 
-    public MoviePOJO(String title, Date releaseDate, String synopsis, String rating, String linkURL, String posterURL) {
+    public MoviePOJO(int movieId, String title, Date releaseDate, String synopsis, String rating, String linkURL, String posterURL) {
+        this.movieId = movieId;
         this.title = title;
         this.releaseDate = releaseDate;
         this.synopsis = synopsis;
