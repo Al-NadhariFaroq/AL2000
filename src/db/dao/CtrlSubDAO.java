@@ -1,6 +1,9 @@
 package db.dao;
 
+import db.pojo.BluRayPOJO;
 import db.pojo.CtrlSubPOJO;
+import db.pojo.MoviePOJO;
+import db.pojo.SubscriberPOJO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -27,5 +30,14 @@ public class CtrlSubDAO extends DAO<CtrlSubPOJO> {
             return 0;
         }
         return maxId + 1;
+    }
+
+    public void delete(CtrlSubPOJO ctrlSubPOJO) {
+        SubscriberPOJO subscriberPOJO = DAOFactory.getSubscriberDAO().read(ctrlSubPOJO.getSubscriber().getSubscriberId());
+        if(!subscriberPOJO.getControlledSubcriberList().isEmpty()){
+            subscriberPOJO.getControlledSubcriberList().remove(ctrlSubPOJO);
+            entityManager.merge(subscriberPOJO);
+        }
+        executeInsideTransaction(entityManager -> entityManager.remove(ctrlSubPOJO));
     }
 }

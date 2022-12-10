@@ -2,6 +2,7 @@ package db.pojo;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "Rentals")
@@ -17,9 +18,13 @@ public class RentalPOJO {
     @Column(name = "RENTAL_DATE")
     private Date rentalDate;
 
+    @OneToMany(mappedBy="rental", cascade = CascadeType.ALL)
+    private List<NonSubRentalPOJO> nonSubRentalPOJOList;
+
     public RentalPOJO() {
 
     }
+
 
     public RentalPOJO(int rentalId, MoviePOJO movie, Date rentalDate) {
         this.rentalId = rentalId;
@@ -41,7 +46,9 @@ public class RentalPOJO {
     public void setMovie(MoviePOJO movie) {
         this.movie = movie;
     }
-
+    public List<NonSubRentalPOJO> getNonSubRentalPOJOList(){
+        return nonSubRentalPOJOList;
+    }
     public Date getRentalDate() {
         return rentalDate;
     }

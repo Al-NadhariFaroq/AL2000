@@ -1,5 +1,6 @@
 package db.dao;
 
+import db.pojo.MoviePOJO;
 import db.pojo.RentalPOJO;
 
 import javax.persistence.EntityManager;
@@ -38,4 +39,13 @@ public class RentalDAO extends DAO<RentalPOJO> {
         }
         return rentalPOJO;
     }
+    public void delete(RentalPOJO rentalPOJO) {
+        MoviePOJO moviePOJO = DAOFactory.getMovieDAO().read(rentalPOJO.getMovie().getMovieId());
+        if(!moviePOJO.getRentalPOJOList().isEmpty()){
+            moviePOJO.getRentalPOJOList().remove(rentalPOJO);
+            entityManager.merge(moviePOJO);
+        }
+        executeInsideTransaction(entityManager -> entityManager.remove(rentalPOJO));
+    }
+
 }

@@ -1,5 +1,7 @@
 package db.dao;
 
+import db.pojo.MoviePOJO;
+import db.pojo.RentalPOJO;
 import db.pojo.RolePOJO;
 
 import javax.persistence.EntityManager;
@@ -41,5 +43,13 @@ public class RoleDAO extends DAO<RolePOJO> {
         List<RolePOJO> rolesPOJO = new ArrayList<>();
         // TODO find all actors from a movie ID order by actor_rank
         return rolesPOJO;
+    }
+    public void delete(RolePOJO rolePOJO) {
+        MoviePOJO moviePOJO = DAOFactory.getMovieDAO().read(rolePOJO.getMovie().getMovieId());
+        if(!moviePOJO.getRolePOJOList().isEmpty()){
+            moviePOJO.getRolePOJOList().remove(rolePOJO);
+            entityManager.merge(moviePOJO);
+        }
+        executeInsideTransaction(entityManager -> entityManager.remove(rolePOJO));
     }
 }

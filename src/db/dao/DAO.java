@@ -35,7 +35,7 @@ abstract class DAO<T> implements Serializable {
         throw new EntityNotFoundException("can't find next ID");
     }
 
-    private void executeInsideTransaction(Consumer<EntityManager> action) {
+    public void executeInsideTransaction(Consumer<EntityManager> action) {
         EntityTransaction tx = entityManager.getTransaction();
         try {
             tx.begin();

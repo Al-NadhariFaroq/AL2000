@@ -1,6 +1,8 @@
 package db.dao;
 
 import db.pojo.BluRayPOJO;
+import db.pojo.MoviePOJO;
+import db.pojo.RolePOJO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
@@ -44,5 +46,14 @@ public class BluRayDAO extends DAO<BluRayPOJO> {
         Set<BluRayPOJO> bluRaysPOJO = new HashSet<>();
         // TODO read all blu-rays
         return bluRaysPOJO;
+    }
+
+    public void delete(BluRayPOJO bluRayPOJO) {
+        MoviePOJO moviePOJO = DAOFactory.getMovieDAO().read(bluRayPOJO.getMovie().getMovieId());
+        if(!moviePOJO.getBluRayPOJOList().isEmpty()){
+            moviePOJO.getBluRayPOJOList().remove(bluRayPOJO);
+            entityManager.merge(moviePOJO);
+        }
+        executeInsideTransaction(entityManager -> entityManager.remove(bluRayPOJO));
     }
 }

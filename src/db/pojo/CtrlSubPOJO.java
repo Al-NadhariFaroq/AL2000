@@ -14,9 +14,6 @@ public class CtrlSubPOJO {
     @ManyToOne(optional = false)
     private SubscriberPOJO subscriber;
     @Basic
-    @Column(name = "SUB_SUBSCRIBER_ID")
-    private int subSubscriberId;
-    @Basic
     @Column(name = "IS_CONTROLLED")
     private boolean isControlled;
 
@@ -27,7 +24,6 @@ public class CtrlSubPOJO {
     public CtrlSubPOJO(int controlledSubscriberId, SubscriberPOJO subscriber, int subSubscriberId, boolean isControlled) {
         this.controlledSubscriberId = controlledSubscriberId;
         this.subscriber = subscriber;
-        this.subSubscriberId = subSubscriberId;
         this.isControlled = isControlled;
     }
 
@@ -45,14 +41,6 @@ public class CtrlSubPOJO {
 
     public void setSubscriberId(SubscriberPOJO subscriber) {
         this.subscriber = subscriber;
-    }
-
-    public int getSubSubscriberId() {
-        return subSubscriberId;
-    }
-
-    public void setSubSubscriberId(int subSubscriberId) {
-        this.subSubscriberId = subSubscriberId;
     }
 
     public boolean isControlled() {
@@ -73,11 +61,11 @@ public class CtrlSubPOJO {
         }
         CtrlSubPOJO that = (CtrlSubPOJO) o;
         return controlledSubscriberId == that.controlledSubscriberId && subscriber.getSubscriberId() == that.subscriber.getSubscriberId() &&
-               subSubscriberId == that.subSubscriberId && isControlled == that.isControlled;
+                isControlled == that.isControlled;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(controlledSubscriberId, subscriber, subSubscriberId, isControlled);
+        return Objects.hash(controlledSubscriberId, subscriber.getSubscriberId(), isControlled);
     }
 }
