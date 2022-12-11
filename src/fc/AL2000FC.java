@@ -1,14 +1,18 @@
 package fc;
 
-import db.dao.DAOFactory;
-import db.pojo.SubscriberPOJO;
 import fc.movie.Movie;
-import fc.movie.Rating;
 import fc.support.BluRay;
-import fc.user.*;
+import fc.user.Client;
+import fc.user.NonSubscriber;
+import fc.user.Subscriber;
+import fc.user.Technician;
+import fc.user.User;
+import fc.user.UserType;
 
-import java.sql.Date;
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 public class AL2000FC {
     private final MachineFacade machineFacade;

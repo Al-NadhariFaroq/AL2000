@@ -40,13 +40,16 @@ public class MoviePOJO implements POJO {
     @Column(name = "poster_url")
     private String posterURL;
 
-    @OneToMany(targetEntity = MovieThemePOJO.class, mappedBy = "movie", cascade = CascadeType.ALL)
-    private List<ThemePOJO> themes;
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @OrderBy("themeRank ASC")
+    private List<MovieThemePOJO> movieThemes;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @OrderBy("directorRank ASC")
     private List<DirectorPOJO> directors;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    @OrderBy("actorRank ASC")
     private List<ActorPOJO> actors;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
@@ -146,8 +149,8 @@ public class MoviePOJO implements POJO {
         this.posterURL = posterURL;
     }
 
-    public List<ThemePOJO> getThemes() {
-        return themes;
+    public List<MovieThemePOJO> getMovieThemes() {
+        return movieThemes;
     }
 
     public List<DirectorPOJO> getDirectors() {

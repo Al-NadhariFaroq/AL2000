@@ -118,16 +118,13 @@ public class DatabaseManagement {
         date.setTime(moviePOJO.getReleaseDate());
 
         List<String> themes = new ArrayList<>();
-        List<ThemePOJO> movieThemesPOJO = DAOFactory.getMovieThemeDAO().readFromMovieId(moviePOJO.getID());
-        movieThemesPOJO.forEach(themePOJO -> themes.add(themePOJO.getName()));
+        moviePOJO.getMovieThemes().forEach(movieThemePOJO -> themes.add(movieThemePOJO.getTheme().getName()));
 
         List<String> directors = new ArrayList<>();
-        List<DirectorPOJO> directorsPOJO = DAOFactory.getDirectorDAO().readFromMovieId(moviePOJO.getID());
-        directorsPOJO.forEach(actorPOJO -> directors.add(actorPOJO.getName()));
+        moviePOJO.getDirectors().forEach(actorPOJO -> directors.add(actorPOJO.getName()));
 
         Map<String, String> actors = new LinkedHashMap<>();
-        List<ActorPOJO> actorsPOJO = DAOFactory.getActorDAO().readFromMovieId(moviePOJO.getID());
-        actorsPOJO.forEach(actorPOJO -> actors.put(actorPOJO.getName(), actorPOJO.getCharacter()));
+        moviePOJO.getActors().forEach(actorPOJO -> actors.put(actorPOJO.getName(), actorPOJO.getCharacter()));
 
         float score = 0f;
         Set<ScorePOJO> scoresPOJO = DAOFactory.getScoreDAO().readFromMovieId(moviePOJO.getID());

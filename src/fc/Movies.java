@@ -4,6 +4,7 @@ import fc.movie.Movie;
 import fc.movie.Rating;
 import fc.movie.SearchType;
 import fc.movie.SortType;
+import fc.support.BluRay;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,42 +12,46 @@ import java.util.List;
 import java.util.Vector;
 
 public class Movies {
-    private final Set<Movie> allMovies;
-    private final List<Movie> sortedMovies;
+    private final Set<Movie> bluRaysSortedMovies;
+    private final Set<Movie> ratingSortedMovies;
+    private final Set<Movie> themesSortedMovies;
+    private final List<Movie> searchSortedMovies;
 
-    private Rating rating;
     private boolean bluRaysOnly;
+    private Rating rating;
     private Set<String> themes;
     private SearchType searchType;
+    private String searchWords;
     private SortType sortType;
 
     Movies() {
-        this(Rating.UR, false, new HashSet<>(), SearchType.TITLE, SortType.DATE_ASC);
+        this(false, Rating.UR, new HashSet<>(), SearchType.TITLE, null, SortType.DATE_ASC);
     }
 
-    Movies(Rating rating, boolean bluRaysOnly, Set<String> themes, SearchType searchType, SortType sortType) {
-        this.allMovies = new HashSet<>();
-        this.sortedMovies = new Vector<>();
+    Movies(boolean bluRaysOnly,
+           Rating rating,
+           Set<String> themes,
+           SearchType searchType,
+           String searchWords,
+           SortType sortType
+    ) {
+        this.bluRaysSortedMovies = new HashSet<>();
+        this.ratingSortedMovies = new HashSet<>();
+        this.themesSortedMovies = new HashSet<>();
+        this.searchSortedMovies = new Vector<>();
 
-        this.rating = rating;
         this.bluRaysOnly = bluRaysOnly;
+        this.rating = rating;
         this.themes = themes;
         this.searchType = searchType;
+        this.searchWords = searchWords;
         this.sortType = sortType;
 
         updateFromDatabase();
     }
 
     public List<Movie> getSortedMovies() {
-        return sortedMovies;
-    }
-
-    public Rating getRating() {
-        return rating;
-    }
-
-    public void setRating(Rating rating) {
-        this.rating = rating;
+        return searchSortedMovies;
     }
 
     public boolean isBluRaysOnly() {
@@ -55,6 +60,14 @@ public class Movies {
 
     public void setBluRaysOnly(boolean bluRaysOnly) {
         this.bluRaysOnly = bluRaysOnly;
+    }
+
+    public Rating getRating() {
+        return rating;
+    }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
     }
 
     public Set<String> getThemes() {
@@ -73,6 +86,14 @@ public class Movies {
         this.searchType = searchType;
     }
 
+    public String getSearchWords() {
+        return searchWords;
+    }
+
+    public void setSearchWords(String searchWords) {
+        this.searchWords = searchWords;
+    }
+
     public SortType getSortType() {
         return sortType;
     }
@@ -82,58 +103,61 @@ public class Movies {
     }
 
     public void updateFromDatabase() {
-        allMovies.clear();
-        allMovies.addAll(DatabaseManagement.readAllMovies());
-
-        sortedMovies.clear();
-        sortedMovies.addAll(allMovies);
-
-        sortRating();
         sortBluRays();
-        sortThemes();
-        orderMovies();
-    }
-
-    public void sortRating() {
-        sortedMovies.clear();
-        allMovies.forEach(movie -> {
-            if (movie.getRating().ordinal() <= rating.ordinal()) {
-                sortedMovies.add(movie);
-            }
-        });
     }
 
     public void sortBluRays() {
-        // keep only movie which has a Blu-ray
+        bluRaysSortedMovies.clear();
+        if (bluRaysOnly) {
+            Set<BluRay> bluRays = DatabaseManagement.readAllBluRays().keySet();
+            bluRays.forEach(bluRay -> bluRaysSortedMovies.add(bluRay.getMovie()));
+        } else {
+            bluRaysSortedMovies.addAll(DatabaseManagement.readAllMovies());
+        }
+
+        sortRating();
+    }
+
+    public void sortRating() {
+        ratingSortedMovies.clear();
+        bluRaysSortedMovies.forEach(movie -> {
+            if (movie.getRating().ordinal() <= rating.ordinal()) {
+                ratingSortedMovies.add(movie);
+            }
+        });
+
+        sortThemes();
     }
 
     public void sortThemes() {
-        Set<Movie> tmpMovies1;
-        Set<Movie> tmpMovies2 = new HashSet<>(sortedMovies);
-        for (String theme : themes) {
-            tmpMovies1 = new HashSet<>(tmpMovies2);
-            tmpMovies2.clear();
-            tmpMovies1.forEach(movie -> {
+        themesSortedMovies.clear();
+        ratingSortedMovies.forEach(movie -> {
+            themes.forEach(theme -> {
                 if (movie.getThemes().contains(theme)) {
-                    sortedMovies.add(movie);
-                } else {
-                    tmpMovies2.add(movie);
+                    themesSortedMovies.add(movie);
+                }
+            });
+        });
+
+        sortMovies();
+    }
+
+    public void sortMovies() {
+        searchSortedMovies.clear();
+        if (searchWords == null || searchWords.isEmpty()) {
+            searchSortedMovies.addAll(themesSortedMovies);
+        } else {
+            themesSortedMovies.forEach(movie -> {
+                if (searchType.isContainsInMovie(movie, searchWords)) {
+                    searchSortedMovies.add(movie);
                 }
             });
         }
-    }
 
-    public void sortMovies(String text) {
-        sortedMovies.clear();
-        allMovies.forEach(movie -> {
-            if (searchType.isContainsInMovie(movie, text)) {
-                sortedMovies.add(movie);
-            }
-        });
         orderMovies();
     }
 
     public void orderMovies() {
-        sortedMovies.sort(sortType.getComparator());
+        searchSortedMovies.sort(sortType.getComparator());
     }
 }

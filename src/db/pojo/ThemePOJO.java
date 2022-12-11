@@ -1,7 +1,5 @@
 package db.pojo;
 
-import db.dao.MovieThemeDAO;
-
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -17,8 +15,8 @@ public class ThemePOJO implements POJO {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(targetEntity = MovieThemePOJO.class, mappedBy = "theme", cascade = CascadeType.ALL)
-    private List<MoviePOJO> movies;
+    @OneToMany(mappedBy = "theme", cascade = CascadeType.ALL)
+    private List<MovieThemePOJO> moviesTheme;
 
     @OneToMany(mappedBy = "theme", cascade = CascadeType.ALL)
     private List<PreferencePOJO> preferences;
