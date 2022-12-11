@@ -1,7 +1,21 @@
 package fc.movie;
 
 public enum SearchType {
-    TITLE, DIRECTORS, ACTORS, ROLES, SYNOPSIS;
+    TITLE("search in titles"),
+    DIRECTORS("search a director"),
+    ACTORS("search an actor"),
+    ROLES("search a role"),
+    SYNOPSIS("search in synopsis");
+
+    private final String description;
+
+    SearchType(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 
     public boolean isContainsInMovie(Movie movie, String text) {
         switch (this) {
@@ -22,6 +36,6 @@ public enum SearchType {
 
     @Override
     public String toString() {
-        return super.toString().toLowerCase();
+        return super.toString().substring(0, 1).toUpperCase() + super.toString().substring(1).toLowerCase();
     }
 }

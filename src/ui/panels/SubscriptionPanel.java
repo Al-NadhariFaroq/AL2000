@@ -1,22 +1,33 @@
 package ui.panels;
 
+import ui.AL2000UI;
 import ui.util.StackLayout;
-import ui.interactions.CardInteraction;
 import ui.interactions.PreferencesInteraction;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.sql.Date;
+import java.util.Calendar;
 
 public class SubscriptionPanel extends JPanel {
-    JButton btnValid, btnBack, btn1, btn2, btn3, btn4;
-    JTextField firstNameText, lastNameText, mailText, dateOfBirthText;
+    private final AL2000UI UI;
+
+    JButton validBtn, btn1, btn2, btn3, btn4;
+    JTextField firstNameText, lastNameText, mailText, birthDateText;
     DefaultListModel<String> favoriteModel, neutralModel, forbiddenModel;
     JList<String> favoriteList, neutralList, forbiddenList;
 
-    public SubscriptionPanel() {
-        setLayout(new BorderLayout());
-        JPanel information = new JPanel(new StackLayout());
+    public SubscriptionPanel(AL2000UI UI) {
+        super(new BorderLayout());
+
+        this.UI = UI;
 
         JPanel layer1 = new JPanel(new BorderLayout());
         JLabel firstNameLabel = new JLabel("Name : ");
@@ -38,38 +49,32 @@ public class SubscriptionPanel extends JPanel {
 
         JPanel layer4 = new JPanel(new BorderLayout());
         JLabel dateOfBirthLabel = new JLabel("Date of birth : ");
-        dateOfBirthText = new JTextField();
+        birthDateText = new JTextField();
         layer4.add(dateOfBirthLabel, BorderLayout.WEST);
-        layer4.add(dateOfBirthText, BorderLayout.CENTER);
+        layer4.add(birthDateText, BorderLayout.CENTER);
 
+        validBtn = new JButton("valid");
+        validBtn.addActionListener(e -> {
+            Calendar birthDate = Calendar.getInstance();
+            birthDate.setTime(Date.valueOf(birthDateText.getText()));
+
+            UI.getFC()
+              .subscription(firstNameText.getText(), lastNameText.getText(), mailText.getText(), birthDate, null);
+            UI.getPanelManager().setCurrentPanel(Panel.HOME);
+        });
+
+        JPanel information = new JPanel(new StackLayout());
         information.add(layer1);
         information.add(layer2);
         information.add(layer3);
         information.add(layer4);
         information.add(createPreferencePanel());
-        add(information, BorderLayout.CENTER);
-
-        btnValid = new JButton("valid");
-        btnBack = new JButton("back");
 
         JPanel southPanel = new JPanel();
-        southPanel.add(btnValid);
-        southPanel.add(btnBack);
+        southPanel.add(validBtn);
+
+        add(information, BorderLayout.CENTER);
         add(southPanel, BorderLayout.SOUTH);
-        btnBack.addActionListener(CardInteraction.getInstance());
-        btnValid.addActionListener(CardInteraction.getInstance());
-
-        add(createTopPanel(), BorderLayout.NORTH);
-    }
-
-    JPanel createTopPanel() {
-        JPanel topPanel = new JPanel(new FlowLayout());
-        topPanel.setBackground(Color.gray);
-
-        JLabel title = new JLabel("SubscriptionPanel");
-        topPanel.add(title);
-
-        return topPanel;
     }
 
     JPanel createPreferencePanel() {
@@ -139,12 +144,8 @@ public class SubscriptionPanel extends JPanel {
         return preference;
     }
 
-    public JButton getBtnValid() {
-        return btnValid;
-    }
-
-    public JButton getBtnBack() {
-        return btnBack;
+    public JButton getValidBtn() {
+        return validBtn;
     }
 
     public JButton getBtn1() {
@@ -175,8 +176,8 @@ public class SubscriptionPanel extends JPanel {
         return mailText;
     }
 
-    public JTextField getDateOfBirthText() {
-        return dateOfBirthText;
+    public JTextField getBirthDateText() {
+        return birthDateText;
     }
 
     public DefaultListModel<String> getFavoriteModel() {

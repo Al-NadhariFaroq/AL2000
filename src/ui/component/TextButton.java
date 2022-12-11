@@ -144,6 +144,14 @@ public class TextButton extends JButton {
         this.pressedColor = pressedColor;
     }
 
+    public void setColor(Color color, boolean reverse) {
+        Color darkColor = color.darker().darker();
+        Color brightColor = color.brighter().brighter();
+        setTextColor(color);
+        setPressedColor(reverse ? darkColor : brightColor);
+        setEnteredColor(reverse ? brightColor : darkColor);
+    }
+
     @Override
     public void setEnabled(boolean b) {
         setForeground(textColor);

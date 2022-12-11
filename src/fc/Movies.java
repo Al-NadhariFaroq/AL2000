@@ -60,6 +60,7 @@ public class Movies {
 
     public void setBluRaysOnly(boolean bluRaysOnly) {
         this.bluRaysOnly = bluRaysOnly;
+        sortBluRays();
     }
 
     public Rating getRating() {
@@ -68,6 +69,7 @@ public class Movies {
 
     public void setRating(Rating rating) {
         this.rating = rating;
+        sortRating();
     }
 
     public Set<String> getThemes() {
@@ -76,6 +78,7 @@ public class Movies {
 
     public void setThemes(Set<String> themes) {
         this.themes = themes;
+        sortThemes();
     }
 
     public SearchType getSearchType() {
@@ -84,6 +87,7 @@ public class Movies {
 
     public void setSearchType(SearchType searchType) {
         this.searchType = searchType;
+        sortMovies();
     }
 
     public String getSearchWords() {
@@ -92,6 +96,7 @@ public class Movies {
 
     public void setSearchWords(String searchWords) {
         this.searchWords = searchWords;
+        sortMovies();
     }
 
     public SortType getSortType() {
@@ -100,6 +105,7 @@ public class Movies {
 
     public void setSortType(SortType sortType) {
         this.sortType = sortType;
+        orderMovies();
     }
 
     public void updateFromDatabase() {

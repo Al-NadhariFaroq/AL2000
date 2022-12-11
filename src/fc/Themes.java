@@ -22,7 +22,7 @@ public class Themes {
         updateFromDatabase();
     }
 
-    public List<String> getThemes() {
+    public List<String> getAllThemes() {
         return new ArrayList<>(themes.keySet());
     }
 

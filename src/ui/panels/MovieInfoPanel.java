@@ -1,58 +1,46 @@
 package ui.panels;
 
 import fc.movie.Movie;
+import ui.AL2000UI;
 import ui.component.MovieInfo;
-import ui.interactions.CardInteraction;
+import ui.util.GBC;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 
 public class MovieInfoPanel extends JPanel {
-    JLabel noteLabel;
-    JButton btnRent, btnBack;
-    MovieInfo movieInfo;
+    private final AL2000UI UI;
 
-    public MovieInfoPanel() {
-        setLayout(new BorderLayout());
+    private final MovieInfo movieInfo;
+    private JButton rentBtn;
 
-        createComponent();
+    public MovieInfoPanel(AL2000UI UI) {
+        super(new GridBagLayout());
+        setBackground(new Color(203, 208, 214));
 
-        JPanel topPanel = createTopPanel();
+        this.UI = UI;
+
         movieInfo = new MovieInfo();
+        movieInfo.setBackground(new Color(53, 74, 95));
+        movieInfo.setForeground(Color.WHITE);
 
-        add(topPanel, BorderLayout.NORTH);
-        add(movieInfo, BorderLayout.CENTER);
+        add(movieInfo, GBC.placeAt(0, 0).setInsets(50, 0).setWeight(1, 1).setFill(GBC.BOTH));
+        add(createBottomBar(), GBC.placeAt(0, 1).setFill(GBC.BOTH));
     }
 
-    public JButton getBtnBack() {
-        return btnBack;
-    }
-
-    void createComponent() {
-        noteLabel = new JLabel("<html><font color=black>Rate:</font> " + "5*");
-        btnRent = new JButton("RentPanel");
-        btnRent.addActionListener(CardInteraction.getInstance());
-    }
-
-    JPanel createTopPanel() {
-        JPanel topPanel = new JPanel(new FlowLayout());
-        topPanel.setPreferredSize(new Dimension(960, 100));
-        topPanel.setBackground(Color.GRAY);
-
-        btnBack = new JButton("Go Back");
-        btnBack.addActionListener(CardInteraction.getInstance());
-
-        topPanel.add(btnBack, BorderLayout.WEST);
-
-        return topPanel;
-    }
-
-    public void update(Movie movie) {
+    public void updateMovie(Movie movie) {
         movieInfo.setMovie(movie);
+    }
+
+    private JPanel createBottomBar() {
+        JPanel bottomBar = new JPanel();
+        bottomBar.setBackground(new Color(53, 74, 95));
+
+        rentBtn = new JButton("Rent");
+        bottomBar.add(rentBtn);
+
+        return bottomBar;
     }
 }

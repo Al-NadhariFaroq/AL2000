@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -35,6 +36,7 @@ public class MoviesGrid extends JPanel {
 
     private JScrollPane scrollPane;
     private JPanel gridPanel;
+    private JPanel navBar;
     private GridLayout gridLayout;
     private JLabel resultLbl;
     private JLabel startLbl;
@@ -141,6 +143,44 @@ public class MoviesGrid extends JPanel {
     }
 
     @Override
+    public void setBackground(Color bg) {
+        if (isBackgroundSet()) {
+            scrollPane.setBackground(bg);
+            scrollPane.getViewport().setBackground(bg);
+            gridPanel.setBackground(bg);
+        }
+        super.setBackground(bg);
+    }
+
+    public void setNavBarBackground(Color bg) {
+        navBar.setBackground(bg);
+    }
+
+    @Override
+    public void setForeground(Color fg) {
+        if (isForegroundSet()) {
+            for (MovieButton movieButton : movieButtons) {
+                movieButton.setForeground(fg);
+            }
+        }
+        super.setForeground(fg);
+    }
+
+    public void setNavBarForeground(Color fg) {
+        for (Component component1 : navBar.getComponents()) {
+            for (Component component2 : ((JPanel) component1).getComponents()) {
+                component2.setForeground(fg);
+            }
+        }
+        prevPageBtn.setColor(fg, true);
+        nextPageBtn.setColor(fg, true);
+        btn10pages.setColor(fg, true);
+        btn20pages.setColor(fg, true);
+        btn50pages.setColor(fg, true);
+        btn100pages.setColor(fg, true);
+    }
+
+    @Override
     public void setFont(Font font) {
         if (isFontSet()) {
             prevPageBtn.setFont(font.deriveFont(font.getSize() * 3f));
@@ -219,6 +259,7 @@ public class MoviesGrid extends JPanel {
                 return size;
             }
         };
+        centerPanel.setOpaque(false);
 
         centerPanel.add(gridPanel,
                         GBC.placeAt(0, 0)
@@ -233,7 +274,7 @@ public class MoviesGrid extends JPanel {
     }
 
     private JPanel createNavBar() {
-        JPanel navBar = new JPanel(new GridLayout());
+        navBar = new JPanel(new GridLayout());
         navBar.add(createNbPagesInfo());
         navBar.add(createPageManagement());
         navBar.add(createQuantityManagement());
@@ -249,6 +290,7 @@ public class MoviesGrid extends JPanel {
         nbResultsLbl = new JLabel("20");
 
         JPanel nbPagesInfo = new JPanel(new GridBagLayout());
+        nbPagesInfo.setOpaque(false);
         GBC gbc = GBC.placeAt(GBC.RELATIVE, 0, true).setInsets(0, 2);
         nbPagesInfo.add(resultLbl, gbc.setWeightX(0.1).setAnchor(GBC.LINE_END));
         nbPagesInfo.add(startLbl, gbc);
@@ -286,6 +328,7 @@ public class MoviesGrid extends JPanel {
         nbPagesLbl = new JLabel("100", JLabel.LEFT);
 
         JPanel pageManagement = new JPanel(new GridBagLayout());
+        pageManagement.setOpaque(false);
         pageManagement.add(prevPageBtn, GBC.placeAt(0, 0).setInsets(0, 1));
         pageManagement.add(curPageLbl, GBC.placeAt(1, 0).setFill(GBC.HORIZONTAL));
         pageManagement.add(slashLbl, GBC.placeAt(2, 0).setInsets(0, 3));
@@ -308,6 +351,7 @@ public class MoviesGrid extends JPanel {
         btn100pages.addActionListener(e -> setResultsPerPage(100));
 
         JPanel quantityManagement = new JPanel(new GridBagLayout());
+        quantityManagement.setOpaque(false);
         GBC gbc = GBC.placeAt(GBC.RELATIVE, 0, true).setInsets(0, 3);
         quantityManagement.add(quantityLbl, gbc.setWeightX(0.9).setAnchor(GBC.LINE_END));
         quantityManagement.add(btn10pages, gbc);

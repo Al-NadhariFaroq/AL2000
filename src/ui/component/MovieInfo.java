@@ -146,7 +146,8 @@ public class MovieInfo extends JPanel {
             for (Component component : mainPanel.getComponents()) {
                 component.setForeground(fg);
             }
-            ratingValue.setBorder(BorderFactory.createLineBorder(fg, 1));
+            ratingValue.setForeground(fg.darker());
+            ratingValue.setBorder(BorderFactory.createLineBorder(fg.darker(), 1));
             colorYearTitle();
         }
         super.setForeground(fg);
@@ -175,7 +176,7 @@ public class MovieInfo extends JPanel {
 
     private void colorYearTitle() {
         SimpleAttributeSet attributes = new SimpleAttributeSet();
-        StyleConstants.setForeground(attributes, getForeground().brighter().brighter());
+        StyleConstants.setForeground(attributes, getForeground().darker());
         StyleConstants.setBold(attributes, false);
         int offset = titleValue.getDocument().getLength() - 6;
         titleValue.getStyledDocument().setCharacterAttributes(offset, 6, attributes, false);

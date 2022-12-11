@@ -5,6 +5,7 @@ import ui.util.GBC;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 import javax.swing.JViewport;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GridBagLayout;
@@ -113,6 +114,24 @@ public class TogglesBar extends JPanel {
     }
 
     @Override
+    public void setBackground(Color bg) {
+        if (isBackgroundSet()) {
+            viewport.getView().setBackground(bg);
+        }
+        super.setBackground(bg);
+    }
+
+    @Override
+    public void setForeground(Color fg) {
+        if (isForegroundSet()) {
+            leftBtn.setColor(fg, true);
+            rightBtn.setColor(fg, true);
+            buttons.forEach(btn -> btn.setForeground(fg));
+        }
+        super.setForeground(fg);
+    }
+
+    @Override
     public void setFont(Font font) {
         if (isFontSet()) {
             leftBtn.setFont(font.deriveFont(font.getSize() * 1.5f));
@@ -122,7 +141,7 @@ public class TogglesBar extends JPanel {
         super.setFont(font);
     }
 
-    private void updateButtons(Map<String, Boolean> in) {
+    public void updateButtons(Map<String, Boolean> in) {
         if (in != null) {
             JPanel view = (JPanel) viewport.getView();
             view.removeAll();

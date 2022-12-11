@@ -71,7 +71,7 @@ public class SearchBar extends JPanel {
             }
         });
 
-        searchBtn = new TextButton("P");
+        searchBtn = new TextButton("S");
         searchBtn.setBorder(BorderFactory.createEmptyBorder(0, 3, 0, 3));
         searchBtn.setEnteredFeedback(TextButton.COLOR);
         searchBtn.setPressedFeedback(TextButton.COLOR);
@@ -134,7 +134,7 @@ public class SearchBar extends JPanel {
         if (isFontSet()) {
             textField.setFont(font);
             textPrompt.setFont(font.deriveFont(Font.ITALIC));
-            deleteBtn.setFont(font.deriveFont(font.getSize() + 6f));
+            deleteBtn.setFont(font.deriveFont(font.getSize() + 4f));
             searchBtn.setFont(font.deriveFont(font.getSize() + 4f));
             pipeLbl.setFont(font.deriveFont(font.getSize() + 4f));
         }

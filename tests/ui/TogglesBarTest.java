@@ -1,12 +1,14 @@
 package ui;
 
 import ui.component.TogglesBar;
+import ui.util.GBC;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -20,7 +22,7 @@ public class TogglesBarTest extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(720, 480));
         setMinimumSize(new Dimension(720, 480));
-        getContentPane().setLayout(new BorderLayout());
+        getContentPane().setLayout(new GridBagLayout());
 
         Map<String, Boolean> data = createData(createInput());
 
@@ -36,8 +38,8 @@ public class TogglesBarTest extends JFrame {
             textArea.setText(printData(data));
         }));
 
-        add(togglesBar, BorderLayout.NORTH);
-        add(textArea, BorderLayout.CENTER);
+        add(togglesBar, GBC.placeAt(0, 0).setInsets(5).setFill(GBC.BOTH));
+        add(textArea, GBC.placeAt(0, 1).setWeight(1, 1).setFill(GBC.BOTH));
 
         pack();
         setLocationRelativeTo(null);

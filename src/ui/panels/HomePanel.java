@@ -1,107 +1,162 @@
 package ui.panels;
 
-import fc.AL2000FC;
-import fc.movie.Movie;
-import fc.movie.Rating;
+import fc.Themes;
+import fc.movie.SearchType;
+import fc.movie.SortType;
 import ui.AL2000UI;
 import ui.component.MoviesGrid;
 import ui.component.SearchBar;
-import ui.interactions.CardInteraction;
+import ui.component.TogglesBar;
 import ui.component.MovieButton;
+import ui.util.GBC;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.BorderLayout;
+import javax.swing.SwingUtilities;
 import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Image;
+import java.awt.GridBagLayout;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class HomePanel extends JPanel {
     private final AL2000UI UI;
-    private final AL2000FC FC;
-    public JButton btnMenu, btnUser, btnPopular, btnNew, btnFilter, btnBluRay;
+    private final Color fg = new Color(220, 220, 220);
 
-    public HomePanel(AL2000UI ui, AL2000FC fc) {
-        setLayout(new BorderLayout());
-        this.UI = ui;
-        this.FC = fc;
+    private final JComboBox<SortType> sortChoice;
+    private final JComboBox<SearchType> searchChoice;
+    private final SearchBar searchBar;
+    private final JCheckBox bluRaysCheck;
+    private final TogglesBar themesBar;
+    private final MoviesGrid moviesGrid;
 
-        JPanel topPanel = mainTopPanel();
-        MoviesGrid moviesGrid = new MoviesGrid(FC.getMovies().getSortedMovies());
+    public HomePanel(AL2000UI UI) {
+        setLayout(new GridBagLayout());
+        setBackground(new Color(53, 74, 95));
+
+        this.UI = UI;
+
+        moviesGrid = createMoviesGrid();
+        themesBar = createThemesBar();
+        bluRaysCheck = createBluRaysCheck();
+        searchBar = createSearchBar();
+        searchChoice = createSearchChose();
+        sortChoice = createSortChose();
+
+        add(createSearchPanel(), GBC.placeAt(0, 0).setInsets(10, 0).setFill(GBC.BOTH));
+        add(themesBar, GBC.placeAt(0, 1).setInsets(10).setFill(GBC.BOTH));
+        add(moviesGrid, GBC.placeAt(0, 2).setWeight(1, 1).setFill(GBC.BOTH));
+
+        updateThemes();
+        updateMovies();
+    }
+
+    public void updateThemes() {
+        Map<String, Boolean> themes = new LinkedHashMap<>();
+        UI.getFC().getThemes().getAllThemes().forEach(theme -> {
+            int availability = UI.getFC().getThemes().getAvailability(theme);
+            if (availability != Themes.FORBIDDEN) {
+                themes.put(theme, availability == Themes.EXCLUDED);
+            }
+        });
+        themesBar.updateButtons(themes);
+        themesBar.getButtons().forEach(btn -> btn.addActionListener(e -> SwingUtilities.invokeLater(() -> {
+            UI.getFC().getThemes().setAvailability(btn.getText(), btn.isSelected() ? Themes.EXCLUDED : Themes.INCLUDED);
+            UI.getFC().getMovies().setThemes(UI.getFC().getThemes().getIncludedThemes());
+            updateMovies();
+        })));
+    }
+
+    public void updateMovies() {
+        moviesGrid.setMovies(UI.getFC().getMovies().getSortedMovies());
+    }
+
+    private JPanel createSearchPanel() {
+        JPanel searchPanel = new JPanel(new GridBagLayout());
+        searchPanel.setOpaque(false);
+
+        GBC gbc = GBC.placeAt(GBC.RELATIVE, 0, true).setInsets(0, 10);
+        searchPanel.add(sortChoice, gbc);
+        searchPanel.add(searchChoice, gbc);
+        searchPanel.add(searchBar, gbc.setWeightX(1).setFill(GBC.HORIZONTAL));
+        searchPanel.add(bluRaysCheck, gbc);
+
+        return searchPanel;
+    }
+
+    private JComboBox<SortType> createSortChose() {
+        JComboBox<SortType> sortChose = new JComboBox<>();
+        for (SortType sortType : SortType.values()) {
+            sortChose.addItem(sortType);
+        }
+        sortChose.addActionListener(e -> new Thread(() -> {
+            UI.getFC().getMovies().setSortType(sortChose.getItemAt(sortChose.getSelectedIndex()));
+            updateMovies();
+        }).start());
+        sortChose.setSelectedIndex(0);
+        return sortChose;
+    }
+
+    private JComboBox<SearchType> createSearchChose() {
+        JComboBox<SearchType> searchChose = new JComboBox<>();
+        for (SearchType searchType : SearchType.values()) {
+            searchChose.addItem(searchType);
+        }
+        searchChose.addActionListener(e -> new Thread(() -> {
+            SearchType searchType = searchChose.getItemAt(searchChose.getSelectedIndex());
+            searchBar.setDefaultText(searchType.getDescription());
+            UI.getFC().getMovies().setSearchType(searchType);
+            updateMovies();
+        }).start());
+        searchChose.setSelectedIndex(0);
+        return searchChose;
+    }
+
+    private SearchBar createSearchBar() {
+        SearchBar searchBar = new SearchBar();
+        searchBar.addActionListener(e -> new Thread(() -> {
+            UI.getFC().getMovies().setSearchWords(searchBar.getText());
+            updateMovies();
+        }).start());
+        return searchBar;
+    }
+
+    private JCheckBox createBluRaysCheck() {
+        JCheckBox bluRaysCheck = new JCheckBox("Blu-rays only");
+        bluRaysCheck.setForeground(fg);
+        bluRaysCheck.setContentAreaFilled(false);
+        bluRaysCheck.setFocusPainted(false);
+        bluRaysCheck.addActionListener(e -> new Thread(() -> {
+            UI.getFC().getMovies().setBluRaysOnly(bluRaysCheck.isSelected());
+            updateMovies();
+        }).start());
+        return bluRaysCheck;
+    }
+
+    private TogglesBar createThemesBar() {
+        TogglesBar themesBar = new TogglesBar();
+        themesBar.setBackground(new Color(53, 74, 95));
+        themesBar.setForeground(fg);
+        themesBar.setFont(themesBar.getFont().deriveFont(15f));
+
+        return themesBar;
+    }
+
+    private MoviesGrid createMoviesGrid() {
+        MoviesGrid moviesGrid = new MoviesGrid(new ArrayList<>());
+        moviesGrid.setBackground(new Color(203, 208, 214));
+        moviesGrid.setNavBarBackground(new Color(53, 74, 95));
+        moviesGrid.setNavBarForeground(fg);
 
         for (MovieButton movieButton : moviesGrid.getMovieButtons()) {
             movieButton.addActionListener(e -> {
-                ((MovieInfoPanel) UI.getPanel(Panel.MOVIE_INFO)).update(movieButton.getMovie());
-                UI.changePanel(Panel.MOVIE_INFO);
+                ((MovieInfoPanel) Panel.MOVIE_INFO.getPanel()).updateMovie(movieButton.getMovie());
+                UI.getPanelManager().setCurrentPanel(Panel.MOVIE_INFO);
             });
         }
 
-        add(topPanel, BorderLayout.NORTH);
-        add(moviesGrid, BorderLayout.CENTER);
-    }
-
-    private JPanel mainTopPanel() {
-        JPanel mainTopPanel = new JPanel();
-        mainTopPanel.setLayout(new BorderLayout());
-
-        JPanel searchPanel = new JPanel(new BorderLayout());
-        searchPanel.setBorder(new EmptyBorder(20, 0, 20, 0));
-        searchPanel.setBackground(new Color(98, 98, 60));
-
-        ImageIcon menuIcon = new ImageIcon(new ImageIcon("./rsc/images/listicon.png").getImage()
-                                                                                     .getScaledInstance(30,
-                                                                                                        30,
-                                                                                                        Image.SCALE_DEFAULT
-                                                                                     ));
-        btnMenu = new JButton(menuIcon);
-        btnMenu.addActionListener(CardInteraction.getInstance());
-        btnMenu.setBorder(new EmptyBorder(0, 10, 0, 10));
-
-        ImageIcon userIcon = new ImageIcon(new ImageIcon("./rsc/images/user.png").getImage()
-                                                                                 .getScaledInstance(30,
-                                                                                                    30,
-                                                                                                    Image.SCALE_DEFAULT
-                                                                                 ));
-        btnUser = new JButton(userIcon);
-        btnUser.addActionListener(CardInteraction.getInstance());
-        btnUser.setBorder(new EmptyBorder(0, 10, 0, 10));
-
-        SearchBar searchBar = new SearchBar();
-
-        searchPanel.add(btnMenu, BorderLayout.WEST);
-        searchPanel.add(searchBar, BorderLayout.CENTER);
-        searchPanel.add(btnUser, BorderLayout.EAST);
-
-        JPanel buttonsPanel = new JPanel(new FlowLayout());
-        buttonsPanel.setBackground(Color.orange);
-        buttonsPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-        btnPopular = new JButton("Popular");
-        btnBluRay = new JButton("Blu-ray");
-        btnNew = new JButton("New");
-        btnFilter = new JButton("Filter");
-
-        buttonsPanel.add(btnPopular);
-        buttonsPanel.add(btnBluRay);
-        buttonsPanel.add(btnNew);
-        buttonsPanel.add(btnFilter);
-
-        mainTopPanel.add(searchPanel, BorderLayout.NORTH);
-        mainTopPanel.add(buttonsPanel, BorderLayout.SOUTH);
-
-        return mainTopPanel;
-    }
-
-    public JButton getBtnMenu() {
-        return btnMenu;
-    }
-
-    public JButton getBtnUser() {
-        return btnUser;
+        return moviesGrid;
     }
 }
 
