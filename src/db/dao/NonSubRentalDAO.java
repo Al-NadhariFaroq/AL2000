@@ -19,9 +19,9 @@ public class NonSubRentalDAO extends DAO<NonSubRentalPOJO> {
 
     @Override
     public void delete(NonSubRentalPOJO nonSubRentalPOJO) {
-        RentalPOJO rentalPOJO = DAOFactory.getRentalDAO().read(nonSubRentalPOJO.getRental().getRentalId());
-        if (!rentalPOJO.getNonSubRentalPOJOList().isEmpty()) {
-            rentalPOJO.getNonSubRentalPOJOList().remove(nonSubRentalPOJO);
+        RentalPOJO rentalPOJO = DAOFactory.getRentalDAO().read(nonSubRentalPOJO.getRental().getID());
+        if (!rentalPOJO.getNonSubRentals().isEmpty()) {
+            rentalPOJO.getNonSubRentals().remove(nonSubRentalPOJO);
             entityManager.merge(rentalPOJO);
         }
         executeInsideTransaction(entityManager -> entityManager.remove(nonSubRentalPOJO));

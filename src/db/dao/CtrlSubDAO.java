@@ -19,10 +19,9 @@ public class CtrlSubDAO extends DAO<CtrlSubPOJO> {
 
     @Override
     public void delete(CtrlSubPOJO ctrlSubPOJO) {
-        SubscriberPOJO subscriberPOJO = DAOFactory.getSubscriberDAO()
-                                                  .read(ctrlSubPOJO.getSubscriber().getSubscriberId());
-        if (!subscriberPOJO.getControlledSubcriberList().isEmpty()) {
-            subscriberPOJO.getControlledSubcriberList().remove(ctrlSubPOJO);
+        SubscriberPOJO subscriberPOJO = DAOFactory.getSubscriberDAO().read(ctrlSubPOJO.getSubscriber().getID());
+        if (!subscriberPOJO.getControlledSubscribers().isEmpty()) {
+            subscriberPOJO.getControlledSubscribers().remove(ctrlSubPOJO);
             entityManager.merge(subscriberPOJO);
         }
         executeInsideTransaction(entityManager -> entityManager.remove(ctrlSubPOJO));

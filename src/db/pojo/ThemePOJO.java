@@ -1,33 +1,44 @@
 package db.pojo;
 
+import db.dao.MovieThemeDAO;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-@Entity(name = "Themes")
-@Table(name = "THEMES", schema = "ALNADHAF", catalog = "")
-public class ThemePOJO {
+@Entity(name = "themes")
+@Table(name = "themes", schema = "alnadhaf", catalog = "")
+public class ThemePOJO implements POJO {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "THEME_ID")
+    @Column(name = "theme_id")
     private int themeId;
+
     @Basic
-    @Column(name = "NAME")
+    @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "theme", cascade = CascadeType.ALL)
-    private List<MovieThemePOJO> movieThemePOJOList;
+    @OneToMany(targetEntity = MovieThemePOJO.class, mappedBy = "theme", cascade = CascadeType.ALL)
+    private List<MoviePOJO> movies;
 
     @OneToMany(mappedBy = "theme", cascade = CascadeType.ALL)
-    private List<PreferencePOJO> preferencePOJOList;
+    private List<PreferencePOJO> preferences;
 
     public ThemePOJO() {
-
+        super();
     }
 
     public ThemePOJO(int themeId, String name) {
+        super();
         this.themeId = themeId;
         this.name = name;
+    }
+
+    public int getID() {
+        return themeId;
+    }
+
+    public void setID(int themeId) {
+        this.themeId = themeId;
     }
 
     public String getName() {
@@ -36,14 +47,6 @@ public class ThemePOJO {
 
     public void setName(String theme) {
         this.name = theme;
-    }
-
-    public int getThemeId() {
-        return themeId;
-    }
-
-    public void setThemeId(int themeId) {
-        this.themeId = themeId;
     }
 
     @Override

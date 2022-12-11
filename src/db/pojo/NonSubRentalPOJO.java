@@ -1,22 +1,21 @@
 package db.pojo;
 
-import db.dao.RentalDAO;
-
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity(name = "Non_Subscriber_rentals")
-@Table(name = "NON_SUBSCRIBER_RENTALS", schema = "ALNADHAF", catalog = "")
-public class NonSubRentalPOJO {
+@Entity(name = "non_subscriber_rentals")
+@Table(name = "non_subscriber_rentals", schema = "alnadhaf", catalog = "")
+public class NonSubRentalPOJO implements POJO {
     @Id
-    @Column(name = "NON_SUBSCRIBER_RENTAL_ID")
+    @Column(name = "non_subscriber_rental_id")
     private int nonSubscriberRentalId;
 
-    @JoinColumn(name = "RENTAL_ID", referencedColumnName = "RENTAL_ID")
     @ManyToOne(optional = false)
+    @JoinColumn(name = "rental_id", referencedColumnName = "rental_id")
     private RentalPOJO rental;
-    @Basic
-    @Column(name = "CREDIT_CARD_NUMBER")
+
+    @Basic(optional = false)
+    @Column(name = "credit_card_number")
     private int creditCardNumber;
 
     public NonSubRentalPOJO() {
@@ -29,11 +28,11 @@ public class NonSubRentalPOJO {
         this.creditCardNumber = creditCardNumber;
     }
 
-    public int getNonSubscriberRentalId() {
+    public int getID() {
         return nonSubscriberRentalId;
     }
 
-    public void setNonSubscriberRentalId(int nonSubscriberRentalId) {
+    public void setID(int nonSubscriberRentalId) {
         this.nonSubscriberRentalId = nonSubscriberRentalId;
     }
 
@@ -62,8 +61,8 @@ public class NonSubRentalPOJO {
             return false;
         }
         NonSubRentalPOJO that = (NonSubRentalPOJO) o;
-        return nonSubscriberRentalId == that.nonSubscriberRentalId &&
-               rental.getRentalId() == that.rental.getRentalId() && creditCardNumber == that.creditCardNumber;
+        return nonSubscriberRentalId == that.nonSubscriberRentalId && rental.getID() == that.rental.getID() &&
+               creditCardNumber == that.creditCardNumber;
     }
 
     @Override

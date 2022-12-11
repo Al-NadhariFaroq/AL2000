@@ -5,48 +5,55 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
-@Entity(name = "Subscribers")
-@Table(name = "SUBSCRIBERS", schema = "ALNADHAF", catalog = "")
-public class SubscriberPOJO {
+@Entity(name = "subscribers")
+@Table(name = "subscribers", schema = "alnadhaf", catalog = "")
+public class SubscriberPOJO implements POJO {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "SUBSCRIBER_ID")
+    @Column(name = "subscriber_id")
     private int subscriberId;
-    @Basic
-    @Column(name = "SUBSCRIPTION_CARD_NUMBER")
+
+    @Basic(optional = false)
+    @Column(name = "subscription_card_number")
     private int subscriptionCardNumber;
-    @Basic
-    @Column(name = "CREDIT_CARD_NUMBER")
+
+    @Basic(optional = false)
+    @Column(name = "credit_card_number")
     private int creditCardNumber;
-    @Basic
-    @Column(name = "FIRST_NAME")
+
+    @Basic(optional = false)
+    @Column(name = "first_name")
     private String firstName;
-    @Basic
-    @Column(name = "LAST_NAME")
+
+    @Basic(optional = false)
+    @Column(name = "last_name")
     private String lastName;
-    @Basic
-    @Column(name = "EMAIL")
+
+    @Basic(optional = false)
+    @Column(name = "email")
     private String email;
-    @Basic
-    @Column(name = "BIRTH_DATE")
+
+    @Basic(optional = false)
+    @Column(name = "birth_date")
     private Date birthDate;
-    @Basic
-    @Column(name = "BALANCE")
+
+    @Basic(optional = false)
+    @Column(name = "balance")
     private float balance;
-    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
-    private List<CtrlSubPOJO> controlledSubscriber;
 
     @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
-    private List<ScorePOJO> scorePOJOList;
+    private List<CtrlSubPOJO> controlledSubscribers;
 
     @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
-    private List<SubRentalPOJO> subRentalPOJOList;
+    private List<ScorePOJO> scores;
 
     @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
-    private List<PreferencePOJO> preferencePOJOList;
+    private List<SubRentalPOJO> rentals;
+
+    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
+    private List<PreferencePOJO> preferences;
 
     public SubscriberPOJO() {
-
+        super();
     }
 
     public SubscriberPOJO(int subscriberId,
@@ -58,6 +65,7 @@ public class SubscriberPOJO {
                           Date birthDate,
                           float balance
     ) {
+        super();
         this.subscriberId = subscriberId;
         this.subscriptionCardNumber = subscriptionCardNumber;
         this.creditCardNumber = creditCardNumber;
@@ -68,11 +76,11 @@ public class SubscriberPOJO {
         this.balance = balance;
     }
 
-    public int getSubscriberId() {
+    public int getID() {
         return subscriberId;
     }
 
-    public void setSubscriberId(int subscriberId) {
+    public void setID(int subscriberId) {
         this.subscriberId = subscriberId;
     }
 
@@ -132,8 +140,8 @@ public class SubscriberPOJO {
         this.balance = balance;
     }
 
-    public List<CtrlSubPOJO> getControlledSubcriberList() {
-        return controlledSubscriber;
+    public List<CtrlSubPOJO> getControlledSubscribers() {
+        return controlledSubscribers;
     }
 
     @Override

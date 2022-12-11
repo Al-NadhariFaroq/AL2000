@@ -36,7 +36,7 @@ public class DatabaseManagement {
         List<BluRayPOJO> bluRaysPOJO = DAOFactory.getBluRayDAO().readAll();
 
         bluRaysPOJO.forEach(bluRayPOJO -> {
-            Movie movie = convertFromMoviePOJO(DAOFactory.getMovieDAO().read(bluRayPOJO.getMovie().getMovieId()));
+            Movie movie = convertFromMoviePOJO(DAOFactory.getMovieDAO().read(bluRayPOJO.getMovie().getID()));
             BluRay bluRay = new BluRay(bluRayPOJO.getSerialNumber(), movie);
             bluRays.put(bluRay, bluRayPOJO.getPosition());
         });
@@ -83,7 +83,7 @@ public class DatabaseManagement {
         DAOFactory.getRentalDAO().create(rentalPOJO);
 
         int bluRayRentalId = DAOFactory.getBluRayDAO().getNextId();
-        rentalPOJO = DAOFactory.getRentalDAO().readFromMovieAndDate(moviePOJO.getMovieId(), rentalDate);
+        rentalPOJO = DAOFactory.getRentalDAO().readFromMovieAndDate(moviePOJO.getID(), rentalDate);
         BluRayRentalPOJO brRentalPOJO = new BluRayRentalPOJO(bluRayRentalId, rentalPOJO, bluRayPOJO, null);
         DAOFactory.getBluRayRentalDAO().create(brRentalPOJO);
 
@@ -118,19 +118,19 @@ public class DatabaseManagement {
         date.setTime(moviePOJO.getReleaseDate());
 
         List<String> themes = new ArrayList<>();
-        List<ThemePOJO> movieThemesPOJO = DAOFactory.getMovieThemeDAO().readFromMovieId(moviePOJO.getMovieId());
+        List<ThemePOJO> movieThemesPOJO = DAOFactory.getMovieThemeDAO().readFromMovieId(moviePOJO.getID());
         movieThemesPOJO.forEach(themePOJO -> themes.add(themePOJO.getName()));
 
         List<String> directors = new ArrayList<>();
-        List<RolePOJO> directorsPOJO = DAOFactory.getRoleDAO().readDirectorsFromMovieId(moviePOJO.getMovieId());
-        directorsPOJO.forEach(rolePOJO -> directors.add(rolePOJO.getName()));
+        List<DirectorPOJO> directorsPOJO = DAOFactory.getDirectorDAO().readFromMovieId(moviePOJO.getID());
+        directorsPOJO.forEach(actorPOJO -> directors.add(actorPOJO.getName()));
 
         Map<String, String> actors = new LinkedHashMap<>();
-        List<RolePOJO> actorsPOJO = DAOFactory.getRoleDAO().readActorsFromMovieId(moviePOJO.getMovieId());
-        actorsPOJO.forEach(rolePOJO -> actors.put(rolePOJO.getName(), rolePOJO.getCharacter()));
+        List<ActorPOJO> actorsPOJO = DAOFactory.getActorDAO().readFromMovieId(moviePOJO.getID());
+        actorsPOJO.forEach(actorPOJO -> actors.put(actorPOJO.getName(), actorPOJO.getCharacter()));
 
         float score = 0f;
-        Set<ScorePOJO> scoresPOJO = DAOFactory.getScoreDAO().readFromMovieId(moviePOJO.getMovieId());
+        Set<ScorePOJO> scoresPOJO = DAOFactory.getScoreDAO().readFromMovieId(moviePOJO.getID());
         for (ScorePOJO scorePOJO : scoresPOJO) {
             score += (float) scorePOJO.getScore();
         }

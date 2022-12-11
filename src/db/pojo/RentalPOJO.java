@@ -5,44 +5,46 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
-@Entity(name = "Rentals")
-@Table(name = "RENTALS", schema = "ALNADHAF", catalog = "")
-public class RentalPOJO {
+@Entity(name = "rentals")
+@Table(name = "rentals", schema = "alnadhaf", catalog = "")
+public class RentalPOJO implements POJO {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "RENTAL_ID")
+    @Column(name = "rental_id")
     private int rentalId;
-    @JoinColumn(name = "MOVIE_ID", referencedColumnName = "MOVIE_ID")
+
     @ManyToOne(optional = false)
+    @JoinColumn(name = "movie_id", referencedColumnName = "movie_id")
     private MoviePOJO movie;
-    @Basic
-    @Column(name = "RENTAL_DATE")
+
+    @Basic(optional = false)
+    @Column(name = "rental_date")
     private Date rentalDate;
 
     @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL)
-    private List<NonSubRentalPOJO> nonSubRentalPOJOList;
+    private List<BluRayRentalPOJO> bluRayRentals;
 
     @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL)
-    private List<BluRayRentalPOJO> bluRayRentalPOJOList;
+    private List<NonSubRentalPOJO> nonSubRentals;
 
     @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL)
-    private List<SubRentalPOJO> subRentalPOJOList;
+    private List<SubRentalPOJO> subRentals;
 
     public RentalPOJO() {
-
+        super();
     }
 
     public RentalPOJO(int rentalId, MoviePOJO movie, Date rentalDate) {
+        super();
         this.rentalId = rentalId;
         this.movie = movie;
         this.rentalDate = rentalDate;
     }
 
-    public int getRentalId() {
+    public int getID() {
         return rentalId;
     }
 
-    public void setRentalId(int rentalId) {
+    public void setID(int rentalId) {
         this.rentalId = rentalId;
     }
 
@@ -54,8 +56,8 @@ public class RentalPOJO {
         this.movie = movie;
     }
 
-    public List<NonSubRentalPOJO> getNonSubRentalPOJOList() {
-        return nonSubRentalPOJOList;
+    public List<NonSubRentalPOJO> getNonSubRentals() {
+        return nonSubRentals;
     }
 
     public Date getRentalDate() {
@@ -75,7 +77,7 @@ public class RentalPOJO {
             return false;
         }
         RentalPOJO that = (RentalPOJO) o;
-        return rentalId == that.rentalId && movie.getMovieId() == that.movie.getMovieId() &&
+        return rentalId == that.rentalId && movie.getID() == that.movie.getID() &&
                Objects.equals(rentalDate, that.rentalDate);
     }
 

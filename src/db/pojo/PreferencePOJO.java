@@ -3,38 +3,42 @@ package db.pojo;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity(name = "Preferences")
-@Table(name = "PREFERENCES", schema = "ALNADHAF", catalog = "")
-public class PreferencePOJO {
+@Entity(name = "preferences")
+@Table(name = "preferences", schema = "alnadhaf", catalog = "")
+public class PreferencePOJO implements POJO {
     @Id
-    @Column(name = "PREFERENCE_ID")
+    @Column(name = "preference_id")
     private int preferenceId;
-    @ManyToOne
-    @JoinColumn(name = "SUBSCRIBER_ID")
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "subscriber_id")
     private SubscriberPOJO subscriber;
-    @ManyToOne
-    @JoinColumn(name = "THEME_ID")
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "theme_id")
     private ThemePOJO theme;
+
     @Basic
-    @Column(name = "FORBIDDEN")
+    @Column(name = "forbidden")
     private boolean forbidden;
 
     public PreferencePOJO() {
-
+        super();
     }
 
     public PreferencePOJO(int preferenceId, SubscriberPOJO subscriber, ThemePOJO theme, boolean forbidden) {
+        super();
         this.preferenceId = preferenceId;
         this.subscriber = subscriber;
         this.theme = theme;
         this.forbidden = forbidden;
     }
 
-    public int getPreferenceId() {
+    public int getID() {
         return preferenceId;
     }
 
-    public void setPreferenceId(int preferenceId) {
+    public void setID(int preferenceId) {
         this.preferenceId = preferenceId;
     }
 
@@ -71,12 +75,12 @@ public class PreferencePOJO {
             return false;
         }
         PreferencePOJO that = (PreferencePOJO) o;
-        return preferenceId == that.preferenceId && subscriber.getSubscriberId() == that.subscriber.getSubscriberId() &&
-               forbidden == that.forbidden && Objects.equals(theme.getThemeId(), that.theme.getThemeId());
+        return preferenceId == that.preferenceId && subscriber.getID() == that.subscriber.getID() &&
+               forbidden == that.forbidden && Objects.equals(theme.getID(), that.theme.getID());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(preferenceId, subscriber.getSubscriberId(), theme.getThemeId(), forbidden);
+        return Objects.hash(preferenceId, subscriber.getID(), theme.getID(), forbidden);
     }
 }

@@ -22,9 +22,9 @@ public class RentalDAO extends DAO<RentalPOJO> {
 
     @Override
     public void delete(RentalPOJO rentalPOJO) {
-        MoviePOJO moviePOJO = DAOFactory.getMovieDAO().read(rentalPOJO.getMovie().getMovieId());
-        if (!moviePOJO.getRentalPOJOList().isEmpty()) {
-            moviePOJO.getRentalPOJOList().remove(rentalPOJO);
+        MoviePOJO moviePOJO = DAOFactory.getMovieDAO().read(rentalPOJO.getMovie().getID());
+        if (!moviePOJO.getRentals().isEmpty()) {
+            moviePOJO.getRentals().remove(rentalPOJO);
             entityManager.merge(moviePOJO);
         }
         executeInsideTransaction(entityManager -> entityManager.remove(rentalPOJO));

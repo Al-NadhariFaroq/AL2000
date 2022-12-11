@@ -4,41 +4,45 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-@Entity(name = "Blu_Rays")
-@Table(name = "BLU_RAYS", schema = "ALNADHAF", catalog = "")
-public class BluRayPOJO {
+@Entity(name = "blu_rays")
+@Table(name = "blu_rays", schema = "alnadhaf", catalog = "")
+public class BluRayPOJO implements POJO {
     @Id
-    @Column(name = "BLU_RAY_ID")
+    @Column(name = "blu_ray_id")
     private int bluRayId;
-    @Basic
-    @Column(name = "SERIAL_NUMBER")
+
+    @Basic(optional = false)
+    @Column(name = "serial_number")
     private int serialNumber;
-    @JoinColumn(name = "MOVIE_ID", referencedColumnName = "MOVIE_ID")
+
     @ManyToOne(optional = false)
+    @JoinColumn(name = "movie_id", referencedColumnName = "movie_id")
     private MoviePOJO movie;
+
     @Basic
-    @Column(name = "POSITION")
+    @Column(name = "position")
     private int position;
 
     @OneToMany(mappedBy = "bluRay", cascade = CascadeType.ALL)
     private List<BluRayRentalPOJO> bluRayRentalPOJOList;
 
     public BluRayPOJO() {
-
+        super();
     }
 
     public BluRayPOJO(int bluRayId, int serialNumber, MoviePOJO movie, int position) {
+        super();
         this.bluRayId = bluRayId;
         this.serialNumber = serialNumber;
         this.movie = movie;
         this.position = position;
     }
 
-    public int getBluRayId() {
+    public int getID() {
         return bluRayId;
     }
 
-    public void setBluRayId(int bluRayId) {
+    public void setID(int bluRayId) {
         this.bluRayId = bluRayId;
     }
 

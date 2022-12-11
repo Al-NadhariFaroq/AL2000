@@ -3,35 +3,37 @@ package db.pojo;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity(name = "Subscriber_Rentals")
-@Table(name = "SUBSCRIBER_RENTALS", schema = "ALNADHAF", catalog = "")
-public class SubRentalPOJO {
+@Entity(name = "subscriber_rentals")
+@Table(name = "subscriber_rentals", schema = "alnadhaf", catalog = "")
+public class SubRentalPOJO implements POJO {
     @Id
-    @Column(name = "SUBSCRIBER_RENTAL_ID")
+    @Column(name = "subscriber_rental_id")
     private int subscriberRentalId;
-    @ManyToOne
-    @JoinColumn(name = "RENTAL_ID")
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "rental_id")
     private RentalPOJO rental;
 
-    @ManyToOne
-    @JoinColumn(name = "SUBSCRIBER_ID")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "subscriber_id")
     private SubscriberPOJO subscriber;
 
     public SubRentalPOJO() {
-
+        super();
     }
 
     public SubRentalPOJO(int subscriberRentalId, RentalPOJO rental, SubscriberPOJO subscriber) {
+        super();
         this.subscriberRentalId = subscriberRentalId;
         this.rental = rental;
         this.subscriber = subscriber;
     }
 
-    public int getSubscriberRentalId() {
+    public int getID() {
         return subscriberRentalId;
     }
 
-    public void setSubscriberRentalId(int subscriberRentalId) {
+    public void setID(int subscriberRentalId) {
         this.subscriberRentalId = subscriberRentalId;
     }
 
@@ -60,12 +62,12 @@ public class SubRentalPOJO {
             return false;
         }
         SubRentalPOJO that = (SubRentalPOJO) o;
-        return subscriberRentalId == that.subscriberRentalId && rental.getRentalId() == that.rental.getRentalId() &&
-               subscriber.getSubscriberId() == that.subscriber.getSubscriberId();
+        return subscriberRentalId == that.subscriberRentalId && rental.getID() == that.rental.getID() &&
+               subscriber.getID() == that.subscriber.getID();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(subscriberRentalId, rental.getRentalId(), subscriber.getSubscriberId());
+        return Objects.hash(subscriberRentalId, rental.getID(), subscriber.getID());
     }
 }

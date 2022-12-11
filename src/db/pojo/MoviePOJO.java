@@ -5,61 +5,73 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
-@Entity(name = "Movies")
-@Table(name = "MOVIES", schema = "ALNADHAF", catalog = "")
-public class MoviePOJO {
+@Entity(name = "movies")
+@Table(name = "movies", schema = "alnadhaf", catalog = "")
+public class MoviePOJO implements POJO {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MOVIE_ID")
+    @Column(name = "movie_id")
     private int movieId;
-    @Basic
-    @Column(name = "TITLE")
+
+    @Basic(optional = false)
+    @Column(name = "title")
     private String title;
-    @Basic
-    @Column(name = "RELEASE_DATE")
+
+    @Basic(optional = false)
+    @Column(name = "release_date")
     private Date releaseDate;
-    @Basic
-    @Column(name = "RATING")
+
+    @Basic(optional = false)
+    @Column(name = "rating")
     private String rating;
-    @Basic
-    @Column(name = "RUNNING_TIME")
+
+    @Basic(optional = false)
+    @Column(name = "running_time")
     private int runningTime;
+
     @Basic
-    @Column(name = "SYNOPSIS")
+    @Column(name = "synopsis")
     private String synopsis;
-    @Basic
-    @Column(name = "LINK_URL")
+
+    @Basic(optional = false)
+    @Column(name = "link_url")
     private String linkURL;
+
     @Basic
-    @Column(name = "POSTER_URL")
+    @Column(name = "poster_url")
     private String posterURL;
-    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    private List<RentalPOJO> rentalPOJOList;
+
+    @OneToMany(targetEntity = MovieThemePOJO.class, mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<ThemePOJO> themes;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    private List<RolePOJO> rolePOJOList;
+    private List<DirectorPOJO> directors;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    private List<BluRayPOJO> bluRayPOJOList;
+    private List<ActorPOJO> actors;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    private List<ScorePOJO> scorePOJOList;
+    private List<ScorePOJO> scores;
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
-    private List<MovieThemePOJO> movieThemePOJOList;
+    private List<RentalPOJO> rentals;
+
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<BluRayPOJO> bluRays;
 
     public MoviePOJO() {
-
+        super();
     }
 
     public MoviePOJO(int movieId,
                      String title,
                      Date releaseDate,
-                     String synopsis,
                      String rating,
+                     int runningTime,
+                     String synopsis,
                      String linkURL,
                      String posterURL
     ) {
+        super();
         this.movieId = movieId;
         this.title = title;
         this.releaseDate = releaseDate;
@@ -70,11 +82,11 @@ public class MoviePOJO {
         this.posterURL = posterURL;
     }
 
-    public int getMovieId() {
+    public int getID() {
         return movieId;
     }
 
-    public void setMovieId(int movieId) {
+    public void setID(int movieId) {
         this.movieId = movieId;
     }
 
@@ -134,16 +146,24 @@ public class MoviePOJO {
         this.posterURL = posterURL;
     }
 
-    public List<RentalPOJO> getRentalPOJOList() {
-        return rentalPOJOList;
+    public List<ThemePOJO> getThemes() {
+        return themes;
     }
 
-    public List<BluRayPOJO> getBluRayPOJOList() {
-        return bluRayPOJOList;
+    public List<DirectorPOJO> getDirectors() {
+        return directors;
     }
 
-    public List<RolePOJO> getRolePOJOList() {
-        return rolePOJOList;
+    public List<ActorPOJO> getActors() {
+        return actors;
+    }
+
+    public List<BluRayPOJO> getBluRays() {
+        return bluRays;
+    }
+
+    public List<RentalPOJO> getRentals() {
+        return rentals;
     }
 
     @Override

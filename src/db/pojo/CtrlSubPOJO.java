@@ -3,36 +3,37 @@ package db.pojo;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity(name = "Controlled_Subscribers")
-@Table(name = "CONTROLLED_SUBSCRIBERS", schema = "ALNADHAF", catalog = "")
-public class CtrlSubPOJO {
+@Entity(name = "controlled_subscribers")
+@Table(name = "controlled_subscribers", schema = "alnadhaf", catalog = "")
+public class CtrlSubPOJO implements POJO {
     @Id
-    @Column(name = "CONTROLLED_SUBSCRIBER_ID")
+    @Column(name = "controlled_subscriber_id")
     private int controlledSubscriberId;
 
-    @JoinColumn(name = "SUBSCRIBER_ID", referencedColumnName = "SUBSCRIBER_ID")
     @ManyToOne(optional = false)
+    @JoinColumn(name = "subscriber_id", referencedColumnName = "subscriber_id")
     private SubscriberPOJO subscriber;
+
     @Basic
-    @Column(name = "IS_CONTROLLED")
+    @Column(name = "is_controlled")
     private boolean isControlled;
 
     public CtrlSubPOJO() {
-
+        super();
     }
 
-    public CtrlSubPOJO(int controlledSubscriberId, SubscriberPOJO subscriber, int subSubscriberId, boolean isControlled
-    ) {
+    public CtrlSubPOJO(int controlledSubscriberId, SubscriberPOJO subscriber, boolean isControlled) {
+        super();
         this.controlledSubscriberId = controlledSubscriberId;
         this.subscriber = subscriber;
         this.isControlled = isControlled;
     }
 
-    public int getControlledSubscriberId() {
+    public int getID() {
         return controlledSubscriberId;
     }
 
-    public void setControlledSubscriberId(int controlledSubscriberId) {
+    public void setID(int controlledSubscriberId) {
         this.controlledSubscriberId = controlledSubscriberId;
     }
 
@@ -61,12 +62,12 @@ public class CtrlSubPOJO {
             return false;
         }
         CtrlSubPOJO that = (CtrlSubPOJO) o;
-        return controlledSubscriberId == that.controlledSubscriberId &&
-               subscriber.getSubscriberId() == that.subscriber.getSubscriberId() && isControlled == that.isControlled;
+        return controlledSubscriberId == that.controlledSubscriberId && subscriber.getID() == that.subscriber.getID() &&
+               isControlled == that.isControlled;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(controlledSubscriberId, subscriber.getSubscriberId(), isControlled);
+        return Objects.hash(controlledSubscriberId, subscriber.getID(), isControlled);
     }
 }

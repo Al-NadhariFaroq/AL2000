@@ -3,40 +3,42 @@ package db.pojo;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity(name = "Scores")
-@Table(name = "SCORES", schema = "ALNADHAF", catalog = "")
-public class ScorePOJO {
+@Entity(name = "scores")
+@Table(name = "scores", schema = "alnadhaf", catalog = "")
+public class ScorePOJO implements POJO {
     @Id
-    @Column(name = "SCORE_ID")
+    @Column(name = "score_id")
     private int scoreId;
 
-    @ManyToOne
-    @JoinColumn(name = "SUBSCRIBER_ID")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "subscriber_id")
     private SubscriberPOJO subscriber;
 
-    @ManyToOne
-    @JoinColumn(name = "MOVIE_ID")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "movie_id")
     private MoviePOJO movie;
-    @Basic
-    @Column(name = "SCORE")
+
+    @Basic(optional = false)
+    @Column(name = "score")
     private int score;
 
     public ScorePOJO() {
-
+        super();
     }
 
     public ScorePOJO(int scoreId, SubscriberPOJO subscriber, MoviePOJO movie, int score) {
+        super();
         this.scoreId = scoreId;
         this.subscriber = subscriber;
         this.movie = movie;
         this.score = score;
     }
 
-    public int getScoreId() {
+    public int getID() {
         return scoreId;
     }
 
-    public void setScoreId(int scoreId) {
+    public void setID(int scoreId) {
         this.scoreId = scoreId;
     }
 
@@ -73,8 +75,8 @@ public class ScorePOJO {
             return false;
         }
         ScorePOJO scorePOJO = (ScorePOJO) o;
-        return scoreId == scorePOJO.scoreId && subscriber.getSubscriberId() == scorePOJO.subscriber.getSubscriberId() &&
-               movie.getMovieId() == scorePOJO.movie.getMovieId() && score == scorePOJO.score;
+        return scoreId == scorePOJO.scoreId && subscriber.getID() == scorePOJO.subscriber.getID() &&
+               movie.getID() == scorePOJO.movie.getID() && score == scorePOJO.score;
     }
 
     @Override

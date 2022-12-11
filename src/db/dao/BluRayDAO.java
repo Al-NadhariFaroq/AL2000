@@ -21,9 +21,9 @@ public class BluRayDAO extends DAO<BluRayPOJO> {
 
     @Override
     public void delete(BluRayPOJO bluRayPOJO) {
-        MoviePOJO moviePOJO = DAOFactory.getMovieDAO().read(bluRayPOJO.getMovie().getMovieId());
-        if (!moviePOJO.getBluRayPOJOList().isEmpty()) {
-            moviePOJO.getBluRayPOJOList().remove(bluRayPOJO);
+        MoviePOJO moviePOJO = DAOFactory.getMovieDAO().read(bluRayPOJO.getMovie().getID());
+        if (!moviePOJO.getBluRays().isEmpty()) {
+            moviePOJO.getBluRays().remove(bluRayPOJO);
             entityManager.merge(moviePOJO);
         }
         executeInsideTransaction(entityManager -> entityManager.remove(bluRayPOJO));

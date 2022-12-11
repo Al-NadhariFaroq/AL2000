@@ -10,7 +10,7 @@
         <class>db.pojo.MoviePOJO</class>
         <class>db.pojo.RentalPOJO</class>
         <class>db.pojo.PreferencePOJO</class>
-        <class>db.pojo.RolePOJO</class>
+        <class>db.pojo.ActorPOJO</class>
         <class>db.pojo.SubscriberPOJO</class>
         <class>db.pojo.ThemePOJO</class>
         <properties>
