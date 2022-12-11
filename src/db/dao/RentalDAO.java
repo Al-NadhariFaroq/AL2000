@@ -3,32 +3,31 @@ package db.dao;
 import db.pojo.MoviePOJO;
 import db.pojo.RentalPOJO;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import java.sql.Date;
 
 public class RentalDAO extends DAO<RentalPOJO> {
+    private static RentalDAO instance;
 
-    protected RentalDAO(EntityManager entityManager) {
-        super(entityManager);
+    private RentalDAO() {
+        super(RentalPOJO.class);
+    }
+
+    public static RentalDAO getInstance() {
+        if (instance == null) {
+            instance = new RentalDAO();
+        }
+        return instance;
     }
 
     @Override
-    public RentalPOJO read(int id) {
-        RentalPOJO rentalPOJO = entityManager.find(RentalPOJO.class, id);
-        if (rentalPOJO == null) {
-            throw new EntityNotFoundException("Can't find restriction for ID " + id);
+    public void delete(RentalPOJO rentalPOJO) {
+        MoviePOJO moviePOJO = DAOFactory.getMovieDAO().read(rentalPOJO.getMovie().getMovieId());
+        if (!moviePOJO.getRentalPOJOList().isEmpty()) {
+            moviePOJO.getRentalPOJOList().remove(rentalPOJO);
+            entityManager.merge(moviePOJO);
         }
-        return rentalPOJO;
-    }
-
-    @Override
-    public int getNextId() {
-        Integer maxId = entityManager.createQuery("select max(rentalId) from Rentals", Integer.class).getSingleResult();
-        if (maxId == null) {
-            return 0;
-        }
-        return maxId + 1;
+        executeInsideTransaction(entityManager -> entityManager.remove(rentalPOJO));
     }
 
     public RentalPOJO readFromMovieAndDate(int movieId, Date date) {
@@ -39,13 +38,4 @@ public class RentalDAO extends DAO<RentalPOJO> {
         }
         return rentalPOJO;
     }
-    public void delete(RentalPOJO rentalPOJO) {
-        MoviePOJO moviePOJO = DAOFactory.getMovieDAO().read(rentalPOJO.getMovie().getMovieId());
-        if(!moviePOJO.getRentalPOJOList().isEmpty()){
-            moviePOJO.getRentalPOJOList().remove(rentalPOJO);
-            entityManager.merge(moviePOJO);
-        }
-        executeInsideTransaction(entityManager -> entityManager.remove(rentalPOJO));
-    }
-
 }

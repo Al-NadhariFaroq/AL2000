@@ -2,33 +2,21 @@ package db.dao;
 
 import db.pojo.MoviePOJO;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import java.sql.Date;
-import java.util.List;
 
 public class MovieDAO extends DAO<MoviePOJO> {
+    private static MovieDAO instance;
 
-    protected MovieDAO(EntityManager entityManager) {
-        super(entityManager);
+    private MovieDAO() {
+        super(MoviePOJO.class);
     }
 
-    @Override
-    public MoviePOJO read(int id) {
-        MoviePOJO moviePOJO = entityManager.find(MoviePOJO.class, id);
-        if (moviePOJO == null) {
-            throw new EntityNotFoundException("Can't find movie for ID " + id);
+    public static MovieDAO getInstance() {
+        if (instance == null) {
+            instance = new MovieDAO();
         }
-        return moviePOJO;
-    }
-
-    @Override
-    public int getNextId() {
-        Integer maxId = entityManager.createQuery("select max(movieId) from Movies", Integer.class).getSingleResult();
-        if (maxId == null) {
-            return 0;
-        }
-        return maxId + 1;
+        return instance;
     }
 
     public MoviePOJO readFromTitleAndDate(String title, Date date) {
@@ -38,10 +26,5 @@ public class MovieDAO extends DAO<MoviePOJO> {
             throw new EntityNotFoundException("Can't find movie for title " + title + " and date " + date);
         }
         return moviePOJO;
-    }
-
-    public List<MoviePOJO> readAll() {
-        List<MoviePOJO> moviesPOJO = entityManager.createQuery("select M from Movies M", MoviePOJO.class).getResultList();
-        return moviesPOJO;
     }
 }

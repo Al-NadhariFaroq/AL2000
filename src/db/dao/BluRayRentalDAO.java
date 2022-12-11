@@ -2,30 +2,17 @@ package db.dao;
 
 import db.pojo.BluRayRentalPOJO;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
-
 public class BluRayRentalDAO extends DAO<BluRayRentalPOJO> {
+    private static BluRayRentalDAO instance;
 
-    protected BluRayRentalDAO(EntityManager entityManager) {
-        super(entityManager);
+    private BluRayRentalDAO() {
+        super(BluRayRentalPOJO.class);
     }
 
-    @Override
-    public BluRayRentalPOJO read(int id) {
-        BluRayRentalPOJO bluRayRentalPOJO = entityManager.find(BluRayRentalPOJO.class, id);
-        if (bluRayRentalPOJO == null) {
-            throw new EntityNotFoundException("Can't find blu-ray rental for ID " + id);
+    public static BluRayRentalDAO getInstance() {
+        if (instance == null) {
+            instance = new BluRayRentalDAO();
         }
-        return bluRayRentalPOJO;
-    }
-
-    @Override
-    public int getNextId() {
-        Integer maxId = entityManager.createQuery("select max(bluRayRentalId) from Blu_Ray_Rentals ", Integer.class).getSingleResult();
-        if (maxId == null) {
-            return 0;
-        }
-        return maxId + 1;
+        return instance;
     }
 }

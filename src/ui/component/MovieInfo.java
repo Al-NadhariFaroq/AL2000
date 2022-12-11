@@ -1,30 +1,47 @@
 package ui.component;
 
 import fc.movie.Movie;
+import fc.movie.Rating;
 import ui.util.GBC;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridBagLayout;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 
-public class MovieInfo extends JScrollPane {
-    private JTextArea titleLbl;
-    private JLabel dateLbl;
-    private JLabel dateValueLbl;
-    private JLabel ratingLbl;
-    private JLabel ratingValueLbl;
-    private JLabel themesLbl;
-    private JTextArea themesNamesLbl;
-    private JLabel directorsLbl;
-    private JTextArea directorsNamesLbl;
-    private JLabel actorsLbl;
-    private JTextArea actorsNamesLbl;
-    private JLabel synopsisLbl;
-    private JTextArea synopsisValueLbl;
-    private JLabel poster;
+public class MovieInfo extends JPanel {
+    private JPanel mainPanel;
+    private final ImageLabel poster;
+    private final JTextPane titleValue;
+    private final JLabel separator1;
+    private final JLabel separator2;
+    private final JLabel ratingValue;
+    private final JLabel dateValue;
+    private final JLabel lengthValue;
+    private final JLabel synopsisLbl;
+    private final JLabel directorsLbl;
+    private final JLabel actorsLbl;
+    private final JTextArea synopsisValue;
+    private final JTextArea themesValues;
+    private final JTextArea directorsValues;
+    private final JTextArea actorsValues;
 
     private Movie movie;
 
@@ -33,45 +50,38 @@ public class MovieInfo extends JScrollPane {
     }
 
     public MovieInfo(Movie movie) {
-        setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        setLayout(new GridBagLayout());
 
-        titleLbl = createTextArea();
-        dateLbl = new JLabel("Release date:");
-        dateValueLbl = new JLabel();
-        ratingLbl = new JLabel("Rating:");
-        ratingValueLbl = new JLabel();
-        themesLbl = new JLabel("Themes:");
-        themesNamesLbl = createTextArea();
-        directorsLbl = new JLabel("Directors:");
-        directorsNamesLbl = createTextArea();
-        actorsLbl = new JLabel("Actors:");
-        actorsNamesLbl = createTextArea();
-        synopsisLbl = new JLabel("Synopsis:");
-        synopsisValueLbl = createTextArea();
-        poster = new JLabel();
+        poster = new ImageLabel();
+        poster.setAutoResizing(ImageLabel.WIDTH);
+        poster.setDefaultText("<html><p style=\"text-align:center;\">no<br>poster<br>available</p>");
 
-        JPanel mainPanel = new JPanel(new GridBagLayout());
-        mainPanel.add(titleLbl, GBC.placeAt(0, 0, 5, 1));
-        mainPanel.add(poster, GBC.placeAt(0, 1, 1, 7));
-        mainPanel.add(dateLbl, GBC.placeAt(1, 1));
-        mainPanel.add(dateValueLbl, GBC.placeAt(2, 1));
-        mainPanel.add(ratingLbl, GBC.placeAt(3, 1));
-        mainPanel.add(ratingValueLbl, GBC.placeAt(4, 1));
-        mainPanel.add(themesLbl, GBC.placeAt(1, 2, 4, 1));
-        mainPanel.add(themesNamesLbl, GBC.placeAt(1, 3, 4, 1));
-        mainPanel.add(directorsLbl, GBC.placeAt(1, 4, 4, 1));
-        mainPanel.add(directorsNamesLbl, GBC.placeAt(1, 5, 4, 1));
-        mainPanel.add(actorsLbl, GBC.placeAt(1, 6, 4, 1));
-        mainPanel.add(actorsNamesLbl, GBC.placeAt(1, 7, 4, 1));
-        mainPanel.add(synopsisLbl, GBC.placeAt(0, 8, 5, 1));
-        mainPanel.add(synopsisValueLbl, GBC.placeAt(0, 9, 5, 1));
+        titleValue = new JTextPane();
+        titleValue.setBackground(getBackground());
+        titleValue.setEditable(false);
 
-        setViewportView(mainPanel);
+        separator1 = new JLabel("•");
+        separator2 = new JLabel("•");
+        ratingValue = new JLabel("", SwingConstants.CENTER);
+        ratingValue.setBorder(BorderFactory.createLineBorder(ratingValue.getForeground(), 1));
+        dateValue = new JLabel();
+        lengthValue = new JLabel();
+        directorsLbl = new JLabel("Directors");
+        actorsLbl = new JLabel("Actors");
+        synopsisLbl = new JLabel("Synopsis");
 
-        if (movie != null) {
-            setMovie(movie);
-        }
+        themesValues = createTextArea(false);
+        directorsValues = createTextArea(true);
+        actorsValues = createTextArea(true);
+        synopsisValue = createTextArea(true);
+
+        add(poster,
+            GBC.placeAt(0, 0).setInsets(40, 20).setWeight(0.05d, 1).setFill(GBC.VERTICAL).setAnchor(GBC.LINE_END)
+        );
+        add(createMainPanel(), GBC.placeAt(1, 0).setWeight(0.95d, 1).setFill(GBC.BOTH));
+
+        setFont(getFont().deriveFont(15f));
+        setMovie(movie);
     }
 
     public Movie getMovie() {
@@ -79,28 +89,146 @@ public class MovieInfo extends JScrollPane {
     }
 
     public void setMovie(Movie movie) {
-        this.movie = movie;
-        titleLbl.setText(movie.getTitle());
-        dateValueLbl.setText(new SimpleDateFormat("dd/MM/yyyy").format(getMovie().getDate().getTime()));
-        ratingValueLbl.setText(movie.getRating().toString());
-        themesNamesLbl.setText(String.join(", ", movie.getThemes()));
-        directorsNamesLbl.setText(String.join(", ", movie.getDirectors()));
-        actorsNamesLbl.setText(String.join(", ", movie.getActors()));
-        synopsisValueLbl.setText(movie.getSynopsis());
-
-        ImageIcon image = null;
-        try {
-            image = new ImageIcon(ImageIO.read(new URL(movie.getPosterURL())));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (movie == null) {
+            movie = new Movie("Movie title",
+                              Calendar.getInstance(),
+                              0,
+                              Rating.UR,
+                              0f,
+                              new ArrayList<>(),
+                              new ArrayList<>(),
+                              new HashMap<>(),
+                              "",
+                              "",
+                              ""
+            );
         }
-        poster.setIcon(image);
+
+        this.movie = movie;
+
+        poster.setImage(null);
+        new Thread(() -> {
+            try {
+                poster.setImage(ImageIO.read(new URL(this.movie.getPosterURL())));
+            } catch (Exception e) {
+                poster.setImage(null);
+            }
+        }).start();
+
+        titleValue.setText(movie.getTitle() + " (" + movie.getReleaseDate().get(Calendar.YEAR) + ")");
+        colorYearTitle();
+
+        ratingValue.setText(" " + movie.getRating().toString() + " ");
+        dateValue.setText(new SimpleDateFormat("dd/MM/yyyy").format(getMovie().getReleaseDate().getTime()));
+        lengthValue.setText(minutesToHours(movie.getRunningTime()));
+        themesValues.setText(String.join(", ", movie.getThemes()));
+        directorsValues.setText(String.join(", ", movie.getDirectors()));
+        actorsValues.setText(String.join(", ", movie.getActors()));
+        synopsisValue.setText(movie.getSynopsis());
     }
 
-    private JTextArea createTextArea() {
+    @Override
+    public void setBackground(Color bg) {
+        if (isBackgroundSet()) {
+            mainPanel.setBackground(bg);
+            for (Component component : mainPanel.getComponents()) {
+                component.setBackground(bg);
+            }
+        }
+        super.setBackground(bg);
+    }
+
+    @Override
+    public void setForeground(Color fg) {
+        if (isForegroundSet()) {
+            poster.setForeground(fg);
+            mainPanel.setForeground(fg);
+            for (Component component : mainPanel.getComponents()) {
+                component.setForeground(fg);
+            }
+            ratingValue.setBorder(BorderFactory.createLineBorder(fg, 1));
+            colorYearTitle();
+        }
+        super.setForeground(fg);
+    }
+
+    @Override
+    public void setFont(Font font) {
+        if (isFontSet()) {
+            poster.setFont(font);
+            for (Component component : mainPanel.getComponents()) {
+                component.setFont(font);
+            }
+            titleValue.setFont(font.deriveFont(Font.BOLD, font.getSize() * 2f));
+            directorsLbl.setFont(font.deriveFont(Font.BOLD, font.getSize() + 1f));
+            actorsLbl.setFont(font.deriveFont(Font.BOLD, font.getSize() + 1f));
+            synopsisLbl.setFont(font.deriveFont(Font.BOLD, font.getSize() + 1f));
+        }
+        super.setFont(font);
+    }
+
+    private String minutesToHours(int length) {
+        int hours = length / 60;
+        int minutes = length % 60;
+        return (hours == 0 ? "" : hours + "h") + (minutes < 10 ? "0" : "") + minutes + "m";
+    }
+
+    private void colorYearTitle() {
+        SimpleAttributeSet attributes = new SimpleAttributeSet();
+        StyleConstants.setForeground(attributes, getForeground().brighter().brighter());
+        StyleConstants.setBold(attributes, false);
+        int offset = titleValue.getDocument().getLength() - 6;
+        titleValue.getStyledDocument().setCharacterAttributes(offset, 6, attributes, false);
+    }
+
+    private JTextArea createTextArea(boolean lineWrap) {
         JTextArea textArea = new JTextArea();
+        textArea.setLineWrap(lineWrap);
+        textArea.setWrapStyleWord(lineWrap);
         textArea.setBackground(getBackground());
         textArea.setEditable(false);
         return textArea;
+    }
+
+    private JPanel createMainPanel() {
+        JScrollPane scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                                                 ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
+        );
+        scrollPane.getVerticalScrollBar().setUnitIncrement(20);
+
+        mainPanel = new JPanel(new GridBagLayout()) {
+            @Override
+            public Dimension getPreferredSize() {
+                Dimension size = super.getPreferredSize();
+                size.width = scrollPane.getViewport().getSize().width;
+                return size;
+            }
+        };
+        scrollPane.setViewportView(mainPanel);
+
+        GBC gbc = GBC.placeAt(0, 0, 6, 1)
+                     .setInsets(40, 20, 0, 20)
+                     .setWeightX(1)
+                     .setFill(GBC.HORIZONTAL)
+                     .setAnchor(GBC.LINE_START);
+        mainPanel.add(titleValue, gbc);
+
+        gbc = GBC.placeAt(GBC.RELATIVE, 1, true);
+        mainPanel.add(ratingValue, gbc.setIpadX(3).setInsets(0, 20, 0, 10));
+        mainPanel.add(dateValue, gbc);
+        mainPanel.add(separator1, gbc.setInsets(0, 10));
+        mainPanel.add(themesValues, gbc);
+        mainPanel.add(separator2, gbc.setInsets(0, 10));
+        mainPanel.add(lengthValue, gbc.setInsets(0, 0, 0, 20).setWeightX(1).setAnchor(GBC.LINE_START));
+
+        gbc = GBC.placeAt(0, GBC.RELATIVE, 6, 1).setFill(GBC.HORIZONTAL).setAnchor(GBC.LINE_START);
+        mainPanel.add(directorsLbl, gbc.setInsets(20, 20, 5, 20));
+        mainPanel.add(directorsValues, gbc.setInsets(0, 20, 0, 20));
+        mainPanel.add(actorsLbl, gbc.setInsets(20, 20, 5, 20));
+        mainPanel.add(actorsValues, gbc.setInsets(0, 20, 0, 20));
+        mainPanel.add(synopsisLbl, gbc.setInsets(20, 20, 5, 20));
+        mainPanel.add(synopsisValue, gbc.setInsets(0, 20, 40, 20));
+
+        return mainPanel;
     }
 }

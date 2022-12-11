@@ -9,6 +9,7 @@ import java.util.Objects;
 @Table(name = "MOVIES", schema = "ALNADHAF", catalog = "")
 public class MoviePOJO {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MOVIE_ID")
     private int movieId;
     @Basic
@@ -18,41 +19,53 @@ public class MoviePOJO {
     @Column(name = "RELEASE_DATE")
     private Date releaseDate;
     @Basic
-    @Column(name = "SYNOPSIS")
-    private String synopsis;
-    @Basic
     @Column(name = "RATING")
     private String rating;
+    @Basic
+    @Column(name = "RUNNING_TIME")
+    private int runningTime;
+    @Basic
+    @Column(name = "SYNOPSIS")
+    private String synopsis;
     @Basic
     @Column(name = "LINK_URL")
     private String linkURL;
     @Basic
     @Column(name = "POSTER_URL")
     private String posterURL;
-    @OneToMany(mappedBy="movie", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<RentalPOJO> rentalPOJOList;
 
-    @OneToMany(mappedBy="movie", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<RolePOJO> rolePOJOList;
 
-    @OneToMany(mappedBy="movie", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<BluRayPOJO> bluRayPOJOList;
 
-    @OneToMany(mappedBy="movie", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<ScorePOJO> scorePOJOList;
 
-    @OneToMany(mappedBy="movie", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
     private List<MovieThemePOJO> movieThemePOJOList;
+
     public MoviePOJO() {
 
     }
 
-    public MoviePOJO(int movieId, String title, Date releaseDate, String synopsis, String rating, String linkURL, String posterURL) {
+    public MoviePOJO(int movieId,
+                     String title,
+                     Date releaseDate,
+                     String synopsis,
+                     String rating,
+                     String linkURL,
+                     String posterURL
+    ) {
         this.movieId = movieId;
         this.title = title;
         this.releaseDate = releaseDate;
-        this.synopsis = synopsis;
         this.rating = rating;
+        this.runningTime = runningTime;
+        this.synopsis = synopsis;
         this.linkURL = linkURL;
         this.posterURL = posterURL;
     }
@@ -81,20 +94,28 @@ public class MoviePOJO {
         this.releaseDate = releaseDate;
     }
 
-    public String getSynopsis() {
-        return synopsis;
-    }
-
-    public void setSynopsis(String synopsis) {
-        this.synopsis = synopsis;
-    }
-
     public String getRating() {
         return rating;
     }
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public int getRunningTime() {
+        return runningTime;
+    }
+
+    public void setRunningTime(int runningTime) {
+        this.runningTime = runningTime;
+    }
+
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
     }
 
     public String getLinkURL() {
@@ -112,13 +133,16 @@ public class MoviePOJO {
     public void setPosterURL(String posterURL) {
         this.posterURL = posterURL;
     }
-    public List<RentalPOJO> getRentalPOJOList(){
+
+    public List<RentalPOJO> getRentalPOJOList() {
         return rentalPOJOList;
     }
-    public List<BluRayPOJO> getBluRayPOJOList(){
+
+    public List<BluRayPOJO> getBluRayPOJOList() {
         return bluRayPOJOList;
     }
-    public List<RolePOJO> getRolePOJOList(){
+
+    public List<RolePOJO> getRolePOJOList() {
         return rolePOJOList;
     }
 
@@ -131,14 +155,14 @@ public class MoviePOJO {
             return false;
         }
         MoviePOJO moviePOJO = (MoviePOJO) o;
-        return movieId == moviePOJO.movieId && Objects.equals(title, moviePOJO.title) &&
-               Objects.equals(releaseDate, moviePOJO.releaseDate) && Objects.equals(synopsis, moviePOJO.synopsis) &&
-               Objects.equals(rating, moviePOJO.rating) && Objects.equals(linkURL, moviePOJO.linkURL) &&
-               Objects.equals(posterURL, moviePOJO.posterURL);
+        return movieId == moviePOJO.movieId && runningTime == moviePOJO.runningTime &&
+               Objects.equals(title, moviePOJO.title) && Objects.equals(releaseDate, moviePOJO.releaseDate) &&
+               Objects.equals(rating, moviePOJO.rating) && Objects.equals(synopsis, moviePOJO.synopsis) &&
+               Objects.equals(linkURL, moviePOJO.linkURL) && Objects.equals(posterURL, moviePOJO.posterURL);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(movieId, title, releaseDate, synopsis, rating, linkURL, posterURL);
+        return Objects.hash(movieId, title, releaseDate, rating, runningTime, synopsis, linkURL, posterURL);
     }
 }

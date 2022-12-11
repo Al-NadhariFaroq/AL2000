@@ -1,82 +1,73 @@
-DELETE FROM Blu_rays;
-DELETE FROM Roles;
-DELETE FROM Movies_Themes;
-DELETE FROM Movies;
-DELETE FROM Themes;
+DELETE FROM blu_rays;
+DELETE FROM actors;
+DELETE FROM directors;
+DELETE FROM movies_themes;
+DELETE FROM movies;
+DELETE FROM themes;
 
 /*************************************************************/
 /*************************  Themes  **************************/
 /*************************************************************/
 
-INSERT INTO Themes
-VALUES (1, 'Action');
-INSERT INTO Themes
-VALUES (2, 'Adventure');
-INSERT INTO Themes
-VALUES (3, 'Animation');
-INSERT INTO Themes
-VALUES (4, 'Anime');
-INSERT INTO Themes
-VALUES (5, 'Anthology');
-INSERT INTO Themes
-VALUES (6, 'Comedy');
-INSERT INTO Themes
-VALUES (7, 'Crime');
-INSERT INTO Themes
-VALUES (8, 'Documentary');
-INSERT INTO Themes
-VALUES (9, 'Drama');
-INSERT INTO Themes
-VALUES (10, 'Fantastique');
-INSERT INTO Themes
-VALUES (11, 'Fantasy');
-INSERT INTO Themes
-VALUES (12, 'Historical');
-INSERT INTO Themes
-VALUES (13, 'Horror');
-INSERT INTO Themes
-VALUES (14, 'Musical');
-INSERT INTO Themes
-VALUES (15, 'Romance');
-INSERT INTO Themes
-VALUES (16, 'Science fiction');
-INSERT INTO Themes
-VALUES (17, 'Thriller');
-INSERT INTO Themes
-VALUES (18, 'Western');
+INSERT INTO themes VALUES (1, 'Action');
+INSERT INTO themes VALUES (2, 'Adventure');
+INSERT INTO themes VALUES (3, 'Animation');
+INSERT INTO themes VALUES (4, 'Anime');
+INSERT INTO themes VALUES (5, 'Anthology');
+INSERT INTO themes VALUES (6, 'Comedy');
+INSERT INTO themes VALUES (7, 'Crime');
+INSERT INTO themes VALUES (8, 'Documentary');
+INSERT INTO themes VALUES (9, 'Drama');
+INSERT INTO themes VALUES (10, 'Fantastique');
+INSERT INTO themes VALUES (11, 'Fantasy');
+INSERT INTO themes VALUES (12, 'Historical');
+INSERT INTO themes VALUES (13, 'Horror');
+INSERT INTO themes VALUES (14, 'Musical');
+INSERT INTO themes VALUES (15, 'Romance');
+INSERT INTO themes VALUES (16, 'Science Fiction');
+INSERT INTO themes VALUES (17, 'Thriller');
+INSERT INTO themes VALUES (18, 'Western');
 
 /*************************************************************/
 /*************************  MOVIES  **************************/
 /*************************************************************/
 
-INSERT INTO Movies
-VALUES (0, 'Avatar', to_date('16-12-2009', 'dd-mm-yyyy'),
-        'A paraplegic Marine is dispatched to the moon Pandora on a unique mission.', 'PG13',
-        'https://myflixer.to/watch-movie/avatar-19690.5297449',
-        'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg');
-INSERT INTO Movies
-VALUES (1, 'Avatar: The Way of Water', to_date('14-12-2022', 'dd-mm-yyyy'),
-        'Set more than a decade after the events of the first film, learn the story of the Sully family.', 'PG13',
-        'null',
-        'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg');
- INSERT INTO Movies
- VALUES ( 100, 'Baby Driver', to_date('19/07/2017'),
-         'After being coerced into working for a crime boss, a young getaway driver finds himself taking part in a heist doomed to fail.', 'PG13',
-                             'https://myflixer.to/watch-movie/baby-driver-19604.5297575',
-                             'https://www.themoviedb.org/t/p/original/uR7Z2TWMLyZHaFFQV6Rv9aEmRR0.jpg');
+INSERT INTO movies
+VALUES (0,
+		'Avatar',
+		TO_DATE('16/12/2009'),
+		162,
+		'PG13',
+		'A paraplegic Marine is dispatched to the moon Pandora on a unique mission.',
+		'https://myflixer.to/watch-movie/avatar-19690.5297449',
+		'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg');
+INSERT INTO movies
+VALUES (1,
+		'Avatar: The Way of Water',
+		TO_DATE('14/12/2022'),
+		192,
+		'PG13',
+		'Set more than a decade after the events of the first film, learn the story of the Sully family.',
+		'Not disponible yet',
+		'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg');
+INSERT INTO movies
+VALUES (2,
+		'Baby Driver',
+		TO_DATE('19/07/2017'),
+		113,
+		'R',
+		'After being coerced into working for a crime boss, a young getaway driver finds himself taking part in a heist doomed to fail.',
+		'https://myflixer.to/watch-movie/baby-driver-19604.5297575',
+		'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/rmnQ9jKW72bHu8uKlMjPIb2VLMI.jpg');
+
 /*************************************************************/
 /************************  BLU-RAYS  *************************/
 /*************************************************************/
 
-INSERT INTO Blu_Rays
-VALUES (0, 100000001, 0, 0);
-INSERT INTO Blu_Rays
-VALUES (1, 100000002, 1, 1);
-INSERT INTO Blu_Rays
-VALUES (2, 100000003, 0, 2);
-INSERT INTO blu_rays
-VALUES (3,100000003,100,1);
-
+INSERT INTO blu_rays VALUES (0, 100000001, 0, 0);
+INSERT INTO blu_rays VALUES (1, 100000002, 1, 1);
+INSERT INTO blu_rays VALUES (2, 100000003, 0, 2);
+INSERT INTO blu_rays VALUES (3, 100000004, 2, 3);
 
 /*************************************************************/
 /************************ SUBSCRIBERS ************************/
@@ -97,62 +88,45 @@ VALUES (3,100000003,100,1);
 -- INSERT INTO blu_ray_rentals VALUES ();
 
 /*************************************************************/
-/**************************  ROLES  **************************/
+/************************  DIRECTORS  ************************/
 /*************************************************************/
-INSERT INTO ROLES
-VALUES (105,100,'Edgar Wright', -1,1,NULL);
-INSERT INTO ROLES
-VALUES (107,100,'Ansel Elgort', 0,0,'Baby');
-INSERT INTO ROLES
-VALUES (107,100,'Kevin Spacey', 0,0,'Doc');
-INSERT INTO ROLES
-VALUES (107,100,'Lily James', 0,0,'Debora');
 
-INSERT INTO ROLES
-VALUES (0, 0, 'James Cameron', -1, 1, NULL);
-INSERT INTO ROLES
-VALUES (1, 0, 'Sam Worthington', 1, -1, 'Jake Sully');
-INSERT INTO ROLES
-VALUES (2, 0, 'Zoe Saldana', 2, -1, 'Neytiri');
-INSERT INTO ROLES
-VALUES (3, 0, 'Sigourney Weaver', 3, -1, 'Dr. Grace Augustine');
-INSERT INTO ROLES
-VALUES (4, 0, 'Stephen Lang', 4, -1, 'Colonel Miles Quaritch');
-INSERT INTO ROLES
-VALUES (5, 0, 'Michelle Rodriguez', 5, -1, 'Trudy Chacon');
-INSERT INTO ROLES
-VALUES (6, 1, 'James Cameron', -1, 1, NULL);
-INSERT INTO ROLES
-VALUES (7, 1, 'Sam Worthington', 1, -1, 'Jake Sully');
-INSERT INTO ROLES
-VALUES (8, 1, 'Zoe Saldana', 2, -1, 'Neytiri');
-INSERT INTO ROLES
-VALUES (9, 1, 'Sigourney Weaver', 3, -1, 'Dr. Grace Augustine');
-INSERT INTO ROLES
-VALUES (10, 1, 'Stephen Lang', 4, -1, 'Colonel Miles Quaritch');
-INSERT INTO ROLES
-VALUES (11, 1, 'Kate Winslet', 5, -1, 'Ronal');
+INSERT INTO directors VALUES (0, 0, 'James Cameron', 1);
+INSERT INTO directors VALUES (1, 1, 'James Cameron', 1);
+INSERT INTO directors VALUES (2, 2, 'Edgar Wright', 1);
+
+/*************************************************************/
+/**************************  ACTORS  *************************/
+/*************************************************************/
+
+INSERT INTO actors VALUES (0, 0, 'Sam Worthington', 1, 'Jake Sully');
+INSERT INTO actors VALUES (1, 0, 'Zoe Saldana', 2, 'Neytiri');
+INSERT INTO actors VALUES (2, 0, 'Sigourney Weaver', 3, 'Dr. Grace Augustine');
+INSERT INTO actors VALUES (3, 0, 'Stephen Lang', 4, 'Colonel Miles Quaritch');
+INSERT INTO actors VALUES (4, 0, 'Michelle Rodriguez', 5, 'Trudy Chacon');
+INSERT INTO actors VALUES (5, 1, 'Sam Worthington', 1, 'Jake Sully');
+INSERT INTO actors VALUES (6, 1, 'Zoe Saldana', 2, 'Neytiri');
+INSERT INTO actors VALUES (7, 1, 'Sigourney Weaver', 3, 'Dr. Grace Augustine');
+INSERT INTO actors VALUES (8, 1, 'Stephen Lang', 4, 'Colonel Miles Quaritch');
+INSERT INTO actors VALUES (9, 1, 'Kate Winslet', 5, 'Ronal');
+INSERT INTO actors VALUES (10, 2, 'Ansel Elgort', 1, 'Miles "Baby"');
+INSERT INTO actors VALUES (11, 2, 'Kevin Spacey', 2, 'Doc');
+INSERT INTO actors VALUES (12, 2, 'Lily James', 3, 'Debora');
+INSERT INTO actors VALUES (13, 2, 'Jon Hamm', 4, 'Jason "Buddy" Van Horn');
+INSERT INTO actors VALUES (14, 2, 'Jamie Foxx', 5, 'Leon "Bats" Jefferson III');
 
 /*************************************************************/
 /**********************  MOVIES THEMES  **********************/
 /*************************************************************/
-INSERT INTO Movies_themes
-VALUES (100,7);
-INSERT INTO Movies_themes
-VALUES (100,1);
 
-INSERT INTO movies_themes
-VALUES (0, 0, 16, 1);
-INSERT INTO movies_themes
-VALUES (1, 0, 1, 2);
-INSERT INTO movies_themes
-VALUES (2, 0, 2, 3);
-INSERT INTO movies_themes
-VALUES (3, 1, 16, 1);
-INSERT INTO movies_themes
-VALUES (4, 1, 1, 2);
-INSERT INTO movies_themes
-VALUES (5, 1, 2, 3);
+INSERT INTO movies_themes VALUES (0, 0, 16, 1);
+INSERT INTO movies_themes VALUES (1, 0, 1, 2);
+INSERT INTO movies_themes VALUES (2, 0, 2, 3);
+INSERT INTO movies_themes VALUES (3, 1, 16, 1);
+INSERT INTO movies_themes VALUES (4, 1, 1, 2);
+INSERT INTO movies_themes VALUES (5, 1, 2, 3);
+INSERT INTO movies_themes VALUES (6, 2, 1, 1);
+INSERT INTO movies_themes VALUES (7, 2, 7, 2);
 
 /*************************************************************/
 /***********************  PREFERENCES  ***********************/

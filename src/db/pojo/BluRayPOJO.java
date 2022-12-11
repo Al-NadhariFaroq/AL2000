@@ -13,21 +13,21 @@ public class BluRayPOJO {
     @Basic
     @Column(name = "SERIAL_NUMBER")
     private int serialNumber;
-    @JoinColumn(name="MOVIE_ID", referencedColumnName = "MOVIE_ID")
+    @JoinColumn(name = "MOVIE_ID", referencedColumnName = "MOVIE_ID")
     @ManyToOne(optional = false)
     private MoviePOJO movie;
     @Basic
     @Column(name = "POSITION")
     private int position;
 
-    @OneToMany(mappedBy="bluRay", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "bluRay", cascade = CascadeType.ALL)
     private List<BluRayRentalPOJO> bluRayRentalPOJOList;
 
     public BluRayPOJO() {
 
     }
 
-    public BluRayPOJO(int bluRayId,int serialNumber, MoviePOJO movie, int position) {
+    public BluRayPOJO(int bluRayId, int serialNumber, MoviePOJO movie, int position) {
         this.bluRayId = bluRayId;
         this.serialNumber = serialNumber;
         this.movie = movie;
@@ -53,6 +53,7 @@ public class BluRayPOJO {
     public MoviePOJO getMovie() {
         return movie;
     }
+
     public void setMovie(MoviePOJO movie) {
         this.movie = movie;
     }

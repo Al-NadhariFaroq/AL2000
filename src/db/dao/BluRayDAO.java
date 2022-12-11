@@ -2,35 +2,31 @@ package db.dao;
 
 import db.pojo.BluRayPOJO;
 import db.pojo.MoviePOJO;
-import db.pojo.RolePOJO;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
-import java.util.HashSet;
-import java.util.Set;
 
 public class BluRayDAO extends DAO<BluRayPOJO> {
+    private static BluRayDAO instance;
 
-    protected BluRayDAO(EntityManager entityManager) {
-        super(entityManager);
+    private BluRayDAO() {
+        super(BluRayPOJO.class);
+    }
+
+    public static BluRayDAO getInstance() {
+        if (instance == null) {
+            instance = new BluRayDAO();
+        }
+        return instance;
     }
 
     @Override
-    public BluRayPOJO read(int id) {
-        BluRayPOJO bluRayPOJO = entityManager.find(BluRayPOJO.class, id);
-        if (bluRayPOJO == null) {
-            throw new EntityNotFoundException("Can't find blu-ray for ID " + id);
+    public void delete(BluRayPOJO bluRayPOJO) {
+        MoviePOJO moviePOJO = DAOFactory.getMovieDAO().read(bluRayPOJO.getMovie().getMovieId());
+        if (!moviePOJO.getBluRayPOJOList().isEmpty()) {
+            moviePOJO.getBluRayPOJOList().remove(bluRayPOJO);
+            entityManager.merge(moviePOJO);
         }
-        return bluRayPOJO;
-    }
-
-    @Override
-    public int getNextId() {
-        Integer maxId = entityManager.createQuery("select max(bluRayId) from Blu_Rays", Integer.class).getSingleResult();
-        if (maxId == null) {
-            return 0;
-        }
-        return maxId + 1;
+        executeInsideTransaction(entityManager -> entityManager.remove(bluRayPOJO));
     }
 
     public BluRayPOJO readFromSerialNumber(int serialNumber) {
@@ -40,20 +36,5 @@ public class BluRayDAO extends DAO<BluRayPOJO> {
             throw new EntityNotFoundException("Can't find blu-ray for serial number " + serialNumber);
         }
         return bluRayPOJO;
-    }
-
-    public Set<BluRayPOJO> readAll() {
-        Set<BluRayPOJO> bluRaysPOJO = new HashSet<>();
-        // TODO read all blu-rays
-        return bluRaysPOJO;
-    }
-
-    public void delete(BluRayPOJO bluRayPOJO) {
-        MoviePOJO moviePOJO = DAOFactory.getMovieDAO().read(bluRayPOJO.getMovie().getMovieId());
-        if(!moviePOJO.getBluRayPOJOList().isEmpty()){
-            moviePOJO.getBluRayPOJOList().remove(bluRayPOJO);
-            entityManager.merge(moviePOJO);
-        }
-        executeInsideTransaction(entityManager -> entityManager.remove(bluRayPOJO));
     }
 }

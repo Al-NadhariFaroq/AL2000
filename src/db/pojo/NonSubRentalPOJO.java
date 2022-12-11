@@ -12,7 +12,7 @@ public class NonSubRentalPOJO {
     @Column(name = "NON_SUBSCRIBER_RENTAL_ID")
     private int nonSubscriberRentalId;
 
-    @JoinColumn(name="RENTAL_ID", referencedColumnName = "RENTAL_ID")
+    @JoinColumn(name = "RENTAL_ID", referencedColumnName = "RENTAL_ID")
     @ManyToOne(optional = false)
     private RentalPOJO rental;
     @Basic
@@ -23,7 +23,7 @@ public class NonSubRentalPOJO {
 
     }
 
-    public NonSubRentalPOJO(int nonSubscriberRentalId,RentalPOJO rental, int creditCardNumber) {
+    public NonSubRentalPOJO(int nonSubscriberRentalId, RentalPOJO rental, int creditCardNumber) {
         this.nonSubscriberRentalId = nonSubscriberRentalId;
         this.rental = rental;
         this.creditCardNumber = creditCardNumber;
@@ -62,8 +62,8 @@ public class NonSubRentalPOJO {
             return false;
         }
         NonSubRentalPOJO that = (NonSubRentalPOJO) o;
-        return nonSubscriberRentalId == that.nonSubscriberRentalId && rental.getRentalId() == that.rental.getRentalId() &&
-               creditCardNumber == that.creditCardNumber;
+        return nonSubscriberRentalId == that.nonSubscriberRentalId &&
+               rental.getRentalId() == that.rental.getRentalId() && creditCardNumber == that.creditCardNumber;
     }
 
     @Override

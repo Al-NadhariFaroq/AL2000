@@ -9,7 +9,7 @@ public class RolePOJO {
     @Id
     @Column(name = "ROLE_ID")
     private int roleId;
-    @JoinColumn(name="MOVIE_ID", referencedColumnName = "MOVIE_ID")
+    @JoinColumn(name = "MOVIE_ID", referencedColumnName = "MOVIE_ID")
     @ManyToOne(optional = false)
     private MoviePOJO movie;
     @Basic
@@ -29,7 +29,7 @@ public class RolePOJO {
 
     }
 
-    public RolePOJO(int roleId,MoviePOJO movie, String name, int actorRank, int directorRank, String character) {
+    public RolePOJO(int roleId, MoviePOJO movie, String name, int actorRank, int directorRank, String character) {
         this.roleId = roleId;
         this.movie = movie;
         this.name = name;
@@ -49,6 +49,7 @@ public class RolePOJO {
     public MoviePOJO getMovie() {
         return movie;
     }
+
     public void setMovie(MoviePOJO movie) {
         this.movie = movie;
     }
@@ -94,9 +95,9 @@ public class RolePOJO {
             return false;
         }
         RolePOJO rolePOJO = (RolePOJO) o;
-        return roleId == rolePOJO.roleId && movie.getMovieId() == rolePOJO.movie.getMovieId() && actorRank == rolePOJO.actorRank &&
-               directorRank == rolePOJO.directorRank && Objects.equals(name, rolePOJO.name) &&
-               Objects.equals(character, rolePOJO.character);
+        return roleId == rolePOJO.roleId && movie.getMovieId() == rolePOJO.movie.getMovieId() &&
+               actorRank == rolePOJO.actorRank && directorRank == rolePOJO.directorRank &&
+               Objects.equals(name, rolePOJO.name) && Objects.equals(character, rolePOJO.character);
     }
 
     @Override

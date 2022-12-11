@@ -10,7 +10,7 @@ public class CtrlSubPOJO {
     @Column(name = "CONTROLLED_SUBSCRIBER_ID")
     private int controlledSubscriberId;
 
-    @JoinColumn(name="SUBSCRIBER_ID", referencedColumnName = "SUBSCRIBER_ID")
+    @JoinColumn(name = "SUBSCRIBER_ID", referencedColumnName = "SUBSCRIBER_ID")
     @ManyToOne(optional = false)
     private SubscriberPOJO subscriber;
     @Basic
@@ -21,7 +21,8 @@ public class CtrlSubPOJO {
 
     }
 
-    public CtrlSubPOJO(int controlledSubscriberId, SubscriberPOJO subscriber, int subSubscriberId, boolean isControlled) {
+    public CtrlSubPOJO(int controlledSubscriberId, SubscriberPOJO subscriber, int subSubscriberId, boolean isControlled
+    ) {
         this.controlledSubscriberId = controlledSubscriberId;
         this.subscriber = subscriber;
         this.isControlled = isControlled;
@@ -60,8 +61,8 @@ public class CtrlSubPOJO {
             return false;
         }
         CtrlSubPOJO that = (CtrlSubPOJO) o;
-        return controlledSubscriberId == that.controlledSubscriberId && subscriber.getSubscriberId() == that.subscriber.getSubscriberId() &&
-                isControlled == that.isControlled;
+        return controlledSubscriberId == that.controlledSubscriberId &&
+               subscriber.getSubscriberId() == that.subscriber.getSubscriberId() && isControlled == that.isControlled;
     }
 
     @Override

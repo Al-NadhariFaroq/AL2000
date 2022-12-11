@@ -23,7 +23,7 @@ public class PreferencePOJO {
 
     }
 
-    public PreferencePOJO(int preferenceId,SubscriberPOJO subscriber, ThemePOJO theme, boolean forbidden) {
+    public PreferencePOJO(int preferenceId, SubscriberPOJO subscriber, ThemePOJO theme, boolean forbidden) {
         this.preferenceId = preferenceId;
         this.subscriber = subscriber;
         this.theme = theme;
@@ -71,8 +71,8 @@ public class PreferencePOJO {
             return false;
         }
         PreferencePOJO that = (PreferencePOJO) o;
-        return preferenceId == that.preferenceId && subscriber.getSubscriberId() == that.subscriber.getSubscriberId() && forbidden == that.forbidden &&
-               Objects.equals(theme.getThemeId(), that.theme.getThemeId());
+        return preferenceId == that.preferenceId && subscriber.getSubscriberId() == that.subscriber.getSubscriberId() &&
+               forbidden == that.forbidden && Objects.equals(theme.getThemeId(), that.theme.getThemeId());
     }
 
     @Override

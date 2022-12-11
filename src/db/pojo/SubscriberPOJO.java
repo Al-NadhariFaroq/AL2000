@@ -9,6 +9,7 @@ import java.util.Objects;
 @Table(name = "SUBSCRIBERS", schema = "ALNADHAF", catalog = "")
 public class SubscriberPOJO {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SUBSCRIBER_ID")
     private int subscriberId;
     @Basic
@@ -32,22 +33,24 @@ public class SubscriberPOJO {
     @Basic
     @Column(name = "BALANCE")
     private float balance;
-    @OneToMany(mappedBy="subscriber", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
     private List<CtrlSubPOJO> controlledSubscriber;
 
-    @OneToMany(mappedBy="subscriber", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
     private List<ScorePOJO> scorePOJOList;
 
-    @OneToMany(mappedBy="subscriber", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
     private List<SubRentalPOJO> subRentalPOJOList;
 
-    @OneToMany(mappedBy="subscriber", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
     private List<PreferencePOJO> preferencePOJOList;
+
     public SubscriberPOJO() {
 
     }
 
-    public SubscriberPOJO(int subscriberId,int subscriptionCardNumber,
+    public SubscriberPOJO(int subscriberId,
+                          int subscriptionCardNumber,
                           int creditCardNumber,
                           String firstName,
                           String lastName,
@@ -128,9 +131,11 @@ public class SubscriberPOJO {
     public void setBalance(float balance) {
         this.balance = balance;
     }
-    public List<CtrlSubPOJO> getControlledSubcriberList(){
+
+    public List<CtrlSubPOJO> getControlledSubcriberList() {
         return controlledSubscriber;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

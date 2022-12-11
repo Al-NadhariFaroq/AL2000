@@ -68,7 +68,8 @@ public class CardInteraction implements ActionListener {
                       .subscription(subscriptionPanel.getMailText().getText(),
                                     subscriptionPanel.getFirstNameText().getText(),
                                     subscriptionPanel.getLastNameText().getText(),
-                                    date, preferences
+                                    date,
+                                    preferences
                       );
                 }
                 break;

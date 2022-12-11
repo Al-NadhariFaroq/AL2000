@@ -1,36 +1,33 @@
 package db.dao;
 
 import db.pojo.MoviePOJO;
-import db.pojo.RentalPOJO;
 import db.pojo.RolePOJO;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoleDAO extends DAO<RolePOJO> {
+    private static RoleDAO instance;
 
-    protected RoleDAO(EntityManager entityManager) {
-        super(entityManager);
+    private RoleDAO() {
+        super(RolePOJO.class);
+    }
+
+    public static RoleDAO getInstance() {
+        if (instance == null) {
+            instance = new RoleDAO();
+        }
+        return instance;
     }
 
     @Override
-    public RolePOJO read(int id) {
-        RolePOJO rolePOJO = entityManager.find(RolePOJO.class, id);
-        if (rolePOJO == null) {
-            throw new EntityNotFoundException("Can't find restriction for ID " + id);
+    public void delete(RolePOJO rolePOJO) {
+        MoviePOJO moviePOJO = DAOFactory.getMovieDAO().read(rolePOJO.getMovie().getMovieId());
+        if (!moviePOJO.getRolePOJOList().isEmpty()) {
+            moviePOJO.getRolePOJOList().remove(rolePOJO);
+            entityManager.merge(moviePOJO);
         }
-        return rolePOJO;
-    }
-
-    @Override
-    public int getNextId() {
-        Integer maxId = entityManager.createQuery("select max(roleId) from Roles", Integer.class).getSingleResult();
-        if (maxId == null) {
-            return 0;
-        }
-        return maxId + 1;
+        executeInsideTransaction(entityManager -> entityManager.remove(rolePOJO));
     }
 
     public List<RolePOJO> readDirectorsFromMovieId(int movieId) {
@@ -43,13 +40,5 @@ public class RoleDAO extends DAO<RolePOJO> {
         List<RolePOJO> rolesPOJO = new ArrayList<>();
         // TODO find all actors from a movie ID order by actor_rank
         return rolesPOJO;
-    }
-    public void delete(RolePOJO rolePOJO) {
-        MoviePOJO moviePOJO = DAOFactory.getMovieDAO().read(rolePOJO.getMovie().getMovieId());
-        if(!moviePOJO.getRolePOJOList().isEmpty()){
-            moviePOJO.getRolePOJOList().remove(rolePOJO);
-            entityManager.merge(moviePOJO);
-        }
-        executeInsideTransaction(entityManager -> entityManager.remove(rolePOJO));
     }
 }

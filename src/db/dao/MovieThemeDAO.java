@@ -3,33 +3,21 @@ package db.dao;
 import db.pojo.MovieThemePOJO;
 import db.pojo.ThemePOJO;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MovieThemeDAO extends DAO<MovieThemePOJO> {
+    private static MovieThemeDAO instance;
 
-    protected MovieThemeDAO(EntityManager entityManager) {
-        super(entityManager);
+    private MovieThemeDAO() {
+        super(MovieThemePOJO.class);
     }
 
-    @Override
-    public MovieThemePOJO read(int id) {
-        MovieThemePOJO movieThemePOJO = entityManager.find(MovieThemePOJO.class, id);
-        if (movieThemePOJO == null) {
-            throw new EntityNotFoundException("Can't find movie theme for ID " + id);
+    public static MovieThemeDAO getInstance() {
+        if (instance == null) {
+            instance = new MovieThemeDAO();
         }
-        return movieThemePOJO;
-    }
-
-    @Override
-    public int getNextId() {
-        Integer maxId = entityManager.createQuery("select max(movieThemeId) from Movies_Themes ", Integer.class).getSingleResult();
-        if (maxId == null) {
-            return 0;
-        }
-        return maxId + 1;
+        return instance;
     }
 
     public List<ThemePOJO> readFromMovieId(int movieId) {

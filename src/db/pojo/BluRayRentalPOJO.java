@@ -77,8 +77,8 @@ public class BluRayRentalPOJO {
             return false;
         }
         BluRayRentalPOJO that = (BluRayRentalPOJO) o;
-        return bluRayRentalId == that.bluRayRentalId && rental.getRentalId() == that.rental.getRentalId() && bluRay.getBluRayId() == that.bluRay.getBluRayId() &&
-               Objects.equals(returnDate, that.returnDate);
+        return bluRayRentalId == that.bluRayRentalId && rental.getRentalId() == that.rental.getRentalId() &&
+               bluRay.getBluRayId() == that.bluRay.getBluRayId() && Objects.equals(returnDate, that.returnDate);
     }
 
     @Override

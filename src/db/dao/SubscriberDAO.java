@@ -1,40 +1,26 @@
 package db.dao;
 
-import db.pojo.BluRayPOJO;
 import db.pojo.SubscriberPOJO;
-import fc.user.Subscriber;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SubscriberDAO extends DAO<SubscriberPOJO> {
+    private static SubscriberDAO instance;
 
-    protected SubscriberDAO(EntityManager entityManager) {
-        super(entityManager);
+    private SubscriberDAO() {
+        super(SubscriberPOJO.class);
     }
 
-    @Override
-    public SubscriberPOJO read(int id) {
-        SubscriberPOJO subscriberPOJO = entityManager.find(SubscriberPOJO.class, id);
-        if (subscriberPOJO == null) {
-            throw new EntityNotFoundException("Can't find subscriber for ID " + id);
+    public static SubscriberDAO getInstance() {
+        if (instance == null) {
+            instance = new SubscriberDAO();
         }
-        return subscriberPOJO;
-    }
-
-    @Override
-    public int getNextId() {
-        Integer maxId = entityManager.createQuery("select max(subscriberId) from Subscribers", Integer.class).getSingleResult();
-        if (maxId == null) {
-            return 0;
-        }
-        return maxId + 1;
+        return instance;
     }
 
     public int readNextSubscriptionCardNumber() {
-        Integer maxSubscriptionCardNumber = entityManager.createQuery("select max(subscriptionCardNumber) FROM Subscribers", Integer.class).getSingleResult();
+        Integer maxSubscriptionCardNumber = (Integer) entityManager.createNativeQuery(
+                "SELECT MAX(subscription_card_number) FROM subscribers",
+                Integer.class
+        ).getSingleResult();
         if (maxSubscriptionCardNumber == null) {
             return 0;
         }

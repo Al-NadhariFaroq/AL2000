@@ -25,7 +25,7 @@ public class ScorePOJO {
 
     }
 
-    public ScorePOJO(int scoreId,SubscriberPOJO subscriber, MoviePOJO movie, int score) {
+    public ScorePOJO(int scoreId, SubscriberPOJO subscriber, MoviePOJO movie, int score) {
         this.scoreId = scoreId;
         this.subscriber = subscriber;
         this.movie = movie;
@@ -73,12 +73,16 @@ public class ScorePOJO {
             return false;
         }
         ScorePOJO scorePOJO = (ScorePOJO) o;
-        return scoreId == scorePOJO.scoreId && subscriber.getSubscriberId() == scorePOJO.subscriber.getSubscriberId() && movie.getMovieId() == scorePOJO.movie.getMovieId() &&
-               score == scorePOJO.score;
+        return scoreId == scorePOJO.scoreId && subscriber.getSubscriberId() == scorePOJO.subscriber.getSubscriberId() &&
+               movie.getMovieId() == scorePOJO.movie.getMovieId() && score == scorePOJO.score;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(scoreId, subscriber.getFirstName()+" "+subscriber.getLastName(), movie.getTitle(), score);
+        return Objects.hash(scoreId,
+                            subscriber.getFirstName() + " " + subscriber.getLastName(),
+                            movie.getTitle(),
+                            score
+        );
     }
 }

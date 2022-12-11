@@ -24,12 +24,13 @@ public class MoviesGridTest extends JFrame {
         for (int i = 0; i < 243; i++) {
             Movie movie = new Movie("Avatar " + i,
                                     null,
+                                    0,
+                                    Rating.G,
+                                    0f,
                                     null,
                                     null,
                                     null,
                                     "",
-                                    Rating.G,
-                                    0f,
                                     "",
                                     "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg"
             );

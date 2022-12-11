@@ -24,7 +24,7 @@ public class DatabaseManagement {
     public static void createBluRay(BluRay bluRay, int position) {
         int bluRayId = DAOFactory.getBluRayDAO().getNextId();
         String title = bluRay.getMovie().getTitle();
-        Date releaseDate = new Date(bluRay.getMovie().getDate().getTimeInMillis());
+        Date releaseDate = new Date(bluRay.getMovie().getReleaseDate().getTimeInMillis());
         MoviePOJO moviePOJO = DAOFactory.getMovieDAO().readFromTitleAndDate(title, releaseDate);
 
         BluRayPOJO bluRayPOJO = new BluRayPOJO(bluRayId, bluRay.getSerialNumber(), moviePOJO, position);
@@ -33,7 +33,7 @@ public class DatabaseManagement {
 
     public static Map<BluRay, Integer> readAllBluRays() {
         Map<BluRay, Integer> bluRays = new Hashtable<>();
-        Set<BluRayPOJO> bluRaysPOJO = DAOFactory.getBluRayDAO().readAll();
+        List<BluRayPOJO> bluRaysPOJO = DAOFactory.getBluRayDAO().readAll();
 
         bluRaysPOJO.forEach(bluRayPOJO -> {
             Movie movie = convertFromMoviePOJO(DAOFactory.getMovieDAO().read(bluRayPOJO.getMovie().getMovieId()));
@@ -71,7 +71,7 @@ public class DatabaseManagement {
 
     public static void createNonSubscriberBluRayRental(BluRayRental bluRayRental, NonSubscriber user) {
         String title = bluRayRental.getBluRay().getMovie().getTitle();
-        Date releaseDate = new Date(bluRayRental.getBluRay().getMovie().getDate().getTimeInMillis());
+        Date releaseDate = new Date(bluRayRental.getBluRay().getMovie().getReleaseDate().getTimeInMillis());
         MoviePOJO moviePOJO = DAOFactory.getMovieDAO().readFromTitleAndDate(title, releaseDate);
 
         int serialNumber = bluRayRental.getBluRay().getSerialNumber();
@@ -79,18 +79,19 @@ public class DatabaseManagement {
 
         int rentalId = DAOFactory.getRentalDAO().getNextId();
         Date rentalDate = new Date(bluRayRental.getRentalDate().getTimeInMillis());
-        RentalPOJO rentalPOJO = new RentalPOJO(rentalId,moviePOJO, rentalDate);
+        RentalPOJO rentalPOJO = new RentalPOJO(rentalId, moviePOJO, rentalDate);
         DAOFactory.getRentalDAO().create(rentalPOJO);
 
         int bluRayRentalId = DAOFactory.getBluRayDAO().getNextId();
         rentalPOJO = DAOFactory.getRentalDAO().readFromMovieAndDate(moviePOJO.getMovieId(), rentalDate);
-        BluRayRentalPOJO brRentalPOJO = new BluRayRentalPOJO(bluRayRentalId, rentalPOJO,
-                bluRayPOJO, null);
+        BluRayRentalPOJO brRentalPOJO = new BluRayRentalPOJO(bluRayRentalId, rentalPOJO, bluRayPOJO, null);
         DAOFactory.getBluRayRentalDAO().create(brRentalPOJO);
 
         int nonSubRentalId = DAOFactory.getNonSubRentalDAO().getNextId();
-        NonSubRentalPOJO nonSubRentalPOJO = new NonSubRentalPOJO(nonSubRentalId,rentalPOJO,
-                user.getCreditCardNumber());
+        NonSubRentalPOJO nonSubRentalPOJO = new NonSubRentalPOJO(nonSubRentalId,
+                                                                 rentalPOJO,
+                                                                 user.getCreditCardNumber()
+        );
         DAOFactory.getNonSubRentalDAO().create(nonSubRentalPOJO);
     }
 
@@ -100,13 +101,15 @@ public class DatabaseManagement {
 
     public static void createSubscriber(Subscriber subscriber) {
         SubscriberPOJO subscriberPOJO = new SubscriberPOJO(DAOFactory.getSubscriberDAO().getNextId(),
-                DAOFactory.getSubscriberDAO().readNextSubscriptionCardNumber(),
-                subscriber.getCreditCardNumber(),
-                subscriber.getFirstName(),
-                subscriber.getLastName(),
-                subscriber.getEmail(),
-                new Date(subscriber.getBirthDate().getTimeInMillis()),
-                subscriber.getBalance());
+                                                           DAOFactory.getSubscriberDAO()
+                                                                     .readNextSubscriptionCardNumber(),
+                                                           subscriber.getCreditCardNumber(),
+                                                           subscriber.getFirstName(),
+                                                           subscriber.getLastName(),
+                                                           subscriber.getEmail(),
+                                                           new Date(subscriber.getBirthDate().getTimeInMillis()),
+                                                           subscriber.getBalance()
+        );
         DAOFactory.getSubscriberDAO().create(subscriberPOJO);
     }
 
@@ -133,7 +136,17 @@ public class DatabaseManagement {
         }
         score /= (float) scoresPOJO.size();
 
-        return new Movie(moviePOJO.getTitle(), date, themes, directors, actors, moviePOJO.getSynopsis(),
-                Rating.valueOf(moviePOJO.getRating()), score, moviePOJO.getLinkURL(), moviePOJO.getPosterURL());
+        return new Movie(moviePOJO.getTitle(),
+                         date,
+                         moviePOJO.getRunningTime(),
+                         Rating.valueOf(moviePOJO.getRating()),
+                         score,
+                         themes,
+                         directors,
+                         actors,
+                         moviePOJO.getSynopsis(),
+                         moviePOJO.getLinkURL(),
+                         moviePOJO.getPosterURL()
+        );
     }
 }

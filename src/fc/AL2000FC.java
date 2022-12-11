@@ -86,8 +86,24 @@ public class AL2000FC {
         user = null;
     }
 
-    public void subscription(String email, String firstName, String lastName, Calendar birthDate, Map<String, Integer> preferences) {
-        Subscriber subscriber = new Subscriber(0, ((Client) user).getCreditCardNumber(), email, firstName, lastName, birthDate, 0, false, new HashMap<>(), preferences, new HashSet<>());
+    public void subscription(String email,
+                             String firstName,
+                             String lastName,
+                             Calendar birthDate,
+                             Map<String, Integer> preferences
+    ) {
+        Subscriber subscriber = new Subscriber(0,
+                                               ((Client) user).getCreditCardNumber(),
+                                               email,
+                                               firstName,
+                                               lastName,
+                                               birthDate,
+                                               0,
+                                               false,
+                                               new HashMap<>(),
+                                               preferences,
+                                               new HashSet<>()
+        );
         DatabaseManagement.createSubscriber(subscriber);
     }
 

@@ -13,12 +13,13 @@ public class BluRaysTest {
         date.set(year, Calendar.JANUARY, 1);
         return new Movie(title,
                          date,
+                         0,
+                         Rating.G,
+                         0f,
                          null,
                          null,
                          null,
                          "",
-                         Rating.G,
-                         0f,
                          "",
                          "https://media.wdwnt.com/2022/11/avatar-the-way-of-water-poster-960x1200.jpg"
         );

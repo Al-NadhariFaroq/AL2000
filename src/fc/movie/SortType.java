@@ -8,7 +8,9 @@ public enum SortType {
     DATE_ASC("date (asc)"),
     DATE_DES("date (des)"),
     SCORE_ASC("score (asc)"),
-    SCORE_DES("score (des)");
+    SCORE_DES("score (des)"),
+    LENGTH_ASC("length (asc)"),
+    LENGTH_DES("length (des)");
 
     private final String description;
 
@@ -25,13 +27,17 @@ public enum SortType {
                 case TITLE_ZA:
                     return movie2.getTitle().compareTo(movie1.getTitle());
                 case DATE_ASC:
-                    return movie1.getDate().compareTo(movie2.getDate());
+                    return movie1.getReleaseDate().compareTo(movie2.getReleaseDate());
                 case DATE_DES:
-                    return movie2.getDate().compareTo(movie1.getDate());
+                    return movie2.getReleaseDate().compareTo(movie1.getReleaseDate());
                 case SCORE_ASC:
                     return movie1.getScore().compareTo(movie2.getScore());
                 case SCORE_DES:
                     return movie2.getScore().compareTo(movie1.getScore());
+                case LENGTH_ASC:
+                    return movie1.getRunningTime().compareTo(movie2.getRunningTime());
+                case LENGTH_DES:
+                    return movie2.getRunningTime().compareTo(movie1.getRunningTime());
                 default:
                     return 0;
             }

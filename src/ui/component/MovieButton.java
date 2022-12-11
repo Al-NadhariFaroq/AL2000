@@ -29,7 +29,6 @@ public class MovieButton extends JPanel {
         posterBtn = new ImageButton();
         posterBtn.setAutoResizing(ImageButton.HEIGHT);
         posterBtn.setText("<html><p style=\"text-align:center;\">no<br>poster<br>available</p>");
-        posterBtn.setForeground(Color.GRAY);
         posterBtn.setFont(posterBtn.getFont().deriveFont(Font.BOLD, 14f));
 
         titleBtn = new TextButton();

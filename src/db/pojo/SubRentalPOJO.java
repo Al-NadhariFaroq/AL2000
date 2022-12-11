@@ -21,7 +21,7 @@ public class SubRentalPOJO {
 
     }
 
-    public SubRentalPOJO(int subscriberRentalId,RentalPOJO rental, SubscriberPOJO subscriber) {
+    public SubRentalPOJO(int subscriberRentalId, RentalPOJO rental, SubscriberPOJO subscriber) {
         this.subscriberRentalId = subscriberRentalId;
         this.rental = rental;
         this.subscriber = subscriber;

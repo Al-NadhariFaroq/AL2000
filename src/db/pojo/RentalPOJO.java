@@ -9,30 +9,30 @@ import java.util.Objects;
 @Table(name = "RENTALS", schema = "ALNADHAF", catalog = "")
 public class RentalPOJO {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "RENTAL_ID")
     private int rentalId;
-    @JoinColumn(name="MOVIE_ID", referencedColumnName = "MOVIE_ID")
+    @JoinColumn(name = "MOVIE_ID", referencedColumnName = "MOVIE_ID")
     @ManyToOne(optional = false)
     private MoviePOJO movie;
     @Basic
     @Column(name = "RENTAL_DATE")
     private Date rentalDate;
 
-    @OneToMany(mappedBy="rental", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL)
     private List<NonSubRentalPOJO> nonSubRentalPOJOList;
 
-    @OneToMany(mappedBy="rental", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL)
     private List<BluRayRentalPOJO> bluRayRentalPOJOList;
 
-    @OneToMany(mappedBy="rental", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL)
     private List<SubRentalPOJO> subRentalPOJOList;
 
     public RentalPOJO() {
 
     }
 
-
-    public RentalPOJO(int rentalId,MoviePOJO movie, Date rentalDate) {
+    public RentalPOJO(int rentalId, MoviePOJO movie, Date rentalDate) {
         this.rentalId = rentalId;
         this.movie = movie;
         this.rentalDate = rentalDate;
@@ -49,12 +49,15 @@ public class RentalPOJO {
     public MoviePOJO getMovie() {
         return movie;
     }
+
     public void setMovie(MoviePOJO movie) {
         this.movie = movie;
     }
-    public List<NonSubRentalPOJO> getNonSubRentalPOJOList(){
+
+    public List<NonSubRentalPOJO> getNonSubRentalPOJOList() {
         return nonSubRentalPOJOList;
     }
+
     public Date getRentalDate() {
         return rentalDate;
     }
@@ -72,7 +75,8 @@ public class RentalPOJO {
             return false;
         }
         RentalPOJO that = (RentalPOJO) o;
-        return rentalId == that.rentalId && movie.getMovieId() == that.movie.getMovieId() && Objects.equals(rentalDate, that.rentalDate);
+        return rentalId == that.rentalId && movie.getMovieId() == that.movie.getMovieId() &&
+               Objects.equals(rentalDate, that.rentalDate);
     }
 
     @Override

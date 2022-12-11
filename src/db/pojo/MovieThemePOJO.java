@@ -23,7 +23,7 @@ public class MovieThemePOJO {
 
     }
 
-    public MovieThemePOJO(int movieThemeId,MoviePOJO movie, ThemePOJO theme, int themeRank) {
+    public MovieThemePOJO(int movieThemeId, MoviePOJO movie, ThemePOJO theme, int themeRank) {
         this.movieThemeId = movieThemeId;
         this.movie = movie;
         this.theme = theme;
@@ -71,8 +71,8 @@ public class MovieThemePOJO {
             return false;
         }
         MovieThemePOJO that = (MovieThemePOJO) o;
-        return movieThemeId == that.movieThemeId && movie.getMovieId() == that.movie.getMovieId() && theme.getThemeId() == that.theme.getThemeId() &&
-               themeRank == that.themeRank;
+        return movieThemeId == that.movieThemeId && movie.getMovieId() == that.movie.getMovieId() &&
+               theme.getThemeId() == that.theme.getThemeId() && themeRank == that.themeRank;
     }
 
     @Override

@@ -2,31 +2,18 @@ package db.dao;
 
 import db.pojo.PreferencePOJO;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
-
 public class PreferenceDAO extends DAO<PreferencePOJO> {
+    private static PreferenceDAO instance;
 
-    protected PreferenceDAO(EntityManager entityManager) {
-        super(entityManager);
+    private PreferenceDAO() {
+        super(PreferencePOJO.class);
     }
 
-    @Override
-    public PreferencePOJO read(int id) {
-        PreferencePOJO preferencePOJO = entityManager.find(PreferencePOJO.class, id);
-        if (preferencePOJO == null) {
-            throw new EntityNotFoundException("Can't find restriction for ID " + id);
+    public static PreferenceDAO getInstance() {
+        if (instance == null) {
+            instance = new PreferenceDAO();
         }
-        return preferencePOJO;
-    }
-
-    @Override
-    public int getNextId() {
-        Integer maxId = entityManager.createQuery("select max(preferenceId) from Preferences", Integer.class).getSingleResult();
-        if (maxId == null) {
-            return 0;
-        }
-        return maxId + 1;
+        return instance;
     }
 }
 

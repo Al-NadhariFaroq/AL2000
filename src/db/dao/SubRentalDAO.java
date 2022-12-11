@@ -2,30 +2,17 @@ package db.dao;
 
 import db.pojo.SubRentalPOJO;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
-
 public class SubRentalDAO extends DAO<SubRentalPOJO> {
+    private static SubRentalDAO instance;
 
-    protected SubRentalDAO(EntityManager entityManager) {
-        super(entityManager);
+    private SubRentalDAO() {
+        super(SubRentalPOJO.class);
     }
 
-    @Override
-    public SubRentalPOJO read(int id) {
-        SubRentalPOJO subRentalPOJO = entityManager.find(SubRentalPOJO.class, id);
-        if (subRentalPOJO == null) {
-            throw new EntityNotFoundException("Can't find subscriber rental for ID " + id);
+    public static SubRentalDAO getInstance() {
+        if (instance == null) {
+            instance = new SubRentalDAO();
         }
-        return subRentalPOJO;
-    }
-
-    @Override
-    public int getNextId() {
-        Integer maxId = entityManager.createQuery("select max(subscriberRentalId) from Subscriber_Rentals", Integer.class).getSingleResult();
-        if (maxId == null) {
-            return 0;
-        }
-        return maxId + 1;
+        return instance;
     }
 }

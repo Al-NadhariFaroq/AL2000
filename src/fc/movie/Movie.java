@@ -8,35 +8,38 @@ import java.util.Objects;
 
 public class Movie {
     private final String title;
-    private final Calendar date;
-    private final List<String> themes;
-    private final List<String> directors;
-    private final Map<String, String> actors; // LinkedHashMap recommended
-    private final String synopsis;
+    private final Calendar releaseDate;
+    private final Integer runningTime;
     private final Rating rating;
     private final Float score;
+    private final List<String> themes;
+    private final List<String> directors;
+    private final Map<String, String> actors;
+    private final String synopsis;
     private final String linkURL;
     private final String posterURL;
 
     public Movie(String title,
-                 Calendar date,
+                 Calendar releaseDate,
+                 Integer runningTime,
+                 Rating rating,
+                 Float score,
                  List<String> themes,
                  List<String> directors,
                  Map<String, String> actors,
                  String synopsis,
-                 Rating rating,
-                 Float score,
                  String linkURL,
                  String posterURL
     ) {
         this.title = title;
-        this.date = date;
+        this.releaseDate = releaseDate;
+        this.runningTime = runningTime;
+        this.rating = rating;
+        this.score = score;
         this.themes = themes;
         this.directors = directors;
         this.actors = actors;
         this.synopsis = synopsis;
-        this.rating = rating;
-        this.score = score;
         this.linkURL = linkURL;
         this.posterURL = posterURL;
     }
@@ -45,8 +48,20 @@ public class Movie {
         return title;
     }
 
-    public Calendar getDate() {
-        return date;
+    public Calendar getReleaseDate() {
+        return releaseDate;
+    }
+
+    public Integer getRunningTime() {
+        return runningTime;
+    }
+
+    public Rating getRating() {
+        return rating;
+    }
+
+    public Float getScore() {
+        return score;
     }
 
     public List<String> getThemes() {
@@ -71,14 +86,6 @@ public class Movie {
 
     public String getSynopsis() {
         return synopsis;
-    }
-
-    public Rating getRating() {
-        return rating;
-    }
-
-    public Float getScore() {
-        return score;
     }
 
     public String getLinkURL() {
@@ -122,7 +129,7 @@ public class Movie {
 
     @Override
     public String toString() {
-        return title + " (" + date.get(Calendar.YEAR) + ")";
+        return title + " (" + releaseDate.get(Calendar.YEAR) + ")";
     }
 
     @Override
@@ -134,15 +141,27 @@ public class Movie {
             return false;
         }
         Movie movie = (Movie) o;
-        return Objects.equals(title, movie.title) && Objects.equals(date, movie.date) &&
-               Objects.equals(themes, movie.themes) && Objects.equals(directors, movie.directors) &&
-               Objects.equals(actors, movie.actors) && Objects.equals(synopsis, movie.synopsis) &&
-               rating == movie.rating && Objects.equals(score, movie.score) && Objects.equals(linkURL, movie.linkURL) &&
+        return Objects.equals(title, movie.title) && Objects.equals(releaseDate, movie.releaseDate) &&
+               Objects.equals(runningTime, movie.runningTime) && rating == movie.rating &&
+               Objects.equals(score, movie.score) && Objects.equals(themes, movie.themes) &&
+               Objects.equals(directors, movie.directors) && Objects.equals(actors, movie.actors) &&
+               Objects.equals(synopsis, movie.synopsis) && Objects.equals(linkURL, movie.linkURL) &&
                Objects.equals(posterURL, movie.posterURL);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, date, themes, directors, actors, synopsis, rating, score, linkURL, posterURL);
+        return Objects.hash(title,
+                            releaseDate,
+                            runningTime,
+                            rating,
+                            score,
+                            themes,
+                            directors,
+                            actors,
+                            synopsis,
+                            linkURL,
+                            posterURL
+        );
     }
 }

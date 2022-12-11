@@ -221,7 +221,7 @@ public class MoviesGrid extends JPanel {
         };
 
         centerPanel.add(gridPanel,
-                        GBC.placeAt(0, 0, false)
+                        GBC.placeAt(0, 0)
                            .setInsets(10)
                            .setWeight(1, 1)
                            .setFill(GBC.HORIZONTAL)

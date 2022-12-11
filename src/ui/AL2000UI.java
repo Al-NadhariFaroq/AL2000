@@ -36,17 +36,7 @@ public class AL2000UI extends JFrame {
         this.fc = fc;
 
         HomePanel homePanel = new HomePanel(this, fc);
-        MovieInfoPanel movieInfoPanel = new MovieInfoPanel(new Movie("Avatar: The Way of Water",
-                                                                     null,
-                                                                     null,
-                                                                     null,
-                                                                     null,
-                                                                     "",
-                                                                     Rating.G,
-                                                                     0f,
-                                                                     "",
-                                                                     "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg"
-        ));
+        MovieInfoPanel movieInfoPanel = new MovieInfoPanel();
         SubscriberInfoPanel subscriberInfoPanel = new SubscriberInfoPanel();
         SubscriptionPanel subscriptionPanel = new SubscriptionPanel();
         HistoryPanel historyPanel = new HistoryPanel();

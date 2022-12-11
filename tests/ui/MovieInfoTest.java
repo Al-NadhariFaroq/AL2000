@@ -22,7 +22,7 @@ public class MovieInfoTest extends JFrame {
         date.set(2009, Calendar.DECEMBER, 16);
 
         List<String> themes = new ArrayList<>();
-        themes.add("Science fiction");
+        themes.add("Science Fiction");
         themes.add("Action");
         themes.add("Adventure");
 
@@ -37,19 +37,21 @@ public class MovieInfoTest extends JFrame {
         actors.put("Michelle Rodriguez", "Trudy Chacon");
 
         Movie movie = new Movie("Avatar",
-                date,
-                themes,
-                directors,
-                actors,
-                "A paraplegic Marine is dispatched to the moon Pandora on a unique mission.",
-                Rating.PG13,
-                0f,
-                "",
-                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg"
+                                date,
+                                162,
+                                Rating.PG13,
+                                4.63f,
+                                themes,
+                                directors,
+                                actors,
+                                "A paraplegic Marine is dispatched to the moon Pandora on a unique mission.",
+                                "https://myflixer.to/watch-movie/avatar-19690.5297449",
+                                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg"
         );
 
         MovieInfo movieInfo = new MovieInfo(movie);
-        add(movieInfo);
+        movieInfo.setFont(movieInfo.getFont().deriveFont(16f));
+        add(movieInfo, BorderLayout.CENTER);
 
         pack();
         setLocationRelativeTo(null);

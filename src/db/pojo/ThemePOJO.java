@@ -15,16 +15,17 @@ public class ThemePOJO {
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(mappedBy="theme", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "theme", cascade = CascadeType.ALL)
     private List<MovieThemePOJO> movieThemePOJOList;
 
-    @OneToMany(mappedBy="theme", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "theme", cascade = CascadeType.ALL)
     private List<PreferencePOJO> preferencePOJOList;
+
     public ThemePOJO() {
 
     }
 
-    public ThemePOJO(int themeId,String name) {
+    public ThemePOJO(int themeId, String name) {
         this.themeId = themeId;
         this.name = name;
     }
