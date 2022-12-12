@@ -1,7 +1,7 @@
 package fc.user;
 
 import fc.DatabaseManagement;
-import fc.Themes;
+import fc.ThemeManagement;
 import fc.support.BluRayRental;
 
 import java.util.Calendar;
@@ -20,7 +20,7 @@ public class Subscriber implements Client {
     private Calendar birthDate;
     private float balance;
     private final boolean isControlled;
-    private final Map<Subscriber, Boolean> controlledSubscribers;
+    private final Set<Subscriber> controlledSubscribers;
     private final Map<String, Integer> themes;
     private final Set<BluRayRental> bluRayRentals;
 
@@ -32,7 +32,7 @@ public class Subscriber implements Client {
                       Calendar birthDate,
                       float balance,
                       boolean isControlled,
-                      Map<Subscriber, Boolean> controlledSubscribers,
+                      Set<Subscriber> controlledSubscribers,
                       Map<String, Integer> themes,
                       Set<BluRayRental> bluRayRentals
     ) {
@@ -114,36 +114,36 @@ public class Subscriber implements Client {
     }
 
     public Set<String> getIncludedThemes() {
-        return Themes.getSpecifiedThemes(themes, Themes.INCLUDED);
+        return ThemeManagement.getSpecifiedThemes(themes, ThemeManagement.INCLUDED);
     }
 
     public Set<String> getExcludedThemes() {
-        return Themes.getSpecifiedThemes(themes, Themes.EXCLUDED);
+        return ThemeManagement.getSpecifiedThemes(themes, ThemeManagement.EXCLUDED);
     }
 
     public Set<String> getForbiddenThemes() {
-        return Themes.getSpecifiedThemes(themes, Themes.FORBIDDEN);
+        return ThemeManagement.getSpecifiedThemes(themes, ThemeManagement.FORBIDDEN);
     }
 
     public void setThemeAvailability(String theme, int availability) throws IllegalArgumentException {
         if (!themes.containsKey(theme)) {
             throw new IllegalArgumentException("Invalid theme value");
         }
-        if (availability < Themes.INCLUDED || availability > Themes.FORBIDDEN) {
+        if (availability < ThemeManagement.INCLUDED || availability > ThemeManagement.FORBIDDEN) {
             throw new IllegalArgumentException("Invalid availability value");
         }
         themes.replace(theme, availability);
     }
 
     public Set<Subscriber> getControlledSubscribers() {
-        return controlledSubscribers.keySet();
+        return controlledSubscribers;
     }
 
-    public boolean addControlledSubscriber(Subscriber subscriber, boolean isControlled) throws NullPointerException {
+    public boolean addControlledSubscriber(Subscriber subscriber) throws NullPointerException {
         if (subscriber == null) {
             throw new NullPointerException("variable subscriber might not have been initialized");
         }
-        return Boolean.TRUE.equals(controlledSubscribers.put(subscriber, isControlled));
+        return Boolean.TRUE.equals(controlledSubscribers.add(subscriber));
     }
 
     public boolean removeControlledSubscriber(Subscriber subscriber) {
@@ -179,7 +179,7 @@ public class Subscriber implements Client {
     public String toString() {
         StringBuilder txt = new StringBuilder();
         txt.append(subscriptionCardNumber).append(" (").append(firstName).append(" ").append(lastName).append(")\n");
-        for (Subscriber subscriber : controlledSubscribers.keySet()) {
+        for (Subscriber subscriber : controlledSubscribers) {
             txt.append("\t")
                .append(subscriber.getSubscriptionCardNumber())
                .append(" (")

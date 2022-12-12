@@ -1,6 +1,6 @@
 package ui.panels;
 
-import fc.Themes;
+import fc.ThemeManagement;
 import fc.movie.SearchType;
 import fc.movie.SortType;
 import ui.AL2000UI;
@@ -56,13 +56,13 @@ public class HomePanel extends JPanel {
         Map<String, Boolean> themes = new LinkedHashMap<>();
         UI.getFC().getThemes().getAllThemes().forEach(theme -> {
             int availability = UI.getFC().getThemes().getAvailability(theme);
-            if (availability != Themes.FORBIDDEN) {
-                themes.put(theme, availability == Themes.EXCLUDED);
+            if (availability != ThemeManagement.FORBIDDEN) {
+                themes.put(theme, availability == ThemeManagement.EXCLUDED);
             }
         });
         themesBar.updateButtons(themes);
         themesBar.getButtons().forEach(btn -> btn.addActionListener(e -> SwingUtilities.invokeLater(() -> {
-            UI.getFC().getThemes().setAvailability(btn.getText(), btn.isSelected() ? Themes.EXCLUDED : Themes.INCLUDED);
+            UI.getFC().getThemes().setAvailability(btn.getText(), btn.isSelected() ? ThemeManagement.EXCLUDED : ThemeManagement.INCLUDED);
             UI.getFC().getMovies().setThemes(UI.getFC().getThemes().getIncludedThemes());
             updateMovies();
         })));

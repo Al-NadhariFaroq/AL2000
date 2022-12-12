@@ -10,14 +10,14 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 
-public class BluRays {
+public class BluRayManagement {
     public static final int RENTED = -1;
     public static final int NB_MOVIES_MAX = 100;
 
     private final Map<BluRay, Integer> bluRays;
     private final Queue<Integer> freePositions;
 
-    BluRays() {
+    BluRayManagement() {
         bluRays = new Hashtable<>();
         freePositions = new PriorityQueue<>();
         updateFromDatabase();
