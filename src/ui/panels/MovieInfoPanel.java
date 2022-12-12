@@ -40,30 +40,29 @@ public class MovieInfoPanel extends JPanel {
         rentBtn = new JButton("Rent");
         bottomBar.add(rentBtn);
         rentBtn.addActionListener(e -> {
-            String[] options = {"BluRay", "QRCode"};
-            String optionPane = (String) JOptionPane.showInputDialog(null,
-                                                                     "Choisir le format",
-                                                                     "Format",
-                                                                     JOptionPane.OK_OPTION,
-                                                                     null,
-                                                                     options,
-                                                                     options[0]
+            String[] options = {"Blu-ray", "QR code"};
+            int selectedValue = JOptionPane.showOptionDialog(null,
+                                                             "Choose the support type",
+                                                             "Support type",
+                                                             JOptionPane.DEFAULT_OPTION,
+                                                             JOptionPane.QUESTION_MESSAGE,
+                                                             null,
+                                                             options,
+                                                             options[0]
             );
-            if (optionPane != null) {
-                switch (optionPane) {
-                    case "BluRay":
-                        UI.getFC().rentBluRay(movieInfo.getMovie());
-                        break;
-                    case "QRCode":
-                        new Thread(() -> {
-                            QRCode qr = new QRCode(movieInfo.getMovie());
-                            qr.generateQRcode();
-                            qr.sendByEmail("randomemail@gmail.com");
-                        }).start();
-                        break;
-                    default:
-                        break;
-                }
+            switch (selectedValue) {
+                case 0:
+                    UI.getFC().rentBluRay(movieInfo.getMovie());
+                    break;
+                case 1:
+                    new Thread(() -> {
+                        QRCode qr = new QRCode(movieInfo.getMovie());
+                        qr.generateQRcode();
+                        qr.sendByEmail("randomemail@gmail.com");
+                    }).start();
+                    break;
+                default:
+                    break;
             }
         });
         return bottomBar;

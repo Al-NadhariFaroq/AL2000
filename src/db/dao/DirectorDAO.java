@@ -3,9 +3,6 @@ package db.dao;
 import db.pojo.DirectorPOJO;
 import db.pojo.MoviePOJO;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class DirectorDAO extends DAO<DirectorPOJO> {
     private static DirectorDAO instance;
 
@@ -28,11 +25,5 @@ public class DirectorDAO extends DAO<DirectorPOJO> {
             entityManager.merge(moviePOJO);
         }
         executeInsideTransaction(entityManager -> entityManager.remove(directorPOJO));
-    }
-
-    public List<DirectorPOJO> readFromMovieId(int movieId) {
-        List<DirectorPOJO> directorsPOJO = new ArrayList<>();
-        // TODO find all directors from a movie ID order by director_rank
-        return directorsPOJO;
     }
 }

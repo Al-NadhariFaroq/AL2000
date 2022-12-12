@@ -122,7 +122,7 @@ public class DatabaseManagement {
         DAOFactory.getRentalDAO().create(rentalPOJO);
 
         int bluRayRentalId = DAOFactory.getBluRayDAO().getNextId();
-        rentalPOJO = DAOFactory.getRentalDAO().readFromMovieAndDate(moviePOJO.getID(), rentalDate);
+        rentalPOJO = DAOFactory.getRentalDAO().readFromMovieAndDate(moviePOJO, rentalDate);
         BluRayRentalPOJO brRentalPOJO = new BluRayRentalPOJO(bluRayRentalId, rentalPOJO, bluRayPOJO, null);
         DAOFactory.getBluRayRentalDAO().create(brRentalPOJO);
 
@@ -152,7 +152,7 @@ public class DatabaseManagement {
         moviePOJO.getActors().forEach(actorPOJO -> actors.put(actorPOJO.getName(), actorPOJO.getCharacter()));
 
         float score = 0f;
-        Set<ScorePOJO> scoresPOJO = DAOFactory.getScoreDAO().readFromMovieId(moviePOJO.getID());
+        List<ScorePOJO> scoresPOJO = DAOFactory.getScoreDAO().readFromMovieId(moviePOJO);
         for (ScorePOJO scorePOJO : scoresPOJO) {
             score += (float) scorePOJO.getScore();
         }

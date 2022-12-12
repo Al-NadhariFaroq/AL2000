@@ -20,8 +20,12 @@ public class MovieDAO extends DAO<MoviePOJO> {
     }
 
     public MoviePOJO readFromTitleAndDate(String title, Date date) {
-        MoviePOJO moviePOJO = null;
-        // TODO find movie from a title and a date
+        String query = "SELECT M FROM movies M WHERE M.title = :title AND M.releaseDate = :date";
+        MoviePOJO moviePOJO = entityManager.createQuery(query, MoviePOJO.class)
+                                           .setParameter("title", title)
+                                           .setParameter("date", date)
+                                           .getSingleResult();
+
         if (moviePOJO == null) {
             throw new EntityNotFoundException("Can't find movie for title " + title + " and date " + date);
         }

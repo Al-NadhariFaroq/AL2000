@@ -1,9 +1,9 @@
 package db.dao;
 
+import db.pojo.MoviePOJO;
 import db.pojo.ScorePOJO;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 public class ScoreDAO extends DAO<ScorePOJO> {
     private static ScoreDAO instance;
@@ -19,9 +19,8 @@ public class ScoreDAO extends DAO<ScorePOJO> {
         return instance;
     }
 
-    public Set<ScorePOJO> readFromMovieId(int movieId) {
-        Set<ScorePOJO> scoresPOJO = new HashSet<>();
-        // TODO find all scores from a movie ID
-        return scoresPOJO;
+    public List<ScorePOJO> readFromMovieId(MoviePOJO movie) {
+        String query = "SELECT S FROM scores S WHERE S.movie = :movie";
+        return entityManager.createQuery(query, ScorePOJO.class).setParameter("movie", movie).getResultList();
     }
 }

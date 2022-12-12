@@ -30,11 +30,15 @@ public class RentalDAO extends DAO<RentalPOJO> {
         executeInsideTransaction(entityManager -> entityManager.remove(rentalPOJO));
     }
 
-    public RentalPOJO readFromMovieAndDate(int movieId, Date date) {
-        RentalPOJO rentalPOJO = null;
-        // TODO find rental from a movie ID and a date
+    public RentalPOJO readFromMovieAndDate(MoviePOJO movie, Date date) {
+        String query = "SELECT R FROM rentals R WHERE R.movie = :movie AND R.rentalDate = :date";
+        RentalPOJO rentalPOJO = entityManager.createQuery(query, RentalPOJO.class)
+                                             .setParameter("movie", movie)
+                                             .setParameter("date", date)
+                                             .getSingleResult();
+
         if (rentalPOJO == null) {
-            throw new EntityNotFoundException("Can't find rental for movie " + movieId + " and date " + date);
+            throw new EntityNotFoundException("Can't find rental for movie " + movie.getTitle() + " and date " + date);
         }
         return rentalPOJO;
     }

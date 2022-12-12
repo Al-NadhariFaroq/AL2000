@@ -1,19 +1,20 @@
 package fc.support;
 
-import com.google.zxing.*;
+/*import com.google.zxing.*;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;*/
+
 import fc.movie.Movie;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
-import javax.mail.*;
+/*import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeMultipart;*/
 import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,15 +25,15 @@ public class QRCode {
     private static final int DEFAULT_QR_CODE_HEIGHT = 200;
     private static final String PATH = System.getProperty("user.home") + "/QRCode.png";
     private static final String CHARSET = "UTF-8";
-    Map<EncodeHintType, ErrorCorrectionLevel> hashMap;
+    //Map<EncodeHintType, ErrorCorrectionLevel> hashMap;
     Movie movie;
 
     public QRCode(Movie movie) {
         this.movie = movie;
-        hashMap = new HashMap<>();
+        //hashMap = new HashMap<>();
     }
 
-    public void generateQRcode() {
+    public void generateQRcode() {/*
         hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(PATH);
@@ -45,10 +46,10 @@ public class QRCode {
             fileOutputStream.close();
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
 
-    public void sendByEmail(String clientEmail) {
+    public void sendByEmail(String clientEmail) {/*
         String username = "CyberVideoAL2000@gmx.fr";
         String password = "!AL2000!";
 
@@ -99,6 +100,6 @@ public class QRCode {
             System.out.println("Sent message successfully....");
         } catch (MessagingException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
 }
