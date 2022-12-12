@@ -148,55 +148,51 @@ CREATE TABLE subscriber_rentals (
 );
 
 CREATE OR REPLACE TRIGGER subscriber_min_max_age
-    BEFORE INSERT OR UPDATE OF birth_date on subscribers
-    FOR EACH ROW
+	BEFORE INSERT OR UPDATE OF birth_date
+	ON subscribers
+	FOR EACH ROW
 DECLARE
-min_age integer :=18;
-    max_age integer :=200;
-    nb integer :=EXTRACT(YEAR FROM sysdate) - EXTRACT(YEAR FROM :new.BIRTH_DATE);
-    age_limit_exceeded EXCEPTION;
-    PRAGMA exception_init(age_limit_exceeded, -20111);
-    min_age_not_reached EXCEPTION;
-    PRAGMA exception_init(min_age_not_reached, -20112);
+	min_age integer := 18;
+	max_age integer := 200;
+	nb      integer := EXTRACT(YEAR FROM SYSDATE) - EXTRACT(YEAR FROM :new.birth_date); age_limit_exceeded EXCEPTION; PRAGMA EXCEPTION_INIT (age_limit_exceeded, -20111); min_age_not_reached EXCEPTION; PRAGMA EXCEPTION_INIT (min_age_not_reached, -20112);
 BEGIN
-    IF (nb>max_age) THEN
-        RAISE_APPLICATION_ERROR(-20111,'The age limit has been exceeded');
-ELSE
-        IF (nb<min_age) THEN
-            RAISE_APPLICATION_ERROR(-20112, 'The minimum age has not been reached');
-END IF;
-END IF;
+	IF (nb > max_age) THEN
+		RAISE_APPLICATION_ERROR(-20111, 'The age limit has been exceeded');
+	ELSE
+		IF (nb < min_age) THEN RAISE_APPLICATION_ERROR(-20112, 'The minimum age has not been reached'); END IF;
+	END IF;
 END;
 /
 
 CREATE OR REPLACE TRIGGER non_subscribers_max_rentals
-    BEFORE INSERT on NON_SUBSCRIBER_RENTALS
-    FOR EACH ROW
+	BEFORE INSERT
+	ON non_subscriber_rentals
+	FOR EACH ROW
 DECLARE
-nb_non_subscribers INTEGER :=0;
-    max_rental_exceeded EXCEPTION;
-    PRAGMA exception_init(max_rental_exceeded, -20113);
+	nb_non_subscribers integer := 0; max_rental_exceeded EXCEPTION; PRAGMA EXCEPTION_INIT (max_rental_exceeded, -20113);
 BEGIN
-SELECT COUNT(*) INTO nb_non_subscribers FROM NON_SUBSCRIBER_RENTALS where CREDIT_CARD_NUMBER = :new.credit_card_number;
-IF(nb_non_subscribers>0) THEN
-DELETE FROM RENTALS WHERE rental_id = :new.rental_id;
-RAISE_APPLICATION_ERROR(-20113, 'The customer has reached the maximum number of rentals.');
-end if;
-end;
+	SELECT COUNT(*)
+	  INTO nb_non_subscribers
+	  FROM non_subscriber_rentals
+	 WHERE credit_card_number = :new.credit_card_number;
+	IF (nb_non_subscribers > 0) THEN
+		DELETE FROM rentals WHERE rental_id = :new.rental_id;
+		RAISE_APPLICATION_ERROR(-20113, 'The customer has reached the maximum number of rentals.');
+	END IF;
+END;
 /
 
 CREATE OR REPLACE TRIGGER subscribers_max_rentals
-    BEFORE INSERT on SUBSCRIBER_RENTALS
-    FOR EACH ROW
+	BEFORE INSERT
+	ON subscriber_rentals
+	FOR EACH ROW
 DECLARE
-nb_subscribers INTEGER :=0;
-    max_rental_exceeded EXCEPTION;
-    PRAGMA exception_init(max_rental_exceeded, -20113);
+	nb_subscribers integer := 0; max_rental_exceeded EXCEPTION; PRAGMA EXCEPTION_INIT (max_rental_exceeded, -20113);
 BEGIN
-SELECT COUNT(*) INTO nb_subscribers FROM SUBSCRIBER_RENTALS where subscriber_id = :new.subscriber_id;
-IF(nb_subscribers>4) THEN
-DELETE FROM RENTALS WHERE rental_id = :new.rental_id;
-RAISE_APPLICATION_ERROR(-20113, 'The customer has reached the maximum number of rentals.');
-end if;
-end;
+	SELECT COUNT(*) INTO nb_subscribers FROM subscriber_rentals WHERE subscriber_id = :new.subscriber_id;
+	IF (nb_subscribers > 4) THEN
+		DELETE FROM rentals WHERE rental_id = :new.rental_id;
+		RAISE_APPLICATION_ERROR(-20113, 'The customer has reached the maximum number of rentals.');
+	END IF;
+END;
 /

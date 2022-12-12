@@ -56,9 +56,10 @@ public class MovieInfoPanel extends JPanel {
                         break;
                     case "QRCode":
                         new Thread(() -> {
-                        QRCode qr = new QRCode(movieInfo.getMovie());
-                        qr.generateQRcode();
-                        qr.sendByEmail("randomemail@gmail.com");}).start();
+                            QRCode qr = new QRCode(movieInfo.getMovie());
+                            qr.generateQRcode();
+                            qr.sendByEmail("randomemail@gmail.com");
+                        }).start();
                         break;
                     default:
                         break;
