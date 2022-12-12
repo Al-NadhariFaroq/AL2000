@@ -18,6 +18,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -239,6 +241,7 @@ public class MoviesGrid extends JPanel {
             startLbl.setText(String.valueOf((currentPage - 1) * resultsPerPage + 1));
             endLbl.setText(String.valueOf((currentPage - 1) * resultsPerPage + gridPanel.getComponentCount()));
         }
+        revalidate();
         repaint();
     }
 

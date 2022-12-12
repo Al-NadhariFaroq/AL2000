@@ -6,16 +6,15 @@ import ui.util.GBC;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GridBagLayout;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.net.URL;
 
 public class MovieButton extends JPanel {
-    private Movie movie;
     private final ImageButton posterBtn;
     private final TextButton titleBtn;
+
+    private Movie movie;
 
     public MovieButton() {
         this(null);
@@ -36,8 +35,8 @@ public class MovieButton extends JPanel {
 
         setMovie(movie);
 
-        add(posterBtn, GBC.placeAt(0, 0).setFill(GBC.BOTH).setWeight(1, 1));
-        add(titleBtn, GBC.placeAt(0, 1).setWeightX(1));
+        add(posterBtn, GBC.placeAt(0, 0).setWeight(1, 1).setFill(GBC.BOTH));
+        add(titleBtn, GBC.placeAt(0, 1));
     }
 
     public Movie getMovie() {

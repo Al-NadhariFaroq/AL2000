@@ -85,8 +85,11 @@ public class ImageLabel extends JLabel {
                 size.height = imgHeight * size.width / imgWidth;
             }
             setPreferredSize(size);
+            setMinimumSize(size);
+            setMaximumSize(size);
+            revalidate();
+            repaint();
         }
-        repaint();
     }
 
     @Override

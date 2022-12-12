@@ -117,9 +117,11 @@ public class ImageButton extends JButton {
                 btnSize.height = imgHeight * btnSize.width / imgWidth;
             }
             setPreferredSize(btnSize);
+            setMinimumSize(btnSize);
+            setMaximumSize(btnSize);
+            revalidate();
+            repaint();
         }
-        revalidate();
-        repaint();
     }
 
     @Override
