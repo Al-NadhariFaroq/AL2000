@@ -47,10 +47,11 @@ public class SubscriberPOJO implements POJO {
     private List<ScorePOJO> scores;
 
     @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
-    private List<SubRentalPOJO> rentals;
+    private List<PreferencePOJO> preferences;
 
     @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
-    private List<PreferencePOJO> preferences;
+    private List<SubRentalPOJO> rentals;
+
 
     public SubscriberPOJO() {
         super();
@@ -142,6 +143,14 @@ public class SubscriberPOJO implements POJO {
 
     public List<CtrlSubPOJO> getControlledSubscribers() {
         return controlledSubscribers;
+    }
+
+    public List<PreferencePOJO> getPreferences() {
+        return preferences;
+    }
+
+    public List<SubRentalPOJO> getRentals() {
+        return rentals;
     }
 
     @Override

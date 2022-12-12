@@ -50,7 +50,7 @@ public class DAOFactory {
         return NonSubRentalDAO.getInstance();
     }
 
-    public static PreferenceDAO getRestrictionDAO() {
+    public static PreferenceDAO getPreferenceDAO() {
         return PreferenceDAO.getInstance();
     }
 

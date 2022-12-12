@@ -32,27 +32,27 @@ public class BluRaysTest {
         Movie toyStory = createMovie("Toy Story", 1995);
         Movie oldBoy = createMovie("Old Boy", 2003);
 
-        BluRays bluRays = new BluRays();
-        bluRays.addBluRay(new BluRay(0, avatar));
-        bluRays.addBluRay(new BluRay(0, harryPotter));
-        bluRays.addBluRay(new BluRay(0, laCiteDeLaPeur));
-        bluRays.addBluRay(new BluRay(1, avatar));
-        bluRays.addBluRay(new BluRay(2, avatar));
-        bluRays.addBluRay(new BluRay(1, harryPotter));
-        bluRays.addBluRay(new BluRay(6, laCiteDeLaPeur));
-        bluRays.addBluRay(new BluRay(0, toyStory));
-        System.out.println(bluRays);
+        BluRayManagement bluRayManagement = new BluRayManagement();
+        bluRayManagement.addBluRay(new BluRay(0, avatar));
+        bluRayManagement.addBluRay(new BluRay(0, harryPotter));
+        bluRayManagement.addBluRay(new BluRay(0, laCiteDeLaPeur));
+        bluRayManagement.addBluRay(new BluRay(1, avatar));
+        bluRayManagement.addBluRay(new BluRay(2, avatar));
+        bluRayManagement.addBluRay(new BluRay(1, harryPotter));
+        bluRayManagement.addBluRay(new BluRay(6, laCiteDeLaPeur));
+        bluRayManagement.addBluRay(new BluRay(0, toyStory));
+        System.out.println(bluRayManagement);
 
-        bluRays.addBluRay(new BluRay(0, oldBoy));
-        BluRay avatarBluRay = bluRays.getBluRayFromMovie(avatar);
-        bluRays.rentBluRay(avatarBluRay);
-        BluRay toyStoryBluRay = bluRays.getBluRayFromMovie(toyStory);
-        bluRays.rentBluRay(toyStoryBluRay);
-        System.out.println(bluRays);
+        bluRayManagement.addBluRay(new BluRay(0, oldBoy));
+        BluRay avatarBluRay = bluRayManagement.getBluRayFromMovie(avatar);
+        bluRayManagement.rentBluRay(avatarBluRay);
+        BluRay toyStoryBluRay = bluRayManagement.getBluRayFromMovie(toyStory);
+        bluRayManagement.rentBluRay(toyStoryBluRay);
+        System.out.println(bluRayManagement);
 
-        bluRays.returnBluRay(toyStoryBluRay);
-        bluRays.returnBluRay(avatarBluRay);
-        bluRays.removeBluRay(new BluRay(1, harryPotter));
-        System.out.println(bluRays);
+        bluRayManagement.returnBluRay(toyStoryBluRay);
+        bluRayManagement.returnBluRay(avatarBluRay);
+        bluRayManagement.removeBluRay(new BluRay(1, harryPotter));
+        System.out.println(bluRayManagement);
     }
 }

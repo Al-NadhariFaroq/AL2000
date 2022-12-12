@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.List;
 import java.util.Vector;
 
-public class Movies {
+public class MovieManagement {
     private final Set<Movie> bluRaysSortedMovies;
     private final Set<Movie> ratingSortedMovies;
     private final Set<Movie> themesSortedMovies;
@@ -24,16 +24,16 @@ public class Movies {
     private String searchWords;
     private SortType sortType;
 
-    Movies() {
+    MovieManagement() {
         this(false, Rating.UR, new HashSet<>(), SearchType.TITLE, null, SortType.DATE_ASC);
     }
 
-    Movies(boolean bluRaysOnly,
-           Rating rating,
-           Set<String> themes,
-           SearchType searchType,
-           String searchWords,
-           SortType sortType
+    MovieManagement(boolean bluRaysOnly,
+                    Rating rating,
+                    Set<String> themes,
+                    SearchType searchType,
+                    String searchWords,
+                    SortType sortType
     ) {
         this.bluRaysSortedMovies = new HashSet<>();
         this.ratingSortedMovies = new HashSet<>();

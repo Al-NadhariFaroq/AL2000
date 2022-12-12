@@ -17,13 +17,13 @@ public class SubscriberDAO extends DAO<SubscriberPOJO> {
     }
 
     public int readNextSubscriptionCardNumber() {
-        Integer maxSubscriptionCardNumber = (Integer) entityManager.createNativeQuery(
-                "SELECT MAX(subscription_card_number) FROM subscribers",
-                Integer.class
-        ).getSingleResult();
-        if (maxSubscriptionCardNumber == null) {
-            return 0;
-        }
-        return maxSubscriptionCardNumber + 1;
+        String query = "SELECT MAX(subscriptionCardNumber) FROM subscribers";
+        Integer maxSubscriptionCardNumber = entityManager.createQuery(query, Integer.class).getSingleResult();
+        return maxSubscriptionCardNumber == null ? 0 : maxSubscriptionCardNumber + 1;
+    }
+
+    public SubscriberPOJO readFromSubscriptionCardNumber(int subscriptionCardNumber) {
+        String query = "SELECT S FROM subscribers S WHERE S.subscriptionCardNumber = :scn";
+        return entityManager.createQuery(query, SubscriberPOJO.class).setParameter("scn", subscriptionCardNumber).getSingleResult();
     }
 }

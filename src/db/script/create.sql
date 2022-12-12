@@ -35,7 +35,7 @@ CREATE TABLE blu_rays (
 	blu_ray_id    number(8) NOT NULL,
 	serial_number number(16) NOT NULL UNIQUE,
 	movie_id      number(8) NOT NULL,
-	position      number(3) UNIQUE,
+	position      number(3),
 	CONSTRAINT blu_rays_pk PRIMARY KEY (blu_ray_id),
 	CONSTRAINT blu_rays_movie_fk FOREIGN KEY (movie_id) REFERENCES movies (movie_id) ON DELETE CASCADE
 );

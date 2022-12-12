@@ -10,14 +10,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
-public class Themes {
+public class ThemeManagement {
     public static final int INCLUDED = 0;
     public static final int EXCLUDED = 1;
     public static final int FORBIDDEN = 2;
 
     private final Map<String, Integer> themes;
 
-    Themes() {
+    ThemeManagement() {
         themes = new LinkedHashMap<>();
         updateFromDatabase();
     }
