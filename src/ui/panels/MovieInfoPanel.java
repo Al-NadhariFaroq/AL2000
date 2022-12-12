@@ -5,10 +5,10 @@ import ui.AL2000UI;
 import ui.component.MovieInfo;
 import ui.util.GBC;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.GridBagLayout;
+import javax.swing.*;
+import java.awt.*;
+import java.sql.Date;
+import java.util.Calendar;
 
 public class MovieInfoPanel extends JPanel {
     private final AL2000UI UI;
@@ -40,7 +40,20 @@ public class MovieInfoPanel extends JPanel {
 
         rentBtn = new JButton("Rent");
         bottomBar.add(rentBtn);
-
+        rentBtn.addActionListener(e -> {
+            String []options = {"BluRay", "QRCode"};
+            String optionPane = (String) JOptionPane.showInputDialog(null, "Choisir le format", "Format", JOptionPane.OK_OPTION, null, options, options[0]);
+            if(optionPane != null){
+                switch(optionPane){
+                    case "BluRay":
+                        UI.getFC().rentBluRay(movieInfo.getMovie());
+                        break;
+                    case "QRCode":
+                    default:
+                        break;
+                }
+            }
+        });
         return bottomBar;
     }
 }
