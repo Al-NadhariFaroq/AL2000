@@ -30,8 +30,11 @@ public class BluRayDAO extends DAO<BluRayPOJO> {
     }
 
     public BluRayPOJO readFromSerialNumber(int serialNumber) {
-        BluRayPOJO bluRayPOJO = null;
-        // TODO find blu-ray from a serial number
+        BluRayPOJO bluRayPOJO = (BluRayPOJO) entityManager.createNativeQuery(
+                "SELECT * FROM blu_rays WHERE serial_number = " + serialNumber,
+                BluRayPOJO.class
+        ).getSingleResult();
+
         if (bluRayPOJO == null) {
             throw new EntityNotFoundException("Can't find blu-ray for serial number " + serialNumber);
         }

@@ -1,6 +1,7 @@
 package ui;
 
 import fc.AL2000FC;
+import fc.movie.Movie;
 import ui.panels.Panel;
 import ui.panels.PanelManager;
 import ui.util.TopPanel;
@@ -46,4 +47,5 @@ public class AL2000UI extends JFrame {
     public PanelManager getPanelManager() {
         return panelManager;
     }
+
 }
