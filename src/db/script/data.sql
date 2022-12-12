@@ -1,10 +1,3 @@
-DELETE FROM scores;
-DELETE FROM non_subscriber_rentals;
-DELETE FROM subscriber_rentals;
-DELETE FROM blu_ray_rentals;
-DELETE FROM rentals;
-DELETE FROM controlled_subscribers;
-DELETE FROM subscribers;
 DELETE FROM blu_rays;
 DELETE FROM actors;
 DELETE FROM directors;
@@ -25,7 +18,7 @@ INSERT INTO themes VALUES (6, 'Comedy');
 INSERT INTO themes VALUES (7, 'Crime');
 INSERT INTO themes VALUES (8, 'Documentary');
 INSERT INTO themes VALUES (9, 'Drama');
-INSERT INTO themes VALUES (10, 'Fantastique');
+INSERT INTO themes VALUES (10, 'Fantastic');
 INSERT INTO themes VALUES (11, 'Fantasy');
 INSERT INTO themes VALUES (12, 'Historical');
 INSERT INTO themes VALUES (13, 'Horror');
@@ -66,6 +59,15 @@ VALUES (3,
 		'After being coerced into working for a crime boss, a young getaway driver finds himself taking part in a heist doomed to fail.',
 		'https://myflixer.to/watch-movie/baby-driver-19604.5297575',
 		'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/rmnQ9jKW72bHu8uKlMjPIb2VLMI.jpg');
+INSERT INTO movies
+VALUES (17,
+		'Bigger Fatter Liar',
+		TO_DATE('18/04/2017'),
+		86,
+		'PG',
+		'Kevin Shepard is a tech-savvy young genius who uses his intelligence to slack off. When greedy video game executive Alan Wolf gets a hold of his ideas for a video game, Kevin and his best friend Becca set off for San Francisco to make Wolf`s life miserable through a series of pranks.',
+		'https://myflixer.to/watch-movie/bigger-fatter-liar-56547.5465452',
+		'https://www.themoviedb.org/t/p/original/j6jMDEIebIHpZKePOZzhlEDeROW.jpg');
 
 
 
@@ -134,6 +136,7 @@ INSERT INTO blu_rays VALUES (1, 100000001, 1, 0);
 INSERT INTO blu_rays VALUES (2, 100000002, 2, 1);
 INSERT INTO blu_rays VALUES (3, 100000003, 1, 2);
 INSERT INTO blu_rays VALUES (4, 100000004, 3, 3);
+INSERT INTO blu_rays VALUES (5, 100000005, 17, 4);
 
 /*************************************************************/
 /************************ SUBSCRIBERS ************************/
@@ -170,6 +173,7 @@ INSERT INTO blu_ray_rentals VALUES (1, 5, 1, TO_DATE('22/04/2022'));
 INSERT INTO directors VALUES (1, 1, 'James Cameron', 1);
 INSERT INTO directors VALUES (2, 2, 'James Cameron', 1);
 INSERT INTO directors VALUES (3, 3, 'Edgar Wright', 1);
+INSERT INTO directors VALUES (4, 17, 'Ron Oliver', 1);
 
 INSERT INTO directors VALUES (51, 11, 'Lilly Wachowski', 1);
 INSERT INTO directors VALUES (52, 11, 'Lana Wachowski', 2);
@@ -236,6 +240,10 @@ INSERT INTO actors VALUES (67, 16, 'Eli Wallach', 2, 'Tuco Ramirez');
 INSERT INTO actors VALUES (68, 16, 'Lee Van Cleef', 3, 'Sentenza / Angel Eyes');
 
 
+INSERT INTO actors VALUES (123, 17, 'Ricky Garcia', 1, 'Kevin Shepard');
+INSERT INTO actors VALUES (116, 17, 'Jodelle Ferland', 2, 'Becca');
+INSERT INTO actors VALUES (157, 17, 'Barry Bostwick', 3, 'Alan Wolf');
+
 /*************************************************************/
 /**********************  MOVIES THEMES  **********************/
 /*************************************************************/
@@ -268,6 +276,10 @@ INSERT INTO movies_themes VALUES (62, 15, 9,1 );
 INSERT INTO movies_themes VALUES (63, 15, 15,2 );
 
 INSERT INTO movies_themes VALUES (64, 16, 18,1 );
+
+INSERT INTO movies_themes VALUES (254, 17, 2, 3);
+INSERT INTO movies_themes VALUES (156, 17, 6, 3);
+
 
 /*************************************************************/
 /***********************  PREFERENCES  ***********************/
