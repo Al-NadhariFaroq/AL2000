@@ -1,6 +1,7 @@
 package ui.panels;
 
 import fc.movie.Movie;
+import fc.support.QRCode;
 import ui.AL2000UI;
 import ui.component.MovieInfo;
 import ui.util.GBC;
@@ -54,6 +55,11 @@ public class MovieInfoPanel extends JPanel {
                         UI.getFC().rentBluRay(movieInfo.getMovie());
                         break;
                     case "QRCode":
+                        new Thread(() -> {
+                        QRCode qr = new QRCode(movieInfo.getMovie());
+                        qr.generateQRcode();
+                        qr.sendByEmail("randomemail@gmail.com");}).start();
+                        break;
                     default:
                         break;
                 }
