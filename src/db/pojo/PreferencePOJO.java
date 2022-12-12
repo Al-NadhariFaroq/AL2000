@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "preferences")
-@Table(name = "preferences", schema = "alnadhaf", catalog = "")
+@Table(name = "preferences", schema = "rocd", catalog = "")
 public class PreferencePOJO implements POJO {
     @Id
     @Column(name = "preference_id")

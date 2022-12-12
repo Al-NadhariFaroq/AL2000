@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "controlled_subscribers")
-@Table(name = "controlled_subscribers", schema = "alnadhaf", catalog = "")
+@Table(name = "controlled_subscribers", schema = "rocd", catalog = "")
 public class CtrlSubPOJO implements POJO {
     @Id
     @Column(name = "controlled_subscriber_id")

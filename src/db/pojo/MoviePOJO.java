@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "movies")
-@Table(name = "movies", schema = "alnadhaf", catalog = "")
+@Table(name = "movies", schema = "rocd", catalog = "")
 public class MoviePOJO implements POJO {
     @Id
     @Column(name = "movie_id")

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "subscribers")
-@Table(name = "subscribers", schema = "alnadhaf", catalog = "")
+@Table(name = "subscribers", schema = "rocd", catalog = "")
 public class SubscriberPOJO implements POJO {
     @Id
     @Column(name = "subscriber_id")
