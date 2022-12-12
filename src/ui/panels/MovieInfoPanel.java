@@ -1,6 +1,7 @@
 package ui.panels;
 
 import fc.movie.Movie;
+import fc.support.QRCode;
 import ui.AL2000UI;
 import ui.component.MovieInfo;
 import ui.util.GBC;
@@ -40,13 +41,18 @@ public class MovieInfoPanel extends JPanel {
         bottomBar.add(rentBtn);
         rentBtn.addActionListener(e -> {
             String []options = {"BluRay", "QRCode"};
-            String optionPane = (String) JOptionPane.showInputDialog(null, "Choisir le format", "Format", JOptionPane.OK_OPTION, null, options, options[0]);
+            String optionPane = (String) JOptionPane.showInputDialog(null, "Choose the format", "Format", JOptionPane.OK_OPTION, null, options, options[0]);
             if(optionPane != null){
                 switch(optionPane){
                     case "BluRay":
                         UI.getFC().rentBluRay(movieInfo.getMovie());
                         break;
                     case "QRCode":
+                        new Thread(() -> {
+                        QRCode qr = new QRCode(movieInfo.getMovie());
+                        qr.generateQRcode();
+                        qr.sendByEmail("randomemail@gmail.com");}).start();
+                        break;
                     default:
                         break;
                 }
