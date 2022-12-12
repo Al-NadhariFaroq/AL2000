@@ -17,7 +17,7 @@ public class MachineSimulation implements KeyEventDispatcher {
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent e) {
-        if (e.getID() == KeyEvent.KEY_TYPED && e.isControlDown()) {
+        if (e.getID() == KeyEvent.KEY_RELEASED && e.isControlDown()) {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_C:
                     if (e.isShiftDown()) {
