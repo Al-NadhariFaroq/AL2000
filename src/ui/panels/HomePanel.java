@@ -62,7 +62,9 @@ public class HomePanel extends JPanel {
         });
         themesBar.updateButtons(themes);
         themesBar.getButtons().forEach(btn -> btn.addActionListener(e -> SwingUtilities.invokeLater(() -> {
-            UI.getFC().getThemes().setAvailability(btn.getText(), btn.isSelected() ? ThemeManagement.EXCLUDED : ThemeManagement.INCLUDED);
+            UI.getFC()
+              .getThemes()
+              .setAvailability(btn.getText(), btn.isSelected() ? ThemeManagement.EXCLUDED : ThemeManagement.INCLUDED);
             UI.getFC().getMovies().setThemes(UI.getFC().getThemes().getIncludedThemes());
             updateMovies();
         })));

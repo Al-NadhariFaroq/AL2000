@@ -24,6 +24,8 @@ public class SubscriberDAO extends DAO<SubscriberPOJO> {
 
     public SubscriberPOJO readFromSubscriptionCardNumber(int subscriptionCardNumber) {
         String query = "SELECT S FROM subscribers S WHERE S.subscriptionCardNumber = :scn";
-        return entityManager.createQuery(query, SubscriberPOJO.class).setParameter("scn", subscriptionCardNumber).getSingleResult();
+        return entityManager.createQuery(query, SubscriberPOJO.class)
+                            .setParameter("scn", subscriptionCardNumber)
+                            .getSingleResult();
     }
 }

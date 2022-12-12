@@ -36,7 +36,7 @@ public class CardInteraction implements ActionListener {
                 break;
             case SUBSCRIPTION:
                 if (src == UI.getTopPanel().getLeftBtn()) {
-                    UI.getPanelManager().setCurrentPanel(Panel.HOME);
+                    UI.getPanelManager().setCurrentPanel(Panel.SUBSCRIBER_INFO);
                 }
                 break;
             case HISTORY:

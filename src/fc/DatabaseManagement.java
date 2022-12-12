@@ -67,32 +67,43 @@ public class DatabaseManagement {
         int id = DAOFactory.getSubscriberDAO().getNextId();
 
         SubscriberPOJO subscriberPOJO = new SubscriberPOJO(id,
-                DAOFactory.getSubscriberDAO().readNextSubscriptionCardNumber(),
-                subscriber.getCreditCardNumber(),
-                subscriber.getFirstName(),
-                subscriber.getLastName(),
-                subscriber.getEmail(),
-                new Date(subscriber.getBirthDate().getTimeInMillis()),
-                subscriber.getBalance()
+                                                           DAOFactory.getSubscriberDAO()
+                                                                     .readNextSubscriptionCardNumber(),
+                                                           subscriber.getCreditCardNumber(),
+                                                           subscriber.getFirstName(),
+                                                           subscriber.getLastName(),
+                                                           subscriber.getEmail(),
+                                                           new Date(subscriber.getBirthDate().getTimeInMillis()),
+                                                           subscriber.getBalance()
         );
         DAOFactory.getSubscriberDAO().create(subscriberPOJO);
 
         final SubscriberPOJO newSubscriberPOJO = DAOFactory.getSubscriberDAO().read(id);
         subscriber.getExcludedThemes().forEach(theme -> {
-            PreferencePOJO preferencePOJO = new PreferencePOJO(DAOFactory.getPreferenceDAO().getNextId(), newSubscriberPOJO, DAOFactory.getThemeDAO().readFromName(theme), false);
+            PreferencePOJO preferencePOJO = new PreferencePOJO(DAOFactory.getPreferenceDAO().getNextId(),
+                                                               newSubscriberPOJO,
+                                                               DAOFactory.getThemeDAO().readFromName(theme),
+                                                               false
+            );
             DAOFactory.getPreferenceDAO().create(preferencePOJO);
         });
         subscriber.getForbiddenThemes().forEach(theme -> {
-            PreferencePOJO preferencePOJO = new PreferencePOJO(DAOFactory.getPreferenceDAO().getNextId(), newSubscriberPOJO, DAOFactory.getThemeDAO().readFromName(theme), true);
+            PreferencePOJO preferencePOJO = new PreferencePOJO(DAOFactory.getPreferenceDAO().getNextId(),
+                                                               newSubscriberPOJO,
+                                                               DAOFactory.getThemeDAO().readFromName(theme),
+                                                               true
+            );
             DAOFactory.getPreferenceDAO().create(preferencePOJO);
         });
     }
 
     public static Subscriber readSubscriber(int subscriptionCardNumber) {
-        SubscriberPOJO subscriberPOJO = DAOFactory.getSubscriberDAO().readFromSubscriptionCardNumber(subscriptionCardNumber);
+        SubscriberPOJO subscriberPOJO = DAOFactory.getSubscriberDAO()
+                                                  .readFromSubscriptionCardNumber(subscriptionCardNumber);
 
         Set<Subscriber> ctrlSubs = new HashSet<>();
-        subscriberPOJO.getControlledSubscribers().forEach(ctrlSub -> ctrlSubs.add(convertFromSubscriberPOJO(ctrlSub.getSubscriber(), null)));
+        subscriberPOJO.getControlledSubscribers()
+                      .forEach(ctrlSub -> ctrlSubs.add(convertFromSubscriberPOJO(ctrlSub.getSubscriber(), null)));
 
         return convertFromSubscriberPOJO(subscriberPOJO, ctrlSubs);
     }
@@ -117,8 +128,8 @@ public class DatabaseManagement {
 
         int nonSubRentalId = DAOFactory.getNonSubRentalDAO().getNextId();
         NonSubRentalPOJO nonSubRentalPOJO = new NonSubRentalPOJO(nonSubRentalId,
-                rentalPOJO,
-                user.getCreditCardNumber()
+                                                                 rentalPOJO,
+                                                                 user.getCreditCardNumber()
         );
         DAOFactory.getNonSubRentalDAO().create(nonSubRentalPOJO);
     }
@@ -148,16 +159,16 @@ public class DatabaseManagement {
         score /= (float) scoresPOJO.size();
 
         return new Movie(moviePOJO.getTitle(),
-                date,
-                moviePOJO.getRunningTime(),
-                Rating.valueOf(moviePOJO.getRating()),
-                score,
-                themes,
-                directors,
-                actors,
-                moviePOJO.getSynopsis(),
-                moviePOJO.getLinkURL(),
-                moviePOJO.getPosterURL()
+                         date,
+                         moviePOJO.getRunningTime(),
+                         Rating.valueOf(moviePOJO.getRating()),
+                         score,
+                         themes,
+                         directors,
+                         actors,
+                         moviePOJO.getSynopsis(),
+                         moviePOJO.getLinkURL(),
+                         moviePOJO.getPosterURL()
         );
     }
 
@@ -197,16 +208,17 @@ public class DatabaseManagement {
         bluRayRentalsPOJO.forEach(bluRayRentalPOJO -> bluRayRentals.add(convertFromBluRayRentalPOJO(bluRayRentalPOJO)));
 
         return new Subscriber(subscriberPOJO.getSubscriptionCardNumber(),
-                subscriberPOJO.getCreditCardNumber(),
-                subscriberPOJO.getEmail(),
-                subscriberPOJO.getFirstName(),
-                subscriberPOJO.getLastName(),
-                birthDate,
-                subscriberPOJO.getBalance(),
-                ctrlSubPOJO.isControlled(),
-                ctrlSubs,
-                themes,
-                bluRayRentals);
+                              subscriberPOJO.getCreditCardNumber(),
+                              subscriberPOJO.getEmail(),
+                              subscriberPOJO.getFirstName(),
+                              subscriberPOJO.getLastName(),
+                              birthDate,
+                              subscriberPOJO.getBalance(),
+                              ctrlSubPOJO.isControlled(),
+                              ctrlSubs,
+                              themes,
+                              bluRayRentals
+        );
     }
 
     private static Rental convertFromRentalPOJO(RentalPOJO rentalPOJO) {

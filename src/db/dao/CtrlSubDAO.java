@@ -29,6 +29,8 @@ public class CtrlSubDAO extends DAO<CtrlSubPOJO> {
 
     public CtrlSubPOJO readFromControlledSubscriber(SubscriberPOJO subscriberPOJO) {
         String query = "SELECT S FROM controlled_subscribers S WHERE S.controlledSubscriberId = :ctrlSub";
-        return entityManager.createQuery(query, CtrlSubPOJO.class).setParameter("ctrlSub", subscriberPOJO).getSingleResult();
+        return entityManager.createQuery(query, CtrlSubPOJO.class)
+                            .setParameter("ctrlSub", subscriberPOJO)
+                            .getSingleResult();
     }
 }

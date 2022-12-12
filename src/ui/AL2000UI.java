@@ -49,5 +49,4 @@ public class AL2000UI extends JFrame {
     public PanelManager getPanelManager() {
         return panelManager;
     }
-
 }

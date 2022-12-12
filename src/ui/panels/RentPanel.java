@@ -13,6 +13,5 @@ public class RentPanel extends JPanel {
         this.UI = UI;
 
         setLayout(new BorderLayout());
-
     }
 }

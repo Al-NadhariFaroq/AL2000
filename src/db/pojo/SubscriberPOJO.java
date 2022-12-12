@@ -52,7 +52,6 @@ public class SubscriberPOJO implements POJO {
     @OneToMany(mappedBy = "subscriber", cascade = CascadeType.ALL)
     private List<SubRentalPOJO> rentals;
 
-
     public SubscriberPOJO() {
         super();
     }

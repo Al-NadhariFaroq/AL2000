@@ -1,6 +1,5 @@
 package fc.support;
-
-
+/*
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
@@ -68,8 +67,9 @@ public class QRCode {
         });
 
         String subject = "AL2000 : " + movie.getTitle();
-        String txt = "<H2>Dear Client</H2> <br> " + "You can watch your movie: "  + movie.getTitle() +
-                     " by scanning the QR code below <br>" + "<br><img src=\"cid:image\"> <br><br>" + "Thanks for using AL2000 <br>Enjoy Watching ^^<br>";
+        String txt = "<H2>Dear Client</H2> <br> " + "You can watch your movie: " + movie.getTitle() +
+                     " by scanning the QR code below <br>" + "<br><img src=\"cid:image\"> <br><br>" +
+                     "Thanks for using AL2000 <br>Enjoy Watching ^^<br>";
 
         Message message = new MimeMessage(session);
         try {
@@ -102,3 +102,4 @@ public class QRCode {
         }
     }
 }
+*/

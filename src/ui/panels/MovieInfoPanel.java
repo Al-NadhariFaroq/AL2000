@@ -39,10 +39,17 @@ public class MovieInfoPanel extends JPanel {
         rentBtn = new JButton("Rent");
         bottomBar.add(rentBtn);
         rentBtn.addActionListener(e -> {
-            String []options = {"BluRay", "QRCode"};
-            String optionPane = (String) JOptionPane.showInputDialog(null, "Choisir le format", "Format", JOptionPane.OK_OPTION, null, options, options[0]);
-            if(optionPane != null){
-                switch(optionPane){
+            String[] options = {"BluRay", "QRCode"};
+            String optionPane = (String) JOptionPane.showInputDialog(null,
+                                                                     "Choisir le format",
+                                                                     "Format",
+                                                                     JOptionPane.OK_OPTION,
+                                                                     null,
+                                                                     options,
+                                                                     options[0]
+            );
+            if (optionPane != null) {
+                switch (optionPane) {
                     case "BluRay":
                         UI.getFC().rentBluRay(movieInfo.getMovie());
                         break;
