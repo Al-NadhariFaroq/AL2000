@@ -1,10 +1,11 @@
 package fc.support;
 
-/*
+
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import fc.movie.Movie;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -18,18 +19,17 @@ import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-*/
+
 public class QRCode {
     private static final int DEFAULT_QR_CODE_WIDTH = 200;
     private static final int DEFAULT_QR_CODE_HEIGHT = 200;
     private static final String PATH = System.getProperty("user.home") + "/QRCode.png";
     private static final String CHARSET = "UTF-8";
-/*
-    String movieLink;
     Map<EncodeHintType, ErrorCorrectionLevel> hashMap;
+    Movie movie;
 
-    public QRCode(String movieLink) {
-        this.movieLink = movieLink;
+    public QRCode(Movie movie) {
+        this.movie = movie;
         hashMap = new HashMap<>();
     }
 
@@ -37,7 +37,7 @@ public class QRCode {
         hashMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(PATH);
-            BitMatrix matrix = new MultiFormatWriter().encode(new String(movieLink.getBytes(CHARSET), CHARSET),
+            BitMatrix matrix = new MultiFormatWriter().encode(new String(movie.getLinkURL().getBytes(CHARSET), CHARSET),
                                                               BarcodeFormat.QR_CODE,
                                                               DEFAULT_QR_CODE_WIDTH,
                                                               DEFAULT_QR_CODE_HEIGHT
@@ -67,9 +67,9 @@ public class QRCode {
             }
         });
 
-        String subject = "AL2000";
-        String txt = "<H1>Hello Dear Client</H1> <br> " + "Scan the QR code to watch the film <br>" +
-                     "Enjoy Watching the movie <br>" + "<img src=\"cid:image\"> <br>" + "Thanks for using AL2000";
+        String subject = "AL2000 : " + movie.getTitle();
+        String txt = "<H2>Dear Client</H2> <br> " + "You can watch your movie: "  + movie.getTitle() +
+                     " by scanning the QR code below <br>" + "<br><img src=\"cid:image\"> <br><br>" + "Thanks for using AL2000 <br>Enjoy Watching ^^<br>";
 
         Message message = new MimeMessage(session);
         try {
@@ -101,11 +101,4 @@ public class QRCode {
             throw new RuntimeException(e);
         }
     }
-
-    public static void main(String[] args) {
-        QRCode qr = new QRCode("https://myflixer.to/watch-movie/baby-driver-19604.5297575");
-        qr.generateQRcode();
-        qr.sendByEmail("farouq71548@gmail.com");
-        System.out.println("Done");
-    }*/
 }

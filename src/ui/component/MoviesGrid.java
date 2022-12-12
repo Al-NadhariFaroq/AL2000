@@ -246,7 +246,7 @@ public class MoviesGrid extends JPanel {
     }
 
     private JScrollPane createMovieGrid() {
-        scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+        scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                                      ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER
         );
         scrollPane.getVerticalScrollBar().setUnitIncrement(20);
