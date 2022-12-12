@@ -12,6 +12,7 @@ DROP TABLE scores CASCADE CONSTRAINTS;
 DROP TABLE controlled_subscribers CASCADE CONSTRAINTS;
 DROP TABLE subscriber_rentals CASCADE CONSTRAINTS;
 DROP TABLE non_subscriber_rentals CASCADE CONSTRAINTS;
+DROP TABLE themes CASCADE CONSTRAINTS;
 
 CREATE TABLE themes (
 	theme_id number(8) NOT NULL,
@@ -146,7 +147,7 @@ CREATE TABLE subscriber_rentals (
 	CONSTRAINT subscriber_rental_sub_fk FOREIGN KEY (subscriber_id) REFERENCES subscribers (subscriber_id) ON DELETE CASCADE
 );
 
-CREATE OR REPLACE TRIGGER subscriber_minimum_max_age
+CREATE OR REPLACE TRIGGER subscriber_min_max_age
     BEFORE INSERT OR UPDATE OF birth_date on subscribers
     FOR EACH ROW
 DECLARE
@@ -168,7 +169,7 @@ END IF;
 END;
 /
 
-CREATE OR REPLACE TRIGGER max_rentals_for_non_subscribers
+CREATE OR REPLACE TRIGGER non_subscribers_max_rentals
     BEFORE INSERT on NON_SUBSCRIBER_RENTALS
     FOR EACH ROW
 DECLARE
@@ -184,7 +185,7 @@ end if;
 end;
 /
 
-CREATE OR REPLACE TRIGGER max_rentals_for_subscribers
+CREATE OR REPLACE TRIGGER subscribers_max_rentals
     BEFORE INSERT on SUBSCRIBER_RENTALS
     FOR EACH ROW
 DECLARE
