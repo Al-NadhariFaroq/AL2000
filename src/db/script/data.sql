@@ -4,7 +4,9 @@ DELETE FROM directors;
 DELETE FROM movies_themes;
 DELETE FROM movies;
 DELETE FROM themes;
-
+DELETE FROM subscribers;
+DELETE FROM preferences;
+DELETE FROM scores;
 /*************************************************************/
 /*************************  Themes  **************************/
 /*************************************************************/
@@ -76,7 +78,7 @@ VALUES (11,
         'The Matrix',
         TO_DATE('30/03/1999'),
         136,
-        'PG12',
+        'PG13',
         'Set in the 22nd century, The Matrix tells the story of a computer hacker that joins a group of underground insurgents fighting the vast and powerful computers who now rule the ground.',
         'https://myflixer.to/movie/the-matrix-19724',
         'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/pEoqbqtLc4CcwDUDqxmEDSWpWTZ.jpg');
@@ -94,7 +96,7 @@ VALUES (13,
         'Die Hard',
         TO_DATE('21/09/1998'),
         131,
-        'PG12',
+        'PG13',
         'NYPD cop John McClane''s plan to reconcile with his estranged wife is thrown for a serious loop when, minutes after he arrives at her office, the entire building is overtaken by a group of terrorists. With little help from the LAPD, wisecracking McClane sets out to single-handedly rescue the hostages and bring the bad guys down.',
         'https://myflixer.to/movie/die-hard-19728',
         'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/yFihWxQcmqcaBR31QM6Y8gT6aYV.jpg');
@@ -112,7 +114,7 @@ VALUES (15,
         'Titanic',
         TO_DATE('07/01/1998'),
         194,
-        'PG12',
+        'PG13',
         '101-year-old Rose DeWitt Bukater tells the story of her life aboard the Titanic, 84 years later. A young Rose boards the ship with her mother and fiancé. Meanwhile, Jack Dawson and Fabrizio De Rossi win third-class tickets aboard the ship. Rose tells the whole story from Titanic''s departure through to its death—on its first and last voyage—on April 15, 1912.',
         'https://myflixer.to/movie/titanic-19586',
         'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg');
@@ -121,7 +123,7 @@ VALUES (16,
         'The Good, the Bad and the Ugly',
         TO_DATE('08/03/1968'),
         161,
-        'PG16',
+        'PG13',
         'While the Civil War rages on between the Union and the Confederacy, three men – a quiet loner, a ruthless hitman, and a Mexican bandit – comb the American Southwest in search of a strongbox containing $200,000 in stolen gold.',
         'https://myflixer.to/movie/the-good-the-bad-and-the-ugly-19502',
         'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/bX2xnavhMYjWDoZp1VM6VnU1xwe.jpg');
@@ -164,7 +166,7 @@ INSERT INTO rentals VALUES (5, 1, TO_DATE('22/03/2022'));
 /*************************************************************/
 
 INSERT INTO blu_ray_rentals VALUES (1, 2, 1, TO_DATE('01/09/2022'));
-INSERT INTO blu_ray_rentals VALUES (1, 5, 1, TO_DATE('22/04/2022'));
+INSERT INTO blu_ray_rentals VALUES (2, 5, 1, TO_DATE('22/04/2022'));
 
 /*************************************************************/
 /************************  DIRECTORS  ************************/
@@ -286,7 +288,7 @@ INSERT INTO movies_themes VALUES (156, 17, 6, 3);
 /*************************************************************/
 
 INSERT INTO preferences VALUES (1, 1, 18, 0);
-INSERT INTO preferences VALUES (1, 1, 7, 1);
+INSERT INTO preferences VALUES (2, 1, 7, 1);
 
 /*************************************************************/
 /**************************  SCORES  *************************/
