@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity(name = "directors")
-@Table(name = "directors", schema = "alnadhaf", catalog = "")
+@Table(name = "directors", schema = "rocd", catalog = "")
 public class DirectorPOJO implements POJO {
     @Id
     @Column(name = "director_id")

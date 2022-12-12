@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "blu_rays")
-@Table(name = "blu_rays", schema = "alnadhaf", catalog = "")
+@Table(name = "blu_rays", schema = "rocd", catalog = "")
 public class BluRayPOJO implements POJO {
     @Id
     @Column(name = "blu_ray_id")

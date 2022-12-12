@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "actors")
-@Table(name = "actors", schema = "alnadhaf", catalog = "")
+@Table(name = "actors", schema = "rocd", catalog = "")
 public class ActorPOJO implements POJO {
     @Id
     @Column(name = "actor_id")

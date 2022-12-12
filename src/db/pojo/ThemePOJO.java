@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "themes")
-@Table(name = "themes", schema = "alnadhaf", catalog = "")
+@Table(name = "themes", schema = "rocd", catalog = "")
 public class ThemePOJO implements POJO {
     @Id
     @Column(name = "theme_id")
