@@ -2,6 +2,7 @@ package ui;
 
 import fc.AL2000FC;
 import fc.movie.Movie;
+import ui.interactions.MachineSimulation;
 import ui.panels.Panel;
 import ui.panels.PanelManager;
 import ui.util.TopPanel;
@@ -22,6 +23,7 @@ public class AL2000UI extends JFrame {
         setPreferredSize(new Dimension(960, 720));
         setMinimumSize(new Dimension(720, 480));
         getContentPane().setLayout(new BorderLayout());
+        new MachineSimulation(this);
 
         this.FC = fc;
 

@@ -9,7 +9,7 @@ public class UserTest {
         AL2000FC al2000 = new AL2000FC();
         System.out.println(al2000);
 
-        al2000.connection();
+        al2000.connection(0, null);
         System.out.println(al2000);
 
         al2000.subscription("adresse.mail@gmail.com", "firstName", "lastName", subscriptionDate, null);

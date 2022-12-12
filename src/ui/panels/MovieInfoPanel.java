@@ -7,8 +7,6 @@ import ui.util.GBC;
 
 import javax.swing.*;
 import java.awt.*;
-import java.sql.Date;
-import java.util.Calendar;
 
 public class MovieInfoPanel extends JPanel {
     private final AL2000UI UI;

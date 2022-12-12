@@ -25,7 +25,7 @@ public class TopPanel extends JPanel {
         this.UI = UI;
 
         leftBtn = new JButton("Back");
-        rightBtn = new JButton("Sub");
+        rightBtn = new JButton("Subscribe");
         titleLbl = new JLabel(Panel.HOME.getTitle(), JLabel.CENTER);
 
         CardInteraction cardInteraction = new CardInteraction(UI);

@@ -9,11 +9,15 @@ import fc.user.Technician;
 import fc.user.User;
 import fc.user.UserType;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Map;
 
 public class AL2000FC {
+    private final PropertyChangeSupport changes = new PropertyChangeSupport(this);
+
     private final MachineFacade machineFacade;
     private final ThemeManagement themeManagement;
     private final MovieManagement movieManagement;
@@ -22,6 +26,7 @@ public class AL2000FC {
     private User user;
 
     public AL2000FC() {
+        new MachineInteraction(this);
         machineFacade = MachineFacade.getInstance();
         themeManagement = new ThemeManagement();
         movieManagement = new MovieManagement();
@@ -30,6 +35,10 @@ public class AL2000FC {
         user = null;
 
         movieManagement.setThemes(themeManagement.getIncludedThemes());
+    }
+
+    public PropertyChangeSupport getChanges() {
+        return changes;
     }
 
     public ThemeManagement getThemes() {
@@ -65,6 +74,14 @@ public class AL2000FC {
         return (Subscriber) user;
     }
 
+    public void addPropertyChangeListener(PropertyChangeListener l) {
+        changes.addPropertyChangeListener(l);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener l) {
+        changes.removePropertyChangeListener(l);
+    }
+
     public void rentBluRay(Movie movie) {
         // maj BD : rentals + bluRays
         BluRay bluRay = bluRayManagement.getBluRayFromMovie(movie);
@@ -91,17 +108,16 @@ public class AL2000FC {
         }
     }
 
-    public void connection() {
-        int creditCardNumber = MachineFacade.getInstance().readCreditCard();
-        int subscriptionCardNumber = MachineFacade.getInstance().readSubscriptionCard();
-
-        if (subscriptionCardNumber == 0) {
+    public void connection(Integer creditCardNumber, Integer subscriptionCardNumber) {
+        if (subscriptionCardNumber != null && subscriptionCardNumber == 0) {
             user = new Technician();
             userType = UserType.TECHNICIAN;
-        } else if (subscriptionCardNumber > 0) {
+        } else if (subscriptionCardNumber != null && subscriptionCardNumber > 0) {
             user = DatabaseManagement.readSubscriber(subscriptionCardNumber);
             userType = UserType.SUBSCRIBER;
-        } else if (creditCardNumber >= 0) {
+            themeManagement.updateAvailabilities(getSubscriber());
+            movieManagement.setThemes(themeManagement.getIncludedThemes());
+        } else if (creditCardNumber != null && creditCardNumber >= 0) {
             user = DatabaseManagement.readNonSubscriber(creditCardNumber);
             userType = UserType.CLIENT;
         }
