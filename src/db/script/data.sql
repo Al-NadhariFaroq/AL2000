@@ -35,6 +35,7 @@ INSERT INTO themes VALUES (15, 'Romance');
 INSERT INTO themes VALUES (16, 'Science Fiction');
 INSERT INTO themes VALUES (17, 'Thriller');
 INSERT INTO themes VALUES (18, 'Western');
+INSERT INTO themes VALUES (19, 'Family');
 
 /*************************************************************/
 /*************************  MOVIES  **************************/
@@ -193,6 +194,78 @@ VALUES (17,
 		'A bored and domesticated Shrek pacts with deal-maker Rumpelstiltskin to get back to feeling like a real ogre again, but when he''s duped and sent to a twisted version of Far Far Away—where Rumpelstiltskin is king, ogres are hunted, and he and Fiona have never met—he sets out to restore his world and reclaim his true love.',
 		'https://myflixer.to/watch-movie/shrek-forever-after-19005.5298643',
 		'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/6HrfPZtKcGmX2tUWW3cnciZTaSD.jpg');
+INSERT INTO movies
+VALUES (18,
+		'The Guardians of the Galaxy Holiday Special',
+		TO_DATE('25/11/2022'),
+		45,
+		'PG13',
+		'The Guardians are on a mission to make Christmas unforgettable for Quill and head to Earth in search of the perfect present.',
+		'https://myflixer.to/watch-movie/the-guardians-of-the-galaxy-holiday-special-90637.9183430',
+		'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/8dqXyslZ2hv49Oiob9UjlGSHSTR.jpg');
+INSERT INTO movies
+VALUES (19,
+		'The Hip Hop Nutcracker',
+		TO_DATE('25/11/2022'),
+		44,
+		'G',
+		'Features Rev Run as he brings audiences on a hip-hop reimagining of The Nutcracker ballet set in NYC.',
+		'https://myflixer.to/watch-movie/the-hip-hop-nutcracker-90652.9183622',
+		'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/iqOGxcKViTtU7pwC24xUb1bDslw.jpg');
+INSERT INTO movies
+VALUES (20,
+		'The Boss Baby: Christmas Bonus',
+		TO_DATE('06/11/2022'),
+		47,
+		'G',
+		'Christmas Eve takes a twisty turn when the Boss Baby accidentally swaps places with one of Santa''s elves and gets stranded at the North Pole.',
+		'https://myflixer.to/watch-movie/the-boss-baby-christmas-bonus-91144.9213736',
+		'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/iMmMxF6f2OonUrXrHKBLSYAhXly.jpg');
+INSERT INTO movies
+VALUES (21,
+		'The Last Warrior: Root of Evil',
+		TO_DATE('01/01/2021'),
+		120,
+		'PG',
+		'Peace and tranquility have set in Belogorie. The evil was defeated and Ivan is now enjoying his well-deserved fame. He is surrounded by his family, friends and small wonders from the modern world that help him lead a comfortable life. Luckily, he has his Magic Sword to cut a gap between the worlds to get some supplies quite regularly. But when an ancient evil rises and the existence of the magic world is put to danger, Ivan has to team up with his old friends and his new rivals. They will set out on a long journey beyond the known world to find a way to defeat the enemies and to return peace to Belogorie.',
+		'https://myflixer.to/watch-movie/the-last-warrior-root-of-evil-87640.8943343',
+		'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/5VJSIAhSn4qUsg5nOj4MhQhF5wQ.jpg');
+INSERT INTO movies
+VALUES (22,
+		'My Name Is Vendetta',
+		TO_DATE('30/11/2022'),
+		90,
+		'R',
+		'After old enemies kill his family, a former mafia enforcer and his feisty daughter flee to Milan, where they hide out while plotting their revenge.',
+		'https://myflixer.to/watch-movie/my-name-is-vendetta-90757.9190996',
+		'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/7l3war94J4tRyWUiLAGokr3ViF2.jpg');
+INSERT INTO movies
+VALUES (23,
+		'Pinocchio',
+		TO_DATE('08/09/2022'),
+		105,
+		'PG13',
+		'A wooden puppet embarks on a thrilling adventure to become a real boy.',
+		'https://myflixer.to/watch-movie/pinocchio-87685.8932804',
+		'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/g8sclIV4gj1TZqUpnL82hKOTK3B.jpg');
+INSERT INTO movies
+VALUES (24,
+		'Enola Holmes',
+		TO_DATE('23/09/2020'),
+		123,
+		'PG13',
+		'While searching for her missing mother, intrepid teen Enola Holmes uses her sleuthing skills to outsmart big brother Sherlock and help a runaway lord.',
+		'https://myflixer.to/watch-movie/enola-holmes-63478.5477455',
+		'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/riYInlsq2kf1AWoGm80JQW5dLKp.jpg');
+INSERT INTO movies
+VALUES (25,
+		'Enola Holmes 2',
+		TO_DATE('04/11/2022'),
+		129,
+		'PG13',
+		'Now a detective-for-hire like her infamous brother, Enola Holmes takes on her first official case to find a missing girl, as the sparks of a dangerous conspiracy ignite a mystery that requires the help of friends — and Sherlock himself — to unravel.',
+		'https://myflixer.to/watch-movie/enola-holmes-2-89869.9121387',
+		'https://www.themoviedb.org/t/p/w600_and_h900_bestv2/tegBpjM5ODoYoM1NjaiHVLEA0QM.jpg');
 
 /*************************************************************/
 /************************  BLU-RAYS  *************************/
@@ -202,9 +275,20 @@ INSERT INTO blu_rays VALUES (1, 100000001, 1, 0);
 INSERT INTO blu_rays VALUES (2, 100000002, 2, 1);
 INSERT INTO blu_rays VALUES (3, 100000003, 1, 2);
 INSERT INTO blu_rays VALUES (4, 100000004, 3, 3);
-INSERT INTO blu_rays VALUES (5, 100000005, 12, 4);
-INSERT INTO blu_rays VALUES (6, 100000006, 10, 5);
-INSERT INTO blu_rays VALUES (7, 100000007, 12, 6);
+INSERT INTO blu_rays VALUES (5, 100000005, 17, 4);
+INSERT INTO blu_rays VALUES (6, 100000006, 4, 5);
+INSERT INTO blu_rays VALUES (7, 100000007, 5, 6);
+INSERT INTO blu_rays VALUES (8, 100000008, 5, 7);
+INSERT INTO blu_rays VALUES (9, 100000009, 6, 8);
+INSERT INTO blu_rays VALUES (10, 100000010, 6, 9);
+INSERT INTO blu_rays VALUES (11, 100000011, 7, 10);
+INSERT INTO blu_rays VALUES (12, 100000012, 7, 11);
+INSERT INTO blu_rays VALUES (13, 100000013, 8, 12);
+INSERT INTO blu_rays VALUES (14, 100000014, 8, 13);
+INSERT INTO blu_rays VALUES (15, 100000015, 9, 14);
+INSERT INTO blu_rays VALUES (16, 100000016, 9, 15);
+INSERT INTO blu_rays VALUES (17, 100000017, 10, 16);
+INSERT INTO blu_rays VALUES (18, 100000018, 10, 17);
 
 /*************************************************************/
 /************************ SUBSCRIBERS ************************/
@@ -259,6 +343,15 @@ INSERT INTO directors VALUES (20, 15, 'Kelly Asbury', 2);
 INSERT INTO directors VALUES (21, 15, 'Conrad Vernon', 3);
 INSERT INTO directors VALUES (22, 16, 'Chris Miller', 1);
 INSERT INTO directors VALUES (23, 17, 'Mike Mitchell', 1);
+INSERT INTO directors VALUES (24, 18, 'Elizabeth Avellan', 1);
+INSERT INTO directors VALUES (25, 19, 'Nikki Parsons', 1);
+INSERT INTO directors VALUES (26, 20, 'Matt Engstrom', 1);
+INSERT INTO directors VALUES (27, 20, 'Christo Stamboliev', 2);
+INSERT INTO directors VALUES (28, 21, 'Dmitriy Dyachenko', 1);
+INSERT INTO directors VALUES (29, 22, 'Cosimo Gomez', 1);
+INSERT INTO directors VALUES (30, 23, 'Robert Zemeckis', 1);
+INSERT INTO directors VALUES (31, 24, 'Harry Bradbeer', 1);
+INSERT INTO directors VALUES (32, 25, 'Harry Bradbeer', 1);
 
 /*************************************************************/
 /**************************  ACTORS  *************************/
@@ -349,6 +442,46 @@ INSERT INTO actors VALUES (82, 17, 'Eddie Murphy', 2, 'Donkey');
 INSERT INTO actors VALUES (83, 17, 'Cameron Diaz', 3, 'Princess Fiona');
 INSERT INTO actors VALUES (84, 17, 'Antonio Banderas', 4, 'Puss in Boots');
 INSERT INTO actors VALUES (85, 17, 'Walt Dohrn', 5, 'Rumpelstiltskin / Priest / Krekraw Ogre');
+INSERT INTO actors VALUES (86, 18, 'Kevin Bacon', 1, 'Kevin Bacon');
+INSERT INTO actors VALUES (87, 18, 'Pom Klementieff', 2, 'Mantis');
+INSERT INTO actors VALUES (88, 18, 'Chris Pratt', 3, 'Peter Quill / Star-Lord');
+INSERT INTO actors VALUES (89, 18, 'Dave Bautista', 4, 'Drax the destroyer');
+INSERT INTO actors VALUES (90, 18, 'Vin Diesel', 5, 'Groot');
+INSERT INTO actors VALUES (91, 19, 'Joseph Simmons', 1, 'Neighborhood MC/Narrator');
+INSERT INTO actors VALUES (92, 19, 'Mikhail Baryshnikov', 2, 'Mikhail Baryshnikov');
+INSERT INTO actors VALUES (93, 19, 'Stephen Boss', 3, 'Stephen Boss');
+INSERT INTO actors VALUES (94, 19, 'Tiler Peck', 4, 'Tiler Peck');
+INSERT INTO actors VALUES (95, 19, 'Viktor White', 5, 'Viktor White');
+INSERT INTO actors VALUES (96, 6, 'JP Karliak', 1, 'Boss Baby');
+INSERT INTO actors VALUES (97, 6, 'Pierce Gagnon', 2, 'Tim');
+INSERT INTO actors VALUES (98, 6, 'Amaryllis Aubel', 3, 'French Girl');
+INSERT INTO actors VALUES (99, 6, 'Jodi Benson', 4, 'Lala Doo-Da');
+INSERT INTO actors VALUES (100, 6, 'Alex Cazares', 5, 'Staci');
+INSERT INTO actors VALUES (101, 21, 'Viktor Horinyak', 1, 'Ivan');
+INSERT INTO actors VALUES (102, 21, 'Mila Syvatska', 2, 'Vasilisa');
+INSERT INTO actors VALUES (103, 21, 'Ekaterina Vilkova', 3, 'Varvara');
+INSERT INTO actors VALUES (104, 21, 'Elena Yakovleva', 4, 'Baba Yaga');
+INSERT INTO actors VALUES (105, 21, 'Konstantin Lavronenko', 5, 'Kashchey');
+INSERT INTO actors VALUES (106, 22, 'Alessandro Gassmann', 1, 'Santo');
+INSERT INTO actors VALUES (107, 22, 'Ginevra Francesconi', 2, 'Sofia');
+INSERT INTO actors VALUES (108, 22, 'Remo Girone', 3, 'Remo Girone');
+INSERT INTO actors VALUES (109, 22, 'Alessio Praticò', 4, 'Alessio Praticò');
+INSERT INTO actors VALUES (110, 22, 'Marcello Mazzarella', 5, 'Marcello Mazzarella');
+INSERT INTO actors VALUES (111, 23, 'Benjamin Evan Ainsworth', 1, 'Pinocchio');
+INSERT INTO actors VALUES (112, 23, 'Tom Hanks', 2, 'Geppetto');
+INSERT INTO actors VALUES (113, 23, 'Joseph Gordon-Levitt', 3, 'Jiminy Cricket');
+INSERT INTO actors VALUES (114, 23, 'Luke Evans', 4, 'The Coachman');
+INSERT INTO actors VALUES (115, 23, 'Cynthia Erivo', 5, 'Blue Fairy');
+INSERT INTO actors VALUES (116, 24, 'Millie Bobby Brown', 1, 'Enola Holmes');
+INSERT INTO actors VALUES (117, 24, 'Henry Cavill', 2, 'Sherlock Holmes');
+INSERT INTO actors VALUES (118, 24, 'Sam Claflin', 3, 'Mycroft Holmes');
+INSERT INTO actors VALUES (119, 24, 'Helena Bonham Carter', 4, 'Eudoria Holmes');
+INSERT INTO actors VALUES (120, 24, 'Louis Partridge', 5, 'Lord Tewkesbury');
+INSERT INTO actors VALUES (121, 25, 'Millie Bobby Brown', 1, 'Enola Holmes');
+INSERT INTO actors VALUES (122, 25, 'Henry Cavill', 2, 'Sherlock Holmes');
+INSERT INTO actors VALUES (123, 25, 'Louis Partridge', 3, 'Lord Tewkesbury');
+INSERT INTO actors VALUES (124, 25, 'Helena Bonham Carter', 4, 'Eudoria Holmes');
+INSERT INTO actors VALUES (125, 25, 'David Thewlis', 5, 'Grall');
 
 /*************************************************************/
 /**********************  MOVIES THEMES  **********************/
@@ -403,6 +536,29 @@ INSERT INTO movies_themes VALUES (46, 17, 6, 1);
 INSERT INTO movies_themes VALUES (47, 17, 2, 2);
 INSERT INTO movies_themes VALUES (48, 17, 11, 3);
 INSERT INTO movies_themes VALUES (49, 17, 3, 4);
+INSERT INTO movies_themes VALUES (50, 18, 1, 1);
+INSERT INTO movies_themes VALUES (51, 18, 2, 2);
+INSERT INTO movies_themes VALUES (52, 18, 16, 3);
+INSERT INTO movies_themes VALUES (53, 19, 14, 1);
+INSERT INTO movies_themes VALUES (54, 20, 3, 1);
+INSERT INTO movies_themes VALUES (55, 20, 2, 2);
+INSERT INTO movies_themes VALUES (56, 20, 19, 3);
+INSERT INTO movies_themes VALUES (57, 21, 11, 1);
+INSERT INTO movies_themes VALUES (58, 21, 2, 2);
+INSERT INTO movies_themes VALUES (59, 21, 6, 3);
+INSERT INTO movies_themes VALUES (60, 22, 1, 1);
+INSERT INTO movies_themes VALUES (61, 22, 2, 2);
+INSERT INTO movies_themes VALUES (62, 22, 7, 3);
+INSERT INTO movies_themes VALUES (63, 23, 11, 1);
+INSERT INTO movies_themes VALUES (64, 23, 1, 2);
+INSERT INTO movies_themes VALUES (65, 23, 19, 3);
+INSERT INTO movies_themes VALUES (67, 24, 1, 1);
+INSERT INTO movies_themes VALUES (68, 24, 2, 2);
+INSERT INTO movies_themes VALUES (69, 24, 6, 3);
+INSERT INTO movies_themes VALUES (70, 24, 7, 4);
+INSERT INTO movies_themes VALUES (71, 25, 2, 1);
+INSERT INTO movies_themes VALUES (72, 25, 6, 2);
+INSERT INTO movies_themes VALUES (73, 25, 7, 3);
 
 /*************************************************************/
 /***********************  PREFERENCES  ***********************/
