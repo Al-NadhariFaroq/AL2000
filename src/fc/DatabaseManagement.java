@@ -214,7 +214,7 @@ public class DatabaseManagement {
                               subscriberPOJO.getLastName(),
                               birthDate,
                               subscriberPOJO.getBalance(),
-                              ctrlSubPOJO.isControlled(),
+                    ctrlSubPOJO != null && ctrlSubPOJO.isControlled(),
                               ctrlSubs,
                               themes,
                               bluRayRentals

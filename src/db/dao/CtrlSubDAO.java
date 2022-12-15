@@ -3,6 +3,8 @@ package db.dao;
 import db.pojo.CtrlSubPOJO;
 import db.pojo.SubscriberPOJO;
 
+import javax.persistence.NoResultException;
+
 public class CtrlSubDAO extends DAO<CtrlSubPOJO> {
     private static CtrlSubDAO instance;
 
@@ -29,8 +31,12 @@ public class CtrlSubDAO extends DAO<CtrlSubPOJO> {
 
     public CtrlSubPOJO readFromControlledSubscriber(SubscriberPOJO subscriberPOJO) {
         String query = "SELECT S FROM controlled_subscribers S WHERE S.controlledSubscriberId = :ctrlSub";
-        return entityManager.createQuery(query, CtrlSubPOJO.class)
-                            .setParameter("ctrlSub", subscriberPOJO)
-                            .getSingleResult();
+        try {
+            return entityManager.createQuery(query, CtrlSubPOJO.class)
+                    .setParameter("ctrlSub", subscriberPOJO.getID())
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

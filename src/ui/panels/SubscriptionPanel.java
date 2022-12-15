@@ -15,6 +15,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class SubscriptionPanel extends JPanel {
     private final AL2000UI UI;
@@ -59,7 +61,7 @@ public class SubscriptionPanel extends JPanel {
             birthDate.setTime(Date.valueOf(birthDateText.getText()));
 
             UI.getFC()
-              .subscription(firstNameText.getText(), lastNameText.getText(), mailText.getText(), birthDate, null);
+              .subscription(firstNameText.getText(), lastNameText.getText(), mailText.getText(), birthDate, new HashMap<>());
             UI.getPanelManager().setCurrentPanel(Panel.HOME);
         });
 
